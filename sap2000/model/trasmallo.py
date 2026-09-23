@@ -110,26 +110,26 @@ class FrameSection:
 
 
 def frame_sections() -> dict[str, FrameSection]:
-    pile = rectangle("PIL40x40", 0.40, 0.40, "Pilote hincado 40x40 HA-50")
-    vt = inverted_tee("VT50x55+15x30+15x30", 0.50, 0.55, 0.15, 0.30,
+    pile = rectangle("PILOTE_40x40", 0.40, 0.40, "Pilote hincado 40x40 HA-50")
+    vt = inverted_tee("VIGA_T50x55_ALAS15x30", 0.50, 0.55, 0.15, 0.30,
                       "Viga T invertida: alma 50x55 + ala inferior 15x30 a cada lado")
-    vl = inverted_l("VL80x55+15x30", 0.80, 0.55, 0.15, 0.30, wing_side=+1,
+    vl = inverted_l("VIGA_L80x55_ALA15x30", 0.80, 0.55, 0.15, 0.30, wing_side=+1,
                     description="Viga extrema: alma 80x55 + un ala inferior 15x30 (lado del vano)")
-    vb = rectangle("VB25x30", 0.25, 0.30, "Viga de borde longitudinal 25x30")
+    vb = rectangle("VIGA_BORDE_25x30", 0.25, 0.30, "Viga de borde longitudinal 25x30")
     return {
-        "PIL40x40": FrameSection(
-            "PIL40x40", "HA-50", pile, "Rectangular",
+        "PILOTE_40x40": FrameSection(
+            "PILOTE_40x40", "HA-50", pile, "Rectangular",
             modifiers={"AMod": 2.0, "WMod": PILE_WEIGHT_MOD},
             note="AMod = 2: CYPE 'coeficiente de rigidez axil' 2.00; WMod = 6.70/7.25: weight of "
                  "the pile top inside the beam counted once"),
-        "VT50x55+15x30+15x30": FrameSection(
-            "VT50x55+15x30+15x30", "HA-35", vt, "General",
+        "VIGA_T50x55_ALAS15x30": FrameSection(
+            "VIGA_T50x55_ALAS15x30", "HA-35", vt, "General",
             note="Propiedades calculadas de la sección compuesta (no un rectángulo 50x55)"),
-        "VL80x55+15x30": FrameSection(
-            "VL80x55+15x30", "HA-35", vl, "General",
+        "VIGA_L80x55_ALA15x30": FrameSection(
+            "VIGA_L80x55_ALA15x30", "HA-35", vl, "General",
             note="Propiedades calculadas de la sección compuesta en L invertida"),
-        "VB25x30": FrameSection(
-            "VB25x30", "HA-35", vb, "Rectangular", modifiers={"WMod": EDGE_BEAM_WEIGHT_MOD},
+        "VIGA_BORDE_25x30": FrameSection(
+            "VIGA_BORDE_25x30", "HA-35", vb, "Rectangular", modifiers={"WMod": EDGE_BEAM_WEIGHT_MOD},
             note="WMod: the lengths inside the transverse-beam webs are counted once (by the "
                  "transverse beams)"),
     }
@@ -140,7 +140,7 @@ def frame_sections() -> dict[str, FrameSection]:
 # as one-way members continuous over the beams, so the deck is an orthotropic thin shell:
 # full bending stiffness along X (span), negligible across the plates and in twist.
 SLAB_SECTION = {
-    "name": "ALVEO_P25+5",
+    "name": "ALVEOPLACA_P25_5",
     "material": "HA-35",
     "thickness": 0.30,
     "EI_span": 63550.0,                 # kN m2 / m
@@ -155,7 +155,7 @@ SLAB_SECTION = {
 # of the module): the first/last row of shells next to X = 0 and X = 39 gets a hinge-like
 # bending stiffness (m11 x SLAB_END_FACTOR).  Calibrated against the CYPE end-pile moments
 # (Mx) and pile reactions (see README §5).
-SLAB_END_SECTION = "ALVEO_P25+5_APOYO"
+SLAB_END_SECTION = "ALVEOPLACA_P25_5_APOYO"
 SLAB_END_FACTOR = 0.01
 
 
@@ -363,7 +363,7 @@ def build_model() -> dict:
         for row, iy, cn in (("S", iy_ps, pile_sea[a - 1]), ("L", iy_pl, pile_land[a - 1])):
             name = f"PIL_{cn}"
             frames.append({"name": name, "i": f"B{a}{row}", "j": dj(ix_axis[x], iy),
-                           "section": "PIL40x40", "kind": "pile", "cype": cn, "angle": 0.0,
+                           "section": "PILOTE_40x40", "kind": "pile", "cype": cn, "angle": 0.0,
                            "station_max": 0.25, "offsets": (0.0, PILE_TOP_RIGID)})
             grp("PILOTES", "Frame", name)
 
@@ -371,7 +371,7 @@ def build_model() -> dict:
     portico_of_axis = {a: a + 2 for a in range(1, N_AXES + 1)}
     pile_rows = {Y_PILE_SEA, Y_PILE_LAND}
     for a, x in enumerate(AXES_X, start=1):
-        sec = "VL80x55+15x30" if a in (1, N_AXES) else "VT50x55+15x30+15x30"
+        sec = "VIGA_L80x55_ALA15x30" if a in (1, N_AXES) else "VIGA_T50x55_ALAS15x30"
         ix = ix_axis[x]
         line = [f"C{a}S"] + [dj(ix, iy) for iy in range(len(ys))] + [f"C{a}L"]
         for k in range(len(line) - 1):
@@ -395,7 +395,7 @@ def build_model() -> dict:
         for ix in range(len(xs) - 1):
             name = f"VB{tag}_{ix + 1:02d}"
             frames.append({"name": name, "i": dj(ix, iy), "j": dj(ix + 1, iy),
-                           "section": "VB25x30", "kind": "beam_edge", "portico": por,
+                           "section": "VIGA_BORDE_25x30", "kind": "beam_edge", "portico": por,
                            "angle": 0.0, "station_max": 0.5,
                            "offsets": (half_web(xs[ix]), half_web(xs[ix + 1]))})
             grp("VIGAS_BORDE", "Frame", name)

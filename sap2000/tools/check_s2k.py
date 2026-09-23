@@ -27,6 +27,11 @@ def parse(path: Path) -> dict[str, list[dict]]:
     except UnicodeDecodeError as e:
         raise SystemExit(f"non-ASCII byte at offset {e.start}")
     text = raw.decode("ascii")
+    too_long = [k for k, ln in enumerate(text.splitlines(), 1) if len(ln) > 245]
+    if too_long:
+        raise SystemExit(f"{len(too_long)} physical lines longer than 245 characters, e.g. {too_long[:3]}")
+    if "\r\n" not in text:
+        print("warning: file does not use CRLF line endings")
     if not text.rstrip().endswith("END TABLE DATA"):
         raise SystemExit("file does not end with END TABLE DATA")
     pending = ""
@@ -38,7 +43,7 @@ def parse(path: Path) -> dict[str, list[dict]]:
         if not line.strip() or current is None or line.startswith("END TABLE DATA"):
             continue
         if line.rstrip().endswith(" _"):
-            pending += line.rstrip()[:-1]
+            pending += line.rstrip()[:-2] + "   "
             continue
         line = pending + line
         pending = ""
@@ -48,6 +53,10 @@ def parse(path: Path) -> dict[str, list[dict]]:
             row[k] = v
         tables[current].append(row)
     return tables
+
+
+def num(v: str) -> float:
+    return float(v.replace(",", "."))
 
 
 def main() -> None:
@@ -109,7 +118,7 @@ def main() -> None:
         need(r["GroupName"] in groups and r["ObjectLabel"] in pool, f"group assignment {r}")
 
     # load totals (vertical, kN, downward positive)
-    xyz = {r["Joint"]: tuple(float(r[k]) for k in ("XorR", "Y", "Z")) for r in t["JOINT COORDINATES"]}
+    xyz = {r["Joint"]: tuple(num(r[k]) for k in ("XorR", "Y", "Z")) for r in t["JOINT COORDINATES"]}
     flen = {}
     for r in t["CONNECTIVITY - FRAME"]:
         a, b = xyz[r["JointI"]], xyz[r["JointJ"]]
@@ -121,15 +130,15 @@ def main() -> None:
                                          for k in range(4)))
     tot: dict[str, float] = defaultdict(float)
     for r in t.get("AREA LOADS - UNIFORM", []):
-        tot[r["LoadPat"]] += float(r["UnifLoad"]) * aarea[r["Area"]]
+        tot[r["LoadPat"]] += num(r["UnifLoad"]) * aarea[r["Area"]]
     for r in t.get("FRAME LOADS - DISTRIBUTED", []):
-        tot[r["LoadPat"]] += float(r["FOverLA"]) * flen[r["Frame"]]
+        tot[r["LoadPat"]] += num(r["FOverLA"]) * flen[r["Frame"]]
     for r in t.get("JOINT LOADS - FORCE", []):
-        tot[r["LoadPat"]] -= float(r["F3"])
-    sec_area = {r["SectionName"]: (float(r["Area"]) if "Area" in r else float(r["t3"]) * float(r["t2"]),
-                                   r["Material"], float(r.get("WMod", 1)))
+        tot[r["LoadPat"]] -= num(r["F3"])
+    sec_area = {r["SectionName"]: (num(r["Area"]) if "Area" in r else num(r["t3"]) * num(r["t2"]),
+                                   r["Material"], num(r.get("WMod", "1")))
                 for r in t["FRAME SECTION PROPERTIES 01 - GENERAL"]}
-    gamma = {r["Material"]: float(r["UnitWeight"]) for r in t["MATERIAL PROPERTIES 02 - BASIC MECHANICAL PROPERTIES"]}
+    gamma = {r["Material"]: num(r["UnitWeight"]) for r in t["MATERIAL PROPERTIES 02 - BASIC MECHANICAL PROPERTIES"]}
     for r in t["FRAME SECTION ASSIGNMENTS"]:
         A, mat, wmod = sec_area[r["AnalSect"]]
         tot["PP (self weight)"] += A * gamma[mat] * flen[r["Frame"]] * wmod

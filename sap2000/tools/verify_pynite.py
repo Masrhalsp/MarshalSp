@@ -214,8 +214,8 @@ def pile_head_forces(fe: FEModel3D, model: dict, pat: str, pile: str) -> dict:
     base = fe.nodes[fr["i"]]
     FX, FY, FZ = base.RxnFX[pat], -base.RxnFZ[pat], base.RxnFY[pat]
     MX, MY, MZ = base.RxnMX[pat], -base.RxnMZ[pat], base.RxnMY[pat]
-    w = model["sections"]["PIL40x40"].section.props["Area"] * tm.GAMMA_CONCRETE * \
-        model["sections"]["PIL40x40"].modifiers.get("WMod", 1.0) if pat == "PP" else 0.0
+    w = model["sections"]["PILOTE_40x40"].section.props["Area"] * tm.GAMMA_CONCRETE * \
+        model["sections"]["PILOTE_40x40"].modifiers.get("WMod", 1.0) if pat == "PP" else 0.0
     z = L
     # internal forces of the part below the cut, CYPE convention (action on the lower part)
     N = FZ - w * z

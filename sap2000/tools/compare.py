@@ -194,8 +194,10 @@ def write_report(rep: dict, out_dir: Path, stem: str) -> Path:
     worst = {}
     for r in env:
         k = (r["family"], r["what"])
-        if k not in worst or abs(r["model"]) > abs(worst[k]["model"]):
-            worst[k] = r
+        key = {"N max": r["model"], "N min": -r["model"]}.get(r["what"], abs(r["model"]))
+        if k not in worst or key > worst[k][0]:
+            worst[k] = (key, r)
+    worst = {k: v[1] for k, v in worst.items()}
     md += _md_table(list(worst.values()), ["family", "what", "pile", "model", "model_comb",
                                            "cype", "cype_comb", "diff_%"])
     if rep.get("beam_envelopes"):
