@@ -31,7 +31,7 @@ sys.path.insert(0, str(ROOT / "model"))
 
 import trasmallo as tm  # noqa: E402
 
-SAP_VERSION = "20.1.0"
+SAP_VERSION = "27.1.0"     # --version 20.1.0 writes the older (v20) field names
 LINE_LEN = 240
 DECIMAL = "."
 
@@ -91,6 +91,18 @@ class S2K:
         return "\r\n".join(self.lines + ["END TABLE DATA", ""])
 
 
+def _modern() -> bool:
+    return int(SAP_VERSION.split(".")[0]) >= 23
+
+
+def _moduli(p: dict) -> dict:
+    """Elastic section moduli: S33/S22 (v20) or S33Top/S33Bot/S22Left/S22Right (v23+)."""
+    if not _modern():
+        return {"S33": p["S33"], "S22": p["S22"]}
+    return {"S33Top": p["I33"] / p["centroid_from_top"], "S33Bot": p["I33"] / p["centroid_from_bottom"],
+            "S22Left": p["S22"], "S22Right": p["S22"]}
+
+
 def _length(model: dict, f: dict) -> float:
     (x1, y1, z1), (x2, y2, z2) = model["joints"][f["i"]], model["joints"][f["j"]]
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
@@ -136,7 +148,7 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
         if fs.shape == "General":
             row.update({"Area": p["Area"], "TorsConst": p["TorsConst"], "I33": p["I33"],
                         "I22": p["I22"], "I23": 0.0,       # principal axes (L-shape I23 neglected)
-                        "AS2": p["AS2"], "AS3": p["AS3"], "S33": p["S33"], "S22": p["S22"],
+                        "AS2": p["AS2"], "AS3": p["AS3"], **_moduli(p),
                         "Z33": p["Z33"], "Z22": p["Z22"], "R33": p["R33"], "R22": p["R22"]})
         row.update({"Color": "Cyan" if fs.name.startswith("PILOTE") else "Green", "FromFile": False})
         mods = {"AMod": 1.0, "A2Mod": 1.0, "A3Mod": 1.0, "JMod": 1.0, "I2Mod": 1.0,
@@ -231,7 +243,9 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
             row = {"ComboName": name}
             if k == 0:
                 row.update({"ComboType": ctype, "AutoDesign": False})
-            row.update({"CaseType": case_type, "CaseName": case, "ScaleFactor": float(sf)})
+            if not _modern():          # v23+ exports resolve cases/combos by name
+                row["CaseType"] = case_type
+            row.update({"CaseName": case, "ScaleFactor": float(sf)})
             if k == 0:
                 row.update({"SteelDesign": "None", "ConcDesign": "None", "AlumDesign": "None",
                             "ColdDesign": "None", "Notes": notes})
@@ -265,13 +279,16 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
 
 
 def main() -> None:
-    global DECIMAL
+    global DECIMAL, SAP_VERSION
     ap = argparse.ArgumentParser()
     ap.add_argument("-o", "--out", type=Path, default=ROOT / "output" / "Muelle_Trasmallo_40m.$2k")
+    ap.add_argument("--version", default=SAP_VERSION,
+                    help="SAP2000 version written in PROGRAM CONTROL (e.g. 27.1.0, 20.1.0)")
     ap.add_argument("--decimal", choices=[".", ","], default=".",
                     help="decimal symbol of the Windows machine that will import the file")
     args = ap.parse_args()
     DECIMAL = args.decimal
+    SAP_VERSION = args.version
     model = tm.build_model()
     s = build_tables(model)
     args.out.parent.mkdir(parents=True, exist_ok=True)

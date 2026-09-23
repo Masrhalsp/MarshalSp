@@ -1,7 +1,7 @@
 File Muelle_Trasmallo_40m.$2k was saved on 9/23/26 at 12:00:00
  
 TABLE:  "PROGRAM CONTROL"
-   ProgramName=SAP2000   Version=27.1.0   ProgLevel=Ultimate   CurrUnits="KN, m, C"   RegenHinge=Yes
+   ProgramName=SAP2000   Version=20.1.0   ProgLevel=Ultimate   CurrUnits="KN, m, C"   RegenHinge=Yes
  
 TABLE:  "ACTIVE DEGREES OF FREEDOM"
    UX=Yes   UY=Yes   UZ=Yes   RX=Yes   RY=Yes   RZ=Yes
@@ -27,14 +27,14 @@ TABLE:  "MATERIAL PROPERTIES 03B - CONCRETE DATA"
 TABLE:  "FRAME SECTION PROPERTIES 01 - GENERAL"
    SectionName=PILOTE_40x40   Material=HA-50   Shape=Rectangular   t3=0.4   t2=0.4   Color=Cyan   FromFile=No   AMod=2   A2Mod=1   A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=0.924138   Notes="Pilote hincado 40x40 HA-50"
    SectionName=VIGA_T50x55_ALAS15x30   Material=HA-35   Shape=General   t3=0.55   t2=0.8   Area=0.365   TorsConst=0.0154610456255   I33=0.00866679509132   I22=0.0154041666667   I23=0   AS2=0.30095195464   AS3=0.328533271222 _
-        S33Top=0.0283393523703   S33Bot=0.0354937470781   S22Left=0.0385104166667   S22Right=0.0385104166667   Z33=0.0474927249844   Z22=0.063625   R33=0.154092972214   R22=0.205434165481   Color=Green   FromFile=No   AMod=1   A2Mod=1 _
-        A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=1   Notes="Viga T invertida: alma 50x55 + ala inferior 15x30 a cada lado"
+        S33=0.0283393523703   S22=0.0385104166667   Z33=0.0474927249844   Z22=0.063625   R33=0.154092972214   R22=0.205434165481   Color=Green   FromFile=No   AMod=1   A2Mod=1   A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=1 _
+        Notes="Viga T invertida: alma 50x55 + ala inferior 15x30 a cada lado"
    SectionName=VIGA_L80x55_ALA15x30   Material=HA-35   Shape=General   t3=0.55   t2=0.95   Area=0.485   TorsConst=0.0282449351786   I33=0.0120670532646   I22=0.0327621241409   I23=0   AS2=0.405245976756   AS3=0.41619068316 _
-        S33Top=0.0421044664269   S33Bot=0.0458122961513   S22Left=0.0647565163865   S22Right=0.0647565163865   Z33=0.0658488475391   Z22=0.108445561969   R33=0.15773560852   R22=0.259905312421   Color=Green   FromFile=No   AMod=1   A2Mod=1 _
-        A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=1   Notes="Viga extrema X=0: alma 80x55 + ala inferior 15x30 hacia +X (vano)"
+        S33=0.0421044664269   S22=0.0647565163865   Z33=0.0658488475391   Z22=0.108445561969   R33=0.15773560852   R22=0.259905312421   Color=Green   FromFile=No   AMod=1   A2Mod=1   A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=1 _
+        Notes="Viga extrema X=0: alma 80x55 + ala inferior 15x30 hacia +X (vano)"
    SectionName=VIGA_L80x55_ALA15x30_M   Material=HA-35   Shape=General   t3=0.55   t2=0.95   Area=0.485   TorsConst=0.0282449351786   I33=0.0120670532646   I22=0.0327621241409   I23=0   AS2=0.405245976756   AS3=0.416034872479 _
-        S33Top=0.0421044664269   S33Bot=0.0458122961513   S22Left=0.0647565163865   S22Right=0.0647565163865   Z33=0.0658488475391   Z22=0.108445561969   R33=0.15773560852   R22=0.259905312421   Color=Green   FromFile=No   AMod=1   A2Mod=1 _
-        A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=1   Notes="Viga extrema X=39: alma 80x55 + ala inferior 15x30 hacia -X (vano)"
+        S33=0.0421044664269   S22=0.0647565163865   Z33=0.0658488475391   Z22=0.108445561969   R33=0.15773560852   R22=0.259905312421   Color=Green   FromFile=No   AMod=1   A2Mod=1   A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=1 _
+        Notes="Viga extrema X=39: alma 80x55 + ala inferior 15x30 hacia -X (vano)"
    SectionName=VIGA_BORDE_25x30   Material=HA-35   Shape=Rectangular   t3=0.3   t2=0.25   Color=Green   FromFile=No   AMod=1   A2Mod=1   A3Mod=1   JMod=1   I2Mod=1   I3Mod=1   MMod=1   WMod=0.920769 _
         Notes="Viga de borde longitudinal 25x30"
  
@@ -9063,236 +9063,268 @@ TABLE:  "CASE - STATIC 1 - LOAD ASSIGNMENTS"
    Case=TB3   LoadType="Load pattern"   LoadName=TB3   LoadSF=1
  
 TABLE:  "COMBINATION DEFINITIONS"
-   ComboName=ELU01   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 1"
-   ComboName=ELU01   CaseName=CM   ScaleFactor=1
-   ComboName=ELU02   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 2"
-   ComboName=ELU02   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU03   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 3"
-   ComboName=ELU03   CaseName=CM   ScaleFactor=1
-   ComboName=ELU03   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU04   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 4"
-   ComboName=ELU04   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU04   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU05   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 5"
-   ComboName=ELU05   CaseName=CM   ScaleFactor=1
-   ComboName=ELU05   CaseName=TB1   ScaleFactor=1.5
-   ComboName=ELU06   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 6"
-   ComboName=ELU06   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU06   CaseName=TB1   ScaleFactor=1.5
-   ComboName=ELU07   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 7"
-   ComboName=ELU07   CaseName=CM   ScaleFactor=1
-   ComboName=ELU07   CaseName=Qa   ScaleFactor=1.05
-   ComboName=ELU07   CaseName=TB1   ScaleFactor=1.5
-   ComboName=ELU08   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 8"
-   ComboName=ELU08   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU08   CaseName=Qa   ScaleFactor=1.05
-   ComboName=ELU08   CaseName=TB1   ScaleFactor=1.5
-   ComboName=ELU09   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 9"
-   ComboName=ELU09   CaseName=CM   ScaleFactor=1
-   ComboName=ELU09   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU09   CaseName=TB1   ScaleFactor=0.9
-   ComboName=ELU10   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 10"
-   ComboName=ELU10   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU10   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU10   CaseName=TB1   ScaleFactor=0.9
-   ComboName=ELU11   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 11"
-   ComboName=ELU11   CaseName=CM   ScaleFactor=1
-   ComboName=ELU11   CaseName=TB2   ScaleFactor=1.5
-   ComboName=ELU12   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 12"
-   ComboName=ELU12   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU12   CaseName=TB2   ScaleFactor=1.5
-   ComboName=ELU13   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 13"
-   ComboName=ELU13   CaseName=CM   ScaleFactor=1
-   ComboName=ELU13   CaseName=Qa   ScaleFactor=1.05
-   ComboName=ELU13   CaseName=TB2   ScaleFactor=1.5
-   ComboName=ELU14   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 14"
-   ComboName=ELU14   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU14   CaseName=Qa   ScaleFactor=1.05
-   ComboName=ELU14   CaseName=TB2   ScaleFactor=1.5
-   ComboName=ELU15   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 15"
-   ComboName=ELU15   CaseName=CM   ScaleFactor=1
-   ComboName=ELU15   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU15   CaseName=TB2   ScaleFactor=0.9
-   ComboName=ELU16   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 16"
-   ComboName=ELU16   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU16   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU16   CaseName=TB2   ScaleFactor=0.9
-   ComboName=ELU17   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 17"
-   ComboName=ELU17   CaseName=CM   ScaleFactor=1
-   ComboName=ELU17   CaseName=TB3   ScaleFactor=1.5
-   ComboName=ELU18   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 18"
-   ComboName=ELU18   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU18   CaseName=TB3   ScaleFactor=1.5
-   ComboName=ELU19   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 19"
-   ComboName=ELU19   CaseName=CM   ScaleFactor=1
-   ComboName=ELU19   CaseName=Qa   ScaleFactor=1.05
-   ComboName=ELU19   CaseName=TB3   ScaleFactor=1.5
-   ComboName=ELU20   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 20"
-   ComboName=ELU20   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU20   CaseName=Qa   ScaleFactor=1.05
-   ComboName=ELU20   CaseName=TB3   ScaleFactor=1.5
-   ComboName=ELU21   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 21"
-   ComboName=ELU21   CaseName=CM   ScaleFactor=1
-   ComboName=ELU21   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU21   CaseName=TB3   ScaleFactor=0.9
-   ComboName=ELU22   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 22"
-   ComboName=ELU22   CaseName=CM   ScaleFactor=1.35
-   ComboName=ELU22   CaseName=Qa   ScaleFactor=1.5
-   ComboName=ELU22   CaseName=TB3   ScaleFactor=0.9
-   ComboName=ENV_ELU   ComboType=Envelope   AutoDesign=No   CaseName=ELU01   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="Envolvente ELU rotura hormigon"
-   ComboName=ENV_ELU   CaseName=ELU02   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU03   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU04   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU05   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU06   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU07   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU08   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU09   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU10   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU11   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU12   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU13   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU14   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU15   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU16   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU17   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU18   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU19   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU20   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU21   ScaleFactor=1
-   ComboName=ENV_ELU   CaseName=ELU22   ScaleFactor=1
-   ComboName=CIM01   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 1"
-   ComboName=CIM01   CaseName=CM   ScaleFactor=1
-   ComboName=CIM02   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 2"
-   ComboName=CIM02   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM03   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 3"
-   ComboName=CIM03   CaseName=CM   ScaleFactor=1
-   ComboName=CIM03   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM04   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 4"
-   ComboName=CIM04   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM04   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM05   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 5"
-   ComboName=CIM05   CaseName=CM   ScaleFactor=1
-   ComboName=CIM05   CaseName=TB1   ScaleFactor=1.6
-   ComboName=CIM06   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 6"
-   ComboName=CIM06   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM06   CaseName=TB1   ScaleFactor=1.6
-   ComboName=CIM07   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 7"
-   ComboName=CIM07   CaseName=CM   ScaleFactor=1
-   ComboName=CIM07   CaseName=Qa   ScaleFactor=1.12
-   ComboName=CIM07   CaseName=TB1   ScaleFactor=1.6
-   ComboName=CIM08   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 8"
-   ComboName=CIM08   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM08   CaseName=Qa   ScaleFactor=1.12
-   ComboName=CIM08   CaseName=TB1   ScaleFactor=1.6
-   ComboName=CIM09   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 9"
-   ComboName=CIM09   CaseName=CM   ScaleFactor=1
-   ComboName=CIM09   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM09   CaseName=TB1   ScaleFactor=0.96
-   ComboName=CIM10   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 10"
-   ComboName=CIM10   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM10   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM10   CaseName=TB1   ScaleFactor=0.96
-   ComboName=CIM11   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 11"
-   ComboName=CIM11   CaseName=CM   ScaleFactor=1
-   ComboName=CIM11   CaseName=TB2   ScaleFactor=1.6
-   ComboName=CIM12   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 12"
-   ComboName=CIM12   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM12   CaseName=TB2   ScaleFactor=1.6
-   ComboName=CIM13   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 13"
-   ComboName=CIM13   CaseName=CM   ScaleFactor=1
-   ComboName=CIM13   CaseName=Qa   ScaleFactor=1.12
-   ComboName=CIM13   CaseName=TB2   ScaleFactor=1.6
-   ComboName=CIM14   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 14"
-   ComboName=CIM14   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM14   CaseName=Qa   ScaleFactor=1.12
-   ComboName=CIM14   CaseName=TB2   ScaleFactor=1.6
-   ComboName=CIM15   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 15"
-   ComboName=CIM15   CaseName=CM   ScaleFactor=1
-   ComboName=CIM15   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM15   CaseName=TB2   ScaleFactor=0.96
-   ComboName=CIM16   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 16"
-   ComboName=CIM16   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM16   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM16   CaseName=TB2   ScaleFactor=0.96
-   ComboName=CIM17   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 17"
-   ComboName=CIM17   CaseName=CM   ScaleFactor=1
-   ComboName=CIM17   CaseName=TB3   ScaleFactor=1.6
-   ComboName=CIM18   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 18"
-   ComboName=CIM18   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM18   CaseName=TB3   ScaleFactor=1.6
-   ComboName=CIM19   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 19"
-   ComboName=CIM19   CaseName=CM   ScaleFactor=1
-   ComboName=CIM19   CaseName=Qa   ScaleFactor=1.12
-   ComboName=CIM19   CaseName=TB3   ScaleFactor=1.6
-   ComboName=CIM20   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 20"
-   ComboName=CIM20   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM20   CaseName=Qa   ScaleFactor=1.12
-   ComboName=CIM20   CaseName=TB3   ScaleFactor=1.6
-   ComboName=CIM21   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 21"
-   ComboName=CIM21   CaseName=CM   ScaleFactor=1
-   ComboName=CIM21   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM21   CaseName=TB3   ScaleFactor=0.96
-   ComboName=CIM22   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU hormigon en cimentaciones comb. 22"
-   ComboName=CIM22   CaseName=CM   ScaleFactor=1.6
-   ComboName=CIM22   CaseName=Qa   ScaleFactor=1.6
-   ComboName=CIM22   CaseName=TB3   ScaleFactor=0.96
-   ComboName=ENV_CIM   ComboType=Envelope   AutoDesign=No   CaseName=CIM01   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="Envolvente ELU hormigon en cimentaciones"
-   ComboName=ENV_CIM   CaseName=CIM02   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM03   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM04   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM05   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM06   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM07   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM08   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM09   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM10   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM11   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM12   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM13   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM14   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM15   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM16   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM17   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM18   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM19   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM20   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM21   ScaleFactor=1
-   ComboName=ENV_CIM   CaseName=CIM22   ScaleFactor=1
-   ComboName=ELS01   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 1"
-   ComboName=ELS01   CaseName=CM   ScaleFactor=1
-   ComboName=ELS02   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 2"
-   ComboName=ELS02   CaseName=CM   ScaleFactor=1
-   ComboName=ELS02   CaseName=Qa   ScaleFactor=1
-   ComboName=ELS03   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 3"
-   ComboName=ELS03   CaseName=CM   ScaleFactor=1
-   ComboName=ELS03   CaseName=TB1   ScaleFactor=1
-   ComboName=ELS04   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 4"
-   ComboName=ELS04   CaseName=CM   ScaleFactor=1
-   ComboName=ELS04   CaseName=Qa   ScaleFactor=1
-   ComboName=ELS04   CaseName=TB1   ScaleFactor=1
-   ComboName=ELS05   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 5"
-   ComboName=ELS05   CaseName=CM   ScaleFactor=1
-   ComboName=ELS05   CaseName=TB2   ScaleFactor=1
-   ComboName=ELS06   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 6"
-   ComboName=ELS06   CaseName=CM   ScaleFactor=1
-   ComboName=ELS06   CaseName=Qa   ScaleFactor=1
-   ComboName=ELS06   CaseName=TB2   ScaleFactor=1
-   ComboName=ELS07   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 7"
-   ComboName=ELS07   CaseName=CM   ScaleFactor=1
-   ComboName=ELS07   CaseName=TB3   ScaleFactor=1
-   ComboName=ELS08   ComboType="Linear Add"   AutoDesign=No   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE Desplazamientos (caracteristicas) comb. 8"
-   ComboName=ELS08   CaseName=CM   ScaleFactor=1
-   ComboName=ELS08   CaseName=Qa   ScaleFactor=1
-   ComboName=ELS08   CaseName=TB3   ScaleFactor=1
-   ComboName=ENV_ELS   ComboType=Envelope   AutoDesign=No   CaseName=ELS01   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="Envolvente Desplazamientos (caracteristicas)"
-   ComboName=ENV_ELS   CaseName=ELS02   ScaleFactor=1
-   ComboName=ENV_ELS   CaseName=ELS03   ScaleFactor=1
-   ComboName=ENV_ELS   CaseName=ELS04   ScaleFactor=1
-   ComboName=ENV_ELS   CaseName=ELS05   ScaleFactor=1
-   ComboName=ENV_ELS   CaseName=ELS06   ScaleFactor=1
-   ComboName=ENV_ELS   CaseName=ELS07   ScaleFactor=1
-   ComboName=ENV_ELS   CaseName=ELS08   ScaleFactor=1
+   ComboName=ELU01   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 1"
+   ComboName=ELU01   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU02   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 2"
+   ComboName=ELU02   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU03   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 3"
+   ComboName=ELU03   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU03   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU04   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 4"
+   ComboName=ELU04   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU04   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU05   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 5"
+   ComboName=ELU05   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU05   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.5
+   ComboName=ELU06   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 6"
+   ComboName=ELU06   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU06   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.5
+   ComboName=ELU07   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 7"
+   ComboName=ELU07   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU07   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.05
+   ComboName=ELU07   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.5
+   ComboName=ELU08   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 8"
+   ComboName=ELU08   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU08   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.05
+   ComboName=ELU08   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.5
+   ComboName=ELU09   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 9"
+   ComboName=ELU09   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU09   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU09   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=0.9
+   ComboName=ELU10   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 10"
+   ComboName=ELU10   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU10   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU10   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=0.9
+   ComboName=ELU11   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 11"
+   ComboName=ELU11   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU11   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.5
+   ComboName=ELU12   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 12"
+   ComboName=ELU12   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU12   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.5
+   ComboName=ELU13   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 13"
+   ComboName=ELU13   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU13   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.05
+   ComboName=ELU13   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.5
+   ComboName=ELU14   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 14"
+   ComboName=ELU14   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU14   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.05
+   ComboName=ELU14   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.5
+   ComboName=ELU15   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 15"
+   ComboName=ELU15   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU15   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU15   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=0.9
+   ComboName=ELU16   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 16"
+   ComboName=ELU16   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU16   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU16   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=0.9
+   ComboName=ELU17   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 17"
+   ComboName=ELU17   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU17   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.5
+   ComboName=ELU18   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 18"
+   ComboName=ELU18   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU18   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.5
+   ComboName=ELU19   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 19"
+   ComboName=ELU19   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU19   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.05
+   ComboName=ELU19   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.5
+   ComboName=ELU20   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 20"
+   ComboName=ELU20   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU20   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.05
+   ComboName=ELU20   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.5
+   ComboName=ELU21   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 21"
+   ComboName=ELU21   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELU21   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU21   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=0.9
+   ComboName=ELU22   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.35   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="CYPE ELU rotura hormigon comb. 22"
+   ComboName=ELU22   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.35
+   ComboName=ELU22   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.5
+   ComboName=ELU22   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=0.9
+   ComboName=ENV_ELU   ComboType=Envelope   AutoDesign=No   CaseType="Response Combo"   CaseName=ELU01   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None   Notes="Envolvente ELU rotura hormigon"
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU02   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU03   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU04   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU05   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU06   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU07   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU08   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU09   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU10   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU11   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU12   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU13   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU14   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU15   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU16   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU17   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU18   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU19   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU20   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU21   ScaleFactor=1
+   ComboName=ENV_ELU   CaseType="Response Combo"   CaseName=ELU22   ScaleFactor=1
+   ComboName=CIM01   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 1"
+   ComboName=CIM01   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM02   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 2"
+   ComboName=CIM02   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM03   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 3"
+   ComboName=CIM03   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM03   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM04   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 4"
+   ComboName=CIM04   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM04   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM05   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 5"
+   ComboName=CIM05   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM05   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.6
+   ComboName=CIM06   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 6"
+   ComboName=CIM06   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM06   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.6
+   ComboName=CIM07   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 7"
+   ComboName=CIM07   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM07   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.12
+   ComboName=CIM07   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.6
+   ComboName=CIM08   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 8"
+   ComboName=CIM08   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM08   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.12
+   ComboName=CIM08   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1.6
+   ComboName=CIM09   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 9"
+   ComboName=CIM09   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM09   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM09   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=0.96
+   ComboName=CIM10   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 10"
+   ComboName=CIM10   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM10   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM10   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=0.96
+   ComboName=CIM11   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 11"
+   ComboName=CIM11   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM11   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.6
+   ComboName=CIM12   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 12"
+   ComboName=CIM12   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM12   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.6
+   ComboName=CIM13   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 13"
+   ComboName=CIM13   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM13   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.12
+   ComboName=CIM13   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.6
+   ComboName=CIM14   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 14"
+   ComboName=CIM14   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM14   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.12
+   ComboName=CIM14   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1.6
+   ComboName=CIM15   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 15"
+   ComboName=CIM15   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM15   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM15   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=0.96
+   ComboName=CIM16   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 16"
+   ComboName=CIM16   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM16   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM16   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=0.96
+   ComboName=CIM17   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 17"
+   ComboName=CIM17   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM17   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.6
+   ComboName=CIM18   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 18"
+   ComboName=CIM18   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM18   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.6
+   ComboName=CIM19   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 19"
+   ComboName=CIM19   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM19   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.12
+   ComboName=CIM19   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.6
+   ComboName=CIM20   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 20"
+   ComboName=CIM20   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM20   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.12
+   ComboName=CIM20   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1.6
+   ComboName=CIM21   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 21"
+   ComboName=CIM21   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=CIM21   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM21   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=0.96
+   ComboName=CIM22   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1.6   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE ELU hormigon en cimentaciones comb. 22"
+   ComboName=CIM22   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1.6
+   ComboName=CIM22   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1.6
+   ComboName=CIM22   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=0.96
+   ComboName=ENV_CIM   ComboType=Envelope   AutoDesign=No   CaseType="Response Combo"   CaseName=CIM01   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="Envolvente ELU hormigon en cimentaciones"
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM02   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM03   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM04   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM05   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM06   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM07   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM08   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM09   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM10   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM11   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM12   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM13   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM14   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM15   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM16   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM17   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM18   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM19   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM20   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM21   ScaleFactor=1
+   ComboName=ENV_CIM   CaseType="Response Combo"   CaseName=CIM22   ScaleFactor=1
+   ComboName=ELS01   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 1"
+   ComboName=ELS01   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS02   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 2"
+   ComboName=ELS02   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS02   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1
+   ComboName=ELS03   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 3"
+   ComboName=ELS03   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS03   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1
+   ComboName=ELS04   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 4"
+   ComboName=ELS04   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS04   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1
+   ComboName=ELS04   CaseType="Linear Static"   CaseName=TB1   ScaleFactor=1
+   ComboName=ELS05   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 5"
+   ComboName=ELS05   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS05   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1
+   ComboName=ELS06   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 6"
+   ComboName=ELS06   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS06   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1
+   ComboName=ELS06   CaseType="Linear Static"   CaseName=TB2   ScaleFactor=1
+   ComboName=ELS07   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 7"
+   ComboName=ELS07   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS07   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1
+   ComboName=ELS08   ComboType="Linear Add"   AutoDesign=No   CaseType="Linear Static"   CaseName=PP   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="CYPE Desplazamientos (caracteristicas) comb. 8"
+   ComboName=ELS08   CaseType="Linear Static"   CaseName=CM   ScaleFactor=1
+   ComboName=ELS08   CaseType="Linear Static"   CaseName=Qa   ScaleFactor=1
+   ComboName=ELS08   CaseType="Linear Static"   CaseName=TB3   ScaleFactor=1
+   ComboName=ENV_ELS   ComboType=Envelope   AutoDesign=No   CaseType="Response Combo"   CaseName=ELS01   ScaleFactor=1   SteelDesign=None   ConcDesign=None   AlumDesign=None   ColdDesign=None _
+        Notes="Envolvente Desplazamientos (caracteristicas)"
+   ComboName=ENV_ELS   CaseType="Response Combo"   CaseName=ELS02   ScaleFactor=1
+   ComboName=ENV_ELS   CaseType="Response Combo"   CaseName=ELS03   ScaleFactor=1
+   ComboName=ENV_ELS   CaseType="Response Combo"   CaseName=ELS04   ScaleFactor=1
+   ComboName=ENV_ELS   CaseType="Response Combo"   CaseName=ELS05   ScaleFactor=1
+   ComboName=ENV_ELS   CaseType="Response Combo"   CaseName=ELS06   ScaleFactor=1
+   ComboName=ENV_ELS   CaseType="Response Combo"   CaseName=ELS07   ScaleFactor=1
+   ComboName=ENV_ELS   CaseType="Response Combo"   CaseName=ELS08   ScaleFactor=1
  
 TABLE:  "JOINT LOADS - FORCE"
    Joint=D00_2   LoadPat=TB1   CoordSys=GLOBAL   F1=0   F2=-17   F3=-17   M1=0   M2=0   M3=0

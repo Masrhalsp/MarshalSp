@@ -111,7 +111,7 @@ def main() -> None:
     for r in t["CASE - STATIC 1 - LOAD ASSIGNMENTS"]:
         need(r["Case"] in cases and r["LoadName"] in pats, f"case load assignment {r}")
     for r in t["COMBINATION DEFINITIONS"]:
-        ok = r["CaseName"] in cases if r["CaseType"] != "Response Combo" else r["CaseName"] in combos
+        ok = r["CaseName"] in (combos if r.get("CaseType") == "Response Combo" else cases | combos)
         need(ok, f"combo {r['ComboName']}: unknown {r['CaseType']} {r['CaseName']}")
     for r in t.get("GROUPS 2 - ASSIGNMENTS", []):
         pool = {"Joint": joints, "Frame": frames, "Area": areas}[r["ObjectType"]]
