@@ -470,7 +470,7 @@ def stirrup_options(geom: Geometry, phis=(8.0, 10.0, 12.0), legs=(2, 3, 4),
 def reference_areas() -> list[dict]:
     """'Área Real' of the CYPE listing (zone 3/3L of the span tramo, full bars) vs our layouts."""
     import json
-    ref = json.loads(REF_JSON.read_text())
+    ref = json.loads(REF_JSON.read_text(encoding="utf-8"))
     por = ref["beams"]["listing_armado_vigas_2"]["porticos"]
     rows = []
     for axis in range(1, 8):

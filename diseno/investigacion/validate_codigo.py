@@ -793,7 +793,8 @@ def run():
           note='> 0.1 mm: with 7O20 the XS3 limit can only be met by staying uncracked')
 
     # -------------------------------------------------------------------------- P psi2 sensitivity
-    xlsx = '/home/user/MarshalSp/sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx'
+    xlsx = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'sap2000', 'resultados_sap',
+                        'SAP27_Element_Forces_Frames.xlsx')
     try:
         import openpyxl
         wb = openpyxl.load_workbook(xlsx, read_only=True)
@@ -848,7 +849,7 @@ if __name__ == '__main__':
     print_results()
     if '--json' in sys.argv:
         path = sys.argv[sys.argv.index('--json') + 1]
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             json.dump(RESULTS, f, indent=1)
         print(f'JSON written to {path}')
     sys.exit(1 if any(r['status'] == 'FAIL' for r in RESULTS) else 0)

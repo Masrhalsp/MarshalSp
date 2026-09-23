@@ -100,7 +100,7 @@
   },
   "assumptions": [
    "Forces: SAP2000 v27.1 (sap2000/resultados_sap), CYPE convention; ULS ELU01-22 (CYPE) / ELR01-22 (ROM).",
-   "Design sections: pile faces y = +-0.20 / 3.25 / 3.65 (A19.5.3.2.2(3)); pile-axis moments reported as info (rigid node: CYPE's 'P3' -273.71 lies between the face and the axis, C16).",
+   "Design sections: pile faces y = +-0.20 / 3.25 / 3.65 (A19.5.3.2.2(3)); pile-axis moments reported as info (rigid node: CYPE's 'P3' -273.71 lies between the face and the axis, C20).",
    "Shift rule / (6.18): at the pile faces MEd,max = the face moment (A19.5.3.2.2(3), monolithic support), so M/z + dFtd is capped there and adds nothing; the shift al = z·cot/2 (0.43 m at cot 2) only governs curtailment (not modelled: full-length bars). If the rigid-node pile-axis moment were taken as MEd,max instead, the sea-face hogging chord would be at the axis rows' eta (1.03-1.18 for VT1-VT6, CE-ROM): see the 'eje pilote mar (info)' rows.",
    "Bending about the horizontal axis with a horizontal neutral axis (laterally restrained beams; L sections: My of the resultant carried by the slab).",
    "Bars run the full length (hooked ends): no anchorage reduction of the area (CYPE reduces it in the 0.10 m cantilevers, 'Área Real' 11.28/13.42).",
@@ -49928,7 +49928,7 @@
     "diff_pct": -0.02,
     "status": "PASS",
     "src": "P1614 table: column 'Tramo: P1-P2' zone 1/3L",
-    "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+    "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
     "kind": "As_node"
    },
    {
@@ -50322,7 +50322,7 @@
     "diff_pct": 0.04,
     "status": "PASS",
     "src": "P1620 table: column 'Tramo: P3-P4' zone 1/3L",
-    "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+    "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
     "kind": "As_node"
    },
    {
@@ -50716,7 +50716,7 @@
     "diff_pct": 0.03,
     "status": "PASS",
     "src": "P1626 table: column 'Tramo: P5-P6' zone 1/3L",
-    "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+    "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
     "kind": "As_node"
    },
    {
@@ -51110,7 +51110,7 @@
     "diff_pct": 0.03,
     "status": "PASS",
     "src": "P1632 table: column 'Tramo: P7-P8' zone 1/3L",
-    "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+    "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
     "kind": "As_node"
    },
    {
@@ -51504,7 +51504,7 @@
     "diff_pct": 0.03,
     "status": "PASS",
     "src": "P1638 table: column 'Tramo: P13-P14' zone 1/3L",
-    "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+    "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
     "kind": "As_node"
    },
    {
@@ -51898,7 +51898,7 @@
     "diff_pct": 0.02,
     "status": "PASS",
     "src": "P1644 table: column 'Tramo: P15-P17' zone 1/3L",
-    "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+    "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
     "kind": "As_node"
    },
    {
@@ -52292,7 +52292,7 @@
     "diff_pct": -0.01,
     "status": "PASS",
     "src": "P1650 table: column 'Tramo: P16-P18' zone 1/3L",
-    "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+    "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
     "kind": "As_node"
    },
    {
@@ -55358,7 +55358,7 @@
    "diff_pct": -0.02,
    "status": "PASS",
    "src": "P1614 table: column 'Tramo: P1-P2' zone 1/3L",
-   "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+   "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
    "kind": "As_node"
   },
   {
@@ -55368,7 +55368,7 @@
    "diff_pct": 0.04,
    "status": "PASS",
    "src": "P1620 table: column 'Tramo: P3-P4' zone 1/3L",
-   "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+   "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
    "kind": "As_node"
   },
   {
@@ -55378,7 +55378,7 @@
    "diff_pct": 0.03,
    "status": "PASS",
    "src": "P1626 table: column 'Tramo: P5-P6' zone 1/3L",
-   "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+   "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
    "kind": "As_node"
   },
   {
@@ -55388,7 +55388,7 @@
    "diff_pct": 0.03,
    "status": "PASS",
    "src": "P1632 table: column 'Tramo: P7-P8' zone 1/3L",
-   "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+   "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
    "kind": "As_node"
   },
   {
@@ -55398,7 +55398,7 @@
    "diff_pct": 0.03,
    "status": "PASS",
    "src": "P1638 table: column 'Tramo: P13-P14' zone 1/3L",
-   "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+   "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
    "kind": "As_node"
   },
   {
@@ -55408,7 +55408,7 @@
    "diff_pct": 0.02,
    "status": "PASS",
    "src": "P1644 table: column 'Tramo: P15-P17' zone 1/3L",
-   "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+   "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
    "kind": "As_node"
   },
   {
@@ -55418,7 +55418,7 @@
    "diff_pct": -0.01,
    "status": "PASS",
    "src": "P1650 table: column 'Tramo: P16-P18' zone 1/3L",
-   "note": "CYPE sizes the support steel with the node moment (C16/C20), not the zone value",
+   "note": "CYPE sizes the support steel with the node moment (C20), not the zone value",
    "kind": "As_node"
   },
   {

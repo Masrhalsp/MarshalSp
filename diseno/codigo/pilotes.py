@@ -1167,7 +1167,7 @@ def make_proposal(main: dict, opts: list[dict], basis: str, mode: Mode) -> dict:
 # CYPE parity
 # =============================================================================================
 def _ref_tree() -> dict:
-    return json.loads(REF_JSON.read_text())
+    return json.loads(REF_JSON.read_text(encoding="utf-8"))
 
 
 def _ref(tree: dict, path: str) -> tuple[float, str, str]:
@@ -1700,8 +1700,8 @@ def main(argv=None) -> None:
     res = run(a.basis, Mode(a.mode), options=not a.no_options, verbose=True)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    (out / "pilotes.json").write_text(json.dumps(res, indent=1, ensure_ascii=False))
-    (out / "pilotes.md").write_text(to_markdown(res))
+    (out / "pilotes.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+    (out / "pilotes.md").write_text(to_markdown(res), encoding="utf-8")
     bad = [p for p, s in res["summary"].items() if s["verdict"] != "CUMPLE"]
     print(f"pilotes: {len(res['summary'])} piles, basis {a.basis}, mode {a.mode}: "
           f"{'all CUMPLE' if not bad else 'NO CUMPLE: ' + ', '.join(bad)}; written to {out}/pilotes.json|.md "

@@ -1,6 +1,6 @@
 # Valores propios esperados en las estaciones de diseño de SAP (base ROM; no son resultados de SAP)
 
-Fuente: /home/user/MarshalSp/diseno/output/pilotes.json, /home/user/MarshalSp/diseno/output/vigas.json, sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx (sap_est_*)  ·  base de combinaciones: **ROM**  ·  filas: 14 pilotes, 136 vigas
+Fuente: diseno/output/pilotes.json, diseno/output/vigas.json, sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx (sap_est_*)  ·  base de combinaciones: **ROM**  ·  filas: 14 pilotes, 136 vigas
 
 ## Resumen
 

@@ -4,8 +4,8 @@
   "base": "CYPE",
   "title": "Valores propios esperados en las estaciones de diseño de SAP (base CYPE; no son resultados de SAP)",
   "source": [
-   "/home/user/MarshalSp/diseno/output/pilotes.json",
-   "/home/user/MarshalSp/diseno/output/vigas.json",
+   "diseno/output/pilotes.json",
+   "diseno/output/vigas.json",
    "sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx (sap_est_*)"
   ],
   "n_rows": {

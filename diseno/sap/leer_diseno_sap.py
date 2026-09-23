@@ -608,7 +608,8 @@ def expected(base: str, pil: dict | None, vig: dict | None, ref: dict | None, kp
     return {"meta": {"module": "diseno/sap/leer_diseno_sap.py --esperados", "base": base,
                      "title": f"Valores propios esperados en las estaciones de diseño de SAP (base {base}; "
                               "no son resultados de SAP)",
-                     "source": [str(DISENO_OUT / "pilotes.json"), str(DISENO_OUT / "vigas.json"),
+                     "source": [(DISENO_OUT / "pilotes.json").relative_to(ROOT).as_posix(),
+                                (DISENO_OUT / "vigas.json").relative_to(ROOT).as_posix(),
                                 "sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx (sap_est_*)"],
                      "n_rows": {"piles": len(tables.get("pilotes", [])), "beams": n_beams},
                      "sap_procedure": est_meta,

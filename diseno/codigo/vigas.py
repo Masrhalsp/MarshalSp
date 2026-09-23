@@ -10,7 +10,7 @@ psi0,Qa = 1.0 and psi2,Qa = 0.8).  Sections: ``armado_vigas`` (provided CYPE rei
 Checks (clause of A19 unless noted):
 
 * ULS bending 6.1 at the pile faces (5.3.2.2(3)), the span (max sagging), the cantilever faces;
-  pile-axis moments as information (CYPE's 'P3' node moment, C16/C20).  'Área Nec.' =
+  pile-axis moments as information (CYPE's 'P3' node moment, C20).  'Área Nec.' =
   singly-reinforced tension steel (C20).
 * detailing 9.2.1.1 (As,min (9.1) with z = 0.9d (CYPE, C14) and z = 0.8h (CE), As,max 0.04Ac),
   8.2(2) clear spacing, 9.2.3(4) 350 mm (C17), 9.2.2 links (rho_w,min, sl,max, st,max).
@@ -57,7 +57,7 @@ from seccion import (B500SD, HA35, KNM, Bar, Mode, crack_width, cracked_stresses
                      cracking_moment, homogenised, uncracked_stresses)
 
 OUT_DIR = DISENO / "output"
-REF = json.loads(AV.REF_JSON.read_text())
+REF = json.loads(AV.REF_JSON.read_text(encoding="utf-8"))
 
 CONC, STEEL = HA35, B500SD
 FYD = STEEL.fyd
@@ -1220,7 +1220,7 @@ def parity_listing(members: list[Member], reinf: dict, case: Case) -> list[dict]
             rows.append(_cmp(f"{lab} {tramos[1][0]} 1/3L As_top_nec from the drawing node moment {node} [cm2]",
                              as_required(r, Mode.CYPE, "top", abs(node) * KNM) / 100, z1["As_top_nec"], z1["src"],
                              tol_pct=0.3, kind="As_node",
-                             note="CYPE sizes the support steel with the node moment (C16/C20), not the zone value"))
+                             note="CYPE sizes the support steel with the node moment (C20), not the zone value"))
             geo = [(tramos[0], -0.30, 0.10, "cantilever"), (tramos[1], 0.20, 3.05, "span")]
         else:
             lab = "Pórtico 1" if m.key == "VBM" else "Pórtico 10"
@@ -1456,7 +1456,7 @@ def run(cases: tuple = CASES, do_search: bool = True, data: dict | None = None, 
         "assumptions": [
             "Forces: SAP2000 v27.1 (sap2000/resultados_sap), CYPE convention; ULS ELU01-22 (CYPE) / ELR01-22 (ROM).",
             "Design sections: pile faces y = +-0.20 / 3.25 / 3.65 (A19.5.3.2.2(3)); pile-axis moments reported as info "
-            "(rigid node: CYPE's 'P3' -273.71 lies between the face and the axis, C16).",
+            "(rigid node: CYPE's 'P3' -273.71 lies between the face and the axis, C20).",
             "Shift rule / (6.18): at the pile faces MEd,max = the face moment (A19.5.3.2.2(3), monolithic "
             "support), so M/z + dFtd is capped there and adds nothing; the shift al = z·cot/2 (0.43 m at cot 2) "
             "only governs curtailment (not modelled: full-length bars). If the rigid-node pile-axis moment were "
@@ -1645,7 +1645,7 @@ def write_md(res: dict, path: Path) -> None:
         L.append(_md_table(rows, ["member", "section", "pos_m", "check", "demand", "capacity", "unit", "eta", "ok",
                                   "combo", "in_verdict"]))
     L += ["", "## Supuestos", ""] + [f"- {a}" for a in meta["assumptions"]]
-    path.write_text("\n".join(L) + "\n")
+    path.write_text("\n".join(L) + "\n", encoding="utf-8")
 
 
 def _jsonable(o):
@@ -1672,7 +1672,7 @@ def main(argv: list[str] | None = None) -> int:
     res = run(do_search=not a.no_search, verbose=True)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    (out / "vigas.json").write_text(json.dumps(res, indent=1, ensure_ascii=False))
+    (out / "vigas.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
     write_md(res, out / "vigas.md")
     print(f"written {out / 'vigas.json'} and {out / 'vigas.md'} ({res['meta']['runtime_s']} s)")
     for k, v in res["summary"].items():

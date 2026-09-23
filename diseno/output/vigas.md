@@ -588,13 +588,13 @@ Umbral de psi2,Qa con la armadura dispuesta (TB psi2 = 0):
 | VBM hog sigma_ct/fctm (QP psi2 0.3) < 1 -> 'N.P.(1)' | 1.065 |  |  | INFO | P1818-P1827 tables (all faces N.P.(1)) | CRACKED (CYPE: not cracked) |
 | VBT sag sigma_ct/fctm (QP psi2 0.3) < 1 -> 'N.P.(1)' | 0.52 |  |  | INFO | P1818-P1827 tables (all faces N.P.(1)) | uncracked |
 | VBT hog sigma_ct/fctm (QP psi2 0.3) < 1 -> 'N.P.(1)' | 1.07 |  |  | INFO | P1818-P1827 tables (all faces N.P.(1)) | CRACKED (CYPE: not cracked) |
-| Pórtico 3 P1-P2 1/3L As_top_nec from the drawing node moment -318.8 [cm2] | 15.977 | 15.98 | -0.02 | PASS | P1614 table: column 'Tramo: P1-P2' zone 1/3L | CYPE sizes the support steel with the node moment (C16/C20), not the zone value |
-| Pórtico 4 P3-P4 1/3L As_top_nec from the drawing node moment -273.71 [cm2] | 13.725 | 13.72 | 0.04 | PASS | P1620 table: column 'Tramo: P3-P4' zone 1/3L | CYPE sizes the support steel with the node moment (C16/C20), not the zone value |
-| Pórtico 5 P5-P6 1/3L As_top_nec from the drawing node moment -312.87 [cm2] | 15.755 | 15.75 | 0.03 | PASS | P1626 table: column 'Tramo: P5-P6' zone 1/3L | CYPE sizes the support steel with the node moment (C16/C20), not the zone value |
-| Pórtico 6 P7-P8 1/3L As_top_nec from the drawing node moment -264.0 [cm2] | 13.224 | 13.22 | 0.03 | PASS | P1632 table: column 'Tramo: P7-P8' zone 1/3L | CYPE sizes the support steel with the node moment (C16/C20), not the zone value |
-| Pórtico 7 P13-P14 1/3L As_top_nec from the drawing node moment -303.83 [cm2] | 15.285 | 15.28 | 0.03 | PASS | P1638 table: column 'Tramo: P13-P14' zone 1/3L | CYPE sizes the support steel with the node moment (C16/C20), not the zone value |
-| Pórtico 8 P15-P17 1/3L As_top_nec from the drawing node moment -255.61 [cm2] | 12.792 | 12.79 | 0.02 | PASS | P1644 table: column 'Tramo: P15-P17' zone 1/3L | CYPE sizes the support steel with the node moment (C16/C20), not the zone value |
-| Pórtico 9 P16-P18 1/3L As_top_nec from the drawing node moment -291.23 [cm2] | 14.558 | 14.56 | -0.01 | PASS | P1650 table: column 'Tramo: P16-P18' zone 1/3L | CYPE sizes the support steel with the node moment (C16/C20), not the zone value |
+| Pórtico 3 P1-P2 1/3L As_top_nec from the drawing node moment -318.8 [cm2] | 15.977 | 15.98 | -0.02 | PASS | P1614 table: column 'Tramo: P1-P2' zone 1/3L | CYPE sizes the support steel with the node moment (C20), not the zone value |
+| Pórtico 4 P3-P4 1/3L As_top_nec from the drawing node moment -273.71 [cm2] | 13.725 | 13.72 | 0.04 | PASS | P1620 table: column 'Tramo: P3-P4' zone 1/3L | CYPE sizes the support steel with the node moment (C20), not the zone value |
+| Pórtico 5 P5-P6 1/3L As_top_nec from the drawing node moment -312.87 [cm2] | 15.755 | 15.75 | 0.03 | PASS | P1626 table: column 'Tramo: P5-P6' zone 1/3L | CYPE sizes the support steel with the node moment (C20), not the zone value |
+| Pórtico 6 P7-P8 1/3L As_top_nec from the drawing node moment -264.0 [cm2] | 13.224 | 13.22 | 0.03 | PASS | P1632 table: column 'Tramo: P7-P8' zone 1/3L | CYPE sizes the support steel with the node moment (C20), not the zone value |
+| Pórtico 7 P13-P14 1/3L As_top_nec from the drawing node moment -303.83 [cm2] | 15.285 | 15.28 | 0.03 | PASS | P1638 table: column 'Tramo: P13-P14' zone 1/3L | CYPE sizes the support steel with the node moment (C20), not the zone value |
+| Pórtico 8 P15-P17 1/3L As_top_nec from the drawing node moment -255.61 [cm2] | 12.792 | 12.79 | 0.02 | PASS | P1644 table: column 'Tramo: P15-P17' zone 1/3L | CYPE sizes the support steel with the node moment (C20), not the zone value |
+| Pórtico 9 P16-P18 1/3L As_top_nec from the drawing node moment -291.23 [cm2] | 14.558 | 14.56 | -0.01 | PASS | P1650 table: column 'Tramo: P16-P18' zone 1/3L | CYPE sizes the support steel with the node moment (C20), not the zone value |
 | listing §2 M: mean |diff| over 104 zone values [%] | 19.619 |  |  | INFO | tables.cype_listing_nec | median 14.1 %, max 93.3 % |
 | listing §2 V: mean |diff| over 63 zone values [%] | 36.595 |  |  | INFO | tables.cype_listing_nec | median 26.9 %, max 108.7 % |
 | listing §2 As: mean |diff| over 111 zone values [%] | 18.557 |  |  | INFO | tables.cype_listing_nec | median 8.7 %, max 100.0 % |
@@ -1702,7 +1702,7 @@ Umbral de psi2,Qa con la armadura dispuesta (TB psi2 = 0):
 ## Supuestos
 
 - Forces: SAP2000 v27.1 (sap2000/resultados_sap), CYPE convention; ULS ELU01-22 (CYPE) / ELR01-22 (ROM).
-- Design sections: pile faces y = +-0.20 / 3.25 / 3.65 (A19.5.3.2.2(3)); pile-axis moments reported as info (rigid node: CYPE's 'P3' -273.71 lies between the face and the axis, C16).
+- Design sections: pile faces y = +-0.20 / 3.25 / 3.65 (A19.5.3.2.2(3)); pile-axis moments reported as info (rigid node: CYPE's 'P3' -273.71 lies between the face and the axis, C20).
 - Shift rule / (6.18): at the pile faces MEd,max = the face moment (A19.5.3.2.2(3), monolithic support), so M/z + dFtd is capped there and adds nothing; the shift al = z·cot/2 (0.43 m at cot 2) only governs curtailment (not modelled: full-length bars). If the rigid-node pile-axis moment were taken as MEd,max instead, the sea-face hogging chord would be at the axis rows' eta (1.03-1.18 for VT1-VT6, CE-ROM): see the 'eje pilote mar (info)' rows.
 - Bending about the horizontal axis with a horizontal neutral axis (laterally restrained beams; L sections: My of the resultant carried by the slab).
 - Bars run the full length (hooked ends): no anchorage reduction of the area (CYPE reduces it in the 0.10 m cantilevers, 'Área Real' 11.28/13.42).

@@ -1,0 +1,8566 @@
+{
+ "decisions": [
+  [
+   "F0",
+   "Bases de cálculo / design bases",
+   "'CYPE' = hipótesis del Anejo 10 (ψ0,Qa 0.7; ψ2,Qa 0.3, valor de edificación del CTE; tiro de bolardo tratado como viento, ψ2 0) para la paridad; 'ROM' = recomendada para un puerto: ROM 2.0-11 Tabla 4.6.4.1 (ψ0,Qa 1.0; ψ2,Qa 0.8; bolardo ψ2 0, con 0.5 como sensibilidad). Veredicto final = Mode.CODIGO (sección estricta al Código) + base ROM + XS3 wmax 0.1 mm (CE Art. 27 Tabla 27.2) en combinación cuasipermanente."
+  ],
+  [
+   "F1",
+   "Pilotes 40x40 HA-50 (12Ø25 + 3 cercos Ø10/150)",
+   "ELU cumple en todas las bases (η N-M 2º orden máx 0.987 en cabeza de P3, ROM; 0.920 paridad CYPE frente a 0.913 de CYPE), cortante 0.814, disposiciones (As 58.9 ≤ 0.04Ac = 64 cm²), sin fisurar en cuasipermanente (bolardo ψ2 0). σc ≤ 0.6fck (A19.7.2(2), XS) superada en cabeza de P1, P2, P3, P16 con Ecm para toda la carga característica (máx 1.109); con Ec,eff para la parte sostenida todas cumplen (máx 0.966). A19.7.2(2) admite 'otras medidas' como el confinamiento con armadura transversal -> FINAL: se mantiene 12Ø25 y se reduce la separación de los cercos a Ø10 c/100 en los 0.40 m superiores de cada pilote (zona extrema, A19.9.5.3(4)); veredicto CUMPLE con esa medida. As,nec = 58.43 cm² (cabeza P3, ROM) frente a 58.91 dispuesta (0.99): 12Ø25 es necesaria y suficiente; los pilotes de tierra necesitarían ~39-46 cm² (16Ø20) pero se mantiene un pilote prefabricado uniforme."
+  ],
+  [
+   "F2",
+   "Tiro de bolardo ψ2 = 0",
+   "Se mantiene ψ2 = 0 como en el proyecto original (el tiro de amarre no es cuasipermanente en un muelle pesquero); con 0.5 fisurarían seis pilotes (wk hasta 0.153 mm > 0.1) y ninguna armadura dentro de As,max lo resuelve -> documentado como hipótesis."
+  ],
+  [
+   "F3",
+   "Vigas transversales interiores (ejes 2-6, T invertida)",
+   "ELU flexión (máx 0.88), cortante incl. armadura de suspensión de las alas (máx 0.72 con cot θ óptimo), disposiciones y flecha cumplen. La fisuración NO cumple con ψ2 0.8 de la ROM (M_qp 137-152 kN·m > Mcr 125 kN·m; wk 0.155-0.172 mm > 0.1 mm; el 7Ø20 inferior dispuesto sólo cumple para ψ2,Qa ≤ 0.58-0.70). FINAL: armadura inferior 8Ø20 en el alma + 4Ø16 en las alas (33.18 cm², wk 0.096 mm) en lugar de 5Ø20 + 2Ø20 (21.99 cm²); superior 5Ø20 y estribos (1 cerco Ø10 + 1 rama Ø10 + cerco de alas, 3 ramas Ø10 c/100) sin cambio. Con ψ2 0.3 de CYPE el armado dispuesto cumple (como obtuvo CYPE)."
+  ],
+  [
+   "F4",
+   "Vigas extremas (ejes 1 y 7, L invertida 80x55+15x30)",
+   "CUMPLE con el armado dispuesto (determinante: cordón traccionado por torsión 0.973, flexión 0.873). Sensibilidad: si las alveoplacas apoyan en la única ala a ~0.42 m del eje del pilote (no modelado ni en SAP ni en CYPE: 'la alveoplaca apoya en el eje de los pilotes'), la torsión de equilibrio ~56-61 kN·m en las caras de los pilotes lleva el cordón a 1.18 -> verificar el detalle de apoyo; si se confirma, superior 4Ø25 en lugar de 5Ø20."
+  ],
+  [
+   "F5",
+   "Vigas de borde 25x30 (2Ø16 sup./inf., Ø8/150)",
+   "En nuestro modelo SAP comparten la carga del forjado con la lámina ortótropa (V ~2x y M +13-21 % frente a CYPE) -> la fisuración no cumple (wk 0.31 mm en apoyos, momento negativo) y el cortante con θ = 45° es 1.04-1.08 (cumple con cot θ óptimo). FINAL (condicionado al reparto de SAP): superior 3Ø25 sobre los apoyos (wk 0.067 mm); alternativa: viga de borde más canto; si sólo aplica la carga por bandas de CYPE, las barras dispuestas bastan en ELU."
+  ],
+  [
+   "F6",
+   "Decalaje / shift rule (información)",
+   "Con cot θ = 2, la regla de decalaje (A19.6.2.3(7)/9.2.1.3) en la cara mar del pilote limitada al momento del nudo (eje del pilote) elevaría el cordón superior a 1.03-1.18; recomendación: no cortar las barras superiores dentro de al = z·cot θ/2 ≈ 0.43 m de las caras de los pilotes y anclarlas por completo sobre los pilotes; con cot θ = 1 (CYPE) el efecto es menor. No forma parte del veredicto."
+  ],
+  [
+   "F7",
+   "Comprobación EC2 propia de SAP2000",
+   "La ratio de los pilotes en SAP será ~0.71 (SAP usa M0e = 0.6M02 + 0.4M01 ≥ 0.4M02 y espera un análisis P-Delta): no comparable con nuestro 2º orden 0.93-0.99; rige nuestro veredicto. SAP no comprueba wk XS3, la convención ν1/fywd del CE, As,min española ni la armadura de suspensión de las alas."
+  ],
+  [
+   "F8",
+   "Anejo 10: qué hizo CYPE bien / mal",
+   "Resultados de CYPE reproducidos exactamente (capacidades 0.00 %); su veredicto de fisuración depende de ψ2 0.3 (valor de edificación); no comprobó la armadura de suspensión de las alas, el límite de tensión característica ni la torsión del ala de las vigas extremas; el 'Aprov.' del listado = 1.014 × η del rayo (sin explicar); error aritmético en el texto del Anejo 10: 410/4.65 = 88 kN (no 83)."
+  ]
+ ],
+ "warnings": [],
+ "piles": [
+  {
+   "pile": "P1",
+   "side": "mar",
+   "axis": 1,
+   "uls[CYPE]": 0.87219,
+   "nm2[CYPE]": 0.87219,
+   "nm1[CYPE]": 0.69885,
+   "shear[CYPE]": 0.57151,
+   "verdict[CYPE]": "NO CUMPLE",
+   "uls[CE-CYPE]": 0.8821,
+   "nm2[CE-CYPE]": 0.8821,
+   "nm1[CE-CYPE]": 0.70433,
+   "shear[CE-CYPE]": 0.55999,
+   "verdict[CE-CYPE]": "NO CUMPLE",
+   "uls[CE-ROM]": 0.91918,
+   "nm2[CE-ROM]": 0.91918,
+   "nm1[CE-ROM]": 0.71886,
+   "shear[CE-ROM]": 0.55999,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "sls[CE-ROM]": 1.109,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 1.109,
+   "sigma_c_eff": 0.96603,
+   "verdict_final": "CUMPLE (confinamiento)",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": "σc/0.6fck = 1.109 (Ecm) / 0.966 (Ec,eff): confinamiento A19.7.2(2)"
+  },
+  {
+   "pile": "P2",
+   "side": "tierra",
+   "axis": 1,
+   "uls[CYPE]": 0.83675,
+   "nm2[CYPE]": null,
+   "nm1[CYPE]": 0.8113,
+   "shear[CYPE]": 0.83675,
+   "verdict[CYPE]": "NO CUMPLE",
+   "uls[CE-CYPE]": 0.81466,
+   "nm2[CE-CYPE]": 0.7767,
+   "nm1[CE-CYPE]": 0.81466,
+   "shear[CE-CYPE]": 0.81373,
+   "verdict[CE-CYPE]": "NO CUMPLE",
+   "uls[CE-ROM]": 0.81466,
+   "nm2[CE-ROM]": 0.77359,
+   "nm1[CE-ROM]": 0.81466,
+   "shear[CE-ROM]": 0.81373,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "sls[CE-ROM]": 1.055,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 1.055,
+   "sigma_c_eff": 0.8988,
+   "verdict_final": "CUMPLE (confinamiento)",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": "σc/0.6fck = 1.055 (Ecm) / 0.899 (Ec,eff): confinamiento A19.7.2(2)"
+  },
+  {
+   "pile": "P3",
+   "side": "mar",
+   "axis": 2,
+   "uls[CYPE]": 0.92019,
+   "nm2[CYPE]": 0.92019,
+   "nm1[CYPE]": 0.67217,
+   "shear[CYPE]": 0.54922,
+   "verdict[CYPE]": "NO CUMPLE",
+   "uls[CE-CYPE]": 0.93335,
+   "nm2[CE-CYPE]": 0.93335,
+   "nm1[CE-CYPE]": 0.67869,
+   "shear[CE-CYPE]": 0.53848,
+   "verdict[CE-CYPE]": "NO CUMPLE",
+   "uls[CE-ROM]": 0.98746,
+   "nm2[CE-ROM]": 0.98746,
+   "nm1[CE-ROM]": 0.69475,
+   "shear[CE-ROM]": 0.53848,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "sls[CE-ROM]": 1.01,
+   "eta_final": 0.98746,
+   "gov_final": "N-M 2º orden",
+   "sigma_c": 1.01,
+   "sigma_c_eff": 0.92292,
+   "verdict_final": "CUMPLE (confinamiento)",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": "σc/0.6fck = 1.010 (Ecm) / 0.923 (Ec,eff): confinamiento A19.7.2(2)"
+  },
+  {
+   "pile": "P4",
+   "side": "tierra",
+   "axis": 2,
+   "uls[CYPE]": 0.76028,
+   "nm2[CYPE]": 0.44742,
+   "nm1[CYPE]": 0.76028,
+   "shear[CYPE]": 0.75429,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.7636,
+   "nm2[CE-CYPE]": 0.67424,
+   "nm1[CE-CYPE]": 0.7636,
+   "shear[CE-CYPE]": 0.73427,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.7636,
+   "nm2[CE-ROM]": 0.63796,
+   "nm1[CE-ROM]": 0.7636,
+   "shear[CE-ROM]": 0.73427,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.80579,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.80579,
+   "sigma_c_eff": 0.75228,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P5",
+   "side": "mar",
+   "axis": 3,
+   "uls[CYPE]": 0.86534,
+   "nm2[CYPE]": 0.86534,
+   "nm1[CYPE]": 0.64428,
+   "shear[CYPE]": 0.52539,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.87855,
+   "nm2[CE-CYPE]": 0.87855,
+   "nm1[CE-CYPE]": 0.65165,
+   "shear[CE-CYPE]": 0.51512,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.91514,
+   "nm2[CE-ROM]": 0.91514,
+   "nm1[CE-ROM]": 0.65165,
+   "shear[CE-ROM]": 0.51512,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.89286,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.89286,
+   "sigma_c_eff": 0.83614,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P6",
+   "side": "tierra",
+   "axis": 3,
+   "uls[CYPE]": 0.76567,
+   "nm2[CYPE]": 0.25466,
+   "nm1[CYPE]": 0.75958,
+   "shear[CYPE]": 0.76567,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.76282,
+   "nm2[CE-CYPE]": 0.67958,
+   "nm1[CE-CYPE]": 0.76282,
+   "shear[CE-CYPE]": 0.745,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.76282,
+   "nm2[CE-ROM]": 0.6461,
+   "nm1[CE-ROM]": 0.76282,
+   "shear[CE-ROM]": 0.745,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.79872,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.79872,
+   "sigma_c_eff": 0.75288,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P7",
+   "side": "mar",
+   "axis": 4,
+   "uls[CYPE]": 0.86555,
+   "nm2[CYPE]": 0.86555,
+   "nm1[CYPE]": 0.64783,
+   "shear[CYPE]": 0.53466,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.87825,
+   "nm2[CE-CYPE]": 0.87825,
+   "nm1[CE-CYPE]": 0.65482,
+   "shear[CE-CYPE]": 0.52412,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.92353,
+   "nm2[CE-ROM]": 0.92353,
+   "nm1[CE-ROM]": 0.66292,
+   "shear[CE-ROM]": 0.52412,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.90034,
+   "eta_final": 0.92353,
+   "gov_final": "N-M 2º orden",
+   "sigma_c": 0.90034,
+   "sigma_c_eff": 0.83695,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P8",
+   "side": "tierra",
+   "axis": 4,
+   "uls[CYPE]": 0.73624,
+   "nm2[CYPE]": 0.42031,
+   "nm1[CYPE]": 0.73624,
+   "shear[CYPE]": 0.73029,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.73943,
+   "nm2[CE-CYPE]": 0.65452,
+   "nm1[CE-CYPE]": 0.73943,
+   "shear[CE-CYPE]": 0.71089,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.73943,
+   "nm2[CE-ROM]": 0.62016,
+   "nm1[CE-ROM]": 0.73943,
+   "shear[CE-ROM]": 0.71089,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.7766,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.7766,
+   "sigma_c_eff": 0.73041,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P13",
+   "side": "mar",
+   "axis": 5,
+   "uls[CYPE]": 0.84217,
+   "nm2[CYPE]": 0.84217,
+   "nm1[CYPE]": 0.62049,
+   "shear[CYPE]": 0.50912,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.8551,
+   "nm2[CE-CYPE]": 0.8551,
+   "nm1[CE-CYPE]": 0.62731,
+   "shear[CE-CYPE]": 0.49914,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.89266,
+   "nm2[CE-ROM]": 0.89266,
+   "nm1[CE-ROM]": 0.62995,
+   "shear[CE-ROM]": 0.49914,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.87339,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.87339,
+   "sigma_c_eff": 0.81582,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P14",
+   "side": "tierra",
+   "axis": 5,
+   "uls[CYPE]": 0.73408,
+   "nm2[CYPE]": 0.25466,
+   "nm1[CYPE]": 0.73183,
+   "shear[CYPE]": 0.73408,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.73497,
+   "nm2[CE-CYPE]": 0.65124,
+   "nm1[CE-CYPE]": 0.73497,
+   "shear[CE-CYPE]": 0.71437,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.73497,
+   "nm2[CE-ROM]": 0.61785,
+   "nm1[CE-ROM]": 0.73497,
+   "shear[CE-ROM]": 0.71437,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.76565,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.76565,
+   "sigma_c_eff": 0.72033,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P15",
+   "side": "mar",
+   "axis": 6,
+   "uls[CYPE]": 0.86848,
+   "nm2[CYPE]": 0.86848,
+   "nm1[CYPE]": 0.6259,
+   "shear[CYPE]": 0.51663,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.88119,
+   "nm2[CE-CYPE]": 0.88119,
+   "nm1[CE-CYPE]": 0.63337,
+   "shear[CE-CYPE]": 0.50646,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.93665,
+   "nm2[CE-ROM]": 0.93665,
+   "nm1[CE-ROM]": 0.6495,
+   "shear[CE-ROM]": 0.50646,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.94693,
+   "eta_final": 0.93665,
+   "gov_final": "N-M 2º orden",
+   "sigma_c": 0.94693,
+   "sigma_c_eff": 0.86173,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P16",
+   "side": "mar",
+   "axis": 7,
+   "uls[CYPE]": 0.79538,
+   "nm2[CYPE]": 0.79538,
+   "nm1[CYPE]": 0.63874,
+   "shear[CYPE]": 0.5303,
+   "verdict[CYPE]": "NO CUMPLE",
+   "uls[CE-CYPE]": 0.80429,
+   "nm2[CE-CYPE]": 0.80429,
+   "nm1[CE-CYPE]": 0.64369,
+   "shear[CE-CYPE]": 0.51934,
+   "verdict[CE-CYPE]": "NO CUMPLE",
+   "uls[CE-ROM]": 0.84282,
+   "nm2[CE-ROM]": 0.84282,
+   "nm1[CE-ROM]": 0.65869,
+   "shear[CE-ROM]": 0.51934,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "sls[CE-ROM]": 1.034,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 1.034,
+   "sigma_c_eff": 0.88954,
+   "verdict_final": "CUMPLE (confinamiento)",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": "σc/0.6fck = 1.034 (Ecm) / 0.890 (Ec,eff): confinamiento A19.7.2(2)"
+  },
+  {
+   "pile": "P17",
+   "side": "tierra",
+   "axis": 6,
+   "uls[CYPE]": 0.70695,
+   "nm2[CYPE]": 0.42581,
+   "nm1[CYPE]": 0.70695,
+   "shear[CYPE]": 0.69299,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.71003,
+   "nm2[CE-CYPE]": 0.62111,
+   "nm1[CE-CYPE]": 0.71003,
+   "shear[CE-CYPE]": 0.67477,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.71003,
+   "nm2[CE-ROM]": 0.58499,
+   "nm1[CE-ROM]": 0.71003,
+   "shear[CE-ROM]": 0.67477,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.75964,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.75964,
+   "sigma_c_eff": 0.7056,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  },
+  {
+   "pile": "P18",
+   "side": "tierra",
+   "axis": 7,
+   "uls[CYPE]": 0.73864,
+   "nm2[CYPE]": null,
+   "nm1[CYPE]": 0.72743,
+   "shear[CYPE]": 0.73864,
+   "verdict[CYPE]": "CUMPLE",
+   "uls[CE-CYPE]": 0.73046,
+   "nm2[CE-CYPE]": 0.69314,
+   "nm1[CE-CYPE]": 0.73046,
+   "shear[CE-CYPE]": 0.71863,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "uls[CE-ROM]": 0.73046,
+   "nm2[CE-ROM]": 0.69007,
+   "nm1[CE-ROM]": 0.73046,
+   "shear[CE-ROM]": 0.71863,
+   "verdict[CE-ROM]": "CUMPLE",
+   "sls[CE-ROM]": 0.96316,
+   "eta_final": 0.92039,
+   "gov_final": "disposiciones (As ≤ 0.04Ac)",
+   "sigma_c": 0.96316,
+   "sigma_c_eff": 0.80537,
+   "verdict_final": "CUMPLE",
+   "final_layout": "12Ø25; cercos Ø10 c/150, c/100 en 0.40 m superiores",
+   "note": ""
+  }
+ ],
+ "pile_key": {
+  "nm2_max": {
+   "CYPE": {
+    "eta": 0.92019,
+    "pile": "P3"
+   },
+   "CE-CYPE": {
+    "eta": 0.93335,
+    "pile": "P3"
+   },
+   "CE-ROM": {
+    "eta": 0.98746,
+    "pile": "P3"
+   }
+  },
+  "shear_max": 0.81373,
+  "sigma_c_max": 1.109,
+  "sigma_c_eff_max": 0.96603,
+  "sigma_c_fail": [
+   "P1",
+   "P2",
+   "P3",
+   "P16"
+  ],
+  "crack_max": 0.76431,
+  "nm2_row": {
+   "pile": "P3",
+   "position": "Cabeza",
+   "zone": "fuste",
+   "check": "nm2",
+   "clause": "A19.5.2, A19.5.8.3.1, A19.5.8.8, A19.6.1",
+   "combo": "ELR08",
+   "combo_desc": "1.35·PP+1.35·CM+1.5·Qa+1.5·Tirobolardo",
+   "N": 736.06,
+   "MEd_x": 377.13,
+   "MEd_y": -91.893,
+   "NRd": 745.4,
+   "MRd_x": 381.92,
+   "MRd_y": -93.06,
+   "demand": 388.17,
+   "capacity": 393.1,
+   "eta": 0.98746,
+   "eta_N": 0.9891,
+   "eta_fast": 0.9878,
+   "exact": true,
+   "ok": true,
+   "e0_x": 401.14,
+   "e0_y": -26.559,
+   "lam": 58.024,
+   "lam_lim": 39.085,
+   "second_order": true,
+   "ei": 12.942,
+   "e2": 98.286,
+   "d": 306.96,
+   "Kr": 1.0,
+   "Kphi": 1.373,
+   "e2_other_d": 92.121,
+   "etot_x": 512.37,
+   "etot_y": -124.84,
+   "case": "ei en eje x",
+   "Cc": 1477.83,
+   "Cs": 503.63,
+   "T": 1236.05
+  },
+  "As_req_max": {
+   "pile": "P3",
+   "zone": "fuste",
+   "check": "As necesaria (N-M, 1er y 2º orden)",
+   "clause": "A19.5.2, A19.5.8.3.1, A19.5.8.8, A19.6.1",
+   "combo": "ELR08",
+   "position": "Cabeza",
+   "As_req_cm2": 58.427,
+   "As_prov_cm2": 58.905,
+   "ratio": 0.99189,
+   "eta_prov": 0.9878,
+   "eta_at_As_req": 0.99349,
+   "demand": 58.427,
+   "capacity": 58.905,
+   "eta": 0.99189,
+   "ok": true,
+   "note": "interpolated on the Ø grid (hull screening)",
+   "practical": "12Ø25 Ø8 c/15",
+   "practical_As_cm2": 58.905,
+   "practical_eta": 0.97559
+  },
+  "As_prov": 58.905,
+  "tb05_fail": [
+   "P1",
+   "P2",
+   "P3",
+   "P15",
+   "P16",
+   "P18"
+  ],
+  "tb05_max_wk": 0.15251,
+  "kg_per_m": 60.215,
+  "extra_tie_kg_per_pile": 2.795
+ },
+ "confinement": [
+  {
+   "s_mm": 150.0,
+   "b0_mm": 290.0,
+   "alpha_n": 0.8281807372175981,
+   "alpha_s": 0.5496432818073722,
+   "rho_w": 0.007222052077217916,
+   "sigma2_MPa": 1.4293507988193108,
+   "fck_c": 57.14675399409656,
+   "limit_0.6fckc": 34.288052396457935
+  },
+  {
+   "s_mm": 100.0,
+   "b0_mm": 290.0,
+   "alpha_n": 0.8281807372175981,
+   "alpha_s": 0.6848989298454221,
+   "rho_w": 0.010833078115826874,
+   "sigma2_MPa": 2.671625938734201,
+   "fck_c": 62.9290648468355,
+   "limit_0.6fckc": 37.7574389081013
+  }
+ ],
+ "beams": [
+  {
+   "member": "VT1",
+   "name": "Eje 1 (pórtico 3)",
+   "group": "end",
+   "section": "80x55+15x30",
+   "uls[CYPE]": 0.9635,
+   "sls[CYPE]": 0.7146,
+   "verdict[CYPE]": "CUMPLE",
+   "flexión ELU[CYPE]": 0.9249,
+   "cortante[CYPE]": 0.7211,
+   "torsión[CYPE]": 0.9635,
+   "disposiciones[CYPE]": 0.9583,
+   "fisuración ELS[CYPE]": 0.0,
+   "tensiones ELS[CYPE]": 0.7146,
+   "flecha[CYPE]": 0.0399,
+   "uls[CE-CYPE]": 0.9493,
+   "sls[CE-CYPE]": 0.7146,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.8721,
+   "cortante[CE-CYPE]": 0.4273,
+   "torsión[CE-CYPE]": 0.9493,
+   "disposiciones[CE-CYPE]": 0.9583,
+   "fisuración ELS[CE-CYPE]": 0.0,
+   "tensiones ELS[CE-CYPE]": 0.7146,
+   "flecha[CE-CYPE]": 0.0399,
+   "uls[CE-ROM]": 0.9727,
+   "sls[CE-ROM]": 0.7146,
+   "verdict[CE-ROM]": "CUMPLE",
+   "flexión ELU[CE-ROM]": 0.8725,
+   "cortante[CE-ROM]": 0.478,
+   "torsión[CE-ROM]": 0.9727,
+   "disposiciones[CE-ROM]": 0.9583,
+   "fisuración ELS[CE-ROM]": 0.0,
+   "tensiones ELS[CE-ROM]": 0.7146,
+   "flecha[CE-ROM]": 0.0689,
+   "final": {
+    "flexión ELU": 0.8725,
+    "cortante": 0.478,
+    "torsión": 0.9727,
+    "disposiciones": 0.9583,
+    "fisuración ELS": 0.0,
+    "tensiones ELS": 0.7146,
+    "flecha": 0.0689
+   },
+   "final_info": {
+    "torsión ala [sensib.]": 1.1845,
+    "fisuración TB 0.5 [sensib.]": 0.0
+   },
+   "eta_final": 0.9727,
+   "gov_final": "torsión",
+   "verdict_final": "CUMPLE",
+   "changed": false
+  },
+  {
+   "member": "VT2",
+   "name": "Eje 2 (pórtico 4)",
+   "group": "inner",
+   "section": "50x55+15x30+15x30",
+   "uls[CYPE]": 0.9436,
+   "sls[CYPE]": 0.6219,
+   "verdict[CYPE]": "CUMPLE",
+   "flexión ELU[CYPE]": 0.8102,
+   "cortante[CYPE]": 0.9436,
+   "torsión[CYPE]": null,
+   "disposiciones[CYPE]": 0.5417,
+   "fisuración ELS[CYPE]": 0.0,
+   "tensiones ELS[CYPE]": 0.6219,
+   "flecha[CYPE]": 0.0977,
+   "uls[CE-CYPE]": 0.7662,
+   "sls[CE-CYPE]": 0.6219,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.7662,
+   "cortante[CE-CYPE]": 0.634,
+   "torsión[CE-CYPE]": null,
+   "disposiciones[CE-CYPE]": 0.5417,
+   "fisuración ELS[CE-CYPE]": 0.0,
+   "tensiones ELS[CE-CYPE]": 0.6219,
+   "flecha[CE-CYPE]": 0.0977,
+   "uls[CE-ROM]": 0.77,
+   "sls[CE-ROM]": 1.7202,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "flexión ELU[CE-ROM]": 0.77,
+   "cortante[CE-ROM]": 0.717,
+   "torsión[CE-ROM]": null,
+   "disposiciones[CE-ROM]": 0.5417,
+   "fisuración ELS[CE-ROM]": 1.7202,
+   "tensiones ELS[CE-ROM]": 0.6219,
+   "flecha[CE-ROM]": 0.1784,
+   "final": {
+    "flexión ELU": 0.7695,
+    "cortante": 0.717,
+    "torsión": null,
+    "disposiciones": 0.7955,
+    "fisuración ELS": 0.9618,
+    "tensiones ELS": 0.6096,
+    "flecha": 0.1688
+   },
+   "final_info": {
+    "torsión [info]": 0.832,
+    "fisuración TB 0.5 [sensib.]": 1.0386
+   },
+   "eta_final": 0.9618,
+   "gov_final": "fisuración ELS",
+   "verdict_final": "CUMPLE",
+   "changed": true
+  },
+  {
+   "member": "VT3",
+   "name": "Eje 3 (pórtico 5)",
+   "group": "inner",
+   "section": "50x55+15x30+15x30",
+   "uls[CYPE]": 0.9262,
+   "sls[CYPE]": 0.6955,
+   "verdict[CYPE]": "CUMPLE",
+   "flexión ELU[CYPE]": 0.9262,
+   "cortante[CYPE]": 0.9227,
+   "torsión[CYPE]": null,
+   "disposiciones[CYPE]": 0.5417,
+   "fisuración ELS[CYPE]": 0.0,
+   "tensiones ELS[CYPE]": 0.6955,
+   "flecha[CYPE]": 0.0882,
+   "uls[CE-CYPE]": 0.8759,
+   "sls[CE-CYPE]": 0.6955,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.8759,
+   "cortante[CE-CYPE]": 0.6106,
+   "torsión[CE-CYPE]": null,
+   "disposiciones[CE-CYPE]": 0.5417,
+   "fisuración ELS[CE-CYPE]": 0.0,
+   "tensiones ELS[CE-CYPE]": 0.6955,
+   "flecha[CE-CYPE]": 0.0882,
+   "uls[CE-ROM]": 0.8789,
+   "sls[CE-ROM]": 1.5498,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "flexión ELU[CE-ROM]": 0.8789,
+   "cortante[CE-ROM]": 0.7,
+   "torsión[CE-ROM]": null,
+   "disposiciones[CE-ROM]": 0.5417,
+   "fisuración ELS[CE-ROM]": 1.5498,
+   "tensiones ELS[CE-ROM]": 0.6955,
+   "flecha[CE-ROM]": 0.1606,
+   "final": {
+    "flexión ELU": 0.8784,
+    "cortante": 0.7,
+    "torsión": null,
+    "disposiciones": 0.7955,
+    "fisuración ELS": 0.8665,
+    "tensiones ELS": 0.6967,
+    "flecha": 0.152
+   },
+   "final_info": {
+    "torsión [info]": 0.8829,
+    "fisuración TB 0.5 [sensib.]": 1.5653
+   },
+   "eta_final": 0.8784,
+   "gov_final": "flexión ELU",
+   "verdict_final": "CUMPLE",
+   "changed": true
+  },
+  {
+   "member": "VT4",
+   "name": "Eje 4 (pórtico 6)",
+   "group": "inner",
+   "section": "50x55+15x30+15x30",
+   "uls[CYPE]": 0.8874,
+   "sls[CYPE]": 0.588,
+   "verdict[CYPE]": "CUMPLE",
+   "flexión ELU[CYPE]": 0.7829,
+   "cortante[CYPE]": 0.8874,
+   "torsión[CYPE]": null,
+   "disposiciones[CYPE]": 0.5417,
+   "fisuración ELS[CYPE]": 0.0,
+   "tensiones ELS[CYPE]": 0.588,
+   "flecha[CYPE]": 0.0901,
+   "uls[CE-CYPE]": 0.7404,
+   "sls[CE-CYPE]": 0.588,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.7404,
+   "cortante[CE-CYPE]": 0.6039,
+   "torsión[CE-CYPE]": null,
+   "disposiciones[CE-CYPE]": 0.5417,
+   "fisuración ELS[CE-CYPE]": 0.0,
+   "tensiones ELS[CE-CYPE]": 0.588,
+   "flecha[CE-CYPE]": 0.0901,
+   "uls[CE-ROM]": 0.7439,
+   "sls[CE-ROM]": 1.5836,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "flexión ELU[CE-ROM]": 0.7439,
+   "cortante[CE-ROM]": 0.684,
+   "torsión[CE-ROM]": null,
+   "disposiciones[CE-ROM]": 0.5417,
+   "fisuración ELS[CE-ROM]": 1.5836,
+   "tensiones ELS[CE-ROM]": 0.588,
+   "flecha[CE-ROM]": 0.1641,
+   "final": {
+    "flexión ELU": 0.7434,
+    "cortante": 0.684,
+    "torsión": null,
+    "disposiciones": 0.7955,
+    "fisuración ELS": 0.8854,
+    "tensiones ELS": 0.5891,
+    "flecha": 0.1553
+   },
+   "final_info": {
+    "torsión [info]": 0.7462,
+    "fisuración TB 0.5 [sensib.]": 0.9642
+   },
+   "eta_final": 0.8854,
+   "gov_final": "fisuración ELS",
+   "verdict_final": "CUMPLE",
+   "changed": true
+  },
+  {
+   "member": "VT5",
+   "name": "Eje 5 (pórtico 7)",
+   "group": "inner",
+   "section": "50x55+15x30+15x30",
+   "uls[CYPE]": 0.9084,
+   "sls[CYPE]": 0.6752,
+   "verdict[CYPE]": "CUMPLE",
+   "flexión ELU[CYPE]": 0.8991,
+   "cortante[CYPE]": 0.9084,
+   "torsión[CYPE]": null,
+   "disposiciones[CYPE]": 0.5417,
+   "fisuración ELS[CYPE]": 0.0,
+   "tensiones ELS[CYPE]": 0.6752,
+   "flecha[CYPE]": 0.0882,
+   "uls[CE-CYPE]": 0.8503,
+   "sls[CE-CYPE]": 0.6752,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.8503,
+   "cortante[CE-CYPE]": 0.6063,
+   "torsión[CE-CYPE]": null,
+   "disposiciones[CE-CYPE]": 0.5417,
+   "fisuración ELS[CE-CYPE]": 0.0,
+   "tensiones ELS[CE-CYPE]": 0.6752,
+   "flecha[CE-CYPE]": 0.0882,
+   "uls[CE-ROM]": 0.8533,
+   "sls[CE-ROM]": 1.5498,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "flexión ELU[CE-ROM]": 0.8533,
+   "cortante[CE-ROM]": 0.6929,
+   "torsión[CE-ROM]": null,
+   "disposiciones[CE-ROM]": 0.5417,
+   "fisuración ELS[CE-ROM]": 1.5498,
+   "tensiones ELS[CE-ROM]": 0.6752,
+   "flecha[CE-ROM]": 0.1606,
+   "final": {
+    "flexión ELU": 0.8528,
+    "cortante": 0.6929,
+    "torsión": null,
+    "disposiciones": 0.7955,
+    "fisuración ELS": 0.8665,
+    "tensiones ELS": 0.6764,
+    "flecha": 0.152
+   },
+   "final_info": {
+    "torsión [info]": 0.863,
+    "fisuración TB 0.5 [sensib.]": 0.9183
+   },
+   "eta_final": 0.8665,
+   "gov_final": "fisuración ELS",
+   "verdict_final": "CUMPLE",
+   "changed": true
+  },
+  {
+   "member": "VT6",
+   "name": "Eje 6 (pórtico 8)",
+   "group": "inner",
+   "section": "50x55+15x30+15x30",
+   "uls[CYPE]": 0.9149,
+   "sls[CYPE]": 0.6094,
+   "verdict[CYPE]": "CUMPLE",
+   "flexión ELU[CYPE]": 0.7561,
+   "cortante[CYPE]": 0.9149,
+   "torsión[CYPE]": null,
+   "disposiciones[CYPE]": 0.5417,
+   "fisuración ELS[CYPE]": 0.0,
+   "tensiones ELS[CYPE]": 0.6094,
+   "flecha[CYPE]": 0.0977,
+   "uls[CE-CYPE]": 0.7151,
+   "sls[CE-CYPE]": 0.6094,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.7151,
+   "cortante[CE-CYPE]": 0.6254,
+   "torsión[CE-CYPE]": null,
+   "disposiciones[CE-CYPE]": 0.5417,
+   "fisuración ELS[CE-CYPE]": 0.0,
+   "tensiones ELS[CE-CYPE]": 0.6094,
+   "flecha[CE-CYPE]": 0.0977,
+   "uls[CE-ROM]": 0.7188,
+   "sls[CE-ROM]": 1.7202,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "flexión ELU[CE-ROM]": 0.7188,
+   "cortante[CE-ROM]": 0.7027,
+   "torsión[CE-ROM]": null,
+   "disposiciones[CE-ROM]": 0.5417,
+   "fisuración ELS[CE-ROM]": 1.7202,
+   "tensiones ELS[CE-ROM]": 0.6094,
+   "flecha[CE-ROM]": 0.1784,
+   "final": {
+    "flexión ELU": 0.7184,
+    "cortante": 0.7027,
+    "torsión": null,
+    "disposiciones": 0.7955,
+    "fisuración ELS": 0.9618,
+    "tensiones ELS": 0.5689,
+    "flecha": 0.1688
+   },
+   "final_info": {
+    "torsión [info]": 0.7751,
+    "fisuración TB 0.5 [sensib.]": 1.0267
+   },
+   "eta_final": 0.9618,
+   "gov_final": "fisuración ELS",
+   "verdict_final": "CUMPLE",
+   "changed": true
+  },
+  {
+   "member": "VT7",
+   "name": "Eje 7 (pórtico 9)",
+   "group": "end",
+   "section": "80x55+15x30",
+   "uls[CYPE]": 0.8884,
+   "sls[CYPE]": 0.6537,
+   "verdict[CYPE]": "CUMPLE",
+   "flexión ELU[CYPE]": 0.8462,
+   "cortante[CYPE]": 0.6777,
+   "torsión[CYPE]": 0.8884,
+   "disposiciones[CYPE]": 0.9583,
+   "fisuración ELS[CYPE]": 0.0,
+   "tensiones ELS[CYPE]": 0.6537,
+   "flecha[CYPE]": 0.0399,
+   "uls[CE-CYPE]": 0.8824,
+   "sls[CE-CYPE]": 0.6537,
+   "verdict[CE-CYPE]": "CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.7979,
+   "cortante[CE-CYPE]": 0.4056,
+   "torsión[CE-CYPE]": 0.8824,
+   "disposiciones[CE-CYPE]": 0.9583,
+   "fisuración ELS[CE-CYPE]": 0.0,
+   "tensiones ELS[CE-CYPE]": 0.6537,
+   "flecha[CE-CYPE]": 0.0399,
+   "uls[CE-ROM]": 0.9057,
+   "sls[CE-ROM]": 0.6537,
+   "verdict[CE-ROM]": "CUMPLE",
+   "flexión ELU[CE-ROM]": 0.7982,
+   "cortante[CE-ROM]": 0.4563,
+   "torsión[CE-ROM]": 0.9057,
+   "disposiciones[CE-ROM]": 0.9583,
+   "fisuración ELS[CE-ROM]": 0.0,
+   "tensiones ELS[CE-ROM]": 0.6537,
+   "flecha[CE-ROM]": 0.0689,
+   "final": {
+    "flexión ELU": 0.7982,
+    "cortante": 0.4563,
+    "torsión": 0.9057,
+    "disposiciones": 0.9583,
+    "fisuración ELS": 0.0,
+    "tensiones ELS": 0.6537,
+    "flecha": 0.0689
+   },
+   "final_info": {
+    "torsión ala [sensib.]": 1.1176,
+    "fisuración TB 0.5 [sensib.]": 0.0
+   },
+   "eta_final": 0.9583,
+   "gov_final": "disposiciones",
+   "verdict_final": "CUMPLE",
+   "changed": false
+  },
+  {
+   "member": "VBM",
+   "name": "Borde mar (pórtico 1)",
+   "group": "edge",
+   "section": "25x30",
+   "uls[CYPE]": 1.0413,
+   "sls[CYPE]": 1.5589,
+   "verdict[CYPE]": "NO CUMPLE",
+   "flexión ELU[CYPE]": 0.9366,
+   "cortante[CYPE]": 1.0413,
+   "torsión[CYPE]": null,
+   "disposiciones[CYPE]": 0.8547,
+   "fisuración ELS[CYPE]": 1.5589,
+   "tensiones ELS[CYPE]": 0.7715,
+   "flecha[CYPE]": 0.1838,
+   "uls[CE-CYPE]": 0.9275,
+   "sls[CE-CYPE]": 1.5589,
+   "verdict[CE-CYPE]": "NO CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.9275,
+   "cortante[CE-CYPE]": 0.5207,
+   "torsión[CE-CYPE]": null,
+   "disposiciones[CE-CYPE]": 0.8547,
+   "fisuración ELS[CE-CYPE]": 1.5589,
+   "tensiones ELS[CE-CYPE]": 0.7715,
+   "flecha[CE-CYPE]": 0.1838,
+   "uls[CE-ROM]": 0.9308,
+   "sls[CE-ROM]": 3.0634,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "flexión ELU[CE-ROM]": 0.9308,
+   "cortante[CE-ROM]": 0.5223,
+   "torsión[CE-ROM]": null,
+   "disposiciones[CE-ROM]": 0.8547,
+   "fisuración ELS[CE-ROM]": 3.0634,
+   "tensiones ELS[CE-ROM]": 0.7715,
+   "flecha[CE-ROM]": 0.3283,
+   "final": {
+    "flexión ELU": 0.444,
+    "cortante": 0.5328,
+    "torsión": null,
+    "disposiciones": 0.8715,
+    "fisuración ELS": 0.6663,
+    "tensiones ELS": 0.4852,
+    "flecha": 0.2854
+   },
+   "final_info": {
+    "torsión [info]": 0.8479,
+    "fisuración TB 0.5 [sensib.]": 0.671
+   },
+   "eta_final": 0.8715,
+   "gov_final": "disposiciones",
+   "verdict_final": "CUMPLE",
+   "changed": true
+  },
+  {
+   "member": "VBT",
+   "name": "Borde tierra (pórtico 10)",
+   "group": "edge",
+   "section": "25x30",
+   "uls[CYPE]": 1.0808,
+   "sls[CYPE]": 1.5664,
+   "verdict[CYPE]": "NO CUMPLE",
+   "flexión ELU[CYPE]": 0.9515,
+   "cortante[CYPE]": 1.0808,
+   "torsión[CYPE]": null,
+   "disposiciones[CYPE]": 0.8547,
+   "fisuración ELS[CYPE]": 1.5664,
+   "tensiones ELS[CYPE]": 0.7891,
+   "flecha[CYPE]": 0.1836,
+   "uls[CE-CYPE]": 0.9423,
+   "sls[CE-CYPE]": 1.5664,
+   "verdict[CE-CYPE]": "NO CUMPLE",
+   "flexión ELU[CE-CYPE]": 0.9423,
+   "cortante[CE-CYPE]": 0.5404,
+   "torsión[CE-CYPE]": null,
+   "disposiciones[CE-CYPE]": 0.8547,
+   "fisuración ELS[CE-CYPE]": 1.5664,
+   "tensiones ELS[CE-CYPE]": 0.7891,
+   "flecha[CE-CYPE]": 0.1836,
+   "uls[CE-ROM]": 0.9526,
+   "sls[CE-ROM]": 3.0834,
+   "verdict[CE-ROM]": "NO CUMPLE",
+   "flexión ELU[CE-ROM]": 0.9526,
+   "cortante[CE-ROM]": 0.5474,
+   "torsión[CE-ROM]": null,
+   "disposiciones[CE-ROM]": 0.8547,
+   "fisuración ELS[CE-ROM]": 3.0834,
+   "tensiones ELS[CE-ROM]": 0.7891,
+   "flecha[CE-ROM]": 0.3279,
+   "final": {
+    "flexión ELU": 0.4461,
+    "cortante": 0.5584,
+    "torsión": null,
+    "disposiciones": 0.8715,
+    "fisuración ELS": 0.6708,
+    "tensiones ELS": 0.4962,
+    "flecha": 0.2851
+   },
+   "final_info": {
+    "torsión [info]": 0.8502,
+    "fisuración TB 0.5 [sensib.]": 0.6855
+   },
+   "eta_final": 0.8715,
+   "gov_final": "disposiciones",
+   "verdict_final": "CUMPLE",
+   "changed": true
+  }
+ ],
+ "schedule": [
+  {
+   "element": "Pilotes P1-P18 (14 ud., 40x40 HA-50 prefabricados)",
+   "top": "12Ø25 (4 por cara, ρ = 3.68 %)",
+   "bottom": "-",
+   "side": "-",
+   "transverse": "3 cercos Ø10 (2eØ10+1eØ10) c/150 en el fuste; c/100 en los 0.40 m superiores; arranque 1eØ8",
+   "change": "cercos Ø10 c/150 -> c/100 en 0.40 m superiores (confinamiento, +2.8 kg/pilote)",
+   "eta": 0.98746,
+   "gov": "N-M 2º orden, cabeza P3 (ELR08)",
+   "verdict": "CUMPLE (con cercos de confinamiento)"
+  },
+  {
+   "element": "Vigas interiores ejes 2-6 (T invertida 50x55+15x30+15x30)",
+   "top": "5Ø20 (15.71 cm²)",
+   "bottom": "8Ø20 alma + 4Ø16 alas (33.18 cm²)",
+   "side": "2Ø10 + 2Ø10 a 235 mm (alas / piel)",
+   "transverse": "cerco Ø10 + rama Ø10 (3 ramas en el alma) + cerco de alas Ø10, c/100",
+   "change": "inferior 7Ø20 (21.99 cm²) -> 8Ø20 alma + 4Ø16 alas (33.18 cm²); 32.1 -> 40.8 kg/m long.",
+   "eta": 0.9618,
+   "gov": "fisuración ELS (VT2) (wk = 0.096 mm, ψ2 0.8)",
+   "verdict": "CUMPLE"
+  },
+  {
+   "element": "Vigas extremas ejes 1 y 7 (L invertida 80x55+15x30)",
+   "top": "5Ø20 (15.71 cm²)",
+   "bottom": "5Ø20 alma + 1Ø20 ala (18.85 cm²)",
+   "side": "1Ø20 sup. ala + 2Ø10 a 235 mm",
+   "transverse": "cerco Ø10 + rama Ø10 (3 ramas) + cerco de ala Ø10, c/100",
+   "change": "ninguno (si las alveoplacas apoyan en el ala: superior 4Ø25 en lugar de 5Ø20, η 1.18 -> 0.98)",
+   "eta": 0.9727,
+   "gov": "torsión (VT1): cordón traccionado M/MRd + ΣAsl,T/As",
+   "verdict": "CUMPLE"
+  },
+  {
+   "element": "Vigas de borde pórticos 1 y 10 (25x30)",
+   "top": "3Ø25 sobre apoyos (14.73 cm²)",
+   "bottom": "2Ø16 (4.02 cm²)",
+   "side": "-",
+   "transverse": "cerco Ø8/150",
+   "change": "superior 2Ø16 -> 3Ø25 sobre apoyos (condicionado al reparto de carga de SAP, wk 0.067 mm)",
+   "eta": 0.8715,
+   "gov": "disposiciones (VBM)",
+   "verdict": "CUMPLE (condicionado, F5)"
+  }
+ ],
+ "proposal": {
+  "inner": {
+   "members": [
+    "VT2",
+    "VT3",
+    "VT4",
+    "VT5",
+    "VT6"
+   ],
+   "demands_kNm": {
+    "bottom": {
+     "uls": 315.95,
+     "qp": 151.9,
+     "char": 213.8
+    },
+    "top": {
+     "uls": 302.78,
+     "qp": 5.94,
+     "char": 200.26
+    }
+   },
+   "bottom": {
+    "provided": "7Ø20",
+    "provided_As_cm2": 21.99,
+    "provided_eta": 1.72,
+    "provided_etas": {
+     "uls": 0.697,
+     "as_min": 0.284,
+     "spacing": 0.429,
+     "clear": 0.4,
+     "wk": 1.72,
+     "sigma_s": 0.539,
+     "sigma_c": 0.622,
+     "chord": 0.0
+    },
+    "change": true,
+    "proposed": "8Ø20 alma + 4Ø16 alas",
+    "proposed_As_cm2": 33.18,
+    "proposed_eta": 0.962,
+    "proposed_etas": {
+     "uls": 0.488,
+     "as_min": 0.188,
+     "spacing": 0.283,
+     "clear": 0.795,
+     "wk": 0.962,
+     "sigma_s": 0.37,
+     "sigma_c": 0.534,
+     "chord": 0.0
+    },
+    "wk_mm": 0.096,
+    "candidates_tried": 115,
+    "alternatives": [
+     {
+      "layout": "3Ø25 alma + 6Ø20 alas",
+      "As_cm2": 33.58,
+      "eta": 0.999
+     },
+     {
+      "layout": "7Ø20 alma + 6Ø16 alas",
+      "As_cm2": 34.05,
+      "eta": 0.921
+     },
+     {
+      "layout": "11Ø20 (5 alma + 6 alas)",
+      "As_cm2": 34.56,
+      "eta": 0.926
+     },
+     {
+      "layout": "11Ø20 (9 alma + 2 alas)",
+      "As_cm2": 34.56,
+      "eta": 1.0
+     },
+     {
+      "layout": "11Ø20 (7 alma + 4 alas)",
+      "As_cm2": 34.56,
+      "eta": 0.926
+     }
+    ]
+   },
+   "top": {
+    "provided": "5Ø20",
+    "provided_As_cm2": 15.71,
+    "provided_eta": 0.878,
+    "provided_etas": {
+     "uls": 0.878,
+     "as_min": 0.318,
+     "spacing": 0.279,
+     "clear": 0.4,
+     "wk": 0.0,
+     "sigma_s": 0.697,
+     "sigma_c": 0.506,
+     "chord": 0.0
+    },
+    "change": false,
+    "proposed": "5Ø20",
+    "proposed_As_cm2": 15.71
+   },
+   "stirrups": {
+    "provided": "3 ramas Ø10/100 (1e+1r)",
+    "provided_eta": 0.717,
+    "provided_etas": {
+     "per_leg": 0.0,
+     "VRd_s": 0.544,
+     "V_hanger": 0.717,
+     "rho_w": 0.201,
+     "sl": 0.278,
+     "st": 0.542
+    },
+    "change": false,
+    "proposed": "3 ramas Ø10/100 (1e+1r)"
+   },
+   "weight_long_kg_m": {
+    "provided": 32.06,
+    "proposed": 40.84
+   },
+   "verification": {
+    "VT2": {
+     "flexión ELU": {
+      "eta": 0.7695,
+      "ok": true,
+      "check": "MEd <= MRd (hog)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.717,
+      "ok": true,
+      "check": "estribos V + suspensión alveoplaca (todas las ramas)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.7955,
+      "ok": true,
+      "check": "separación libre (bottom) >= smin",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.9618,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "sag",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.6096,
+      "ok": true,
+      "check": "sigma_s <= 0.8 fyk (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.1688,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "vano",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión [info]": {
+      "eta": 0.832,
+      "ok": null,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 1.0386,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "sag",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    },
+    "VT3": {
+     "flexión ELU": {
+      "eta": 0.8784,
+      "ok": true,
+      "check": "MEd <= MRd (hog)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.7,
+      "ok": true,
+      "check": "estribos V + suspensión alveoplaca (todas las ramas)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.7955,
+      "ok": true,
+      "check": "separación libre (bottom) >= smin",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.8665,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "sag",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.6967,
+      "ok": true,
+      "check": "sigma_s <= 0.8 fyk (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.152,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "vano",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión [info]": {
+      "eta": 0.8829,
+      "ok": null,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 1.5653,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "hog",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    },
+    "VT4": {
+     "flexión ELU": {
+      "eta": 0.7434,
+      "ok": true,
+      "check": "MEd <= MRd (hog)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.684,
+      "ok": true,
+      "check": "estribos V + suspensión alveoplaca (todas las ramas)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.7955,
+      "ok": true,
+      "check": "separación libre (bottom) >= smin",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.8854,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "sag",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.5891,
+      "ok": true,
+      "check": "sigma_s <= 0.8 fyk (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.1553,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "vano",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión [info]": {
+      "eta": 0.7462,
+      "ok": null,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 0.9642,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "sag",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    },
+    "VT5": {
+     "flexión ELU": {
+      "eta": 0.8528,
+      "ok": true,
+      "check": "MEd <= MRd (hog)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.6929,
+      "ok": true,
+      "check": "estribos V + suspensión alveoplaca (todas las ramas)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.7955,
+      "ok": true,
+      "check": "separación libre (bottom) >= smin",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.8665,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "sag",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.6764,
+      "ok": true,
+      "check": "sigma_s <= 0.8 fyk (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.152,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "vano",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión [info]": {
+      "eta": 0.863,
+      "ok": null,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 0.9183,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "sag",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    },
+    "VT6": {
+     "flexión ELU": {
+      "eta": 0.7184,
+      "ok": true,
+      "check": "MEd <= MRd (hog)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.7027,
+      "ok": true,
+      "check": "estribos V + suspensión alveoplaca (todas las ramas)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.7955,
+      "ok": true,
+      "check": "separación libre (bottom) >= smin",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.9618,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "sag",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.5689,
+      "ok": true,
+      "check": "sigma_s <= 0.8 fyk (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.1688,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "vano",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión [info]": {
+      "eta": 0.7751,
+      "ok": null,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 1.0267,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "sag",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    }
+   },
+   "as_required_proposed": [
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "top",
+     "MEd_kNm": -10.007,
+     "combo": "ELR14",
+     "As_uls_cm2": 0.4801,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "top",
+     "MEd_kNm": -265.234,
+     "combo": "ELR08",
+     "As_uls_cm2": 13.1396,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 13.14,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.836,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 261.388,
+     "combo": "ELR08",
+     "As_uls_cm2": 13.2018,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 13.2,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.398,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "top",
+     "MEd_kNm": -0.517,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.0248,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "cara pilote tierra - vuelo",
+     "pos_m": 3.65,
+     "face": "bottom",
+     "MEd_kNm": 5.15,
+     "combo": "ELR20",
+     "As_uls_cm2": 0.2467,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "vano: máx. positivo",
+     "pos_m": 2.708,
+     "face": "bottom",
+     "MEd_kNm": 315.955,
+     "combo": "ELR08",
+     "As_uls_cm2": 16.1587,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 16.16,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.487,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "top",
+     "MEd_kNm": -373.323,
+     "combo": "ELR08",
+     "As_uls_cm2": 18.7665,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 18.77,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 1.195,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "bottom",
+     "MEd_kNm": 276.082,
+     "combo": "ELR05",
+     "As_uls_cm2": 13.9903,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 13.99,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.422,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT2",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "top",
+     "MEd_kNm": -67.299,
+     "combo": "ELR20",
+     "As_uls_cm2": 3.2511,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 3.25,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.207,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "bottom",
+     "MEd_kNm": 10.594,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.5079,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "top",
+     "MEd_kNm": -63.43,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.0627,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "bottom",
+     "MEd_kNm": 20.346,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.9774,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "top",
+     "MEd_kNm": -302.775,
+     "combo": "ELR08",
+     "As_uls_cm2": 15.0746,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 15.07,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.96,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 258.227,
+     "combo": "ELR08",
+     "As_uls_cm2": 13.0329,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 13.03,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.393,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "top",
+     "MEd_kNm": -0.524,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.0251,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "cara pilote tierra - vuelo",
+     "pos_m": 3.65,
+     "face": "bottom",
+     "MEd_kNm": 4.209,
+     "combo": "ELR14",
+     "As_uls_cm2": 0.2016,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "vano: máx. positivo",
+     "pos_m": 2.708,
+     "face": "bottom",
+     "MEd_kNm": 292.696,
+     "combo": "ELR08",
+     "As_uls_cm2": 14.8887,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 14.89,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.449,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "bottom",
+     "MEd_kNm": 21.533,
+     "combo": "ELR17",
+     "As_uls_cm2": 1.0346,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 1.03,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.031,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "top",
+     "MEd_kNm": -406.383,
+     "combo": "ELR08",
+     "As_uls_cm2": 20.5227,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 20.52,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 1.307,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "bottom",
+     "MEd_kNm": 276.635,
+     "combo": "ELR05",
+     "As_uls_cm2": 14.0201,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 14.02,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.423,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT3",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "top",
+     "MEd_kNm": -61.836,
+     "combo": "ELR20",
+     "As_uls_cm2": 2.9852,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 2.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.19,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "top",
+     "MEd_kNm": -9.561,
+     "combo": "ELR14",
+     "As_uls_cm2": 0.4587,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "top",
+     "MEd_kNm": -256.243,
+     "combo": "ELR08",
+     "As_uls_cm2": 12.6791,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 12.68,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.807,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 252.276,
+     "combo": "ELR08",
+     "As_uls_cm2": 12.7156,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 12.72,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.383,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "top",
+     "MEd_kNm": -0.554,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.0265,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "cara pilote tierra - vuelo",
+     "pos_m": 3.65,
+     "face": "bottom",
+     "MEd_kNm": 4.228,
+     "combo": "ELR20",
+     "As_uls_cm2": 0.2025,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "vano: máx. positivo",
+     "pos_m": 2.708,
+     "face": "bottom",
+     "MEd_kNm": 298.463,
+     "combo": "ELR08",
+     "As_uls_cm2": 15.2022,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 15.2,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.458,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "top",
+     "MEd_kNm": -357.463,
+     "combo": "ELR08",
+     "As_uls_cm2": 17.93,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 17.93,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 1.141,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "bottom",
+     "MEd_kNm": 267.256,
+     "combo": "ELR05",
+     "As_uls_cm2": 13.516,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 13.52,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.407,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT4",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "top",
+     "MEd_kNm": -62.269,
+     "combo": "ELR20",
+     "As_uls_cm2": 3.0063,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 3.01,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.191,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "bottom",
+     "MEd_kNm": 10.594,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.5079,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "top",
+     "MEd_kNm": -63.451,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.0638,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "bottom",
+     "MEd_kNm": 20.346,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.9774,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "top",
+     "MEd_kNm": -293.961,
+     "combo": "ELR08",
+     "As_uls_cm2": 14.6185,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 14.62,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.931,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 249.45,
+     "combo": "ELR08",
+     "As_uls_cm2": 12.5652,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 12.57,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.379,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "top",
+     "MEd_kNm": -0.524,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.0251,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "cara pilote tierra - vuelo",
+     "pos_m": 3.65,
+     "face": "bottom",
+     "MEd_kNm": 4.209,
+     "combo": "ELR14",
+     "As_uls_cm2": 0.2016,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "vano: máx. positivo",
+     "pos_m": 2.708,
+     "face": "bottom",
+     "MEd_kNm": 287.063,
+     "combo": "ELR08",
+     "As_uls_cm2": 14.5833,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 14.58,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.44,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "bottom",
+     "MEd_kNm": 21.533,
+     "combo": "ELR17",
+     "As_uls_cm2": 1.0346,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 1.03,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.031,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "top",
+     "MEd_kNm": -396.371,
+     "combo": "ELR08",
+     "As_uls_cm2": 19.9891,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 19.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 1.273,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "bottom",
+     "MEd_kNm": 266.619,
+     "combo": "ELR05",
+     "As_uls_cm2": 13.4819,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 13.48,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.406,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT5",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "top",
+     "MEd_kNm": -61.836,
+     "combo": "ELR20",
+     "As_uls_cm2": 2.9852,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 2.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.19,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "top",
+     "MEd_kNm": -10.007,
+     "combo": "ELR14",
+     "As_uls_cm2": 0.4801,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "top",
+     "MEd_kNm": -247.608,
+     "combo": "ELR08",
+     "As_uls_cm2": 12.238,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 12.24,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.779,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 243.839,
+     "combo": "ELR08",
+     "As_uls_cm2": 12.2673,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 12.27,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.37,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "top",
+     "MEd_kNm": -0.517,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.0248,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 4.99,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.318,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "cara pilote tierra - vuelo",
+     "pos_m": 3.65,
+     "face": "bottom",
+     "MEd_kNm": 5.15,
+     "combo": "ELR20",
+     "As_uls_cm2": 0.2467,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 6.25,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.188,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "vano: máx. positivo",
+     "pos_m": 2.217,
+     "face": "bottom",
+     "MEd_kNm": 307.009,
+     "combo": "ELR08",
+     "As_uls_cm2": 15.6685,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 15.67,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.472,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "top",
+     "MEd_kNm": -353.294,
+     "combo": "ELR08",
+     "As_uls_cm2": 17.7108,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 17.71,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 1.128,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "bottom",
+     "MEd_kNm": 256.06,
+     "combo": "ELR05",
+     "As_uls_cm2": 12.9173,
+     "As_min_cm2": 6.25,
+     "As_req_cm2": 12.92,
+     "As_prov_cm2": 33.1752,
+     "req_over_prov": 0.389,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT6",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "top",
+     "MEd_kNm": -67.299,
+     "combo": "ELR20",
+     "As_uls_cm2": 3.2511,
+     "As_min_cm2": 4.99,
+     "As_req_cm2": 3.25,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.207,
+     "in_verdict": false
+    }
+   ],
+   "psi2_threshold_provided": 0.583,
+   "layout": [
+    {
+     "member": "VT2",
+     "group": "5Ø20 sup.",
+     "face": "top",
+     "n": 5,
+     "phi": 20.0,
+     "As_cm2": 15.71,
+     "y_soffit_mm": 480.0,
+     "x_mm": [
+      -180.0,
+      -97.5,
+      0.0,
+      97.5,
+      180.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "P381 table bars 1-5 (y = +235.82 about the centroid); drawing '5Ø20 (471)' (beams.drawings_bar_layout['Pórtico 4'].upper)"
+    },
+    {
+     "member": "VT2",
+     "group": "2Ø10 a 235 (x = ±335)",
+     "face": "side",
+     "n": 2,
+     "phi": 10.0,
+     "As_cm2": 1.57,
+     "y_soffit_mm": 235.0,
+     "x_mm": [
+      -335.0,
+      335.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "P381 table bars 7, 15 (σs = -434.78, counted by CYPE); drawing Ø10 marks 'I1Ø10+D1Ø10 (470)' / 'M. Alas (421)'"
+    },
+    {
+     "member": "VT2",
+     "group": "2Ø10 a 235 (x = ±185)",
+     "face": "side",
+     "n": 2,
+     "phi": 10.0,
+     "As_cm2": 1.57,
+     "y_soffit_mm": 235.0,
+     "x_mm": [
+      -185.0,
+      185.0
+     ],
+     "active_cype": false,
+     "active_codigo": true,
+     "src": "P381 table bars 6, 16: σs = 0.00 although strained (CYPE C3 / caveat C7); inactive in Mode.CYPE, active in Mode.CODIGO"
+    },
+    {
+     "member": "VT2",
+     "group": "8Ø20 inf. alma",
+     "face": "bottom",
+     "n": 8,
+     "phi": 20.0,
+     "As_cm2": 25.13,
+     "y_soffit_mm": 70.0,
+     "x_mm": [
+      -180.0,
+      -128.6,
+      -77.1,
+      -25.7,
+      25.7,
+      77.1,
+      128.6,
+      180.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "proposal"
+    },
+    {
+     "member": "VT2",
+     "group": "4Ø16 inf. alas",
+     "face": "bottom",
+     "n": 4,
+     "phi": 16.0,
+     "As_cm2": 8.04,
+     "y_soffit_mm": 68.0,
+     "x_mm": [
+      233.0,
+      332.0,
+      -233.0,
+      -332.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "proposal"
+    },
+    {
+     "member": "VT2",
+     "group": "3 ramas Ø10/100 (1e+1r)",
+     "face": "stirrups",
+     "n": 3,
+     "phi": 10.0,
+     "As_cm2": 2.356,
+     "s_mm": 100.0,
+     "Asw_s_cm2_m": 23.56,
+     "src": "beams.body_check_P3_P4 P364 table (Asw 2.36 cm² at s = 100 mm, 3 legs Ø10); drawings '37x{(1eØ10+1rØ10)+(1eØ10)} /10' (the second hoop encloses the ledges, not counted)"
+    }
+   ]
+  },
+  "end": {
+   "members": [
+    "VT1",
+    "VT7"
+   ],
+   "demands_kNm": {
+    "bottom": {
+     "uls": 275.78,
+     "qp": 76.12,
+     "char": 183.88
+    },
+    "top": {
+     "uls": 316.33,
+     "qp": 1.87,
+     "char": 210.4
+    }
+   },
+   "bottom": {
+    "provided": "6Ø20",
+    "provided_As_cm2": 18.85,
+    "provided_eta": 0.729,
+    "provided_etas": {
+     "uls": 0.642,
+     "as_min": 0.428,
+     "spacing": 0.471,
+     "clear": 0.192,
+     "wk": 0.0,
+     "sigma_s": 0.509,
+     "sigma_c": 0.439,
+     "chord": 0.729
+    },
+    "change": false,
+    "proposed": "6Ø20",
+    "proposed_As_cm2": 18.85
+   },
+   "top": {
+    "provided": "5Ø20",
+    "provided_As_cm2": 15.71,
+    "provided_eta": 0.973,
+    "provided_etas": {
+     "uls": 0.872,
+     "as_min": 0.472,
+     "spacing": 0.471,
+     "clear": 0.172,
+     "wk": 0.0,
+     "sigma_s": 0.715,
+     "sigma_c": 0.502,
+     "chord": 0.973
+    },
+    "change": false,
+    "proposed": "5Ø20",
+    "proposed_As_cm2": 15.71
+   },
+   "stirrups": {
+    "provided": "3 ramas Ø10/100 (1e+1r)",
+    "provided_eta": 0.958,
+    "provided_etas": {
+     "per_leg": 0.541,
+     "VRd_s": 0.392,
+     "V_hanger": 0.478,
+     "rho_w": 0.321,
+     "sl": 0.278,
+     "st": 0.958,
+     "torsion_s": 0.391
+    },
+    "change": false,
+    "proposed": "3 ramas Ø10/100 (1e+1r)"
+   },
+   "weight_long_kg_m": {
+    "provided": 30.83,
+    "proposed": 30.83
+   },
+   "verification": {
+    "VT1": {
+     "flexión ELU": {
+      "eta": 0.8725,
+      "ok": true,
+      "check": "MEd <= MRd (hog)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.478,
+      "ok": true,
+      "check": "estribos V + suspensión alveoplaca (todas las ramas)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "torsión": {
+      "eta": 0.9727,
+      "ok": true,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.9583,
+      "ok": true,
+      "check": "st <= st,max = 0.75d <= 600",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.0,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "sag",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.7146,
+      "ok": true,
+      "check": "sigma_s <= 0.8 fyk (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.0689,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "vano",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión ala [sensib.]": {
+      "eta": 1.1845,
+      "ok": null,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1 [sensibilidad: alveoplaca apoyada en el ala, e = 0.42 m]",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 0.0,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "sag",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    },
+    "VT7": {
+     "flexión ELU": {
+      "eta": 0.7982,
+      "ok": true,
+      "check": "MEd <= MRd (hog)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.4563,
+      "ok": true,
+      "check": "estribos V + suspensión alveoplaca (todas las ramas)",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "torsión": {
+      "eta": 0.9057,
+      "ok": true,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.9583,
+      "ok": true,
+      "check": "st <= st,max = 0.75d <= 600",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.0,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "sag",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.6537,
+      "ok": true,
+      "check": "sigma_s <= 0.8 fyk (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.0689,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "vano",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión ala [sensib.]": {
+      "eta": 1.1176,
+      "ok": null,
+      "check": "M/MRd + ΣAsl,T(cordón)/As <= 1 [sensibilidad: alveoplaca apoyada en el ala, e = 0.42 m]",
+      "section": "cara pilote mar - vano",
+      "combo": "ELR08",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 0.0,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "sag",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    }
+   },
+   "as_required_proposed": [
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "bottom",
+     "MEd_kNm": 12.377,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.5939,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 8.07,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.428,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "top",
+     "MEd_kNm": -58.572,
+     "combo": "ELR08",
+     "As_uls_cm2": 2.8233,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 7.42,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.472,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "bottom",
+     "MEd_kNm": 23.448,
+     "combo": "ELR17",
+     "As_uls_cm2": 1.1267,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 8.07,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.428,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "top",
+     "MEd_kNm": -316.328,
+     "combo": "ELR08",
+     "As_uls_cm2": 15.6732,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 15.67,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.998,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 275.78,
+     "combo": "ELR08",
+     "As_uls_cm2": 13.6811,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 13.68,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.726,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "cara pilote tierra - vuelo",
+     "pos_m": 3.65,
+     "face": "bottom",
+     "MEd_kNm": 6.906,
+     "combo": "ELR14",
+     "As_uls_cm2": 0.3312,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 8.07,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.428,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "vano: máx. positivo",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 275.607,
+     "combo": "ELR08",
+     "As_uls_cm2": 13.6723,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 13.67,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.725,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "bottom",
+     "MEd_kNm": 24.622,
+     "combo": "ELR17",
+     "As_uls_cm2": 1.1833,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 1.18,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.063,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "top",
+     "MEd_kNm": -388.56,
+     "combo": "ELR08",
+     "As_uls_cm2": 19.4096,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 19.41,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 1.236,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "bottom",
+     "MEd_kNm": 300.645,
+     "combo": "ELR05",
+     "As_uls_cm2": 14.9643,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 14.96,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.794,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT1",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "top",
+     "MEd_kNm": -26.24,
+     "combo": "ELR20",
+     "As_uls_cm2": 1.2607,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 1.26,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.08,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "bottom",
+     "MEd_kNm": 12.377,
+     "combo": "ELR17",
+     "As_uls_cm2": 0.5939,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 8.07,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.428,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "cara pilote mar - voladizo",
+     "pos_m": -0.2,
+     "face": "top",
+     "MEd_kNm": -58.624,
+     "combo": "ELR08",
+     "As_uls_cm2": 2.8258,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 7.42,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.472,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "bottom",
+     "MEd_kNm": 23.448,
+     "combo": "ELR17",
+     "As_uls_cm2": 1.1267,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 8.07,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.428,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "cara pilote mar - vano",
+     "pos_m": 0.2,
+     "face": "top",
+     "MEd_kNm": -289.416,
+     "combo": "ELR08",
+     "As_uls_cm2": 14.2971,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 14.3,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.91,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "cara pilote tierra - vano",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 248.843,
+     "combo": "ELR08",
+     "As_uls_cm2": 12.301,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 12.3,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.653,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "cara pilote tierra - vuelo",
+     "pos_m": 3.65,
+     "face": "bottom",
+     "MEd_kNm": 6.906,
+     "combo": "ELR14",
+     "As_uls_cm2": 0.3312,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 8.07,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.428,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "vano: máx. positivo",
+     "pos_m": 3.25,
+     "face": "bottom",
+     "MEd_kNm": 248.718,
+     "combo": "ELR08",
+     "As_uls_cm2": 12.2946,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 12.29,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.652,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "bottom",
+     "MEd_kNm": 24.622,
+     "combo": "ELR17",
+     "As_uls_cm2": 1.1833,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 1.18,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.063,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "eje pilote mar (info, nudo rígido)",
+     "pos_m": 0.0,
+     "face": "top",
+     "MEd_kNm": -358.093,
+     "combo": "ELR08",
+     "As_uls_cm2": 17.8258,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 17.83,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 1.135,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "bottom",
+     "MEd_kNm": 270.147,
+     "combo": "ELR05",
+     "As_uls_cm2": 13.3917,
+     "As_min_cm2": 8.07,
+     "As_req_cm2": 13.39,
+     "As_prov_cm2": 18.8496,
+     "req_over_prov": 0.71,
+     "in_verdict": false
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VT7",
+     "section": "eje pilote tierra (info, nudo rígido)",
+     "pos_m": 3.45,
+     "face": "top",
+     "MEd_kNm": -26.24,
+     "combo": "ELR20",
+     "As_uls_cm2": 1.2607,
+     "As_min_cm2": 7.42,
+     "As_req_cm2": 1.26,
+     "As_prov_cm2": 15.708,
+     "req_over_prov": 0.08,
+     "in_verdict": false
+    }
+   ],
+   "psi2_threshold_provided": null,
+   "layout": [
+    {
+     "member": "VT1",
+     "group": "5Ø20 sup.",
+     "face": "top",
+     "n": 5,
+     "phi": 20.0,
+     "As_cm2": 15.71,
+     "y_soffit_mm": 480.0,
+     "x_mm": [
+      -330.0,
+      -165.0,
+      0.0,
+      165.0,
+      330.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) '5Ø20 (474)/(472)'; listing As_top_real 15.71; x uniform (assumed)"
+    },
+    {
+     "member": "VT1",
+     "group": "5Ø20 inf. alma",
+     "face": "bottom",
+     "n": 5,
+     "phi": 20.0,
+     "As_cm2": 15.71,
+     "y_soffit_mm": 70.0,
+     "x_mm": [
+      -330.0,
+      -165.0,
+      0.0,
+      165.0,
+      330.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) '5Ø20 (471)'; x uniform (assumed)"
+    },
+    {
+     "member": "VT1",
+     "group": "D1Ø20 inf. ala",
+     "face": "bottom",
+     "n": 1,
+     "phi": 20.0,
+     "As_cm2": 3.14,
+     "y_soffit_mm": 70.0,
+     "x_mm": [
+      480.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) lower 'D1Ø20 (490)'; listing As_bot_real 18.85 = 6Ø20 (beams.inferred_bar_layouts)"
+    },
+    {
+     "member": "VT1",
+     "group": "D1Ø20 sup. ala (a 235)",
+     "face": "side",
+     "n": 1,
+     "phi": 20.0,
+     "As_cm2": 3.14,
+     "y_soffit_mm": 235.0,
+     "x_mm": [
+      485.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) upper-group 'D1Ø20 (490)' (legs 17 pointing down): ledge-top bar (INFERENCE); active: reproduces CYPE §4.3 η 93.4/85.4 % to 0.2 pt"
+    },
+    {
+     "member": "VT1",
+     "group": "D2Ø10 M. Alas (a 235)",
+     "face": "side",
+     "n": 2,
+     "phi": 10.0,
+     "As_cm2": 1.57,
+     "y_soffit_mm": 235.0,
+     "x_mm": [
+      335.0,
+      420.0
+     ],
+     "active_cype": false,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) 'D2Ø10 M. Alas (421)'; x assumed; inactive in Mode.CYPE (with them CYPE's §4.3 η would be 89.9/82.2 %, cf. C3), active in Mode.CODIGO"
+    },
+    {
+     "member": "VT1",
+     "group": "3 ramas Ø10/100 (1e+1r)",
+     "face": "stirrups",
+     "n": 3,
+     "phi": 10.0,
+     "As_cm2": 2.356,
+     "s_mm": 100.0,
+     "Asw_s_cm2_m": 23.56,
+     "src": "drawings '37x{(1eØ10+1rØ10)+(1eØ10)} /10'; listing Asw real 23.56 cm²/m"
+    }
+   ]
+  },
+  "edge": {
+   "members": [
+    "VBM",
+    "VBT"
+   ],
+   "demands_kNm": {
+    "bottom": {
+     "uls": 18.63,
+     "qp": 11.0,
+     "char": 12.82
+    },
+    "top": {
+     "uls": 38.4,
+     "qp": 22.28,
+     "char": 26.44
+    }
+   },
+   "bottom": {
+    "provided": "2Ø16",
+    "provided_As_cm2": 4.02,
+    "provided_eta": 0.462,
+    "provided_etas": {
+     "uls": 0.462,
+     "as_min": 0.373,
+     "spacing": 0.337,
+     "clear": 0.245,
+     "wk": 0.0,
+     "sigma_s": 0.371,
+     "sigma_c": 0.382,
+     "chord": 0.0
+    },
+    "change": false,
+    "proposed": "2Ø16",
+    "proposed_As_cm2": 4.02
+   },
+   "top": {
+    "provided": "2Ø16",
+    "provided_As_cm2": 4.02,
+    "provided_eta": 3.083,
+    "provided_etas": {
+     "uls": 0.953,
+     "as_min": 0.373,
+     "spacing": 0.337,
+     "clear": 0.245,
+     "wk": 3.083,
+     "sigma_s": 0.765,
+     "sigma_c": 0.789,
+     "chord": 0.0
+    },
+    "change": true,
+    "proposed": "3Ø25",
+    "proposed_As_cm2": 14.73,
+    "proposed_eta": 0.847,
+    "proposed_etas": {
+     "uls": 0.334,
+     "as_min": 0.102,
+     "spacing": 0.156,
+     "clear": 0.847,
+     "wk": 0.671,
+     "sigma_s": 0.23,
+     "sigma_c": 0.496,
+     "chord": 0.0
+    },
+    "wk_mm": 0.067,
+    "candidates_tried": 8,
+    "alternatives": []
+   },
+   "stirrups": {
+    "provided": "2 ramas Ø8/150 (1e)",
+    "provided_eta": 0.871,
+    "provided_etas": {
+     "per_leg": 0.0,
+     "VRd_s": 0.558,
+     "rho_w": 0.353,
+     "sl": 0.871,
+     "st": 0.825
+    },
+    "change": false,
+    "proposed": "2 ramas Ø8/150 (1e)"
+   },
+   "weight_long_kg_m": {
+    "provided": 6.31,
+    "proposed": 14.72
+   },
+   "verification": {
+    "VBM": {
+     "flexión ELU": {
+      "eta": 0.444,
+      "ok": true,
+      "check": "MEd <= MRd (sag)",
+      "section": "tramo 1: máx. positivo",
+      "combo": "ELR20"
+     },
+     "cortante": {
+      "eta": 0.5328,
+      "ok": true,
+      "check": "VEd(d) <= VRd,s",
+      "section": "tramo 1 cara der. (X=6.25)",
+      "combo": "ELR14"
+     },
+     "disposiciones": {
+      "eta": 0.8715,
+      "ok": true,
+      "check": "s <= sl,max = 0.75d",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.6663,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "hog",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.4852,
+      "ok": true,
+      "check": "sigma_c <= 0.6 fck (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS06"
+     },
+     "flecha": {
+      "eta": 0.2854,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "tramo 1",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión [info]": {
+      "eta": 0.8479,
+      "ok": null,
+      "check": "estribos V + T (por rama del cerco)",
+      "section": "tramo 1 cara der. (X=6.25)",
+      "combo": "ELR20",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 0.671,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "hog",
+      "combo": "QP(psi2=0.8,TB2=0.5)",
+      "info": true
+     }
+    },
+    "VBT": {
+     "flexión ELU": {
+      "eta": 0.4461,
+      "ok": true,
+      "check": "MEd <= MRd (sag)",
+      "section": "tramo 1: máx. positivo",
+      "combo": "ELR08"
+     },
+     "cortante": {
+      "eta": 0.5584,
+      "ok": true,
+      "check": "VEd(d) <= VRd,s",
+      "section": "tramo 6 cara izq. (X=32.75)",
+      "combo": "ELR08"
+     },
+     "disposiciones": {
+      "eta": 0.8715,
+      "ok": true,
+      "check": "s <= sl,max = 0.75d",
+      "section": "todas",
+      "combo": ""
+     },
+     "fisuración ELS": {
+      "eta": 0.6708,
+      "ok": true,
+      "check": "wk <= 0.1 mm (XS3, QP)",
+      "section": "hog",
+      "combo": "QP(psi2=0.8)"
+     },
+     "tensiones ELS": {
+      "eta": 0.4962,
+      "ok": true,
+      "check": "sigma_c <= 0.6 fck (característica ELS01-08)",
+      "section": "hog",
+      "combo": "ELS04"
+     },
+     "flecha": {
+      "eta": 0.2851,
+      "ok": true,
+      "check": "f activa (f total - f inst. PP) <= L/500",
+      "section": "tramo 1",
+      "combo": "QP(psi2=0.8)"
+     },
+     "verdict": "CUMPLE",
+     "torsión [info]": {
+      "eta": 0.8502,
+      "ok": null,
+      "check": "estribos V + T (por rama del cerco)",
+      "section": "tramo 1 cara der. (X=6.25)",
+      "combo": "ELR20",
+      "info": true
+     },
+     "fisuración TB 0.5 [sensib.]": {
+      "eta": 0.6855,
+      "ok": null,
+      "check": "wk <= 0.1 mm (XS3, QP) [sensibilidad TB psi2 = 0.5]",
+      "section": "hog",
+      "combo": "QP(psi2=0.8,TB1=0.5)",
+      "info": true
+     }
+    }
+   },
+   "as_required_proposed": [
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 1 cara izq. (X=0.40)",
+     "pos_m": 0.4,
+     "face": "top",
+     "MEd_kNm": -20.984,
+     "combo": "ELR20",
+     "As_uls_cm2": 2.1825,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 2.18,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.148,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 1 cara der. (X=6.25)",
+     "pos_m": 6.25,
+     "face": "top",
+     "MEd_kNm": -37.525,
+     "combo": "ELR14",
+     "As_uls_cm2": 4.032,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 4.03,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.274,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 2 cara izq. (X=6.75)",
+     "pos_m": 6.75,
+     "face": "top",
+     "MEd_kNm": -36.537,
+     "combo": "ELR14",
+     "As_uls_cm2": 3.9178,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.92,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.266,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 2 cara der. (X=12.75)",
+     "pos_m": 12.75,
+     "face": "top",
+     "MEd_kNm": -29.058,
+     "combo": "ELR20",
+     "As_uls_cm2": 3.0693,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.07,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.208,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 3 cara izq. (X=13.25)",
+     "pos_m": 13.25,
+     "face": "top",
+     "MEd_kNm": -29.887,
+     "combo": "ELR20",
+     "As_uls_cm2": 3.162,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.16,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.215,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 3 cara der. (X=19.25)",
+     "pos_m": 19.25,
+     "face": "top",
+     "MEd_kNm": -31.547,
+     "combo": "ELR14",
+     "As_uls_cm2": 3.3487,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.35,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.227,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 4 cara izq. (X=19.75)",
+     "pos_m": 19.75,
+     "face": "top",
+     "MEd_kNm": -31.547,
+     "combo": "ELR14",
+     "As_uls_cm2": 3.3487,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.35,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.227,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 4 cara der. (X=25.75)",
+     "pos_m": 25.75,
+     "face": "top",
+     "MEd_kNm": -29.887,
+     "combo": "ELR20",
+     "As_uls_cm2": 3.162,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.16,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.215,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 5 cara izq. (X=26.25)",
+     "pos_m": 26.25,
+     "face": "top",
+     "MEd_kNm": -29.058,
+     "combo": "ELR20",
+     "As_uls_cm2": 3.0693,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.07,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.208,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 5 cara der. (X=32.25)",
+     "pos_m": 32.25,
+     "face": "top",
+     "MEd_kNm": -36.537,
+     "combo": "ELR14",
+     "As_uls_cm2": 3.9178,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.92,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.266,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 6 cara izq. (X=32.75)",
+     "pos_m": 32.75,
+     "face": "top",
+     "MEd_kNm": -37.525,
+     "combo": "ELR14",
+     "As_uls_cm2": 4.032,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 4.03,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.274,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 6 cara der. (X=38.60)",
+     "pos_m": 38.6,
+     "face": "top",
+     "MEd_kNm": -20.984,
+     "combo": "ELR20",
+     "As_uls_cm2": 2.1825,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 2.18,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.148,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 1: máx. positivo",
+     "pos_m": 3.0,
+     "face": "bottom",
+     "MEd_kNm": 18.544,
+     "combo": "ELR20",
+     "As_uls_cm2": 1.8806,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.88,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.468,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 2: máx. positivo",
+     "pos_m": 10.0,
+     "face": "bottom",
+     "MEd_kNm": 10.774,
+     "combo": "ELR14",
+     "As_uls_cm2": 1.078,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 3: máx. positivo",
+     "pos_m": 16.0,
+     "face": "bottom",
+     "MEd_kNm": 12.145,
+     "combo": "ELR14",
+     "As_uls_cm2": 1.218,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 4: máx. positivo",
+     "pos_m": 23.0,
+     "face": "bottom",
+     "MEd_kNm": 12.145,
+     "combo": "ELR14",
+     "As_uls_cm2": 1.218,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 5: máx. positivo",
+     "pos_m": 29.0,
+     "face": "bottom",
+     "MEd_kNm": 10.774,
+     "combo": "ELR14",
+     "As_uls_cm2": 1.078,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBM",
+     "section": "tramo 6: máx. positivo",
+     "pos_m": 36.0,
+     "face": "bottom",
+     "MEd_kNm": 18.544,
+     "combo": "ELR20",
+     "As_uls_cm2": 1.8806,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.88,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.468,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 1 cara izq. (X=0.40)",
+     "pos_m": 0.4,
+     "face": "top",
+     "MEd_kNm": -21.572,
+     "combo": "ELR08",
+     "As_uls_cm2": 2.2461,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 2.25,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.153,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 1 cara der. (X=6.25)",
+     "pos_m": 6.25,
+     "face": "top",
+     "MEd_kNm": -38.254,
+     "combo": "ELR08",
+     "As_uls_cm2": 4.1166,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 4.12,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.28,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 2 cara izq. (X=6.75)",
+     "pos_m": 6.75,
+     "face": "top",
+     "MEd_kNm": -37.341,
+     "combo": "ELR08",
+     "As_uls_cm2": 4.0107,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 4.01,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.272,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 2 cara der. (X=12.75)",
+     "pos_m": 12.75,
+     "face": "top",
+     "MEd_kNm": -29.537,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.1228,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.12,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.212,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 3 cara izq. (X=13.25)",
+     "pos_m": 13.25,
+     "face": "top",
+     "MEd_kNm": -30.525,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.2336,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.23,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.22,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 3 cara der. (X=19.25)",
+     "pos_m": 19.25,
+     "face": "top",
+     "MEd_kNm": -32.235,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.4264,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.43,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.233,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 4 cara izq. (X=19.75)",
+     "pos_m": 19.75,
+     "face": "top",
+     "MEd_kNm": -32.449,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.4506,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.45,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.234,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 4 cara der. (X=25.75)",
+     "pos_m": 25.75,
+     "face": "top",
+     "MEd_kNm": -30.281,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.2063,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.21,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.218,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 5 cara izq. (X=26.25)",
+     "pos_m": 26.25,
+     "face": "top",
+     "MEd_kNm": -29.721,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.1435,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.14,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.213,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 5 cara der. (X=32.25)",
+     "pos_m": 32.25,
+     "face": "top",
+     "MEd_kNm": -37.061,
+     "combo": "ELR08",
+     "As_uls_cm2": 3.9783,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 3.98,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.27,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 6 cara izq. (X=32.75)",
+     "pos_m": 32.75,
+     "face": "top",
+     "MEd_kNm": -38.405,
+     "combo": "ELR08",
+     "As_uls_cm2": 4.1341,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 4.13,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.281,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 6 cara der. (X=38.60)",
+     "pos_m": 38.6,
+     "face": "top",
+     "MEd_kNm": -21.302,
+     "combo": "ELR14",
+     "As_uls_cm2": 2.2168,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 2.22,
+     "As_prov_cm2": 14.7262,
+     "req_over_prov": 0.151,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 1: máx. positivo",
+     "pos_m": 3.0,
+     "face": "bottom",
+     "MEd_kNm": 18.63,
+     "combo": "ELR08",
+     "As_uls_cm2": 1.8896,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.89,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.47,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 2: máx. positivo",
+     "pos_m": 10.0,
+     "face": "bottom",
+     "MEd_kNm": 11.035,
+     "combo": "ELR08",
+     "As_uls_cm2": 1.1046,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 3: máx. positivo",
+     "pos_m": 16.0,
+     "face": "bottom",
+     "MEd_kNm": 12.379,
+     "combo": "ELR08",
+     "As_uls_cm2": 1.242,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 4: máx. positivo",
+     "pos_m": 23.0,
+     "face": "bottom",
+     "MEd_kNm": 12.386,
+     "combo": "ELR08",
+     "As_uls_cm2": 1.2427,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 5: máx. positivo",
+     "pos_m": 29.0,
+     "face": "bottom",
+     "MEd_kNm": 11.016,
+     "combo": "ELR08",
+     "As_uls_cm2": 1.1027,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.5,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.373,
+     "in_verdict": true
+    },
+    {
+     "case": "CE-ROM",
+     "member": "VBT",
+     "section": "tramo 6: máx. positivo",
+     "pos_m": 36.0,
+     "face": "bottom",
+     "MEd_kNm": 18.624,
+     "combo": "ELR08",
+     "As_uls_cm2": 1.889,
+     "As_min_cm2": 1.5,
+     "As_req_cm2": 1.89,
+     "As_prov_cm2": 4.0212,
+     "req_over_prov": 0.47,
+     "in_verdict": true
+    }
+   ],
+   "psi2_threshold_provided": 0.249,
+   "layout": [
+    {
+     "member": "VBM",
+     "group": "2Ø16 inf.",
+     "face": "bottom",
+     "n": 2,
+     "phi": 16.0,
+     "As_cm2": 4.02,
+     "y_soffit_mm": 66.0,
+     "x_mm": [
+      -59.0,
+      59.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image203 (confidence low) 2Ø16 bottom bars (lapped); listing As_bot_real 4.02"
+    },
+    {
+     "member": "VBM",
+     "group": "3Ø25 sup.",
+     "face": "top",
+     "n": 3,
+     "phi": 25.0,
+     "As_cm2": 14.73,
+     "y_soffit_mm": 229.5,
+     "x_mm": [
+      -54.5,
+      0.0,
+      54.5
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "proposal"
+    },
+    {
+     "member": "VBM",
+     "group": "2 ramas Ø8/150 (1e)",
+     "face": "stirrups",
+     "n": 2,
+     "phi": 8.0,
+     "As_cm2": 1.005,
+     "s_mm": 150.0,
+     "Asw_s_cm2_m": 6.7,
+     "src": "drawing image203 (confidence low) '1eØ8 /15'; listing Asw real 6.70 cm²/m"
+    }
+   ]
+  },
+  "end_sensitivity": {
+   "members": [
+    "VT1",
+    "VT7"
+   ],
+   "demands_kNm": {
+    "bottom": {
+     "uls": 275.78,
+     "qp": 76.12,
+     "char": 183.88
+    },
+    "top": {
+     "uls": 316.33,
+     "qp": 1.87,
+     "char": 210.4
+    }
+   },
+   "bottom": {
+    "provided": "6Ø20",
+    "provided_As_cm2": 18.85,
+    "provided_eta": 0.906,
+    "provided_etas": {
+     "uls": 0.642,
+     "as_min": 0.428,
+     "spacing": 0.471,
+     "clear": 0.192,
+     "wk": 0.0,
+     "sigma_s": 0.509,
+     "sigma_c": 0.439,
+     "chord": 0.906
+    },
+    "change": false,
+    "proposed": "6Ø20",
+    "proposed_As_cm2": 18.85
+   },
+   "top": {
+    "provided": "5Ø20",
+    "provided_As_cm2": 15.71,
+    "provided_eta": 1.185,
+    "provided_etas": {
+     "uls": 0.872,
+     "as_min": 0.472,
+     "spacing": 0.471,
+     "clear": 0.172,
+     "wk": 0.0,
+     "sigma_s": 0.715,
+     "sigma_c": 0.502,
+     "chord": 1.185
+    },
+    "change": true,
+    "proposed": "4Ø25",
+    "proposed_As_cm2": 19.63,
+    "proposed_eta": 0.982,
+    "proposed_etas": {
+     "uls": 0.733,
+     "as_min": 0.378,
+     "spacing": 0.624,
+     "clear": 0.129,
+     "wk": 0.0,
+     "sigma_s": 0.585,
+     "sigma_c": 0.458,
+     "chord": 0.982
+    },
+    "wk_mm": 0.0,
+    "candidates_tried": 34,
+    "alternatives": [
+     {
+      "layout": "10Ø16",
+      "As_cm2": 20.11,
+      "eta": 0.956
+     },
+     {
+      "layout": "7Ø20",
+      "As_cm2": 21.99,
+      "eta": 0.887
+     },
+     {
+      "layout": "11Ø16",
+      "As_cm2": 22.12,
+      "eta": 0.88
+     },
+     {
+      "layout": "12Ø16",
+      "As_cm2": 24.13,
+      "eta": 0.815
+     },
+     {
+      "layout": "5Ø25",
+      "As_cm2": 24.54,
+      "eta": 0.808
+     }
+    ]
+   },
+   "stirrups": {
+    "provided": "3 ramas Ø10/100 (1e+1r)",
+    "provided_eta": 0.963,
+    "provided_etas": {
+     "per_leg": 0.709,
+     "VRd_s": 0.394,
+     "V_hanger": 0.48,
+     "rho_w": 0.321,
+     "sl": 0.279,
+     "st": 0.963,
+     "torsion_s": 0.391
+    },
+    "change": false,
+    "proposed": "3 ramas Ø10/100 (1e+1r)"
+   },
+   "weight_long_kg_m": {
+    "provided": 30.83,
+    "proposed": 33.91
+   },
+   "ledge_sensitivity_max_eta": {
+    "VT1": 0.982,
+    "VT7": 0.926
+   },
+   "layout": [
+    {
+     "member": "VT1",
+     "group": "5Ø20 inf. alma",
+     "face": "bottom",
+     "n": 5,
+     "phi": 20.0,
+     "As_cm2": 15.71,
+     "y_soffit_mm": 70.0,
+     "x_mm": [
+      -330.0,
+      -165.0,
+      0.0,
+      165.0,
+      330.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) '5Ø20 (471)'; x uniform (assumed)"
+    },
+    {
+     "member": "VT1",
+     "group": "D1Ø20 inf. ala",
+     "face": "bottom",
+     "n": 1,
+     "phi": 20.0,
+     "As_cm2": 3.14,
+     "y_soffit_mm": 70.0,
+     "x_mm": [
+      480.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) lower 'D1Ø20 (490)'; listing As_bot_real 18.85 = 6Ø20 (beams.inferred_bar_layouts)"
+    },
+    {
+     "member": "VT1",
+     "group": "D1Ø20 sup. ala (a 235)",
+     "face": "side",
+     "n": 1,
+     "phi": 20.0,
+     "As_cm2": 3.14,
+     "y_soffit_mm": 235.0,
+     "x_mm": [
+      485.0
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) upper-group 'D1Ø20 (490)' (legs 17 pointing down): ledge-top bar (INFERENCE); active: reproduces CYPE §4.3 η 93.4/85.4 % to 0.2 pt"
+    },
+    {
+     "member": "VT1",
+     "group": "D2Ø10 M. Alas (a 235)",
+     "face": "side",
+     "n": 2,
+     "phi": 10.0,
+     "As_cm2": 1.57,
+     "y_soffit_mm": 235.0,
+     "x_mm": [
+      335.0,
+      420.0
+     ],
+     "active_cype": false,
+     "active_codigo": true,
+     "src": "drawing image204 (Pórtico 3) 'D2Ø10 M. Alas (421)'; x assumed; inactive in Mode.CYPE (with them CYPE's §4.3 η would be 89.9/82.2 %, cf. C3), active in Mode.CODIGO"
+    },
+    {
+     "member": "VT1",
+     "group": "4Ø25 sup.",
+     "face": "top",
+     "n": 4,
+     "phi": 25.0,
+     "As_cm2": 19.63,
+     "y_soffit_mm": 477.5,
+     "x_mm": [
+      -327.5,
+      -109.2,
+      109.2,
+      327.5
+     ],
+     "active_cype": true,
+     "active_codigo": true,
+     "src": "proposal"
+    },
+    {
+     "member": "VT1",
+     "group": "3 ramas Ø10/100 (1e+1r)",
+     "face": "stirrups",
+     "n": 3,
+     "phi": 10.0,
+     "As_cm2": 2.356,
+     "s_mm": 100.0,
+     "Asw_s_cm2_m": 23.56,
+     "src": "drawings '37x{(1eØ10+1rØ10)+(1eØ10)} /10'; listing Asw real 23.56 cm²/m"
+    }
+   ],
+   "note": "sensitivity, not the verdict: SAP torque + equilibrium torque of the hollow-core plates bearing on the single ledge (e = 0.42 m from the pile axis, T = q·Lp/2·e·L/2 = 56 kN·m at the pile faces for 1.35G + 1.5Qa); CYPE P437 assumes no torsion"
+  },
+  "end_sensitivity_eta": 1.1845
+ },
+ "curves": {
+  "psi": [
+   0.0,
+   0.02,
+   0.04,
+   0.06,
+   0.08,
+   0.1,
+   0.12,
+   0.14,
+   0.16,
+   0.18,
+   0.2,
+   0.22,
+   0.24,
+   0.26,
+   0.28,
+   0.3,
+   0.32,
+   0.34,
+   0.36,
+   0.38,
+   0.4,
+   0.42,
+   0.44,
+   0.46,
+   0.48,
+   0.5,
+   0.52,
+   0.54,
+   0.56,
+   0.58,
+   0.6,
+   0.62,
+   0.64,
+   0.66,
+   0.68,
+   0.7,
+   0.72,
+   0.74,
+   0.76,
+   0.78,
+   0.8,
+   0.82,
+   0.84,
+   0.86,
+   0.88,
+   0.9,
+   0.92,
+   0.94,
+   0.96,
+   0.98,
+   1.0
+  ],
+  "layouts": {
+   "provided": {
+    "sigma_ct_fctm": [
+     0.4274,
+     0.447,
+     0.4667,
+     0.4863,
+     0.5059,
+     0.5256,
+     0.5452,
+     0.5649,
+     0.5845,
+     0.6041,
+     0.6238,
+     0.6434,
+     0.6631,
+     0.6827,
+     0.7023,
+     0.722,
+     0.7416,
+     0.7612,
+     0.7809,
+     0.8005,
+     0.8202,
+     0.8398,
+     0.8594,
+     0.8791,
+     0.8987,
+     0.9183,
+     0.938,
+     0.9576,
+     0.9773,
+     0.9969,
+     1.0165,
+     1.0362,
+     1.0558,
+     1.0755,
+     1.0951,
+     1.1147,
+     1.1344,
+     1.154,
+     1.1736,
+     1.1933,
+     1.2129,
+     1.2326,
+     1.2522,
+     1.2718,
+     1.2915,
+     1.3111,
+     1.3307,
+     1.3504,
+     1.37,
+     1.3897,
+     1.4093
+    ],
+    "wk_mm": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.1442,
+     0.147,
+     0.1497,
+     0.1525,
+     0.1553,
+     0.1581,
+     0.1609,
+     0.1637,
+     0.1665,
+     0.1692,
+     0.172,
+     0.1748,
+     0.1776,
+     0.1804,
+     0.1832,
+     0.186,
+     0.1887,
+     0.1915,
+     0.1943,
+     0.1971,
+     0.1999
+    ]
+   },
+   "proposed": {
+    "sigma_ct_fctm": [
+     0.4144,
+     0.4335,
+     0.4525,
+     0.4716,
+     0.4906,
+     0.5096,
+     0.5287,
+     0.5477,
+     0.5668,
+     0.5858,
+     0.6049,
+     0.6239,
+     0.6429,
+     0.662,
+     0.681,
+     0.7001,
+     0.7191,
+     0.7382,
+     0.7572,
+     0.7762,
+     0.7953,
+     0.8143,
+     0.8334,
+     0.8524,
+     0.8715,
+     0.8905,
+     0.9095,
+     0.9286,
+     0.9476,
+     0.9667,
+     0.9857,
+     1.0048,
+     1.0238,
+     1.0428,
+     1.0619,
+     1.0809,
+     1.1,
+     1.119,
+     1.1381,
+     1.1571,
+     1.1761,
+     1.1952,
+     1.2142,
+     1.2333,
+     1.2523,
+     1.2713,
+     1.2904,
+     1.3094,
+     1.3285,
+     1.3475,
+     1.3666
+    ],
+    "wk_mm": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0822,
+     0.0837,
+     0.0853,
+     0.0868,
+     0.0884,
+     0.0899,
+     0.0915,
+     0.0931,
+     0.0946,
+     0.0962,
+     0.0977,
+     0.0993,
+     0.1008,
+     0.1024,
+     0.104,
+     0.1055,
+     0.1071,
+     0.1086,
+     0.1102,
+     0.1121
+    ]
+   }
+  },
+  "members": {
+   "VT2": {
+    "provided": {
+     "As_bottom_cm2": 21.99,
+     "layout_bottom": "7Ø20",
+     "Mcr_kNm": 125.23,
+     "psi2_crack": 0.583,
+     "psi2_wk_fail": 0.583,
+     "at": {
+      "0.3": {
+       "M_qp": 90.41,
+       "sigma_ct_fctm": 0.722,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 151.9,
+       "sigma_ct_fctm": 1.213,
+       "wk_mm": 0.172,
+       "cracked": true
+      }
+     }
+    },
+    "proposed": {
+     "As_bottom_cm2": 33.18,
+     "layout_bottom": "8Ø20 + 4Ø16",
+     "Mcr_kNm": 129.15,
+     "psi2_crack": 0.615,
+     "psi2_wk_fail": 0.849,
+     "at": {
+      "0.3": {
+       "M_qp": 90.41,
+       "sigma_ct_fctm": 0.7,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 151.9,
+       "sigma_ct_fctm": 1.176,
+       "wk_mm": 0.0962,
+       "cracked": true
+      }
+     }
+    }
+   },
+   "VT3": {
+    "provided": {
+     "As_bottom_cm2": 21.99,
+     "layout_bottom": "7Ø20",
+     "Mcr_kNm": 125.23,
+     "psi2_crack": 0.695,
+     "psi2_wk_fail": 0.695,
+     "at": {
+      "0.3": {
+       "M_qp": 81.68,
+       "sigma_ct_fctm": 0.652,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 136.85,
+       "sigma_ct_fctm": 1.093,
+       "wk_mm": 0.155,
+       "cracked": true
+      }
+     }
+    },
+    "proposed": {
+     "As_bottom_cm2": 33.18,
+     "layout_bottom": "8Ø20 + 4Ø16",
+     "Mcr_kNm": 129.15,
+     "psi2_crack": 0.73,
+     "psi2_wk_fail": 0.991,
+     "at": {
+      "0.3": {
+       "M_qp": 81.68,
+       "sigma_ct_fctm": 0.632,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 136.85,
+       "sigma_ct_fctm": 1.06,
+       "wk_mm": 0.0866,
+       "cracked": true
+      }
+     }
+    }
+   },
+   "VT4": {
+    "provided": {
+     "As_bottom_cm2": 21.99,
+     "layout_bottom": "7Ø20",
+     "Mcr_kNm": 125.23,
+     "psi2_crack": 0.671,
+     "psi2_wk_fail": 0.671,
+     "at": {
+      "0.3": {
+       "M_qp": 83.43,
+       "sigma_ct_fctm": 0.666,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 139.83,
+       "sigma_ct_fctm": 1.117,
+       "wk_mm": 0.1584,
+       "cracked": true
+      }
+     }
+    },
+    "proposed": {
+     "As_bottom_cm2": 33.18,
+     "layout_bottom": "8Ø20 + 4Ø16",
+     "Mcr_kNm": 129.15,
+     "psi2_crack": 0.705,
+     "psi2_wk_fail": 0.96,
+     "at": {
+      "0.3": {
+       "M_qp": 83.43,
+       "sigma_ct_fctm": 0.646,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 139.83,
+       "sigma_ct_fctm": 1.083,
+       "wk_mm": 0.0885,
+       "cracked": true
+      }
+     }
+    }
+   },
+   "VT5": {
+    "provided": {
+     "As_bottom_cm2": 21.99,
+     "layout_bottom": "7Ø20",
+     "Mcr_kNm": 125.23,
+     "psi2_crack": 0.695,
+     "psi2_wk_fail": 0.695,
+     "at": {
+      "0.3": {
+       "M_qp": 81.68,
+       "sigma_ct_fctm": 0.652,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 136.85,
+       "sigma_ct_fctm": 1.093,
+       "wk_mm": 0.155,
+       "cracked": true
+      }
+     }
+    },
+    "proposed": {
+     "As_bottom_cm2": 33.18,
+     "layout_bottom": "8Ø20 + 4Ø16",
+     "Mcr_kNm": 129.15,
+     "psi2_crack": 0.73,
+     "psi2_wk_fail": 0.991,
+     "at": {
+      "0.3": {
+       "M_qp": 81.68,
+       "sigma_ct_fctm": 0.632,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 136.85,
+       "sigma_ct_fctm": 1.06,
+       "wk_mm": 0.0866,
+       "cracked": true
+      }
+     }
+    }
+   },
+   "VT6": {
+    "provided": {
+     "As_bottom_cm2": 21.99,
+     "layout_bottom": "7Ø20",
+     "Mcr_kNm": 125.23,
+     "psi2_crack": 0.583,
+     "psi2_wk_fail": 0.583,
+     "at": {
+      "0.3": {
+       "M_qp": 90.41,
+       "sigma_ct_fctm": 0.722,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 151.9,
+       "sigma_ct_fctm": 1.213,
+       "wk_mm": 0.172,
+       "cracked": true
+      }
+     }
+    },
+    "proposed": {
+     "As_bottom_cm2": 33.18,
+     "layout_bottom": "8Ø20 + 4Ø16",
+     "Mcr_kNm": 129.15,
+     "psi2_crack": 0.615,
+     "psi2_wk_fail": 0.849,
+     "at": {
+      "0.3": {
+       "M_qp": 90.41,
+       "sigma_ct_fctm": 0.7,
+       "wk_mm": 0.0,
+       "cracked": false
+      },
+      "0.8": {
+       "M_qp": 151.9,
+       "sigma_ct_fctm": 1.176,
+       "wk_mm": 0.0962,
+       "cracked": true
+      }
+     }
+    }
+   }
+  },
+  "threshold_provided": 0.583,
+  "threshold_proposed": 0.849
+ },
+ "interaction": {
+  "uniaxial": [
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2561.0809676003755,
+    0.0
+   ],
+   [
+    -2509.263464154817,
+    10.259865682220497
+   ],
+   [
+    -2494.859842795821,
+    13.060231545416906
+   ],
+   [
+    -2462.863872812232,
+    19.267449722233156
+   ],
+   [
+    -2430.629895394709,
+    25.42159531758453
+   ],
+   [
+    -2406.2563042197207,
+    30.032559805458646
+   ],
+   [
+    -2376.205833826646,
+    35.65117528316236
+   ],
+   [
+    -2345.553780905467,
+    41.30128723742369
+   ],
+   [
+    -2319.244785000509,
+    46.10675082510774
+   ],
+   [
+    -2289.71025204926,
+    51.42875237886948
+   ],
+   [
+    -2259.6846076014526,
+    56.76402026466988
+   ],
+   [
+    -2232.6290420135424,
+    61.52669033873863
+   ],
+   [
+    -2203.2500098802834,
+    66.62428063792943
+   ],
+   [
+    -2173.5612823039055,
+    71.70197010476922
+   ],
+   [
+    -2146.1222406131997,
+    76.34962252915662
+   ],
+   [
+    -2116.815248129089,
+    81.23963360621451
+   ],
+   [
+    -2087.3246638967266,
+    86.08698832485321
+   ],
+   [
+    -1974.5926241274317,
+    101.43475769547202
+   ],
+   [
+    -1829.0643131285665,
+    120.94534223440978
+   ],
+   [
+    -1695.3498621533709,
+    138.88242103121448
+   ],
+   [
+    -1573.4176508806959,
+    155.22299391789926
+   ],
+   [
+    -1458.9250369693302,
+    170.57983787962073
+   ],
+   [
+    -1351.8732171508418,
+    184.92110669502551
+   ],
+   [
+    -1252.8528679247745,
+    198.1573348034793
+   ],
+   [
+    -1158.481737768278,
+    210.75294974199997
+   ],
+   [
+    -1069.069127246767,
+    222.64940020502286
+   ],
+   [
+    -985.4458086325233,
+    233.73822929311152
+   ],
+   [
+    -906.9630442535412,
+    244.11315356455808
+   ],
+   [
+    -837.437276406184,
+    253.27868809415185
+   ],
+   [
+    -771.3094444910616,
+    261.9512743827846
+   ],
+   [
+    -706.4165387558879,
+    270.3993673494431
+   ],
+   [
+    -643.2971263238272,
+    278.5532200217969
+   ],
+   [
+    -582.9600471536347,
+    286.3004518196421
+   ],
+   [
+    -523.4989137290393,
+    293.86280711649704
+   ],
+   [
+    -465.418344437788,
+    301.179765738502
+   ],
+   [
+    -409.65709313480966,
+    308.1555150299134
+   ],
+   [
+    -354.1245128977895,
+    314.99202413402617
+   ],
+   [
+    -270.31109506727825,
+    322.8667093067702
+   ],
+   [
+    -190.01317357900507,
+    330.3845239586489
+   ],
+   [
+    -111.55820487719006,
+    337.7072865712544
+   ],
+   [
+    -35.29896037349501,
+    344.79119051976727
+   ],
+   [
+    38.030651923835514,
+    351.5699039785827
+   ],
+   [
+    109.95046274339198,
+    358.1809808619028
+   ],
+   [
+    180.11511415131227,
+    364.58649271939385
+   ],
+   [
+    247.79361656132713,
+    370.7267116141461
+   ],
+   [
+    314.38413361555394,
+    376.7191645435586
+   ],
+   [
+    379.55644056432845,
+    382.53159016898655
+   ],
+   [
+    442.5946755834648,
+    388.1115970218501
+   ],
+   [
+    504.78256876129876,
+    393.5576372335689
+   ],
+   [
+    565.8138373187196,
+    398.8434341761301
+   ],
+   [
+    624.9955319878089,
+    403.92425850062205
+   ],
+   [
+    683.5055781107855,
+    408.8809001138972
+   ],
+   [
+    741.0640255196246,
+    413.69265206751595
+   ],
+   [
+    797.0026101073837,
+    418.32208169062636
+   ],
+   [
+    852.4127718465828,
+    422.83532420570236
+   ],
+   [
+    907.0301827555152,
+    427.2151716818209
+   ],
+   [
+    967.3123443658837,
+    431.12994344256356
+   ],
+   [
+    1039.3612704007257,
+    434.41752892140244
+   ],
+   [
+    1110.082869377046,
+    437.60855977267875
+   ],
+   [
+    1178.1451070958162,
+    440.6464744388746
+   ],
+   [
+    1244.2136348856116,
+    443.5593424762578
+   ],
+   [
+    1309.2651528252602,
+    446.38396478849637
+   ],
+   [
+    1372.7281552314585,
+    449.10119472786977
+   ],
+   [
+    1435.5289755695328,
+    451.74377559951853
+   ],
+   [
+    1497.4487294872276,
+    454.2992767624342
+   ],
+   [
+    1557.9186673514553,
+    456.75224341588176
+   ],
+   [
+    1617.8198846088176,
+    459.1279318411701
+   ],
+   [
+    1676.9573680744038,
+    461.41789365444913
+   ],
+   [
+    1734.7840330211468,
+    463.61247092302756
+   ],
+   [
+    1792.1327158395034,
+    465.7291571269235
+   ],
+   [
+    1848.8238813590062,
+    467.76210062830256
+   ],
+   [
+    1904.3254475811814,
+    469.7063113769213
+   ],
+   [
+    1954.3509810219114,
+    470.9251359752634
+   ],
+   [
+    2001.8568327876078,
+    471.8128927060296
+   ],
+   [
+    2048.4663482939873,
+    472.6419284087421
+   ],
+   [
+    2094.9157813147035,
+    473.41466749393624
+   ],
+   [
+    2161.642684204058,
+    471.5020302845717
+   ],
+   [
+    2235.4555324831904,
+    468.5243535166453
+   ],
+   [
+    2308.4162240232404,
+    465.58009744495894
+   ],
+   [
+    2380.3992876755074,
+    462.66390693389155
+   ],
+   [
+    2450.9419803159017,
+    459.7798846553204
+   ],
+   [
+    2520.7403753436574,
+    456.91666143959253
+   ],
+   [
+    2589.673966355643,
+    454.07042510035836
+   ],
+   [
+    2657.289198680288,
+    451.249392866014
+   ],
+   [
+    2724.252391694667,
+    448.4382046214162
+   ],
+   [
+    2790.450062031709,
+    445.6345318427107
+   ],
+   [
+    2855.43457836314,
+    442.8501017346695
+   ],
+   [
+    2919.8460173025446,
+    440.0659251920881
+   ],
+   [
+    2983.5783992377824,
+    437.2809672957635
+   ],
+   [
+    3046.1915802664216,
+    434.51041503889314
+   ],
+   [
+    3108.2981128595798,
+    431.73154419098404
+   ],
+   [
+    3169.135278740633,
+    428.9728582418382
+   ],
+   [
+    3228.3957078697804,
+    426.24769258471946
+   ],
+   [
+    3287.254109407657,
+    423.50451024381414
+   ],
+   [
+    3345.620954292101,
+    420.7447174073285
+   ],
+   [
+    3403.072000957218,
+    417.9902599150209
+   ],
+   [
+    3460.1649139388505,
+    415.2114420249344
+   ],
+   [
+    3516.8168451965794,
+    412.4102922646525
+   ],
+   [
+    3572.6141013111624,
+    409.61195142979267
+   ],
+   [
+    3628.092983225003,
+    406.7837385546695
+   ],
+   [
+    3683.174728660472,
+    403.9279618238806
+   ],
+   [
+    3737.456470699186,
+    401.0728442103063
+   ],
+   [
+    3791.454944908258,
+    398.18295773729886
+   ],
+   [
+    3845.0964748382794,
+    395.26088532925024
+   ],
+   [
+    3897.98600223803,
+    392.33755591478587
+   ],
+   [
+    3950.6232146865177,
+    389.3750835219755
+   ],
+   [
+    4002.9405429376093,
+    386.3763200674298
+   ],
+   [
+    4054.5483425384755,
+    383.3746171687574
+   ],
+   [
+    4105.930990239444,
+    380.32983931728995
+   ],
+   [
+    4157.027114772064,
+    377.245029028723
+   ],
+   [
+    4207.453234037284,
+    374.15594524480315
+   ],
+   [
+    4257.677147355988,
+    371.020176963128
+   ],
+   [
+    4307.644534538694,
+    367.8409410416004
+   ],
+   [
+    4356.978883094449,
+    364.6563887936555
+   ],
+   [
+    4406.130539804503,
+    361.4218576287972
+   ],
+   [
+    4455.05254702077,
+    358.1406794245428
+   ],
+   [
+    4503.375361719236,
+    354.8533248870948
+   ],
+   [
+    4551.53366986123,
+    351.5130963405218
+   ],
+   [
+    4599.4856391552075,
+    348.1232135797461
+   ],
+   [
+    4646.869376708607,
+    344.72644260647473
+   ],
+   [
+    4694.105689995882,
+    341.2742502075695
+   ],
+   [
+    4741.156032257294,
+    337.7695719059473
+   ],
+   [
+    4787.666391123619,
+    334.25741159690057
+   ],
+   [
+    4832.798889729143,
+    330.8463766795797
+   ],
+   [
+    4877.209819945204,
+    327.4510168924406
+   ],
+   [
+    4921.159579344213,
+    324.040793515586
+   ],
+   [
+    4965.042860854222,
+    320.56417477063155
+   ],
+   [
+    5008.82780186973,
+    317.023738599272
+   ],
+   [
+    5052.168668894451,
+    313.46865964061476
+   ],
+   [
+    5095.450090053083,
+    309.84596206551566
+   ],
+   [
+    5138.645044438608,
+    306.15785809311006
+   ],
+   [
+    5181.412616267082,
+    302.455386253213
+   ],
+   [
+    5224.126335260831,
+    298.68413794722755
+   ],
+   [
+    5266.764584612032,
+    294.845948074299
+   ],
+   [
+    5308.991814901554,
+    290.9937083389294
+   ],
+   [
+    5351.169635712055,
+    287.071612165062
+   ],
+   [
+    5393.282072558549,
+    283.0810841185847
+   ],
+   [
+    5434.998924658204,
+    279.07682843698393
+   ],
+   [
+    5476.6705268099295,
+    275.00174785238374
+   ],
+   [
+    5518.283624935186,
+    270.8566875488205
+   ],
+   [
+    5559.513821028941,
+    266.6981440245181
+   ],
+   [
+    5600.702299788735,
+    262.4678872165535
+   ],
+   [
+    5641.839905124001,
+    258.1662148549976
+   ],
+   [
+    5682.608345519757,
+    253.85138454678713
+   ],
+   [
+    5723.339724670089,
+    249.46409622177094
+   ],
+   [
+    5764.027956241345,
+    245.00403147265573
+   ],
+   [
+    5804.359307061918,
+    240.5311107403208
+   ],
+   [
+    5844.657806923239,
+    235.98505735314393
+   ],
+   [
+    5884.920941545002,
+    231.3649272094549
+   ],
+   [
+    5924.838255574941,
+    226.73223191194953
+   ],
+   [
+    5953.5829702192395,
+    223.17346857710154
+   ],
+   [
+    5970.877612543257,
+    220.7999223437288
+   ],
+   [
+    5988.084370693382,
+    218.43900014404753
+   ],
+   [
+    6005.203244669609,
+    216.09070197805843
+   ],
+   [
+    6022.234234471948,
+    213.7550278457607
+   ],
+   [
+    6039.17734010039,
+    211.43197774715492
+   ],
+   [
+    6056.03256155494,
+    209.1215516822407
+   ],
+   [
+    6072.799898835595,
+    206.82374965101852
+   ],
+   [
+    6089.479351942358,
+    204.53857165348768
+   ],
+   [
+    6106.070920875224,
+    202.266017689649
+   ],
+   [
+    6122.5746056341995,
+    200.00608775950192
+   ],
+   [
+    6138.990406219279,
+    197.75878186304664
+   ],
+   [
+    6155.318322630467,
+    195.52410000028294
+   ],
+   [
+    6171.55835486776,
+    193.3020421712113
+   ],
+   [
+    6187.71050293116,
+    191.09260837583113
+   ],
+   [
+    6203.774766820665,
+    188.8957986141429
+   ],
+   [
+    6219.751146536277,
+    186.71161288614624
+   ],
+   [
+    6235.639642077995,
+    184.5400511918417
+   ],
+   [
+    6251.440253445819,
+    182.38111353122844
+   ],
+   [
+    6267.152980639749,
+    180.23479990430732
+   ],
+   [
+    6282.777823659788,
+    178.10111031107766
+   ],
+   [
+    6298.3147825059295,
+    175.98004475154
+   ],
+   [
+    6313.763857178181,
+    173.8716032256939
+   ],
+   [
+    6329.125047676534,
+    171.7757857335398
+   ],
+   [
+    6344.398354000998,
+    169.69259227507717
+   ],
+   [
+    6359.583776151566,
+    167.62202285030656
+   ],
+   [
+    6374.681314128242,
+    165.56407745922743
+   ],
+   [
+    6389.690967931021,
+    163.5187561018403
+   ],
+   [
+    6404.61273755991,
+    161.48605877814472
+   ],
+   [
+    6419.446623014903,
+    159.4659854881411
+   ],
+   [
+    6434.192624296002,
+    157.4585362318291
+   ],
+   [
+    6448.850741403208,
+    155.46371100920882
+   ],
+   [
+    6463.420974336521,
+    153.48150982028042
+   ],
+   [
+    6477.90332309594,
+    151.5119326650437
+   ],
+   [
+    6492.297787681464,
+    149.55497954349875
+   ],
+   [
+    6506.604368093096,
+    147.61065045564555
+   ],
+   [
+    6520.823064330833,
+    145.67894540148413
+   ],
+   [
+    6534.953876394676,
+    143.75986438101447
+   ],
+   [
+    6548.996804284627,
+    141.85340739423657
+   ],
+   [
+    6562.951848000682,
+    139.95957444115038
+   ],
+   [
+    6576.819007542844,
+    138.07836552175604
+   ],
+   [
+    6590.5982829111135,
+    136.2097806360534
+   ],
+   [
+    6604.289674105488,
+    134.35381978404246
+   ],
+   [
+    6617.893181125971,
+    132.51048296572336
+   ],
+   [
+    6631.4088039725575,
+    130.6797701810959
+   ],
+   [
+    6644.836542645251,
+    128.86168143016025
+   ],
+   [
+    6658.176397144052,
+    127.0562167129165
+   ],
+   [
+    6671.428367468958,
+    125.26337602936437
+   ],
+   [
+    6684.592453619971,
+    123.48315937950395
+   ],
+   [
+    6697.66865559709,
+    121.71556676333539
+   ],
+   [
+    6710.656973400315,
+    119.96059818085853
+   ],
+   [
+    6723.557407029646,
+    118.21825363207347
+   ],
+   [
+    6736.369956485083,
+    116.48853311698012
+   ],
+   [
+    6749.094621766629,
+    114.77143663557851
+   ],
+   [
+    6761.7314028742785,
+    113.0669641878687
+   ],
+   [
+    6774.280299808033,
+    111.37511577385067
+   ],
+   [
+    6786.741312567897,
+    109.69589139352433
+   ],
+   [
+    6799.114441153866,
+    108.02929104688977
+   ],
+   [
+    6811.399685565942,
+    106.37531473394701
+   ],
+   [
+    6823.597045804125,
+    104.73396245469583
+   ],
+   [
+    6835.706521868411,
+    103.10523420913664
+   ],
+   [
+    6847.728113758805,
+    101.48912999726903
+   ],
+   [
+    6859.661821475305,
+    99.8856498190933
+   ],
+   [
+    6871.507645017912,
+    98.29479367460932
+   ],
+   [
+    6883.265584386626,
+    96.71656156381704
+   ],
+   [
+    6894.935639581446,
+    95.15095348671647
+   ],
+   [
+    6906.51781060237,
+    93.59796944330775
+   ],
+   [
+    6918.012097449403,
+    92.05760943359074
+   ],
+   [
+    6929.418500122541,
+    90.52987345756551
+   ],
+   [
+    6940.737018621786,
+    89.01476151523211
+   ],
+   [
+    6951.967652947135,
+    87.51227360659033
+   ],
+   [
+    6963.1104030985925,
+    86.02240973164031
+   ],
+   [
+    6974.165269076156,
+    84.54516989038214
+   ],
+   [
+    6985.132250879826,
+    83.08055408281564
+   ],
+   [
+    6996.011348509602,
+    81.62856230894089
+   ],
+   [
+    7006.8025619654845,
+    80.18919456875801
+   ],
+   [
+    7017.5058912474715,
+    78.76245086226677
+   ],
+   [
+    7028.121336355565,
+    77.34833118946733
+   ],
+   [
+    7038.648897289766,
+    75.94683555035964
+   ],
+   [
+    7049.088574050074,
+    74.55796394494368
+   ],
+   [
+    7059.440366636488,
+    73.18171637321952
+   ],
+   [
+    7069.704275049008,
+    71.81809283518699
+   ],
+   [
+    7079.880299287633,
+    70.46709333084644
+   ],
+   [
+    7089.968439352366,
+    69.12871786019745
+   ],
+   [
+    7099.968695243204,
+    67.80296642324036
+   ],
+   [
+    7109.881066960151,
+    66.48983901997487
+   ],
+   [
+    7119.705554503199,
+    65.18933565040135
+   ],
+   [
+    7129.442157872359,
+    63.90145631451942
+   ],
+   [
+    7139.09087706762,
+    62.6262010123293
+   ],
+   [
+    7148.651712088991,
+    61.36356974383087
+   ],
+   [
+    7158.124662936466,
+    60.11356250902426
+   ],
+   [
+    7167.50972961005,
+    58.876179307909375
+   ],
+   [
+    7176.806912109737,
+    57.65142014048637
+   ],
+   [
+    7186.016210435533,
+    56.439285006754965
+   ],
+   [
+    7195.1376245874335,
+    55.23977390671538
+   ],
+   [
+    7204.171154565442,
+    54.05288684036751
+   ],
+   [
+    7213.116800369554,
+    52.87862380771146
+   ],
+   [
+    7221.974561999776,
+    51.716984808747014
+   ],
+   [
+    7230.744439456101,
+    50.56796984347457
+   ],
+   [
+    7239.426432738534,
+    49.431578911893695
+   ],
+   [
+    7248.020541847072,
+    48.30781201400474
+   ],
+   [
+    7256.526766781719,
+    47.19666914980732
+   ],
+   [
+    7264.94510754247,
+    46.0981503193018
+   ],
+   [
+    7273.275564129327,
+    45.01225552248794
+   ],
+   [
+    7281.51813654229,
+    43.93898475936608
+   ],
+   [
+    7289.672824781361,
+    42.87833802993561
+   ],
+   [
+    7297.739628846537,
+    41.83031533419717
+   ],
+   [
+    7305.718548737819,
+    40.79491667215035
+   ],
+   [
+    7313.609584455209,
+    39.77214204379538
+   ],
+   [
+    7321.412735998704,
+    38.76199144913204
+   ],
+   [
+    7329.128003368305,
+    37.76446488816064
+   ],
+   [
+    7336.755386564015,
+    36.77956236088085
+   ],
+   [
+    7344.294885585828,
+    35.80728386729288
+   ],
+   [
+    7351.746500433748,
+    34.84762940739654
+   ],
+   [
+    7359.110231107775,
+    33.900598981192154
+   ],
+   [
+    7366.386077607909,
+    32.9661925886794
+   ],
+   [
+    7373.574039934148,
+    32.04441022985843
+   ],
+   [
+    7380.674118086493,
+    31.135251904729188
+   ],
+   [
+    7387.686312064945,
+    30.23871761329174
+   ],
+   [
+    7394.528535941055,
+    29.34434139966874
+   ],
+   [
+    7399.091181353688,
+    28.18314819781615
+   ],
+   [
+    7403.565942592429,
+    27.034579029655063
+   ],
+   [
+    7407.9528196572755,
+    25.898633895185903
+   ],
+   [
+    7412.251812548229,
+    24.77531279440833
+   ],
+   [
+    7416.462921265288,
+    23.664615727322744
+   ],
+   [
+    7420.586145808455,
+    22.566542693928586
+   ],
+   [
+    7424.621486177725,
+    21.481093694226498
+   ],
+   [
+    7428.568942373106,
+    20.40826872821599
+   ],
+   [
+    7432.428514394589,
+    19.348067795897304
+   ],
+   [
+    7436.200202242181,
+    18.300490897270276
+   ],
+   [
+    7439.8840059158765,
+    17.265538032335165
+   ],
+   [
+    7443.4799254156815,
+    16.243209201091695
+   ],
+   [
+    7446.9879607415905,
+    15.233504403539971
+   ],
+   [
+    7450.408111893607,
+    14.236423639680059
+   ],
+   [
+    7453.740378871729,
+    13.251966909511923
+   ],
+   [
+    7456.984761675959,
+    12.280134213035492
+   ],
+   [
+    7460.141260306292,
+    11.320925550250795
+   ],
+   [
+    7463.209874762733,
+    10.374340921157941
+   ],
+   [
+    7466.190605045282,
+    9.440380325756742
+   ],
+   [
+    7469.083451153935,
+    8.519043764047398
+   ],
+   [
+    7471.8884130886945,
+    7.610331236029716
+   ],
+   [
+    7474.605490849561,
+    6.714242741703826
+   ],
+   [
+    7477.234684436534,
+    5.8307782810697555
+   ],
+   [
+    7479.775993849613,
+    4.959937854127346
+   ],
+   [
+    7482.229419088797,
+    4.101721460876766
+   ],
+   [
+    7484.594960154088,
+    3.2561291013179003
+   ],
+   [
+    7486.872617045487,
+    2.423160775450781
+   ],
+   [
+    7489.06238976299,
+    1.6028164832753957
+   ],
+   [
+    7491.1642783066,
+    0.7950962247918667
+   ],
+   [
+    7493.1782826763165,
+    0.0
+   ]
+  ],
+  "meridian": [
+   [
+    -2548.2755627623737,
+    2.6096530777516995
+   ],
+   [
+    -2435.871203728372,
+    25.010628081489028
+   ],
+   [
+    -2323.46684469439,
+    46.210488312206
+   ],
+   [
+    -2211.0624856607456,
+    65.68714154680902
+   ],
+   [
+    -2098.6581266264106,
+    83.17814434846323
+   ],
+   [
+    -1986.2537675924114,
+    99.57884119160146
+   ],
+   [
+    -1873.8494085584202,
+    115.25095529110492
+   ],
+   [
+    -1761.4450495244273,
+    130.4467570695675
+   ],
+   [
+    -1649.040690490432,
+    145.67548780384647
+   ],
+   [
+    -1536.6363314564405,
+    160.92745903168475
+   ],
+   [
+    -1424.2319724224983,
+    176.18349388970972
+   ],
+   [
+    -1311.8276133892853,
+    191.38497113759618
+   ],
+   [
+    -1199.4232543575167,
+    206.53389028467834
+   ],
+   [
+    -1087.018895320571,
+    221.2864902280608
+   ],
+   [
+    -974.6145362864834,
+    234.58730031227063
+   ],
+   [
+    -862.21017725249,
+    247.84264679495152
+   ],
+   [
+    -749.8058182184956,
+    261.0360032158281
+   ],
+   [
+    -637.401459184501,
+    274.1414125709289
+   ],
+   [
+    -524.9971001505085,
+    287.1207617673213
+   ],
+   [
+    -412.59274111654724,
+    299.9366810581142
+   ],
+   [
+    -300.1883820836907,
+    310.665439751091
+   ],
+   [
+    -187.7840230486975,
+    321.32273496332306
+   ],
+   [
+    -75.37966401454318,
+    331.4199771065898
+   ],
+   [
+    37.02469501944771,
+    340.2575628525076
+   ],
+   [
+    149.42905405344163,
+    349.00963769722773
+   ],
+   [
+    261.8334130874346,
+    357.64897498129693
+   ],
+   [
+    374.23777212142454,
+    366.1488790204162
+   ],
+   [
+    486.64213115541696,
+    374.5071881089876
+   ],
+   [
+    599.0464901894076,
+    382.7018947488869
+   ],
+   [
+    711.4508492233989,
+    390.7105497283132
+   ],
+   [
+    823.8552082573883,
+    397.12177117312046
+   ],
+   [
+    936.2595672913873,
+    402.3078750010464
+   ],
+   [
+    1048.6639263253771,
+    406.29640635906645
+   ],
+   [
+    1161.0682853593726,
+    410.1861293320747
+   ],
+   [
+    1273.4726443933648,
+    413.76422107339164
+   ],
+   [
+    1385.8770034270844,
+    416.12190066720257
+   ],
+   [
+    1498.2813624612734,
+    418.3787678331475
+   ],
+   [
+    1610.6857214952374,
+    420.5243242607259
+   ],
+   [
+    1723.0900805291128,
+    421.0941812578503
+   ],
+   [
+    1835.4944395633258,
+    421.09597152498503
+   ],
+   [
+    1947.898798597305,
+    421.0328056728229
+   ],
+   [
+    2060.3031576313115,
+    419.8944780893902
+   ],
+   [
+    2172.7075166652894,
+    417.8249902035985
+   ],
+   [
+    2285.111875699293,
+    415.68007018166765
+   ],
+   [
+    2397.5162347332844,
+    413.463999274301
+   ],
+   [
+    2509.920593767279,
+    411.1647505893326
+   ],
+   [
+    2622.324952801266,
+    408.77069467695065
+   ],
+   [
+    2734.729311835261,
+    406.2696534103714
+   ],
+   [
+    2847.1336708692534,
+    403.64940617110176
+   ],
+   [
+    2959.538029903246,
+    400.8977269976136
+   ],
+   [
+    3071.942388937238,
+    398.0019998137973
+   ],
+   [
+    3184.3467479712303,
+    394.9492689691951
+   ],
+   [
+    3296.751107005223,
+    391.4969793516231
+   ],
+   [
+    3409.1554660392135,
+    387.72596772809476
+   ],
+   [
+    3521.559825073206,
+    383.7562892370726
+   ],
+   [
+    3633.9641841072007,
+    379.5747387280282
+   ],
+   [
+    3746.3685431411936,
+    375.1859858645905
+   ],
+   [
+    3858.7729021751866,
+    370.5987855787318
+   ],
+   [
+    3971.177261209175,
+    365.75529116008966
+   ],
+   [
+    4083.5816202431447,
+    360.6349745628216
+   ],
+   [
+    4195.985979277053,
+    355.2249802845221
+   ],
+   [
+    4308.390338310307,
+    349.5135112996567
+   ],
+   [
+    4420.79469734422,
+    343.5175835100019
+   ],
+   [
+    4533.199056379138,
+    336.92784174675984
+   ],
+   [
+    4645.603415413131,
+    329.8558121094312
+   ],
+   [
+    4758.007774447123,
+    322.4140216295474
+   ],
+   [
+    4870.412133481114,
+    314.6532703429057
+   ],
+   [
+    4982.816492515108,
+    306.4943538068098
+   ],
+   [
+    5095.2208515491,
+    297.93199190910383
+   ],
+   [
+    5207.625210583091,
+    289.02380420091174
+   ],
+   [
+    5320.0295696170515,
+    279.405248567915
+   ],
+   [
+    5432.433928651076,
+    269.1433010346728
+   ],
+   [
+    5544.8382876847545,
+    258.44330480228456
+   ],
+   [
+    5657.242646718202,
+    247.31503769011582
+   ],
+   [
+    5769.647005751595,
+    235.77394826690195
+   ],
+   [
+    5882.051364782406,
+    223.8454445952783
+   ],
+   [
+    5994.455723821035,
+    211.16957801806583
+   ],
+   [
+    6106.860082853048,
+    198.1162057077387
+   ],
+   [
+    6219.264441886112,
+    184.83711804258596
+   ],
+   [
+    6331.66880092301,
+    170.38013092078413
+   ],
+   [
+    6444.0731599570045,
+    155.28573952907664
+   ],
+   [
+    6556.477518990997,
+    140.24479126025895
+   ],
+   [
+    6668.881878024989,
+    125.26550412787063
+   ],
+   [
+    6781.286237058984,
+    110.35844358839817
+   ],
+   [
+    6893.690596092975,
+    95.47044960431987
+   ],
+   [
+    7006.094955126961,
+    80.38860767437164
+   ],
+   [
+    7118.4993141609575,
+    65.41083526056559
+   ],
+   [
+    7230.903673189454,
+    50.32043347664881
+   ],
+   [
+    7343.3080322280675,
+    34.24141479721476
+   ],
+   [
+    7455.712390230307,
+    11.037633137961146
+   ]
+  ],
+  "meridian_angle_deg": 13.694065199025891,
+  "points": [
+   {
+    "pile": "P2",
+    "position": "Pie",
+    "check": "nm1",
+    "combo": "ELR05",
+    "N": -131.69,
+    "M": 269.77368971788184,
+    "MEd_x": -269.64,
+    "MEd_y": -8.492,
+    "NRd": -161.65,
+    "MRd": 331.14410786846264,
+    "eta": 0.81466
+   },
+   {
+    "pile": "P3",
+    "position": "Cabeza",
+    "check": "nm1",
+    "combo": "ELR08",
+    "N": 736.06,
+    "M": 295.90645650441627,
+    "MEd_x": 295.26,
+    "MEd_y": -19.549,
+    "NRd": 1059.46,
+    "MRd": 425.9204704448942,
+    "eta": 0.69475
+   },
+   {
+    "pile": "P3",
+    "position": "Cabeza",
+    "check": "nm2",
+    "combo": "ELR08",
+    "N": 736.06,
+    "M": 388.1640894634639,
+    "MEd_x": 377.13,
+    "MEd_y": -91.893,
+    "NRd": 745.4,
+    "MRd": 393.0941999063329,
+    "eta": 0.98746
+   }
+  ],
+  "cloud": [
+   {
+    "N": 470.44,
+    "M": 278.45758312532985,
+    "check": "nm1"
+   },
+   {
+    "N": 470.44,
+    "M": 341.5165448408027,
+    "check": "nm2"
+   },
+   {
+    "N": 307.59,
+    "M": 269.21112708058706,
+    "check": "nm1"
+   },
+   {
+    "N": 503.24,
+    "M": 342.5484950207781,
+    "check": "nm2"
+   },
+   {
+    "N": 307.59,
+    "M": 269.21112708058706,
+    "check": "nm1"
+   },
+   {
+    "N": 503.24,
+    "M": 342.2209935173469,
+    "check": "nm2"
+   },
+   {
+    "N": -155.98,
+    "M": 260.07712911557604,
+    "check": "nm1"
+   },
+   {
+    "N": 15.647,
+    "M": 256.10809496968267,
+    "check": "nm2"
+   },
+   {
+    "N": -131.69,
+    "M": 269.77368971788184,
+    "check": "nm1"
+   },
+   {
+    "N": 18.631,
+    "M": 266.28169618094296,
+    "check": "nm2"
+   },
+   {
+    "N": -131.69,
+    "M": 269.77368971788184,
+    "check": "nm1"
+   },
+   {
+    "N": 18.631,
+    "M": 266.28169618094296,
+    "check": "nm2"
+   },
+   {
+    "N": 736.06,
+    "M": 295.90645650441627,
+    "check": "nm1"
+   },
+   {
+    "N": 736.06,
+    "M": 388.1640894634639,
+    "check": "nm2"
+   },
+   {
+    "N": 361.02,
+    "M": 267.54743672851737,
+    "check": "nm1"
+   },
+   {
+    "N": 768.86,
+    "M": 382.8339026379456,
+    "check": "nm2"
+   },
+   {
+    "N": 361.02,
+    "M": 267.54743672851737,
+    "check": "nm1"
+   },
+   {
+    "N": 768.86,
+    "M": 382.34143244487643,
+    "check": "nm2"
+   },
+   {
+    "N": -114.51,
+    "M": 241.09309730682878,
+    "check": "nm1"
+   },
+   {
+    "N": 214.28,
+    "M": 211.5145857854725,
+    "check": "nm2"
+   },
+   {
+    "N": -90.215,
+    "M": 257.2512884742076,
+    "check": "nm1"
+   },
+   {
+    "N": 238.58,
+    "M": 242.502555015406,
+    "check": "nm2"
+   },
+   {
+    "N": -90.215,
+    "M": 257.2512884742076,
+    "check": "nm1"
+   },
+   {
+    "N": 238.58,
+    "M": 242.502555015406,
+    "check": "nm2"
+   },
+   {
+    "N": 697.7,
+    "M": 279.2588444722924,
+    "check": "nm1"
+   },
+   {
+    "N": 697.7,
+    "M": 363.53505963524344,
+    "check": "nm2"
+   },
+   {
+    "N": 363.32,
+    "M": 258.35219615091336,
+    "check": "nm1"
+   },
+   {
+    "N": 730.5,
+    "M": 364.7418022231617,
+    "check": "nm2"
+   },
+   {
+    "N": 363.32,
+    "M": 258.35219615091336,
+    "check": "nm1"
+   },
+   {
+    "N": 730.5,
+    "M": 364.28209128229184,
+    "check": "nm2"
+   },
+   {
+    "N": -134.13,
+    "M": 240.87644456027658,
+    "check": "nm1"
+   },
+   {
+    "N": 160.88,
+    "M": 213.4529741863533,
+    "check": "nm2"
+   },
+   {
+    "N": -109.84,
+    "M": 255.0146681055817,
+    "check": "nm1"
+   },
+   {
+    "N": 185.18,
+    "M": 241.31782464003774,
+    "check": "nm2"
+   },
+   {
+    "N": -109.84,
+    "M": 255.0146681055817,
+    "check": "nm1"
+   },
+   {
+    "N": 185.18,
+    "M": 241.31782464003774,
+    "check": "nm2"
+   },
+   {
+    "N": 691.44,
+    "M": 283.36764483793837,
+    "check": "nm1"
+   },
+   {
+    "N": 691.44,
+    "M": 366.497511534526,
+    "check": "nm2"
+   },
+   {
+    "N": 347.27,
+    "M": 258.1234470655465,
+    "check": "nm1"
+   },
+   {
+    "N": 724.24,
+    "M": 364.13492008457524,
+    "check": "nm2"
+   },
+   {
+    "N": 347.27,
+    "M": 258.1234470655465,
+    "check": "nm1"
+   },
+   {
+    "N": 724.24,
+    "M": 363.675949086546,
+    "check": "nm2"
+   },
+   {
+    "N": -115.78,
+    "M": 233.21243175482735,
+    "check": "nm1"
+   },
+   {
+    "N": 187.32,
+    "M": 205.43276059333868,
+    "check": "nm2"
+   },
+   {
+    "N": -91.488,
+    "M": 248.66269636598088,
+    "check": "nm1"
+   },
+   {
+    "N": 211.61,
+    "M": 234.93285394767588,
+    "check": "nm2"
+   },
+   {
+    "N": -91.488,
+    "M": 248.66269636598088,
+    "check": "nm1"
+   },
+   {
+    "N": 211.61,
+    "M": 234.93285394767588,
+    "check": "nm2"
+   },
+   {
+    "N": 691.88,
+    "M": 270.66397311796044,
+    "check": "nm1"
+   },
+   {
+    "N": 691.88,
+    "M": 354.7703625501995,
+    "check": "nm2"
+   },
+   {
+    "N": 357.51,
+    "M": 249.3525315692624,
+    "check": "nm1"
+   },
+   {
+    "N": 724.68,
+    "M": 355.6434146388768,
+    "check": "nm2"
+   },
+   {
+    "N": 357.51,
+    "M": 249.3525315692624,
+    "check": "nm1"
+   },
+   {
+    "N": 724.68,
+    "M": 355.1812716360478,
+    "check": "nm2"
+   },
+   {
+    "N": -128.3,
+    "M": 232.2603003950578,
+    "check": "nm1"
+   },
+   {
+    "N": 166.71,
+    "M": 204.88126025578816,
+    "check": "nm2"
+   },
+   {
+    "N": -104.0,
+    "M": 246.01122830220575,
+    "check": "nm1"
+   },
+   {
+    "N": 191.01,
+    "M": 232.37080802854734,
+    "check": "nm2"
+   },
+   {
+    "N": -104.0,
+    "M": 246.01122830220575,
+    "check": "nm1"
+   },
+   {
+    "N": 191.01,
+    "M": 232.37080802854734,
+    "check": "nm2"
+   },
+   {
+    "N": 724.37,
+    "M": 278.58373464543837,
+    "check": "nm1"
+   },
+   {
+    "N": 724.37,
+    "M": 369.40089881996767,
+    "check": "nm2"
+   },
+   {
+    "N": 349.33,
+    "M": 249.53783634751665,
+    "check": "nm1"
+   },
+   {
+    "N": 757.17,
+    "M": 363.2557885347459,
+    "check": "nm2"
+   },
+   {
+    "N": 349.33,
+    "M": 249.53783634751665,
+    "check": "nm1"
+   },
+   {
+    "N": 757.17,
+    "M": 362.76383655072345,
+    "check": "nm2"
+   },
+   {
+    "N": 427.46,
+    "M": 253.55576649131842,
+    "check": "nm1"
+   },
+   {
+    "N": 427.46,
+    "M": 311.60429072783967,
+    "check": "nm2"
+   },
+   {
+    "N": 428.56,
+    "M": 250.48577848652405,
+    "check": "nm1"
+   },
+   {
+    "N": 460.26,
+    "M": 311.11590332382565,
+    "check": "nm2"
+   },
+   {
+    "N": 428.56,
+    "M": 250.48577848652405,
+    "check": "nm1"
+   },
+   {
+    "N": 460.26,
+    "M": 310.81006774073455,
+    "check": "nm2"
+   },
+   {
+    "N": -102.88,
+    "M": 223.90783368162894,
+    "check": "nm1"
+   },
+   {
+    "N": 225.91,
+    "M": 194.67585860861126,
+    "check": "nm2"
+   },
+   {
+    "N": -78.582,
+    "M": 239.27038184656286,
+    "check": "nm1"
+   },
+   {
+    "N": 250.21,
+    "M": 224.75732841444793,
+    "check": "nm2"
+   },
+   {
+    "N": -78.582,
+    "M": 239.27038184656286,
+    "check": "nm1"
+   },
+   {
+    "N": 250.21,
+    "M": 224.75732841444793,
+    "check": "nm2"
+   },
+   {
+    "N": -138.48,
+    "M": 233.81206967134952,
+    "check": "nm1"
+   },
+   {
+    "N": 11.843,
+    "M": 230.35639896473467,
+    "check": "nm2"
+   },
+   {
+    "N": -114.18,
+    "M": 242.49906652191467,
+    "check": "nm1"
+   },
+   {
+    "N": 36.139,
+    "M": 239.22109777567695,
+    "check": "nm2"
+   },
+   {
+    "N": -114.18,
+    "M": 242.49906652191467,
+    "check": "nm1"
+   },
+   {
+    "N": 36.139,
+    "M": 239.22109777567695,
+    "check": "nm2"
+   }
+  ]
+ }
+}
