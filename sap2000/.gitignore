@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+output/*.sdb
+output/*.log
+output/resultados_SAP2000.*
