@@ -158,14 +158,14 @@ def apply_loads(fe: FEModel3D, model: dict) -> None:
 
 
 def beam_line(fe: FEModel3D, model: dict, axis: int, pat: str, n: int = 6) -> list[tuple[float, float, float]]:
-    """(y, M, V) along the transverse beam of an axis for one pattern; M > 0 sagging."""
+    """(y, M, V, segment) along the transverse beam of an axis for one pattern; M > 0 sagging.
+    Rigid sub-members (inside the piles) are included: their shear at the pile face is the
+    total shear delivered to the pile, including the slab load at the face node."""
     out = []
     for fr in model["frames"]:
         if fr["kind"] != "beam_t" or fr["axis"] != axis:
             continue
         for seg, a, b, rigid in segments(model, fr):
-            if rigid:
-                continue
             mem = fe.members[seg]
             ya = model["joints"].get(a, model.get("_extra_nodes", {}).get(a))[1]
             yb = model["joints"].get(b, model.get("_extra_nodes", {}).get(b))[1]
@@ -173,7 +173,7 @@ def beam_line(fe: FEModel3D, model: dict, axis: int, pat: str, n: int = 6) -> li
             for k in range(n + 1):
                 x = L * k / n
                 y = ya + (yb - ya) * k / n
-                out.append((y, -mem.moment("Mz", x, pat), mem.shear("Fy", x, pat)))
+                out.append((y, -mem.moment("Mz", x, pat), mem.shear("Fy", x, pat), seg))
     out.sort()
     return out
 

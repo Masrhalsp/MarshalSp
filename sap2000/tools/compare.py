@@ -111,14 +111,20 @@ def pile_envelope_rows(pile_base: dict, pile_head: dict | None, ref: dict) -> li
     return rows
 
 
-def _at(line: list[tuple[float, float, float]], y: float, idx: int) -> float:
-    """Linear interpolation of column ``idx`` (1 = M, 2 = V) at position y, taking the value on
-    the span side of a discontinuity."""
-    pts = sorted(line)
-    for (y0, *a), (y1, *b) in zip(pts, pts[1:]):
-        if y0 - 1e-9 <= y <= y1 + 1e-9 and y1 > y0:
-            t = (y - y0) / (y1 - y0)
-            return a[idx - 1] + t * (b[idx - 1] - a[idx - 1])
+def _at(line: list[tuple], y: float, idx: int) -> float:
+    """Linear interpolation of column ``idx`` (1 = M, 2 = V) at position y inside the frame
+    segment (4th tuple item) that contains y; ask for face +- 1e-6 to pick a side."""
+    segs: dict = {}
+    for p in line:
+        segs.setdefault(p[3] if len(p) > 3 else 0, []).append(p)
+    for pts in segs.values():
+        pts.sort(key=lambda p: p[0])
+        if not (pts[0][0] - 1e-9 <= y <= pts[-1][0] + 1e-9) or pts[-1][0] <= pts[0][0]:
+            continue
+        for a, b in zip(pts, pts[1:]):
+            if a[0] - 1e-9 <= y <= b[0] + 1e-9 and b[0] > a[0]:
+                t = (y - a[0]) / (b[0] - a[0])
+                return a[idx] + t * (b[idx] - a[idx])
     raise ValueError(f"y={y} outside beam line")
 
 
@@ -130,7 +136,7 @@ def beam_envelope_rows(beams: dict, ref: dict, family: str = "ELU") -> list[dict
     rows = []
     for axis in sorted(beams):
         lines = beams[axis]
-        ys = sorted({y for y, _, _ in lines["PP"] if FACE_S - 1e-9 <= y <= FACE_L + 1e-9})
+        ys = sorted({p[0] for p in lines["PP"] if FACE_S - 1e-9 <= p[0] <= FACE_L + 1e-9})
         ys = sorted(set(ys) | {FACE_S, FACE_L})
 
         def comb(y: float, fac: tuple, idx: int) -> float:
@@ -139,8 +145,10 @@ def beam_envelope_rows(beams: dict, ref: dict, family: str = "ELU") -> list[dict
         m_face_s = min(comb(FACE_S, f, 1) for f in combos)
         m_face_l = min(comb(FACE_L, f, 1) for f in combos)
         m_span = max(comb(y, f, 1) for y in ys for f in combos)
-        v_s = max(comb(FACE_S + 1e-6, f, 2) for f in combos)
-        v_l = min(comb(FACE_L - 1e-6, f, 2) for f in combos)
+        # shear delivered to the pile face (read just inside the pile zone): includes the slab
+        # load landing on the face node, as CYPE loads the whole plate reaction on the beam
+        v_s = max(comb(FACE_S - 1e-6, f, 2) for f in combos)
+        v_l = min(comb(FACE_L + 1e-6, f, 2) for f in combos)
         por = f"Pórtico {PORTICO_OF_AXIS[axis]}"
         tramo = ref["beams_listing_2"]["porticos"][por]["tramos"][-1]
         env = tramo["envelope_over_zones"]

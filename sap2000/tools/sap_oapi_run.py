@@ -286,9 +286,8 @@ def to_compare_inputs(raw: dict) -> tuple[dict, dict, dict]:
             pile_head.setdefault(pile, {})[pat] = pile_to_cype(vals)
     beams: dict = {}
     for r in raw["beam_forces"]:
-        if r.get("rigid"):          # segments inside a pile: not part of the beam span
-            continue
-        beams.setdefault(r["axis"], {}).setdefault(r["case"], []).append((r["y"], r["M3"], -r["V2"]))
+        beams.setdefault(r["axis"], {}).setdefault(r["case"], []).append(
+            (r["y"], r["M3"], -r["V2"], r["frame"]))
     return pile_base, pile_head, beams
 
 

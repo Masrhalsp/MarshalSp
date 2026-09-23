@@ -1,0 +1,36 @@
+family,portico,tramo,section,what,model,cype_listing,cype_drawing,diff_%
+ELU,Pórtico 3,P1-P2,80x55+15x30,M- cara pilote mar,-316.2,-315.48,-318.8,0.8
+ELU,Pórtico 3,P1-P2,80x55+15x30,M- cara pilote tierra,1.2,,,
+ELU,Pórtico 3,P1-P2,80x55+15x30,M+ vano,274.0,275.15,275.15,-0.4
+ELU,Pórtico 3,P1-P2,80x55+15x30,V cara mar,325.4,333.92,,-2.6
+ELU,Pórtico 3,P1-P2,80x55+15x30,V cara tierra,-158.6,-165.91,,4.4
+ELU,Pórtico 4,P3-P4,50x55+15x30+15x30,M- cara pilote mar,-264.0,-266.03,-273.71,3.6
+ELU,Pórtico 4,P3-P4,50x55+15x30+15x30,M- cara pilote tierra,-0.2,,,
+ELU,Pórtico 4,P3-P4,50x55+15x30+15x30,M+ vano,283.0,294.61,294.6,-3.9
+ELU,Pórtico 4,P3-P4,50x55+15x30+15x30,V cara mar,469.6,471.19,,-0.3
+ELU,Pórtico 4,P3-P4,50x55+15x30+15x30,V cara tierra,-354.9,-333.66,,-6.4
+ELU,Pórtico 5,P5-P6,50x55+15x30+15x30,M- cara pilote mar,-301.7,-305.42,-312.87,3.6
+ELU,Pórtico 5,P5-P6,50x55+15x30+15x30,M- cara pilote tierra,-0.2,,,
+ELU,Pórtico 5,P5-P6,50x55+15x30+15x30,M+ vano,263.0,270.09,270.09,-2.6
+ELU,Pórtico 5,P5-P6,50x55+15x30+15x30,V cara mar,446.8,440.82,,1.4
+ELU,Pórtico 5,P5-P6,50x55+15x30+15x30,V cara tierra,-324.3,-298.84,,-8.5
+ELU,Pórtico 6,P7-P8,50x55+15x30+15x30,M- cara pilote mar,-255.1,-256.9,-264.0,3.4
+ELU,Pórtico 6,P7-P8,50x55+15x30+15x30,M- cara pilote tierra,-0.2,,,
+ELU,Pórtico 6,P7-P8,50x55+15x30+15x30,M+ vano,268.1,275.5,275.49,-2.7
+ELU,Pórtico 6,P7-P8,50x55+15x30+15x30,V cara mar,437.8,438.61,,-0.2
+ELU,Pórtico 6,P7-P8,50x55+15x30+15x30,V cara tierra,-328.0,-306.21,,-7.1
+ELU,Pórtico 7,P13-P14,50x55+15x30+15x30,M- cara pilote mar,-292.9,-296.38,-303.83,3.6
+ELU,Pórtico 7,P13-P14,50x55+15x30+15x30,M- cara pilote tierra,-0.2,,,
+ELU,Pórtico 7,P13-P14,50x55+15x30+15x30,M+ vano,257.4,262.67,262.67,-2.0
+ELU,Pórtico 7,P13-P14,50x55+15x30+15x30,V cara mar,440.8,434.91,,1.4
+ELU,Pórtico 7,P13-P14,50x55+15x30+15x30,V cara tierra,-324.3,-298.84,,-8.5
+ELU,Pórtico 8,P15-P17,50x55+15x30+15x30,M- cara pilote mar,-246.3,-247.96,-255.61,3.6
+ELU,Pórtico 8,P15-P17,50x55+15x30+15x30,M- cara pilote tierra,-0.2,,,
+ELU,Pórtico 8,P15-P17,50x55+15x30+15x30,M+ vano,276.8,291.11,291.09,-4.9
+ELU,Pórtico 8,P15-P17,50x55+15x30+15x30,V cara mar,462.4,464.06,,-0.4
+ELU,Pórtico 8,P15-P17,50x55+15x30+15x30,V cara tierra,-354.9,-333.66,,-6.4
+ELU,Pórtico 9,P16-P18,80x55+15x30,M- cara pilote mar,-289.3,-287.95,-291.23,0.7
+ELU,Pórtico 9,P16-P18,80x55+15x30,M- cara pilote tierra,1.2,,,
+ELU,Pórtico 9,P16-P18,80x55+15x30,M+ vano,247.1,247.61,247.61,-0.2
+ELU,Pórtico 9,P16-P18,80x55+15x30,V cara mar,307.6,315.96,,-2.6
+ELU,Pórtico 9,P16-P18,80x55+15x30,V cara tierra,-158.6,-165.91,,4.4

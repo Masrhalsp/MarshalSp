@@ -41,38 +41,38 @@
 | Pórtico 3 | 80x55+15x30 | M- cara pilote mar | -314.4 | -315.48 | -318.8 | 1.4 |
 | Pórtico 3 | 80x55+15x30 | M- cara pilote tierra | 1.4 |  |  |  |
 | Pórtico 3 | 80x55+15x30 | M+ vano | 275.0 | 275.15 | 275.15 | -0.1 |
-| Pórtico 3 | 80x55+15x30 | V cara mar | 322.4 | 333.92 |  | -3.4 |
-| Pórtico 3 | 80x55+15x30 | V cara tierra | -164.2 | -165.91 |  | 1.0 |
+| Pórtico 3 | 80x55+15x30 | V cara mar | 330.0 | 333.92 |  | -1.2 |
+| Pórtico 3 | 80x55+15x30 | V cara tierra | -174.0 | -165.91 |  | -4.9 |
 | Pórtico 4 | 50x55+15x30+15x30 | M- cara pilote mar | -266.5 | -266.03 | -273.71 | 2.6 |
 | Pórtico 4 | 50x55+15x30+15x30 | M- cara pilote tierra | -0.6 |  |  |  |
 | Pórtico 4 | 50x55+15x30+15x30 | M+ vano | 288.8 | 294.61 | 294.6 | -2.0 |
-| Pórtico 4 | 50x55+15x30+15x30 | V cara mar | 446.8 | 471.19 |  | -5.2 |
-| Pórtico 4 | 50x55+15x30+15x30 | V cara tierra | -337.0 | -333.66 |  | -1.0 |
+| Pórtico 4 | 50x55+15x30+15x30 | V cara mar | 473.7 | 471.19 |  | 0.5 |
+| Pórtico 4 | 50x55+15x30+15x30 | V cara tierra | -364.0 | -333.66 |  | -9.1 |
 | Pórtico 5 | 50x55+15x30+15x30 | M- cara pilote mar | -305.4 | -305.42 | -312.87 | 2.4 |
 | Pórtico 5 | 50x55+15x30+15x30 | M- cara pilote tierra | -0.7 |  |  |  |
 | Pórtico 5 | 50x55+15x30+15x30 | M+ vano | 268.4 | 270.09 | 270.09 | -0.6 |
-| Pórtico 5 | 50x55+15x30+15x30 | V cara mar | 425.2 | 440.82 |  | -3.6 |
-| Pórtico 5 | 50x55+15x30+15x30 | V cara tierra | -304.2 | -298.84 |  | -1.8 |
+| Pórtico 5 | 50x55+15x30+15x30 | V cara mar | 443.6 | 440.82 |  | 0.6 |
+| Pórtico 5 | 50x55+15x30+15x30 | V cara tierra | -328.0 | -298.84 |  | -9.8 |
 | Pórtico 6 | 50x55+15x30+15x30 | M- cara pilote mar | -259.0 | -256.9 | -264.0 | 1.9 |
 | Pórtico 6 | 50x55+15x30+15x30 | M- cara pilote tierra | -0.6 |  |  |  |
 | Pórtico 6 | 50x55+15x30+15x30 | M+ vano | 274.2 | 275.5 | 275.49 | -0.5 |
-| Pórtico 6 | 50x55+15x30+15x30 | V cara mar | 414.4 | 438.61 |  | -5.5 |
-| Pórtico 6 | 50x55+15x30+15x30 | V cara tierra | -308.0 | -306.21 |  | -0.6 |
+| Pórtico 6 | 50x55+15x30+15x30 | V cara mar | 438.8 | 438.61 |  | 0.0 |
+| Pórtico 6 | 50x55+15x30+15x30 | V cara tierra | -332.4 | -306.21 |  | -8.6 |
 | Pórtico 7 | 50x55+15x30+15x30 | M- cara pilote mar | -296.7 | -296.38 | -303.83 | 2.4 |
 | Pórtico 7 | 50x55+15x30+15x30 | M- cara pilote tierra | -0.7 |  |  |  |
 | Pórtico 7 | 50x55+15x30+15x30 | M+ vano | 262.7 | 262.67 | 262.67 | 0.0 |
-| Pórtico 7 | 50x55+15x30+15x30 | V cara mar | 419.4 | 434.91 |  | -3.6 |
-| Pórtico 7 | 50x55+15x30+15x30 | V cara tierra | -304.2 | -298.84 |  | -1.8 |
+| Pórtico 7 | 50x55+15x30+15x30 | V cara mar | 437.8 | 434.91 |  | 0.7 |
+| Pórtico 7 | 50x55+15x30+15x30 | V cara tierra | -328.0 | -298.84 |  | -9.8 |
 | Pórtico 8 | 50x55+15x30+15x30 | M- cara pilote mar | -248.8 | -247.96 | -255.61 | 2.7 |
 | Pórtico 8 | 50x55+15x30+15x30 | M- cara pilote tierra | -0.6 |  |  |  |
 | Pórtico 8 | 50x55+15x30+15x30 | M+ vano | 282.8 | 291.11 | 291.09 | -2.9 |
-| Pórtico 8 | 50x55+15x30+15x30 | V cara mar | 439.9 | 464.06 |  | -5.2 |
-| Pórtico 8 | 50x55+15x30+15x30 | V cara tierra | -337.0 | -333.66 |  | -1.0 |
+| Pórtico 8 | 50x55+15x30+15x30 | V cara mar | 466.8 | 464.06 |  | 0.6 |
+| Pórtico 8 | 50x55+15x30+15x30 | V cara tierra | -364.0 | -333.66 |  | -9.1 |
 | Pórtico 9 | 80x55+15x30 | M- cara pilote mar | -287.2 | -287.95 | -291.23 | 1.4 |
 | Pórtico 9 | 80x55+15x30 | M- cara pilote tierra | 1.4 |  |  |  |
 | Pórtico 9 | 80x55+15x30 | M+ vano | 247.8 | 247.61 | 247.61 | 0.1 |
-| Pórtico 9 | 80x55+15x30 | V cara mar | 304.6 | 315.96 |  | -3.6 |
-| Pórtico 9 | 80x55+15x30 | V cara tierra | -164.2 | -165.91 |  | 1.0 |
+| Pórtico 9 | 80x55+15x30 | V cara mar | 312.2 | 315.96 |  | -1.2 |
+| Pórtico 9 | 80x55+15x30 | V cara tierra | -174.0 | -165.91 |  | -4.9 |
 
 ## Arranques (base, §3.4) por hipótesis: máxima diferencia (con signo) por componente
 
