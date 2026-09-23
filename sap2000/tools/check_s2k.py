@@ -112,7 +112,7 @@ def main() -> None:
         need(r["Case"] in cases and r["LoadName"] in pats, f"case load assignment {r}")
     for r in t["COMBINATION DEFINITIONS"]:
         ok = r["CaseName"] in (combos if r.get("CaseType") == "Response Combo" else cases | combos)
-        need(ok, f"combo {r['ComboName']}: unknown {r['CaseType']} {r['CaseName']}")
+        need(ok, f"combo {r['ComboName']}: unknown {r.get('CaseType', '')} {r['CaseName']}")
     for r in t.get("GROUPS 2 - ASSIGNMENTS", []):
         pool = {"Joint": joints, "Frame": frames, "Area": areas}[r["ObjectType"]]
         need(r["GroupName"] in groups and r["ObjectLabel"] in pool, f"group assignment {r}")
