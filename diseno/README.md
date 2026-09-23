@@ -21,6 +21,7 @@
 | `python/` | روش مستقل ما (غیر از SAP): همهٔ اسکریپت‌های پایتون، خروجی‌ها، شکل‌ها و آزمون‌ها. توضیح کامل روش‌ها در [`python/توضیح_روش_ها.md`](python/توضیح_روش_ها.md) |
 | `python/output/` | نتایج پایتون: `pilotes.*`، `vigas.*`، `diseno_final.*`، `Diseno_Codigo_Estructural.xlsx` |
 | `python/figuras/` | شکل‌های مقایسه‌های پایتون (d0 تا d8) |
+| `python/extraccion_anejo10/` | استخراج اعداد CYPE از فایل Word مربوط به Anejo 10 با یک دستور (`extraer.py`)، که `ref/` را عیناً دوباره می‌سازد |
 
 ## اجرای SAP (خلاصه)
 
@@ -49,6 +50,7 @@
 pip install numpy scipy openpyxl matplotlib pytest python-docx
 python3 diseno/python/run_diseno.py              # همهٔ کنترل‌ها + Excel + شکل‌ها (حدود ۹۰ ثانیه)
 python3 diseno/python/run_diseno.py --reuse      # فقط Excel و شکل‌ها از JSON موجود (حدود ۱۵ ثانیه)
-python3 -m pytest diseno/python/tests diseno/sap/tests -q
+python3 -m pytest diseno/python/tests diseno/sap/tests -q     # ۱۳۱ آزمون
+python3 diseno/python/extraccion_anejo10/extraer.py        # بازسازی ref/ از Anejo 10
 ```
 در ویندوز همان دستورها با `python` و مسیر `diseno\python\...` کار می‌کنند. فایل‌ها صریحاً با UTF-8 خوانده و نوشته می‌شوند.

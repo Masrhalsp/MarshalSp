@@ -61,7 +61,7 @@ Pilotes: σc ≤ 0.6fck no depende de la base (combinaciones características EL
 4. **Reparto de carga en las vigas de borde (F5).** La propuesta 3Ø25 sup. depende del modelo del forjado (lámina ortótropa de SAP frente a bandas de CYPE); confirmar el modelo o dar más canto a la viga de borde.
 5. **Corte de barras superiores (F6).** No cortar dentro de al ≈ 0.43 m de las caras de los pilotes; anclaje completo sobre los pilotes.
 6. **Nueva armadura inferior de las vigas interiores (F3).** 8Ø20 en el alma con separación libre 31 mm (≥ dg + 5 = 25 mm): comprobar el hormigonado y el anclaje de las barras en los nudos con los pilotes; las 4Ø16 de las alas quedan dentro del cerco de alas.
-7. **Comprobación EC2 de SAP2000 (F7).** La ratio de los pilotes en SAP (~0.71) no es comparable con nuestro 2º orden (0.93-0.99): rige nuestro veredicto; SAP no comprueba wk XS3, ν1/fywd del CE, As,min española ni la armadura de suspensión (diseno/sap/GUIA_SAP_DISENO.md).
+7. **Comprobación EC2 de SAP2000 (F7).** La ratio prevista de los pilotes en SAP (~0.71, estimación; pendiente de los resultados de SAP) no es comparable con nuestro 2º orden (0.93-0.99): rige nuestro veredicto; SAP no comprueba wk XS3, ν1/fywd del CE, As,min española ni la armadura de suspensión (diseno/sap/GUIA_SAP_DISENO.md).
 8. **Anejo 10 (F8).** El 'Aprov.' del listado de CYPE = 1.014 × η del rayo (sin explicar); errata aritmética 410/4.65 = 88 kN (no 83); CYPE no comprobó la suspensión de las alas, σc característica ni la torsión del ala de las vigas extremas.
 9. **φef = 1.75** (dato de CYPE) en el 2º orden de los pilotes es conservador (A19.5.8.4 con ψ2,bolardo = 0 daría φef ≈ 0); no se ha reducido.
 
