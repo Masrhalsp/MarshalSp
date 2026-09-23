@@ -42,7 +42,7 @@ if str(HERE) not in sys.path:
 
 from seccion import B500SD, HA35, Bar, Concrete, Mode, RCSection, Steel, bar_area  # noqa: E402
 
-REF_JSON = HERE.parent / "ref" / "cype_design_reference.json"
+REF_JSON = HERE.parents[1] / "ref" / "cype_design_reference.json"      # diseno/ref
 
 COVER = 50.0                  # mm, XS3 (Anejo 10 / CYPE 'recubrimiento geométrico' 5 cm)
 DG = 20.0                     # maximum aggregate size, HA-35/F/20/XS3

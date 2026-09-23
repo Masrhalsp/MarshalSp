@@ -1,6 +1,6 @@
 # Valores propios esperados en las estaciones de diseño de SAP (base ROM; no son resultados de SAP)
 
-Fuente: diseno/output/pilotes.json, diseno/output/vigas.json, sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx (sap_est_*)  ·  base de combinaciones: **ROM**  ·  filas: 14 pilotes, 136 vigas
+Fuente: diseno/python/output/pilotes.json, diseno/python/output/vigas.json, sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx (sap_est_*)  ·  base de combinaciones: **ROM**  ·  filas: 14 pilotes, 136 vigas
 
 ## Resumen
 
@@ -13,7 +13,7 @@ Fuente: diseno/output/pilotes.json, diseno/output/vigas.json, sap2000/resultados
 ## Notas
 
 - Valores propios (Código Estructural) en las estaciones que SAP reporta; no son resultados de SAP.  Vigas: As_uls = armadura de tracción ELU (SAP no añade As,min del Código en la misma forma); Asw/s con V a d de la cara; 'Asw_s_req_cot1' = el mismo valor con cot θ = 1 (SAP con TanTheta = 1; SAP usa además V en la cara y fywd = 434.8 MPa).
-- Pilotes: SAP (sin análisis P-Delta, como este modelo) aplica el método de la curvatura nominal con M0e = 0.6·M02 + 0.4·M01 >= 0.4·M02 (manual CFD-EC-2-2004 §3.4.2.2).  Los pilotes flectan en doble curvatura (traslacionales), así que M0e = 0.4·M02 y gobierna la comprobación de 1er orden en los extremos + Mi = N·max(ei, emin): el momento de 2º orden del pilote traslacional en cabeza/pie NO se comprueba (SAP lo espera de un análisis P-Delta).  Valor esperado en SAP = 'sap_est_M0e' (≈ nm1 propio + 1-6 %), no nm2.  Si los detalles de SAP muestran MEd = M02 + Mi + M2, el valor esperado es 'sap_est_estacion' (≈ nm2 con e2 de c = 8 y el Kφ del overwrite).  El pilote se verifica con nm2 (diseno/output/pilotes.md), no con SAP.
+- Pilotes: SAP (sin análisis P-Delta, como este modelo) aplica el método de la curvatura nominal con M0e = 0.6·M02 + 0.4·M01 >= 0.4·M02 (manual CFD-EC-2-2004 §3.4.2.2).  Los pilotes flectan en doble curvatura (traslacionales), así que M0e = 0.4·M02 y gobierna la comprobación de 1er orden en los extremos + Mi = N·max(ei, emin): el momento de 2º orden del pilote traslacional en cabeza/pie NO se comprueba (SAP lo espera de un análisis P-Delta).  Valor esperado en SAP = 'sap_est_M0e' (≈ nm1 propio + 1-6 %), no nm2.  Si los detalles de SAP muestran MEd = M02 + Mi + M2, el valor esperado es 'sap_est_estacion' (≈ nm2 con e2 de c = 8 y el Kφ del overwrite).  El pilote se verifica con nm2 (diseno/python/output/pilotes.md), no con SAP.
 - SAP e2 = Kr·Kφ·εyd/(0.45 d)·l0²/8 con d = 327.5 mm: Kφ 1.1129 da e2 = 92.1 mm = CYPE; el e2 estricto del Código (d = h/2 + is = 307 mm) es 98.3 mm (Kφ 'ce_is' = 1.1874).
 
 Procedimiento SAP usado en `sap_est_*` (nuestras fuerzas): ei_mm = 20.0, e2_mm = 92.12, d_mm = 327.5, Kphi = 1.1129, c = 8

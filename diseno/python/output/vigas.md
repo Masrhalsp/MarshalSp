@@ -1,6 +1,6 @@
 # Vigas transversales y vigas de borde: comprobación Código Estructural (Anejo 19)
 
-Generado por `diseno/codigo/vigas.py` en 15.8 s. Casos:
+Generado por `diseno/python/codigo/vigas.py` en 15.8 s. Casos:
 
 - **CYPE**: base CYPE, modo cype, psi2,Qa = 0.3, cot(theta) = 1, nu(torsión) = 0.6, suspensión en veredicto = False. parity with Anejo 10: Mode.CYPE, psi0,Qa = 0.7, psi2,Qa = 0.3, theta = 45 deg (suspension steel A19.6.2.1(9) reported as information, CYPE does not check it)
 - **CE-CYPE**: base CYPE, modo codigo, psi2,Qa = 0.3, cot(theta) = opt, nu(torsión) = 0.516, suspensión en veredicto = True. code-strict section with the Anejo 10 load assumptions (psi2,Qa = 0.3)

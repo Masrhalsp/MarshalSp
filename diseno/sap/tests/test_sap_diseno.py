@@ -14,8 +14,9 @@ from pathlib import Path
 import pytest
 
 TESTS = Path(__file__).resolve().parent
-ROOT = TESTS.parents[1]
-for _p in (TESTS, ROOT / "diseno" / "sap", ROOT / "diseno" / "codigo", ROOT / "diseno", ROOT / "sap2000" / "tools"):
+ROOT = TESTS.parents[2]
+for _p in (TESTS, ROOT / "diseno" / "sap", ROOT / "diseno" / "python" / "codigo", ROOT / "diseno" / "python",
+           ROOT / "sap2000" / "tools"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 

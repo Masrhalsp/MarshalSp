@@ -1,8 +1,8 @@
-"""Tests of diseno/codigo/pilotes.py (+ armado_pilote.py): CYPE parity (Mode.CYPE, basis CYPE) with
-the tolerances of diseno/investigacion/validate_codigo.py and sanity checks of the code-strict
+"""Tests of diseno/python/codigo/pilotes.py (+ armado_pilote.py): CYPE parity (Mode.CYPE, basis CYPE) with
+the tolerances of diseno/python/investigacion/validate_codigo.py and sanity checks of the code-strict
 rules, the SLS section solver and the output contract.
 
-Run:  python3 -m pytest diseno/tests/test_pilotes.py -q
+Run:  python3 -m pytest diseno/python/tests/test_pilotes.py -q
 """
 
 from __future__ import annotations

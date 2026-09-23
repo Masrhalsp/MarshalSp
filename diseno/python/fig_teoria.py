@@ -2,7 +2,7 @@
 material diagrams of A19.3.1.7 / A19.3.2.7 and the ultimate strain domains (pivots A, B, C of
 A19.6.1, Figura 6.1).  Same style and palette as the d1-d8 figures of run_diseno.py.
 
-    python3 diseno/documentacion/fig_teoria.py      # -> diseno/documentacion/figuras/d0_diagramas_pivotes.png
+    python3 diseno/python/fig_teoria.py      # -> diseno/python/figuras/d0_diagramas_pivotes.png
 
 Values: HA-35 / HA-50 with alpha_cc = 1.0 and gamma_c = 1.5 (fcd 23.33 / 33.33 MPa), eps_c2 = 2.0 per
 mil, eps_cu2 = 3.5 per mil, n = 2 (fck <= 50); B500SD fyd = 434.78 MPa, Es = 200 GPa; CYPE's steel
@@ -17,7 +17,7 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent))
+sys.path.insert(0, str(HERE))
 
 import run_diseno as RD  # noqa: E402  (style + palette of the d1-d8 figures)
 

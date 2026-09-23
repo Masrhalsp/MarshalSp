@@ -1,6 +1,6 @@
 {
  "meta": {
-  "module": "diseno/codigo/vigas.py",
+  "module": "diseno/python/codigo/vigas.py",
   "members": {
    "VT1": {
     "label": "Pórtico 3 (eje 1)",

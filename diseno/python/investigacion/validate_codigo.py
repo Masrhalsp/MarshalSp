@@ -793,7 +793,7 @@ def run():
           note='> 0.1 mm: with 7O20 the XS3 limit can only be met by staying uncracked')
 
     # -------------------------------------------------------------------------- P psi2 sensitivity
-    xlsx = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'sap2000', 'resultados_sap',
+    xlsx = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'sap2000', 'resultados_sap',
                         'SAP27_Element_Forces_Frames.xlsx')
     try:
         import openpyxl

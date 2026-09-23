@@ -28,7 +28,7 @@ Checks (clause of A19 unless noted):
   deflection 7.4 (span/depth (7.16) and a cracked-section estimate with creep, L/250, L/500).
 
 ``run()`` returns the JSON-ready result (meta / tables / cype_comparison / summary / proposal);
-``python3 diseno/codigo/vigas.py`` writes diseno/output/vigas.json and vigas.md.
+``python3 diseno/python/codigo/vigas.py`` writes diseno/python/output/vigas.json and vigas.md.
 """
 
 from __future__ import annotations
@@ -1443,7 +1443,7 @@ def run(cases: tuple = CASES, do_search: bool = True, data: dict | None = None, 
         if verbose:
             print(f"  search: {time.time() - t0:.1f} s", file=sys.stderr)
     meta = {
-        "module": "diseno/codigo/vigas.py",
+        "module": "diseno/python/codigo/vigas.py",
         "members": {m.key: {"label": reinf[m.key].label, "section": reinf[m.key].geom.name, "group": m.group}
                     for m in members},
         "cases": [{"name": c.name, "basis": c.basis, "mode": c.mode.value, "psi2_Qa": c.psi2_qa,

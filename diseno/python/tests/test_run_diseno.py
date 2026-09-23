@@ -1,8 +1,8 @@
-"""Quick test of diseno/run_diseno.py: runs it with --reuse (the committed diseno/output/pilotes.json and
+"""Quick test of diseno/python/run_diseno.py: runs it with --reuse (the committed diseno/python/output/pilotes.json and
 vigas.json) into a temporary directory and checks the workbook sheets / charts, the figures, the
 final-design summary and its consistency with the final-design decisions F0-F8.
 
-Run:  python3 -m pytest diseno/tests/test_run_diseno.py -q      (~20 s)
+Run:  python3 -m pytest diseno/python/tests/test_run_diseno.py -q      (~20 s)
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ sys.path.insert(0, str(DISENO))
 import run_diseno as R  # noqa: E402
 
 pytestmark = pytest.mark.skipif(not ((R.OUT / "pilotes.json").exists() and (R.OUT / "vigas.json").exists()),
-                                reason="diseno/output/pilotes.json / vigas.json not present (run the checks first)")
+                                reason="diseno/python/output/pilotes.json / vigas.json not present (run the checks first)")
 
 CHART_SHEETS = ("Pilotes_ELU", "Pilotes_As", "Pilotes_ELS", "Vigas_Flexion", "Vigas_Cortante", "Vigas_Fisuracion",
                 "Comparacion_CYPE")

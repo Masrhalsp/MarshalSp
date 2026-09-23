@@ -2,18 +2,18 @@
 Estructural (CE 2021, Anejo 19 = EN 1992-1-1 with the Spanish values): one command that runs the
 pile and beam checks and writes the design workbook, the final-design summary and the figures.
 
-    python3 diseno/run_diseno.py            # runs pilotes.run() and vigas.run() (~90 s), then writes
-    python3 diseno/run_diseno.py --reuse    # reuses diseno/output/pilotes.json and vigas.json (~20 s)
-    python3 diseno/run_diseno.py --reuse --no-figs
+    python3 diseno/python/run_diseno.py            # runs pilotes.run() and vigas.run() (~90 s), then writes
+    python3 diseno/python/run_diseno.py --reuse    # reuses diseno/python/output/pilotes.json and vigas.json (~20 s)
+    python3 diseno/python/run_diseno.py --reuse --no-figs
 
 Outputs
-    diseno/output/Diseno_Codigo_Estructural.xlsx   workbook with native Excel charts (sheets Resumen,
+    diseno/python/output/Diseno_Codigo_Estructural.xlsx   workbook with native Excel charts (sheets Resumen,
                                                    Pilotes_ELU, Pilotes_As, Pilotes_ELS, Vigas_Flexion,
                                                    Vigas_Cortante, Vigas_Fisuracion, Propuesta,
                                                    Comparacion_CYPE, Supuestos)
-    diseno/output/diseno_final.md                  final design: reinforcement schedule + open points
-    diseno/output/diseno_final.json                the data behind the two (incl. the ψ2 curves)
-    diseno/documentacion/figuras/d1..d8_*.png      figures for the reports (150 dpi)
+    diseno/python/output/diseno_final.md                  final design: reinforcement schedule + open points
+    diseno/python/output/diseno_final.json                the data behind the two (incl. the ψ2 curves)
+    diseno/python/figuras/d1..d8_*.png      figures for the reports (150 dpi)
 
 Nothing is recomputed here except what the figures and the ψ2 sensitivity need (the ψ2,Qa curves of
 the inner beams with the provided and the proposed bottom steel, the N-M interaction curve of the
@@ -40,7 +40,7 @@ for _p in (str(CODIGO), str(DISENO)):
         sys.path.insert(0, _p)
 
 OUT = DISENO / "output"
-FIG = DISENO / "documentacion" / "figuras"
+FIG = DISENO / "figuras"
 XLSX = OUT / "Diseno_Codigo_Estructural.xlsx"
 MD = OUT / "diseno_final.md"
 JSON_OUT = OUT / "diseno_final.json"
@@ -147,8 +147,8 @@ CASE_COLOR = {"CYPE": C_CYPE, "CE-CYPE": C_CECY, "CE-ROM": C_ROM}
 # inputs
 # =============================================================================================
 def load_results(reuse: bool, out: Path = OUT, verbose: bool = True) -> tuple[dict, dict]:
-    """pilotes.json / vigas.json: with ``reuse`` read from diseno/output (if present), otherwise
-    recomputed and written to ``out`` exactly as ``python3 diseno/codigo/pilotes.py`` / ``vigas.py`` do."""
+    """pilotes.json / vigas.json: with ``reuse`` read from diseno/python/output (if present), otherwise
+    recomputed and written to ``out`` exactly as ``python3 diseno/python/codigo/pilotes.py`` / ``vigas.py`` do."""
     out.mkdir(parents=True, exist_ok=True)
     if reuse and (OUT / "pilotes.json").exists():
         P = json.loads((OUT / "pilotes.json").read_text(encoding="utf-8"))
@@ -623,9 +623,9 @@ def write_xlsx(D: dict, P: dict, V: dict, path: Path = XLSX) -> Path:
     ws = wb.active
     ws.title = "Resumen"
     title(ws, "Diseño a Código Estructural (CE 2021, Anejo 19) — Muelle de Trasmallo, módulo 40 m (Puerto de Cullera)",
-          "Esfuerzos SAP2000 v27.1; comprobaciones diseno/codigo (pilotes.py, vigas.py); veredicto final: "
+          "Esfuerzos SAP2000 v27.1; comprobaciones diseno/python/codigo (pilotes.py, vigas.py); veredicto final: "
           "Mode.CODIGO + base ROM (ψ0,Qa 1.0, ψ2,Qa 0.8, bolardo ψ2 0) + XS3 wmax 0.1 mm (cuasipermanente). "
-          f"Generado por diseno/run_diseno.py el {time.strftime('%Y-%m-%d')}.")
+          f"Generado por diseno/python/run_diseno.py el {time.strftime('%Y-%m-%d')}.")
     hdr = ["Elemento", "Tipo / armado Anejo 10", "η ELU CYPE/cype (paridad)", "η ELU CYPE/codigo",
            "η ELU ROM/codigo", "η ELS ROM/codigo (armado actual)", "Veredicto CYPE/cype", "Veredicto CYPE/codigo",
            "Veredicto ROM/codigo (armado actual)", "Diseño final (armado)", "η determinante final",
@@ -1156,7 +1156,7 @@ def write_xlsx(D: dict, P: dict, V: dict, path: Path = XLSX) -> Path:
     rows += [[f"C-V {k}", "Cláusula vigas", v] for k, v in V["meta"]["clauses"].items()]
     rows += [["R1", "Referencias", "Código Estructural (RD 470/2021) Anejo 19 y Art. 27 Tabla 27.2; ROM 2.0-11 "
                                    "Tabla 4.6.4.1; ROM 0.2-90; Anejo 10 del proyecto (CYPECAD); "
-                                   "diseno/investigacion/codigo_estructural_spec.md (C1-C21) y sap_design_spec.md."]]
+                                   "diseno/python/investigacion/codigo_estructural_spec.md (C1-C21) y sap_design_spec.md."]]
     last = table(ws, 4, ["Id", "Tema", "Texto"], rows, widths={1: 10, 2: 22, 3: 160}, wrap_cols=(3,))
     for i in range(5, last + 1):
         n = len(str(ws.cell(i, 3).value or ""))
@@ -1179,9 +1179,9 @@ def write_md(D: dict, P: dict, V: dict, path: Path = MD) -> Path:
         "# Diseño final — Muelle de Trasmallo, módulo 40 m (Código Estructural 2021)",
         "",
         "*Final design of the 40 m module to the Spanish Código Estructural (CE 2021, Anejo 19 = EN 1992-1-1 with "
-        "the Spanish values). Generated by `python3 diseno/run_diseno.py` from `diseno/output/pilotes.json` and "
-        "`vigas.json` (SAP2000 v27.1 forces). Workbook: `diseno/output/Diseno_Codigo_Estructural.xlsx`; figures: "
-        "`diseno/documentacion/figuras/d1-d8`.*",
+        "the Spanish values). Generated by `python3 diseno/python/run_diseno.py` from `diseno/python/output/pilotes.json` and "
+        "`vigas.json` (SAP2000 v27.1 forces). Workbook: `diseno/python/output/Diseno_Codigo_Estructural.xlsx`; figures: "
+        "`diseno/python/figuras/d1-d8`.*",
         "",
         "**Base del veredicto / verdict basis (F0):** Mode.CODIGO (sección estricta al Código) + base ROM "
         "(ROM 2.0-11 Tabla 4.6.4.1: ψ0,Qa = 1.0, ψ2,Qa = 0.8, tiro de bolardo ψ2 = 0) + XS3, wmax = 0.1 mm "
@@ -1320,10 +1320,10 @@ def write_md(D: dict, P: dict, V: dict, path: Path = MD) -> Path:
         "",
         "## 6. Ficheros / files",
         "",
-        "- `diseno/output/Diseno_Codigo_Estructural.xlsx`: Resumen, Pilotes_ELU, Pilotes_As, Pilotes_ELS, "
+        "- `diseno/python/output/Diseno_Codigo_Estructural.xlsx`: Resumen, Pilotes_ELU, Pilotes_As, Pilotes_ELS, "
         "Vigas_Flexion, Vigas_Cortante, Vigas_Fisuracion, Propuesta, Comparacion_CYPE, Supuestos (gráficos nativos).",
-        "- `diseno/output/pilotes.md|json`, `diseno/output/vigas.md|json`: comprobaciones detalladas.",
-        "- `diseno/documentacion/figuras/d1_pilotes_eta.png` ... `d8_interaccion_pilote.png`.",
+        "- `diseno/python/output/pilotes.md|json`, `diseno/python/output/vigas.md|json`: comprobaciones detalladas.",
+        "- `diseno/python/figuras/d1_pilotes_eta.png` ... `d8_interaccion_pilote.png`.",
         "- `diseno/sap/`: modelo y guía para la comprobación en SAP2000 (información, F7).",
     ]
     if D["warnings"]:
@@ -1689,7 +1689,7 @@ def fig_d7(D: dict, path: Path) -> None:
     ax.set_ylim(lo, hi)
     ax.grid(True, which="major", axis="both", color=GRID, lw=0.8)
     ax.set_xlabel("|valor CYPE (Anejo 10)|")
-    ax.set_ylabel("|valor propio (diseno/codigo)|")
+    ax.set_ylabel("|valor propio (diseno/python/codigo)|")
     ax.set_title("Paridad con CYPECAD (valores impresos en el Anejo 10)", loc="left")
     ax.text(0.03, 0.97, "|dif.| máx por grupo:\n" + "\n".join(f"  {lab}: {d:.2f} %" for lab, n, d in stats) +
             "\nDatos de CYPE: tolerancia 0.5 % o ½ unidad del\núltimo dígito impreso; fuerzas SAP: ≤ 5 %",
@@ -1775,7 +1775,7 @@ def write_figures(D: dict, P: dict, V: dict, inter: dict, fig_dir: Path = FIG) -
 # =============================================================================================
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("--reuse", action="store_true", help="reuse diseno/output/pilotes.json and vigas.json if present")
+    ap.add_argument("--reuse", action="store_true", help="reuse diseno/python/output/pilotes.json and vigas.json if present")
     ap.add_argument("--no-figs", action="store_true", help="skip the PNG figures")
     ap.add_argument("--no-curves", action="store_true", help="skip the ψ2 curves (needs the SAP tables, ~10 s)")
     ap.add_argument("--out", default=str(OUT), help="output directory of the workbook / md / json")

@@ -3,7 +3,7 @@
 count raises TypeError; types / enum ranges / object existence validated, violations raise
 MockError; ByRef results returned as ``[ByRef..., ret]``).
 
-Signatures and behaviour from diseno/investigacion/sap_design_spec.md:
+Signatures and behaviour from diseno/sap/sap_design_spec.md:
 A.1 SetCode/GetCode, A.2 Set/GetPreference (items 1-17), A.3 Set/GetOverwrite (items 1-12; since
 v24.0 items 7-12 return 1; items 5/6 return 1 unless the frame is a concrete column-design
 frame), A.4 SetMPUniaxial / SetORebar_1, A.5 PropRebar.GetProp / SetProp, A.6 SetRebarColumn (15),
@@ -22,8 +22,8 @@ import math
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-for _p in (ROOT / "sap2000" / "tests", ROOT / "diseno"):
+ROOT = Path(__file__).resolve().parents[3]
+for _p in (ROOT / "sap2000" / "tests", ROOT / "diseno" / "python"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 

@@ -6,7 +6,7 @@ model ("Eurocode 2-2004", CEN Default with the Spanish partial factors), used by
     diseno/sap/leer_diseno_sap.py    -> comparison of SAP's design with the Código Estructural checks
     diseno/sap/GUIA_SAP_DISENO.md    -> GUI guide (values quoted from here)
 
-Every value and its reason are taken from diseno/investigacion/sap_design_spec.md (§0 decisions,
+Every value and its reason are taken from diseno/sap/sap_design_spec.md (§0 decisions,
 A.2-A.9 OAPI, C.1-C.10 .$2k tables).  Units: kN, m (SAP model units).
 
 Beams: SAP designs only Rectangular / Circular / Tee / Angle concrete sections with rebar data
@@ -221,7 +221,7 @@ class ColumnRebar:
 
 
 # 12Ø25 = 4 per face incl. corners, ties '2eØ10+1eØ10' c/15 -> 4 full-depth legs per direction
-# (diseno/codigo/armado_pilote.py TIES_FUSTE), clear cover 50 mm (XS3), CHECK mode.
+# (diseno/python/codigo/armado_pilote.py TIES_FUSTE), clear cover 50 mm (XS3), CHECK mode.
 PILE_REBAR = ColumnRebar(PILE_SECTION, REBAR.name, REBAR.name, 1, 1, 0.05, 0, 4, 4, "25d", "10d", 0.15,
                          4, 4, False)
 
@@ -376,7 +376,7 @@ def design_groups(model: dict) -> dict[str, list[tuple[str, str]]]:
 
 
 # ============================================================================================
-# 5. design combinations  (A.8, C.8) - bases of diseno/esfuerzos.py (D1)
+# 5. design combinations  (A.8, C.8) - bases of diseno/python/esfuerzos.py (D1)
 # ============================================================================================
 BASES = {
     "CYPE": {"family": "ELU", "factors": tm.COMBOS["ELU"],

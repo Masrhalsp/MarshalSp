@@ -32,7 +32,7 @@ from pathlib import Path
 import openpyxl
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
+ROOT = HERE.parents[1]                                  # repo root (diseno/python -> ..)
 sys.path.insert(0, str(ROOT / "sap2000" / "model"))
 
 import trasmallo as tm  # noqa: E402

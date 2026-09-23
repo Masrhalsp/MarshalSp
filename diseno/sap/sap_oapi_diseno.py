@@ -8,7 +8,7 @@ Windows, SAP2000 v27.1 installed, Python 3.9+ (pip install comtypes openpyxl num
     python diseno\\sap\\sap_oapi_diseno.py --from-s2k diseno\\sap\\output\\Muelle_Trasmallo_40m_rect.$2k
     python diseno\\sap\\sap_oapi_diseno.py --base ROM       # design with ELR01-22 (psi0,Qa = 1.0)
 
-Steps (diseno/investigacion/sap_design_spec.md, section in brackets):
+Steps (diseno/sap/sap_design_spec.md, section in brackets):
 
 1. model: built with ``sap2000/tools/sap_oapi_run.define_model`` from the design model of
    ``datos_diseno_sap`` (beam sections = web rectangles + modifiers; analysis identical), or opened
@@ -43,7 +43,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-for _p in (HERE, ROOT / "sap2000" / "tools", ROOT / "sap2000" / "model", ROOT / "diseno"):
+for _p in (HERE, ROOT / "sap2000" / "tools", ROOT / "sap2000" / "model", ROOT / "diseno" / "python"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
@@ -505,7 +505,7 @@ def run(m, *, base: str = "CYPE", kphi=D.KPHI_DEFAULT, info_areas: bool = True, 
         "provided": D.provided_summary(), "verify_passed": verify, "to_do": todo,
         "units": "areas cm2, Asw/s cm2/m, loc/pos/z m (piles z from the fixity, beams global y, edge beams global x)",
         "notes": ["SAP designs the web rectangle (sagging exact; hogging and torsion slightly conservative, spec B.3)",
-                  "SAP does not check SLS (crack width 0.1 mm XS3, stress limits): see diseno/codigo/*.py",
+                  "SAP does not check SLS (crack width 0.1 mm XS3, stress limits): see diseno/python/codigo/*.py",
                   "e2 uses c = 8 in SAP; Kphi = 1.1129 reproduces CYPE e2 (c = pi^2, Kphi 1.373, d 327.5)",
                   "piles: no P-Delta analysis and SAP's M0e = 0.6 M02 + 0.4 M01 >= 0.4 M02 (double curvature) -> "
                   "SAP's ratio is governed by the first-order end check (~ our nm1), not by the sway second-order "

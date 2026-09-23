@@ -1,5 +1,5 @@
 """Read SAP2000's concrete-frame-design results ("Eurocode 2-2004") and compare them with the
-Código Estructural checks of diseno/codigo (pilotes.json / vigas.json, when they exist).
+Código Estructural checks of diseno/python/codigo (pilotes.json / vigas.json, when they exist).
 
     python3 diseno/sap/leer_diseno_sap.py <export.xlsx> [<export2.xlsx> ...]
     python3 diseno/sap/leer_diseno_sap.py diseno/sap/output/diseno_SAP2000.json     (OAPI script output)
@@ -38,14 +38,14 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-for _p in (ROOT / "diseno" / "codigo", ROOT / "diseno", HERE):       # HERE first on sys.path
+for _p in (ROOT / "diseno" / "python" / "codigo", ROOT / "diseno" / "python", HERE):       # HERE first on sys.path
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 import datos_diseno_sap as D  # noqa: E402
 
 OUT_DIR = HERE / "output"
-DISENO_OUT = ROOT / "diseno" / "output"
+DISENO_OUT = ROOT / "diseno" / "python" / "output"
 REF_JSON = ROOT / "diseno" / "ref" / "cype_design_reference.json"
 
 # canonical field -> regex over SAP field keys (case-insensitive); spec §5 + v20.1 real beam fields [G8]
@@ -539,7 +539,7 @@ def compare(piles: list[dict], beams: list[dict], base: str, pil: dict | None, v
                                             "max": max(d)} if d else None)
     return {"tables": tables, "summary": summary, "cype_comparison": cype_cmp,
             "proposal": {"note": "no aplica: SAP2000 es una comprobación independiente; propuestas en "
-                                 "diseno/output/pilotes.json y vigas.json"}}
+                                 "diseno/python/output/pilotes.json y vigas.json"}}
 
 
 NOTES_PILES = [
@@ -550,7 +550,7 @@ NOTES_PILES = [
     "comprueba (SAP lo espera de un análisis P-Delta).  Valor esperado en SAP = 'sap_est_M0e' (≈ nm1 propio "
     "+ 1-6 %), no nm2.  Si los detalles de SAP muestran MEd = M02 + Mi + M2, el valor esperado es "
     "'sap_est_estacion' (≈ nm2 con e2 de c = 8 y el Kφ del overwrite).  El pilote se verifica con nm2 "
-    "(diseno/output/pilotes.md), no con SAP.",
+    "(diseno/python/output/pilotes.md), no con SAP.",
     "SAP e2 = Kr·Kφ·εyd/(0.45 d)·l0²/8 con d = 327.5 mm: Kφ 1.1129 da e2 = 92.1 mm = CYPE; el e2 estricto del "
     "Código (d = h/2 + is = 307 mm) es 98.3 mm (Kφ 'ce_is' = 1.1874).",
 ]
@@ -643,7 +643,7 @@ def run(inputs: list[Path], pilotes: Path = DISENO_OUT / "pilotes.json", vigas: 
                        "Beams: SAP designs the web rectangle, flexure from M3 only, shear with V at the face, "
                        "fywd = fyk/gamma_s = 434.8 MPa, nu = 0.6(1 - fck/250) (ours: V at d, fywd 400, nu1 0.6).",
                        "Our flexure column 'ours_As_uls' is the ULS tension steel (no As,min); 'ours_As_req' includes As,min.",
-                       "SAP does not check SLS (crack width 0.1 mm XS3, stresses): see diseno/output/*.md."]}
+                       "SAP does not check SLS (crack width 0.1 mm XS3, stresses): see diseno/python/output/*.md."]}
     res = {"meta": res.pop("meta"), **res}
     return res
 

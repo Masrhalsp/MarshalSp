@@ -1,5 +1,5 @@
-"""Tests of diseno/codigo/vigas.py and armado_vigas.py: CYPE parity (Anejo 10, Mode.CYPE,
-basis CYPE; tolerances as in diseno/investigacion/validate_codigo.py: 0.5 % or half a unit of the
+"""Tests of diseno/python/codigo/vigas.py and armado_vigas.py: CYPE parity (Anejo 10, Mode.CYPE,
+basis CYPE; tolerances as in diseno/python/investigacion/validate_codigo.py: 0.5 % or half a unit of the
 last printed digit) and sanity checks of the final design (Mode.CODIGO, basis ROM, XS3)."""
 
 from __future__ import annotations
