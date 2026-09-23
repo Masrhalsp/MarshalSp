@@ -1,0 +1,221 @@
+   [ULS fibre analyses: 17.6 s]
+
+====================================================================================================================================
+M - MATERIALS (A19.2.4.2.4, A19.3.1, A19.3.2)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+M.01    fcd HA-50 = acc*fck/gc (acc=1.00)                    A19.3.1.6(1)                 33.33        33.33   +0.01%  PASS
+M.02    fcd HA-35                                            A19.3.1.6(1)                 23.33        23.33   +0.01%  PASS
+M.03    fyd B500SD = fyk/gs                                  A19.2.4.2.4                 434.78       434.78   +0.00%  PASS
+M.04    eps_yd = fyd/Es (Es = 200 GPa)                       A19.3.2.7(4)               0.00217     0.002174   +0.18%  PASS
+M.05    fctm HA-35 = 0.30 fck^(2/3)                          A19 Tabla 3.1                 3.21       3.2100   -0.00%  PASS
+M.06    fctm,fl HA-35, h = 550 mm                            A19.3.1.8 (3.23)              3.37       3.3705   +0.01%  PASS
+M.07    Ecm HA-35 limestone (x0.9)                           A19.3.1.3(2)                 30669     30669.43   +0.00%  PASS
+M.08    Ecm HA-50 limestone (x0.9)                           A19.3.1.3(2)                 33550     33550.08   +0.00%  PASS
+M.09    Ecm HA-25 limestone (x0.9)                           A19.3.1.3(2)                 28328     28328.23   +0.00%  PASS
+M.10    eps_cu2 (fck<=50)                                    A19 Tabla 3.1               0.0035     0.003500   +0.00%  PASS
+M.11    eps_c2 (fck<=50)                                     A19 Tabla 3.1               0.0020     0.002000   +0.00%  PASS
+M.12    Steel stress at eps=-0.00995 (horizontal branch)     A19.3.2.7(2)b              -434.78      -434.78   -0.00%  PASS  P381 bars 1-5: -434.78 @ -0.009950
+M.13    Steel stress at eps=+0.001826 (elastic, Es)          A19.3.2.7(4)                365.17       365.20   +0.01%  PASS
+
+====================================================================================================================================
+C - LOAD COMBINATIONS (Anejo 18 eq. 6.10, CTE DB SE-AE psi as used by CYPE)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+C.01    NEd head 1.35G+1.05Qa+1.5TB (1.05=1.5*0.7)           A18 (6.10); CTE psi0        620.06       620.01   -0.01%  PASS
+C.02    MEd,x head same comb. (listing My)                   A18 (6.10)                  288.36       288.31   -0.02%  PASS
+C.03    VEd,y head same comb.                                A18 (6.10)                   85.36        85.29   -0.08%  PASS
+C.04    NEd base (Empotramiento) same comb.                  A18 (6.10)                  655.55       655.51   -0.01%  PASS
+C.05    NEd max: 1.35G+1.5Qa+0.9TB (0.9=1.5*0.6)             A18 (6.10); CTE psi0        673.90       673.86   -0.01%  PASS
+C.06    NEd min for VRd,c: 1.0G+1.5TB (head)                 A18 (6.10)                  332.81       332.80   -0.00%  PASS
+C.07    VEd,y for VRd,c: 1.0G+1.5TB (head)                   A18 (6.10)                   78.86        78.85   -0.01%  PASS
+
+====================================================================================================================================
+U - ULS BENDING + AXIAL, FIBRE SECTION (A19.6.1, A19.3.1.7, A19.3.2.7)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+U.01    Pile head NRd (2nd-order ray)                        A19.6.1                     679.16       679.15   -0.00%  PASS
+U.02    Pile head MRd,x                                      A19.6.1                     387.20       387.20   -0.00%  PASS
+U.03    Pile head MRd,y                                      A19.6.1                     -75.52       -75.52   -0.00%  PASS
+U.04    Pile head Cc (concrete resultant)                    A19.6.1                    1422.97      1422.96   -0.00%  PASS
+U.05    Pile head Cs                                         A19.6.1                     536.86       536.85   -0.00%  PASS
+U.06    Pile head T                                          A19.6.1                    1280.67      1280.66   -0.00%  PASS
+U.07    Pile head ecc,y                                      A19.6.1                     140.81       140.81   -0.00%  PASS
+U.08    Pile head eT,y                                       A19.6.1                     -93.92       -93.92   -0.00%  PASS
+U.09    Pile head eps bar 7 (most tensioned)                 A19.6.1(3)               -0.004001    -0.004001   -0.00%  PASS
+U.10    Pile head eps bar 1                                  A19.6.1(3)                0.001826     0.001826   -0.01%  PASS
+U.11    Pile head eps_c,max (=0.995*eps_cu2)                 A19.6.1(3)                  0.0035     0.003482   -0.50%  PASS  CYPE stops at 99.5 % of eps_cu2
+U.12    Pile head eta = NSd/NRd (instability)                A19.6.1                      0.913       0.9130   -0.00%  PASS
+U.13    Pile head 1st-order NRd                              A19.6.1                     925.83       925.82   -0.00%  PASS
+U.14    Pile head 1st-order MRd,x                            A19.6.1                     430.56       430.56   -0.00%  PASS
+U.15    Pile head 1st-order MRd,y                            A19.6.1                      -5.68      -5.6888   -0.15%  PASS
+U.16    Pile head eta section = NEd/NRd                      A19.6.1                      0.670       0.6697   -0.04%  PASS
+U.17    Pile fixity 1st-order NRd                            A19.6.1                    1021.59      1021.58   -0.00%  PASS
+U.18    Pile fixity 1st-order MRd,x                          A19.6.1                    -441.89      -441.89   +0.00%  PASS
+U.19    Pile fixity 1st-order MRd,y                          A19.6.1                       4.34       4.3478   +0.18%  PASS
+U.20    Pile fixity eta section                              A19.6.1                      0.642       0.6417   -0.05%  PASS
+U.21    Pile fixity 2nd-order NRd                            A19.6.1                     733.05       733.04   -0.00%  PASS
+U.22    Pile fixity 2nd-order MRd,x                          A19.6.1                    -393.69      -393.69   +0.00%  PASS
+U.23    Pile fixity 2nd-order MRd,y                          A19.6.1                      79.72        79.72   -0.00%  PASS
+U.24    Pile fixity Cc / Cs / T : Cc                         A19.6.1                    1439.73      1439.72   -0.00%  PASS
+U.25    Pile fixity T                                        A19.6.1                    1269.29      1269.28   -0.00%  PASS
+U.26    Pile fixity eta (instability)                        A19.6.1                      0.894       0.8943   +0.03%  PASS
+U.27    Pile head design-load equilibrium Cc                 A19.6.1                    1321.67      1321.69   +0.00%  PASS
+U.28    Pile head design-load equilibrium T                  A19.6.1                    1126.46      1126.48   +0.00%  PASS
+U.29    Pile head design-load eps bar 7                      A19.6.1                  -0.002733    -0.002733   +0.00%  PASS
+U.30    Pile head design-load eps_c,max                      A19.6.1                     0.0026     0.002555   -1.72%  PASS
+U.31    Pile fixity design-load equilibrium Cc               A19.6.1                    1315.83      1315.84   +0.00%  PASS
+U.32    Pile fixity design-load equilibrium Cs               A19.6.1                     428.49       428.49   +0.00%  PASS
+U.33    Pile fixity design-load eps bar 1                    A19.6.1                  -0.002603    -0.002603   +0.01%  PASS
+U.34    Listing Aprov. P3 Cimentacion (constant-N def.)      CYPE listing 3.5.1            90.7        90.70   -0.00%  PASS
+U.35    Listing Aprov. P3 Cabeza (constant-N def.)           CYPE listing 3.5.1            92.5        92.30   -0.21%  PASS  ray def. gives 91.3; NOT a force-rounding effect (listing forces 620.1/353.5/-69.0 give 92.31); Forjado-1 points run 0.2 pt low (see U.53), matched if bars sit at +-127.0 mm (92.53)
+U.36    Beam P3-P4 hogging MRd,x (N=0)                       A19.6.1                    -325.78      -325.78   -0.00%  PASS
+U.37    Beam Cc = T                                          A19.6.1                     767.00       766.98   -0.00%  PASS
+U.38    Beam ecc,y                                           A19.6.1                    -219.16      -219.16   -0.00%  PASS
+U.39    Beam eT,y                                            A19.6.1                     205.59       205.60   +0.00%  PASS
+U.40    Beam eps top bars (=0.995*eps_su)                    A19.6.1(3)               -0.009950    -0.009950   +0.00%  PASS
+U.41    Beam eps_c,max                                       A19.6.1                     0.0017     0.001657   -2.53%  PASS  figure: 1.66 permil
+U.42    Beam sig_c,max                                       A19.3.1.7                    22.65        22.65   -0.01%  PASS
+U.43    Beam neutral-axis depth x (figure P381)              A19.6.1                      68.52        68.52   +0.00%  PASS
+U.44    Beam eta = MEd/MRd                                   A19.6.1                      0.840       0.8402   +0.02%  PASS
+U.45    Beam design-load Cc                                  A19.6.1                     543.32       543.33   +0.00%  PASS
+U.46    Beam design-load Cs                                  A19.6.1                      93.94        93.94   +0.00%  PASS
+U.47    Beam design-load T                                   A19.6.1                     637.26       637.27   +0.00%  PASS
+U.48    Beam design-load sig_s top bars                      A19.6.1                    -392.45      -392.46   -0.00%  PASS
+U.49    Beam design-load sig_c,max                           A19.3.1.7                    11.65        11.66   +0.04%  PASS
+U.50    Beam design-load eps ledge O10 (bar 7)               A19.6.1                  -0.000662    -0.000662   -0.01%  PASS
+U.51    Beam 'Area Inf. Nec.' Mmax=294.61 (singly r.)        A19.6.1                      15.10        15.10   +0.01%  PASS
+U.52    Beam 'Area Sup. Nec.' M(P3)=-273.71                  A19.6.1                      13.72        13.72   +0.04%  PASS  listing zone shows -266.03; CYPE sizes with the node value
+U.53    Listing Aprov. P3 Pie (constant-N def.)              CYPE listing 3.5.1            91.9        91.70   -0.22%  PASS  same +0.2 pt offset as U.35 (Cimentacion U.34 exact); bars at +-127.0 give 91.92
+U.54    Beam MRd code-strict (no 10 permil steel limit)      A19.3.2.7(2)b                    -      -332.78           INFO  +2.15 % vs CYPE -325.78 (concrete reaches 3.5 permil); piles unchanged +0.09 %
+
+====================================================================================================================================
+S - COLUMN SLENDERNESS / IMPERFECTIONS / NOMINAL CURVATURE (A19.5.2, A19.5.8)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+S.01    Radius of gyration ic                                A19.5.8.3.2                  11.55        11.55   -0.03%  PASS
+S.02    Slenderness lambda = l0/i (l0 = 6.70 m)              A19.5.8.3.2 (5.14)           58.02        58.02   +0.01%  PASS
+S.03    omega = As fyd/(Ac fcd)                              A19.5.8.3.1                   0.48       0.4802   +0.04%  PASS
+S.04    lambda_lim, NEd=620.06 (n=0.116)                     A19.5.8.3.1 (5.13)           42.58        42.58   +0.01%  PASS
+S.05    lambda_lim, NEd=655.55 (n=0.123)                     A19.5.8.3.1 (5.13)           41.42        41.42   -0.01%  PASS
+S.06    A = 1/(1+0.2 phi_ef), phi_ef=1.75                    A19.5.8.3.1                   0.74       0.7407   +0.10%  PASS
+S.07    B = sqrt(1+2 omega) (UNE-EN form)                    A19.5.8.3.1                   1.40       1.4001   +0.01%  PASS  BOE erratum 1+sqrt()
+S.08    C (rm unknown/unbraced)                              A19.5.8.3.1                   0.70       0.7000   +0.00%  PASS
+S.09    n = NEd/(Ac fcd), fixity                             A19.5.8.3.1                   0.12       0.1229   +2.43%  PASS
+S.10    alpha_h = 2/sqrt(l), l = 6.70 m                      A19.5.2(5)                  0.7727       0.7727   -0.00%  PASS
+S.11    theta_i = theta0 ah am (theta0 = 1/200)              A19.5.2 (5.1)               0.0039     0.003863   -0.94%  PASS
+S.12    ei = theta_i l0/2                                    A19.5.2 (5.2)                12.94        12.94   +0.02%  PASS
+S.13    e_min = max(h/30, 20)                                A19.6.1(4)                   20.00        20.00   +0.00%  PASS
+S.14    e0,x head = MEd/NEd                                  A19.6.1(4)                  465.06       465.05   -0.00%  PASS
+S.15    1/r0 = eps_yd/(0.45 d), d=327.5                      A19.5.8.8.3 (5.34)          0.0148       0.0148   -0.33%  PASS
+S.16    1/r = Kr Kphi /r0                                    A19.5.8.8.3                 0.0203       0.0203   -0.23%  PASS
+S.17    e2 = (1/r) l0^2 / c, c = pi^2                        A19.5.8.8.2                  92.12        92.12   +0.00%  PASS
+S.18    1/r0 = eps_yd/(0.45 d), d=329.5                      A19.5.8.8.3 (5.34)          0.0147       0.0147   -0.26%  PASS
+S.19    1/r = Kr Kphi /r0                                    A19.5.8.8.3                 0.0201       0.0201   +0.15%  PASS
+S.20    e2 = (1/r) l0^2 / c, c = pi^2                        A19.5.8.8.2                  91.56        91.56   +0.00%  PASS
+S.21    Kr = (nu-n)/(nu-nbal) <= 1                           A19.5.8.8.3 (5.36)           1.000       1.0000   +0.00%  PASS  raw=1.26
+S.22    nu = 1 + omega                                       A19.5.8.8.3                   1.48       1.4802   +0.01%  PASS
+S.23    beta = 0.35 + fck/200 - lambda/150                   A19.5.8.8.3                  0.213       0.2132   +0.08%  PASS
+S.24    Kphi = 1 + beta phi_ef                               A19.5.8.8.3 (5.37)           1.373       1.3731   +0.00%  PASS
+S.25    c = pi^2 (sinusoidal curvature)                      A19.5.8.8.2(4)               9.870       9.8696   -0.00%  PASS
+S.26    etot = ee + ei + e2 (fixity, x)                      A19.5.8.8.2 (5.31)          537.06       537.06   +0.00%  PASS
+S.27    MSd,x = N etot (fixity)                              A19.5.8.8.2                 352.07       352.07   +0.00%  PASS
+S.28    MSd,y = N (ee,y + ei + e2) (fixity)                  A19.5.8.8.2                  71.29        71.29   +0.00%  PASS  CYPE adds ei and e2 in BOTH axes
+S.29    e2 with d = h/2 + i_s (5.35, code-strict)            A19.5.8.8.3(2)                   -        97.75           INFO  CYPE uses d to extreme bar row (91.56); +6.9 %
+
+====================================================================================================================================
+V - SHEAR (A19.6.2.2, A19.6.2.3, A19.9.2.2)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+V.01    nu1 = 0.6 (fck<=60, fywd=0.8 fywk)                   A19.6.2.3(3) (6.10.a)        0.600       0.6000   +0.00%  PASS
+V.02    sigma_cp (CYPE) = (NEd - As' fyd)/Ac, dir X          A19.6.2.3(3)                -12.13       -12.13   -0.01%  PASS
+V.03    sigma_cp (CYPE), dir Y, As' = 4O25                   A19.6.2.3(3)                 -1.46      -1.4602   -0.01%  PASS
+V.04    sigma_cp (CYPE) fixity dir X                         A19.6.2.3(3)                -11.91       -11.91   +0.00%  PASS
+V.05    alpha_cw (sigma_cp <= 0 -> 1)                        A19.6.2.3(3) (6.11)          1.000       1.0000   +0.00%  PASS
+V.06    Pile VRd,max head (z = 249.16 CYPE)                  A19.6.2.3(3) (6.9)          996.63       996.64   +0.00%  PASS
+V.07    Pile VRd,max fixity (z = 251.34 CYPE)                A19.6.2.3(3) (6.14)        1005.35      1005.36   +0.00%  PASS
+V.08    Pile VRd,max with z = 0.9 d (d = 263.75)             A19.6.2.3(1)                     -       949.50           INFO  CYPE's column z not reproduced (internal lever arm); -4.7 %, conservative
+V.09    eta1 = sqrt((Vx/VRdmax)^2+(Vy/VRdmax)^2) head        CYPE biaxial                 0.086       0.0857   -0.40%  PASS
+V.10    Asl = 8 O25 (all bars except compressed row)         A19.6.2.2(1)                 39.27        39.27   -0.00%  PASS
+V.11    CRd,c = 0.18/gc                                      A19.6.2.2(1)                 0.120       0.1200   +0.00%  PASS
+V.12    k = 1 + sqrt(200/d) <= 2, d = 263.75                 A19.6.2.2(1)                 1.871       1.8708   -0.01%  PASS
+V.13    rho_l = Asl/(bw d) <= 0.02                           A19.6.2.2(1)                 0.020       0.0200   +0.00%  PASS
+V.14    sigma_cp = NEd/Ac <= 0.2 fcd                         A19.6.2.2(1)                  2.08       2.0801   +0.00%  PASS
+V.15    vmin = 0.035 k^1.5 fck^0.5                           A19.6.2.2(1) (6.3)            0.63       0.6333   +0.52%  PASS
+V.16    Pile VRd,c (CYPE label VRd,s)                        A19.6.2.2(1) (6.2.a)        142.85       142.85   -0.00%  PASS
+V.17    Pile VRd,c minimum                                   A19.6.2.2(1) (6.2.b)         99.73        99.73   -0.00%  PASS
+V.18    eta2 = VEd/VRd,c (Vx=0.34, Vy=78.86)                 A19.6.2.1(3)                 0.552       0.5521   +0.01%  PASS
+V.19    Beam z = 0.9 d                                       A19.6.2.3(1)                432.00       432.00   +0.00%  PASS
+V.20    Beam sigma_cp (CYPE), As' = 7O20                     A19.6.2.3(3)                 -2.62      -2.6196   +0.02%  PASS
+V.21    Beam VRd,max (theta = 45 deg)                        A19.6.2.3(3) (6.9)         1512.00      1512.00   +0.00%  PASS
+V.22    fywd = 0.8 fywk (NOTA to 6.2.3(3))                   A19.6.2.3(3) NOTA           400.00       400.00   +0.00%  PASS
+V.23    Asw = 3 legs O10                                     -                             2.36       2.3562   -0.16%  PASS
+V.24    Beam VRd,s = Asw/s z fywd cot(theta)                 A19.6.2.3(3) (6.8)          407.15       407.15   +0.00%  PASS
+V.25    Beam eta VEd/VRd,max (VEd = 390.18)                  A19.6.2                      0.258       0.2581   +0.02%  PASS
+V.26    Beam eta VEd/VRd,s                                   A19.6.2                      0.958       0.9583   +0.03%  PASS
+V.27    'Area Transv. Nec.' = VEd/(z fywd)                   A19.6.2.3(3)                 22.58        22.58   -0.00%  PASS
+V.28    rho_w = Asw/(s bw sin a)                             A19.9.2.2(5) (9.4)          0.0047     0.004712   +0.26%  PASS
+V.29    rho_w,min = 0.08 sqrt(fck)/fyk                       A19.9.2.2(5) (9.5)          0.0009     0.000947   +5.17%  PASS
+V.30    Min. stirrups 50 cm web (listing 'Nec.')             A19.9.2.2(5)                  4.73       4.7329   +0.06%  PASS
+V.31    Min. stirrups 25x30 edge beam                        A19.9.2.2(5)                  2.37       2.3664   -0.15%  PASS
+V.32    s_l,max = 0.75 d (1 + cot a)                         A19.9.2.2(6) (9.6)             360       360.00   +0.00%  PASS
+V.33    s_t,max = 0.75 d <= 600                              A19.9.2.2(8) (9.8)             360       360.00   +0.00%  PASS
+
+====================================================================================================================================
+D - DETAILING, MIN/MAX REINFORCEMENT (A19.8.2, A19.9.2, A19.9.5 + AN/UNE-EN 1992-1-1)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+D.01    Clear spacing min, long. O25, dg 20                  A19.8.2(2)                      25        25.00   +0.00%  PASS  CYPE s2 = 1.25 dg = 25 = dg + 5
+D.02    Clear spacing pile bars (85 - 25)                    geometry                        60        60.00   +0.00%  PASS
+D.03    Clear spacing beam top bars (82.5 - 20)              geometry                        63        62.50   -0.79%  PASS
+D.04    phi_long >= 12 mm (pile O25)                         A19.9.5.2(1)                    12        12.00   +0.00%  PASS
+D.05    s_cl,max = min(15 phi_min, 300, min(b,h))            A19.9.5.3(3)                   300       300.00   +0.00%  PASS  terms (375.0, 300.0, 400.0) (CYPE prints s1=300, s2=375, s3=400: s1/s2 labels swapped)
+D.06    phi_t >= max(6, phi_max/4)                           A19.9.5.3(1)                   6.3       6.2500   -0.79%  PASS
+D.07    A's,min = 0.10 NEd/fyd (NEd = 673.90)                A19.9.5.2(2) (9.12)           1.55       1.5500   -0.00%  PASS
+D.08    As,min = 0.004 Ac (AN/UNE-EN 1992-1-1)               AN 9.5.2(2)                   6.40       6.4000   +0.00%  PASS  not in the CE A19 text
+D.09    A's,min per face 0.05 NEd/fyc,d (fyc,d<=400)         A19.9.5.2(2)                     -       0.8424           INFO
+D.10    As,max = fcd Ac / fyd (AN / CYPE)                    AN 9.5.2(3)                 122.67       122.67   -0.00%  PASS
+D.11    As,max = 0.04 Ac (CE A19 text) vs 58.91              A19.9.5.2(3)                     -        64.00           INFO  58.91 <= 64.00 also OK
+D.12    Beam W top fibre (gross)                             A19.9.2.1.1               28339.35     28339.35   +0.00%  PASS
+D.13    Beam As,min = W fctm,fl/(z fyd), z=0.9d=432          A19.9.2.1.1(1) (9.1)          5.09       5.0854   -0.09%  PASS
+D.14    Beam As,min with z = 0.8 h (code text)               A19.9.2.1.1(1)                   -       4.9929           INFO  -1.8 % vs CYPE
+D.15    Beam As,max = 0.04 Ac                                A19.9.2.1.1(3)                   -       146.00           INFO
+D.16    Long. bar spacing <= 350 mm (bottom bars)            A19.9.2.3(4)                   150       150.00   +0.00%  PASS
+
+====================================================================================================================================
+K - SLS: CRACKING CRITERION, CRACK WIDTH, DEFLECTION LIMITS (A19.7.1, A19.7.3, CE Tabla 27.2)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+K.01    sigma_ct bottom, M_qp = +86 kN*m (P570)              A19.7.1(2)                   -2.20      -2.2048   -0.22%  PASS  n = Es/Ecm = 6.52
+K.02    sigma_c top, M_qp = +86                              A19.7.1(2)                    2.73       2.7651   +1.28%  INFO  figure strains imply Ec ~33.5 GPa and bars ~50 mm from the faces; no single linear homogenised section fits all 8 printed values; governing bottom value matches
+K.03    sigma_s bottom bars, M_qp = +86                      A19.7.1(2)                  -10.27       -10.25   +0.17%  PASS
+K.04    fct,eff = fctm used by engineer (3.2)                A19.7.1(2)                     3.2       3.2100   +0.31%  PASS
+K.05    Mcr sagging (homogenised, fctm)                      A19.7.1(2)                       -       125.21           INFO
+K.06    Mcr hogging (homogenised, fctm)                      A19.7.1(2)                       -        99.84           INFO
+K.07    wmax XS3, RC, quasi-permanent comb.                  CE Tabla 27.2                    -       0.1000           INFO
+K.08    fT,lim = L/250, L = 3.05 m                           CYPE (CTE/A19.7.4.1)         12.20        12.20   +0.00%  PASS
+K.09    fA,lim = L/500                                       CYPE (CTE/A19.7.4.1)          6.10       6.1000   +0.00%  PASS
+K.10    Cantil tie: 4O20 x 400 MPa (P607)                    hand check                     502       502.40   +0.08%  PASS
+K.11    Cantil tie force 410/4.65 (P607 prints 83)           hand check                      83        88.17   +6.23%  INFO  arithmetic slip in A10: 410/4.65 = 88.2 kN (still << 502)
+K.12    Cracked x (M = 151.9, sagging)                       A19.7.3.4                        -       131.99           INFO
+K.13    sigma_s bottom bars (cracked)                        A19.7.3.4                        -       159.64           INFO
+K.14    hc,ef = min(2.5(h-d), (h-x)/3, h/2)                  A19.7.3.2(3)                     -       139.34           INFO
+K.15    sr,max = k3 c + k1 k2 k4 phi/rho_p,eff               A19.7.3.4(3) (7.11)              -       376.34           INFO
+K.16    eps_sm - eps_cm (kt = 0.4)                           A19.7.3.4(2) (7.9)               -       0.4789           INFO
+K.17    wk (limit 0.1 mm XS3)                                A19.7.3.4 (7.8)                  -       0.1802           INFO
+K.18    wk at M = Mcr,sag = 125.2 (first cracking)           A19.7.3.4 (7.8)                  -       0.1486           INFO  > 0.1 mm: with 7O20 the XS3 limit can only be met by staying uncracked
+
+====================================================================================================================================
+P - PSI2 SENSITIVITY WITH THE SAP2000 v27.1 RESULTS (quasi-permanent combination)
+====================================================================================================================================
+id      check                                                clause                        CYPE     computed    delta  status
+P.01    Inner beams M_qp,max sag (psi2=0.3) SAP              A18 6.5.3 (6.16b)            86.66        90.41   +4.33%  INFO  max of VT2-VT6 (VT4 = Portico 6: 83.43); hog -30.2; sigma_ct = 2.32 MPa vs fctm 3.21 -> UNCRACKED
+P.02    Inner beams M_qp,max sag (psi2=0.5) SAP              A18 6.5.3 (6.16b)                -       115.01           INFO  max of VT2-VT6 (VT4 = Portico 6: 105.99); hog -37.7; sigma_ct = 2.95 MPa vs fctm 3.21 -> UNCRACKED
+P.03    Inner beams M_qp,max sag (psi2=0.8) SAP              A18 6.5.3 (6.16b)                -       151.90           INFO  max of VT2-VT6 (VT4 = Portico 6: 139.83); hog -48.9; sigma_ct = 3.89 MPa vs fctm 3.21 -> CRACKED: check wk <= 0.1 mm
+P.06    psi2,Qa at which inner beams crack (SAP)             A19.7.1(2)                       -       0.5830           INFO  VT2_9 x=0: M_qp = 53.5 + 123.0 psi2; Mcr 125.2 (fctm); 0.63 with fct,eff = fctm,fl
+P.04    Piles max corner sigma_ct, psi2 Qa=0.8, TB=0.0       A19.7.1(2)                       -       3.5799           INFO  PIL_P2 z=6.7 m; fctm(HA-50) = 4.07 -> UNCRACKED
+P.05    Piles max corner sigma_ct, psi2 Qa=0.8, TB=0.5       A19.7.1(2)                       -        11.01           INFO  PIL_P1 z=6.7 m; fctm(HA-50) = 4.07 -> CRACKED: wk check needed (0.1 mm)
+
+====================================================================================================================================
+SUMMARY: 151 PASS, 0 FAIL, 25 INFO  (tolerance: max(0.5 %, half unit of CYPE's last printed digit))
+JSON written to validate_codigo_results.json

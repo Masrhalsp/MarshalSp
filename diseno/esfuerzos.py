@@ -117,15 +117,61 @@ def load_stations(path: Path = SAP_FRAMES_XLSX) -> dict:
 # --------------------------------------------------------------------------------------------
 # combinations
 # --------------------------------------------------------------------------------------------
-def combos(include_els_qp: bool = True) -> dict[str, tuple]:
-    """name -> factors on (PP, CM, Qa, TB1, TB2, TB3)."""
+BASES = {
+    # "CYPE": the assumptions of Anejo 10 (CTE-type psi for the quay load, bollard as wind)
+    "CYPE": {"psi0_Qa": 0.7, "psi0_TB": 0.6, "psi2_Qa": PSI2_QA_CYPE, "psi2_TB": 0.0,
+             "ref": "Anejo 10 / Apéndice 1 §1.6 (CTE DB SE Tabla 4.2, cat. A/B)"},
+    # "ROM": ROM 2.0-11 Tabla 4.6.4.1 for storage/operation loads without statistics
+    # (combination value = nominal -> psi0 = 1.0; quasi-permanent 0.80), bollard psi2 = 0
+    "ROM": {"psi0_Qa": 1.0, "psi0_TB": 0.6, "psi2_Qa": PSI2_QA_STORAGE, "psi2_TB": 0.0,
+            "ref": "ROM 2.0-11 Tabla 4.6.4.1 (+ p. 125 for SLS)"},
+}
+
+
+def combos(include_els_qp: bool = True, basis: str = "CYPE") -> dict[str, tuple]:
+    """name -> factors on (PP, CM, Qa, TB1, TB2, TB3).
+
+    basis "CYPE": ELU/CIM/ELS exactly as the SAP model and Apéndice 1 §1.6.2, plus
+    QP03 / QP08 (quasi-permanent with psi2,Qa = 0.3 / 0.8) and QP03_TB05 / QP08_TB05
+    (sensitivity: bollard pull with psi2 = 0.5, ROM 0.2-90 operational upper bound).
+    basis "ROM": the ELU family rebuilt with psi0,Qa = 1.0 (names ELR01-22) + the same QP."""
     out = {}
-    for fam in ("ELU", "CIM", "ELS"):
-        for i, fac in enumerate(tm.COMBOS[fam], 1):
-            out[f"{fam}{i:02d}"] = tuple(fac)
+    if basis == "CYPE":
+        for fam in ("ELU", "CIM", "ELS"):
+            for i, fac in enumerate(tm.COMBOS[fam], 1):
+                out[f"{fam}{i:02d}"] = tuple(fac)
+    elif basis == "ROM":
+        b = BASES["ROM"]
+        for i, fac in enumerate(tm._family(1.35, 1.50, b["psi0_Qa"], b["psi0_TB"]), 1):
+            out[f"ELR{i:02d}"] = tuple(fac)
+    else:
+        raise ValueError(basis)
     if include_els_qp:
         out["QP03"] = (1.0, 1.0, PSI2_QA_CYPE, 0.0, 0.0, 0.0)
         out["QP08"] = (1.0, 1.0, PSI2_QA_STORAGE, 0.0, 0.0, 0.0)
+        for q, nm in ((PSI2_QA_CYPE, "03"), (PSI2_QA_STORAGE, "08")):
+            for k in range(3):                  # bollard 0.5 in each of TB1/TB2/TB3
+                fac = [1.0, 1.0, q, 0.0, 0.0, 0.0]
+                fac[3 + k] = 0.5
+                out[f"QP{nm}_TB{k + 1}"] = tuple(fac)
+    return out
+
+
+def uls(basis: str = "CYPE") -> dict[str, tuple]:
+    """The ULS (concrete) combinations of a basis: ELU01-22 (CYPE) or ELR01-22 (ROM)."""
+    pre = "ELU" if basis == "CYPE" else "ELR"
+    return {k: v for k, v in combos(False, basis).items() if k.startswith(pre)}
+
+
+def quasi_permanent(psi2_qa: float, tb_psi2: float = 0.0) -> dict[str, tuple]:
+    """Quasi-permanent combinations: PP + CM + psi2·Qa (+ tb_psi2·TBk, one bollard case each)."""
+    if tb_psi2 == 0:
+        return {f"QP(psi2={psi2_qa:g})": (1.0, 1.0, psi2_qa, 0.0, 0.0, 0.0)}
+    out = {}
+    for k in range(3):
+        fac = [1.0, 1.0, psi2_qa, 0.0, 0.0, 0.0]
+        fac[3 + k] = tb_psi2
+        out[f"QP(psi2={psi2_qa:g},TB{k + 1}={tb_psi2:g})"] = tuple(fac)
     return out
 
 

@@ -1,73 +1,96 @@
-"""Reinforced-concrete cross-section engine (Código Estructural Anejo 19 = EN 1992-1-1).
+"""Reinforced-concrete sections to the Código Estructural, Anejo 19 (= EN 1992-1-1 with the
+Spanish national parameters).
 
-A section is a set of concrete rectangles plus discrete bars, in local coordinates (u, v) [m]
-with origin anywhere (the gross centroid is used as the reference point for moments).
+Units inside this module: N, mm, MPa (N·mm for moments).  Callers working in kN / kN·m use
+``KN`` and ``KNM`` to convert.
 
-Sign convention (as in the CYPE listings of Anejo 10): compression POSITIVE for strains,
-stresses and the axial force N.  Moments about the reference point:
+Sign convention (the CYPECAD listings of Anejo 10): compression POSITIVE for strains, stresses
+and axial force.  x, y are section coordinates about the gross centroid; for beams y is up.
 
-    Mu = sum(F·v)   (moment producing compression in the +v fibres is positive)
-    Mv = -sum(F·u)  ... not used; we report   Mx := Mu (bending about the u axis)
-                                              My := sum(F·u) (compression in +u fibres > 0)
+    N  = sum(sigma dA)
+    Mx = sum(sigma·y dA)      (positive when the +y fibres are compressed)
+    My = sum(sigma·x dA)      (positive when the +x fibres are compressed)
 
-so that a positive moment compresses the positive side of the corresponding coordinate.
+ULS model (A19.6.1): plane sections, perfect bond, no concrete tension, parabola-rectangle
+concrete (A19.3.1.7), steel with horizontal top branch (A19.3.2.7(2)b).  Two modes:
 
-Ultimate limit state (A19.6.1): plane sections, no concrete tensile strength, parabola-
-rectangle diagram for concrete (A19.3.1.7, eps_c2 / eps_cu2 / n from fck), elastic-perfectly
-plastic steel with fyd (horizontal top branch, A19.3.2.7(2)b), steel strain limited to
-``eps_ud`` (CYPE works with 10 per mil, see the bar strains of the equilibrium tables).
+* ``Mode.CYPE`` (default): reproduces CYPECAD 2023 exactly (validated to 0.00 % against the
+  capacities printed in Anejo 10, see diseno/tests):  the failure plane stops at 99.5 % of the
+  strain limits (eps_cu2·0.995, eps_su·0.995 with eps_su = 10 per mil, a CYPE limit), and the
+  bars do not displace concrete (gross concrete area).
+* ``Mode.CODIGO``: code-strict: eps_cu2 exactly, no steel strain limit (horizontal branch),
+  bars displace concrete.
 
-Serviceability: elastic cracked (or uncracked) section with modular ratio alpha_e = Es/Ec.
+The capacity check follows CYPE: eta = |S|/|R| where R is on the failure surface along the
+ray through S = (NEd, MEd,x, MEd,y) ("esfuerzos de agotamiento con las mismas excentricidades").
+A fast convex-hull approximation of the whole N-Mx-My surface is used to screen many
+combinations; the exact ray solution is then computed for the governing ones.
 """
 
 from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
+from enum import Enum
 
 import numpy as np
+from scipy.optimize import brentq, least_squares
+from scipy.spatial import ConvexHull
 
-try:
-    from scipy.spatial import ConvexHull
-except ImportError:  # pragma: no cover
-    ConvexHull = None
+KN = 1e3            # N per kN
+KNM = 1e6           # N·mm per kN·m
 
 
-# --------------------------------------------------------------------------------------------
-# materials
-# --------------------------------------------------------------------------------------------
+class Mode(str, Enum):
+    CYPE = "cype"
+    CODIGO = "codigo"
+
+
+# ============================================================================================
+# materials (A19 Tabla 3.1, 3.1.6, 3.1.3(2), 3.1.8, 3.2.7)
+# ============================================================================================
+AGGREGATE_FACTOR = {"cuarcita": 1.0, "caliza": 0.9, "arenisca": 0.7, "basalto": 1.2}
+
+
 @dataclass(frozen=True)
 class Concrete:
-    fck: float                  # MPa
+    fck: float
     gamma_c: float = 1.5
-    alpha_cc: float = 1.0       # Spain (Anejo 19 national choice), CYPE fcd = fck/1.5
-
-    @property
-    def fcd(self) -> float:
-        return self.alpha_cc * self.fck / self.gamma_c
+    alpha_cc: float = 1.0           # Spain: 1.00 (A19.3.1.6)
+    alpha_ct: float = 1.0
+    aggregate: str = "caliza"       # CYPE listing §1.11: limestone -> Ecm x 0.9
 
     @property
     def fcm(self) -> float:
         return self.fck + 8.0
 
     @property
-    def fctm(self) -> float:    # A19 Table 3.1
+    def fcd(self) -> float:
+        return self.alpha_cc * self.fck / self.gamma_c
+
+    @property
+    def fctm(self) -> float:
         return 0.30 * self.fck ** (2 / 3) if self.fck <= 50 else 2.12 * math.log(1 + self.fcm / 10)
 
     @property
     def fctk005(self) -> float:
         return 0.7 * self.fctm
 
-    def fctm_fl(self, h: float) -> float:
-        """Mean flexural tensile strength A19.3.1.8: max((1.6 - h[mm]/1000)·fctm, fctm)."""
-        return max((1.6 - h * 1000 / 1000.0) * self.fctm, self.fctm)
+    @property
+    def fctd(self) -> float:
+        return self.alpha_ct * self.fctk005 / self.gamma_c
+
+    def fctm_fl(self, h_mm: float) -> float:
+        """A19.3.1.8 (3.23)."""
+        return max((1.6 - h_mm / 1000.0) * self.fctm, self.fctm)
 
     @property
-    def Ecm(self) -> float:     # MPa, A19 Table 3.1 (siliceous aggregate)
-        return 22000.0 * (self.fcm / 10) ** 0.3
+    def Ecm(self) -> float:
+        return 22000.0 * (self.fcm / 10) ** 0.3 * AGGREGATE_FACTOR[self.aggregate]
 
     @property
     def eps_c2(self) -> float:
+        # BOE prints 0,85 (typo); the tabulated values require 0.085
         return 0.002 if self.fck <= 50 else (2.0 + 0.085 * (self.fck - 50) ** 0.53) / 1000
 
     @property
@@ -78,19 +101,12 @@ class Concrete:
     def n(self) -> float:
         return 2.0 if self.fck <= 50 else 1.4 + 23.4 * ((90 - self.fck) / 100) ** 4
 
-    def sigma_uls(self, eps: np.ndarray) -> np.ndarray:
-        """Design stress [MPa] (compression +) for strain eps (compression +)."""
-        e = np.clip(eps, 0.0, None)
-        s = np.where(e < self.eps_c2, self.fcd * (1 - (1 - e / self.eps_c2) ** self.n), self.fcd)
-        return np.where(eps > 0, s, 0.0)
-
 
 @dataclass(frozen=True)
 class Steel:
-    fyk: float = 500.0          # MPa, B 500 SD
+    fyk: float = 500.0              # B 500 SD
     gamma_s: float = 1.15
     Es: float = 200000.0
-    eps_ud: float = 0.010       # strain limit used by CYPE (10 per mil)
 
     @property
     def fyd(self) -> float:
@@ -100,258 +116,368 @@ class Steel:
     def eps_yd(self) -> float:
         return self.fyd / self.Es
 
-    def sigma_uls(self, eps: np.ndarray) -> np.ndarray:
-        return np.clip(self.Es * eps, -self.fyd, self.fyd)
+
+HA35 = Concrete(35.0)
+HA50 = Concrete(50.0)
+B500SD = Steel()
 
 
-# --------------------------------------------------------------------------------------------
-# geometry
-# --------------------------------------------------------------------------------------------
-@dataclass(frozen=True)
+def bar_area(phi_mm: float) -> float:
+    return math.pi * phi_mm ** 2 / 4.0
+
+
+# ============================================================================================
+# section
+# ============================================================================================
+@dataclass
 class Bar:
-    u: float                    # m
-    v: float                    # m
-    diameter: float             # mm
+    x: float                        # mm, about the gross centroid
+    y: float
+    phi: float                      # mm
+    active: bool = True             # False: bar ignored in ULS (CYPE: web Ø10 of the T beam)
     tag: str = ""
 
     @property
-    def area(self) -> float:    # m2
-        return math.pi * (self.diameter / 1000) ** 2 / 4
+    def area(self) -> float:
+        return bar_area(self.phi)
 
 
 @dataclass
-class Section:
-    """Concrete rectangles (u0, v0, u1, v1) [m] + bars."""
+class RCSection:
+    """Union of concrete rectangles (x0, x1, y0, y1) [mm, gross-centroid axes] + bars."""
     name: str
     rects: list
-    bars: list = field(default_factory=list)
-    concrete: Concrete = Concrete(35)
-    steel: Steel = Steel()
-    mesh: float = 0.005         # fibre size [m]
+    bars: list
+    concrete: Concrete
+    steel: Steel = B500SD
+    mode: Mode = Mode.CYPE
+    cell: float = 2.0               # fibre size [mm] for exact results
+    eps_su_cype: float = 0.010
+    strain_factor_cype: float = 0.995
+    _hull: object = field(default=None, repr=False)
 
     def __post_init__(self) -> None:
-        us, vs, As = [], [], []
-        for (u0, v0, u1, v1) in self.rects:
-            nu = max(1, int(round((u1 - u0) / self.mesh)))
-            nv = max(1, int(round((v1 - v0) / self.mesh)))
-            du, dv = (u1 - u0) / nu, (v1 - v0) / nv
-            uu = u0 + du * (np.arange(nu) + 0.5)
-            vv = v0 + dv * (np.arange(nv) + 0.5)
-            U, V = np.meshgrid(uu, vv)
-            us.append(U.ravel())
-            vs.append(V.ravel())
-            As.append(np.full(U.size, du * dv))
-        self.fu = np.concatenate(us)
-        self.fv = np.concatenate(vs)
-        self.fa = np.concatenate(As)
-        self.Ac = float(self.fa.sum())
-        self.uc = float((self.fa * self.fu).sum() / self.Ac)     # gross centroid
-        self.vc = float((self.fa * self.fv).sum() / self.Ac)
+        self.rects = [tuple(map(float, r)) for r in self.rects]
+        c = self.concrete
+        if self.mode == Mode.CYPE:
+            self.ecu2 = c.eps_cu2 * self.strain_factor_cype
+            self.esu = self.eps_su_cype * self.strain_factor_cype
+            self.displace = False
+        else:
+            self.ecu2 = c.eps_cu2
+            self.esu = 1.0              # practically unlimited (horizontal top branch)
+            self.displace = True
+        self.ec2, self.npar, self.fcd = c.eps_c2, c.n, c.fcd
+        self.fyd, self.Es = self.steel.fyd, self.steel.Es
+        self.vx = np.array([v for r in self.rects for v in (r[0], r[1], r[1], r[0])])
+        self.vy = np.array([v for r in self.rects for v in (r[2], r[2], r[3], r[3])])
         self._set_bars()
+        self.set_mesh(self.cell)
 
+    # geometry ----------------------------------------------------------------------------------
     def _set_bars(self) -> None:
-        self.bu = np.array([b.u for b in self.bars], float)
-        self.bv = np.array([b.v for b in self.bars], float)
+        self.bx = np.array([b.x for b in self.bars], float)
+        self.by = np.array([b.y for b in self.bars], float)
         self.ba = np.array([b.area for b in self.bars], float)
+        self.bact = np.array([b.active for b in self.bars], bool)
 
-    # geometry helpers ------------------------------------------------------------------------
+    def set_mesh(self, cell: float) -> None:
+        xs, ys, As = [], [], []
+        for (x0, x1, y0, y1) in self.rects:
+            nx = max(1, int(round((x1 - x0) / cell)))
+            ny = max(1, int(round((y1 - y0) / cell)))
+            dx, dy = (x1 - x0) / nx, (y1 - y0) / ny
+            X, Y = np.meshgrid(x0 + (np.arange(nx) + 0.5) * dx, y0 + (np.arange(ny) + 0.5) * dy)
+            xs.append(X.ravel())
+            ys.append(Y.ravel())
+            As.append(np.full(X.size, dx * dy))
+        self.fx, self.fy, self.fa = np.concatenate(xs), np.concatenate(ys), np.concatenate(As)
+        self._cell_now = cell
+
     @property
-    def As_total(self) -> float:
+    def Ac(self) -> float:
+        return sum((r[1] - r[0]) * (r[3] - r[2]) for r in self.rects)
+
+    @property
+    def As(self) -> float:
         return float(self.ba.sum())
 
     @property
-    def u_range(self) -> tuple[float, float]:
-        return min(r[0] for r in self.rects), max(r[2] for r in self.rects)
+    def h(self) -> float:
+        return float(self.vy.max() - self.vy.min())
 
     @property
-    def v_range(self) -> tuple[float, float]:
-        return min(r[1] for r in self.rects), max(r[3] for r in self.rects)
+    def b(self) -> float:
+        return float(self.vx.max() - self.vx.min())
 
-    def with_bars(self, bars: list) -> "Section":
-        s = Section.__new__(Section)
-        s.__dict__.update(self.__dict__)
-        s.bars = list(bars)
-        s._set_bars()
-        return s
+    def gross_I(self) -> tuple[float, float]:
+        """(Ix, Iy) of the gross concrete section about the gross centroid (mm4)."""
+        Ix = sum((x1 - x0) * (y1 - y0) ** 3 / 12 + (x1 - x0) * (y1 - y0) * ((y0 + y1) / 2) ** 2
+                 for x0, x1, y0, y1 in self.rects)
+        Iy = sum((y1 - y0) * (x1 - x0) ** 3 / 12 + (x1 - x0) * (y1 - y0) * ((x0 + x1) / 2) ** 2
+                 for x0, x1, y0, y1 in self.rects)
+        return Ix, Iy
 
-    # ULS ---------------------------------------------------------------------------------------
-    def forces(self, eps0: float, ku: float, kv: float, a_bars: np.ndarray | None = None
-               ) -> tuple[float, float, float]:
-        """Resultants (N [kN], Mx [kN m], My [kN m]) about the gross centroid for the strain
-        plane eps = eps0 + ku·(u-uc) + kv·(v-vc) (compression +). ``Mx`` is the moment of the
-        forces about the u axis (lever arm v - vc), ``My`` about the v axis (lever arm u - uc).
-        """
-        c = self.concrete
-        ec = eps0 + ku * (self.fu - self.uc) + kv * (self.fv - self.vc)
-        sc = c.sigma_uls(ec) * 1000.0                        # kPa
-        Fc = sc * self.fa
-        ab = self.ba if a_bars is None else a_bars
-        es = eps0 + ku * (self.bu - self.uc) + kv * (self.bv - self.vc)
-        # bars displace concrete in compression
-        ss = self.steel.sigma_uls(es) * 1000.0 - c.sigma_uls(es) * 1000.0
-        Fs = ss * ab
+    def with_bars(self, bars: list) -> "RCSection":
+        return RCSection(self.name, self.rects, bars, self.concrete, self.steel, self.mode, self.cell)
+
+    # constitutive laws (compression +) --------------------------------------------------------
+    def sig_c(self, e):
+        e = np.asarray(e, float)
+        par = self.fcd * (1.0 - (1.0 - np.clip(e, 0.0, self.ec2) / self.ec2) ** self.npar)
+        return np.where(e > 0, np.where(e >= self.ec2, self.fcd, par), 0.0)
+
+    def sig_s(self, e):
+        return np.clip(self.Es * np.asarray(e, float), -self.fyd, self.fyd)
+
+    # resultants --------------------------------------------------------------------------------
+    def resultants(self, e0: float, kx: float, ky: float, detail: bool = False,
+                   bar_area: np.ndarray | None = None):
+        ec = e0 + kx * self.fx + ky * self.fy
+        Fc = self.sig_c(ec) * self.fa
+        es = e0 + kx * self.bx + ky * self.by
+        ss = self.sig_s(es) * self.bact
+        if self.displace:
+            ss = ss - self.sig_c(es) * self.bact
+        Fs = ss * (self.ba if bar_area is None else bar_area)
         N = Fc.sum() + Fs.sum()
-        Mx = (Fc * (self.fv - self.vc)).sum() + (Fs * (self.bv - self.vc)).sum()
-        My = (Fc * (self.fu - self.uc)).sum() + (Fs * (self.bu - self.uc)).sum()
-        return float(N), float(Mx), float(My)
+        Mx = (Fc * self.fy).sum() + (Fs * self.by).sum()
+        My = (Fc * self.fx).sum() + (Fs * self.bx).sum()
+        if not detail:
+            return np.array([N, Mx, My])
+        Cc = float(Fc.sum())
+        comp, ten = Fs > 0, Fs < 0
+        Cs, T = float(Fs[comp].sum()), float(-Fs[ten].sum())
+        ev = e0 + kx * self.vx + ky * self.vy
+        return dict(N=float(N), Mx=float(Mx), My=float(My), Cc=Cc, Cs=Cs, T=T,
+                    eps_c_max=float(ev.max()), eps_s_min=float(es[self.bact].min()) if self.bact.any() else 0.0,
+                    bar_eps=es, bar_sig=ss, plane=(e0, kx, ky))
 
-    def _extent(self, du: float, dv: float) -> tuple[float, float]:
-        """(max, min) of the projection d = (u-uc)·du + (v-vc)·dv over the concrete outline
-        (rectangle corners, not fibre centres)."""
-        ds = [(u - self.uc) * du + (v - self.vc) * dv
-              for (u0, v0, u1, v1) in self.rects for u in (u0, u1) for v in (v0, v1)]
-        return max(ds), min(ds)
+    # failure planes (A19 Figura 6.1): t in [0,3]: 0-1 pivot A, 1-2 pivot B, 2-3 pivot C ---------
+    def ult_plane(self, alpha: float, t: float) -> tuple[float, float, float]:
+        ca, sa = math.cos(alpha), math.sin(alpha)          # points to the compressed side
+        s_v = self.vx * ca + self.vy * sa
+        s_top, s_bot = s_v.max(), s_v.min()
+        h = s_top - s_bot
+        act = self.bact
+        s_bar = (self.bx[act] * ca + self.by[act] * sa).min() if act.any() else s_bot
+        ecu, ec2, esu = self.ecu2, self.ec2, self.esu
+        if s_top - s_bar < 1e-9:                             # no tension bar below the top
+            s_bar = s_bot
+        if t <= 1.0:
+            e_top = -esu + t * (ecu + esu)
+            k = (e_top + esu) / (s_top - s_bar)
+            e0 = -esu - k * s_bar
+        elif t <= 2.0:
+            xAB = ecu / (ecu + esu) * (s_top - s_bar)
+            x = xAB + (t - 1.0) * (h - xAB)
+            k = ecu / x
+            e0 = ecu - k * s_top
+        else:
+            sC = s_top - (1 - ec2 / ecu) * h
+            e_top = ecu + (t - 2.0) * (ec2 - ecu)
+            k = (e_top - ec2) / (s_top - sC)
+            e0 = ec2 - k * sC
+        return e0, k * ca, k * sa
 
-    def _plane_for_depth(self, x: float, du: float, dv: float, top: float, bot_c: float,
-                         bot_s: float) -> tuple[float, float]:
-        """(eps_top, curvature) of the failure plane with neutral-axis depth x measured from
-        the most compressed fibre along (du, dv).  Domains 2-4 (0 < x <= h): eps_cu2 at the
-        top or eps_ud at the most tensioned bar, whichever governs; domain 5 (x > h, whole
-        section compressed): pivot C at (1 - eps_c2/eps_cu2)·h with eps = eps_c2."""
-        c, s = self.concrete, self.steel
-        h = top - bot_c
-        if x <= h:
-            k1 = c.eps_cu2 / x
-            dmax = top - bot_s
-            k2 = s.eps_ud / (dmax - x) if dmax > x else math.inf
-            k = min(k1, k2)
-            return k * x, k
-        xc = (1 - c.eps_c2 / c.eps_cu2) * h
-        k = c.eps_c2 / (x - xc)                 # line through (xc, eps_c2) and (x, 0)
-        return c.eps_c2 + k * xc, k
+    def ult(self, alpha: float, t: float, detail: bool = False):
+        return self.resultants(*self.ult_plane(alpha, t), detail=detail)
 
-    def _ultimate_planes(self, n_angle: int = 72, n_depth: int = 160) -> list[tuple]:
-        planes = []
-        for ia in range(n_angle):
-            th = 2 * math.pi * ia / n_angle
-            du, dv = math.cos(th), math.sin(th)         # unit vector towards compression
-            top, bot_c = self._extent(du, dv)
-            if self.bu.size:
-                bot_s = float(((self.bu - self.uc) * du + (self.bv - self.vc) * dv).min())
-            else:
-                bot_s = bot_c
-            h = top - bot_c
-            xs = np.concatenate([h * np.linspace(1e-4, 1.0, n_depth),
-                                 h * (1.0 + np.geomspace(1e-3, 50.0, max(10, n_depth // 4)))])
-            for x in xs:
-                eps_top, k = self._plane_for_depth(float(x), du, dv, top, bot_c, bot_s)
-                planes.append((eps_top, k, du, dv, top))
-            planes.append((self.concrete.eps_c2, 0.0, du, dv, top))   # pure compression
-        return planes
+    # interaction surface: fast hull for screening ------------------------------------------------
+    def hull(self, n_alpha: int = 72, n_t: int = 91, cell: float = 8.0):
+        if self._hull is None:
+            fine = self._cell_now
+            self.set_mesh(cell)
+            pts = [self.ult(a, t) for a in np.linspace(0, 2 * math.pi, n_alpha, endpoint=False)
+                   for t in np.linspace(0.0, 3.0, n_t)]
+            self.set_mesh(fine)
+            pts = np.array(pts)
+            L = max(np.ptp(self.vx), np.ptp(self.vy))
+            sc = np.array([1.0, 1 / L, 1 / L])
+            self._hull = (ConvexHull(pts * sc), sc)
+        return self._hull
 
-    def interaction_points(self, n_angle: int = 72, n_depth: int = 160) -> np.ndarray:
-        pts = []
-        for eps_top, k, du, dv, top in self._ultimate_planes(n_angle, n_depth):
-            # eps(p) = eps_top - k·(top - d(p)),  d(p) = (u-uc)du + (v-vc)dv
-            eps0 = eps_top - k * top
-            pts.append(self.forces(eps0, k * du, k * dv))
-        pts.append(self.forces(-self.steel.eps_ud, 0.0, 0.0))   # pure tension
-        return np.array(pts)
-
-    def interaction_hull(self, n_angle: int = 72, n_depth: int = 160):
-        if ConvexHull is None:
-            raise RuntimeError("scipy is required for the interaction surface")
-        pts = self.interaction_points(n_angle, n_depth)
-        scale = np.array([max(abs(pts[:, 0]).max(), 1e-9), max(abs(pts[:, 1]).max(), 1e-9),
-                          max(abs(pts[:, 2]).max(), 1e-9)])
-        return ConvexHull(pts / scale), scale
-
-    def utilisation(self, N: float, Mx: float, My: float, hull=None) -> tuple[float, tuple]:
-        """eta = |S| / |R| along the ray from the origin through S = (N, Mx, My): the
-        CYPE 'NRd, MRd with the same eccentricities' check.  Returns (eta, (NRd, MRdx, MRdy))."""
-        if hull is None:
-            hull = self.interaction_hull()
-        H, scale = hull
-        s = np.array([N, Mx, My]) / scale
+    def eta_fast(self, S) -> float:
+        """Approximate utilisation along the ray (convex hull of the sampled surface)."""
+        H, sc = self.hull()
+        s = np.asarray(S, float) * sc
         nrm = float(np.linalg.norm(s))
-        if nrm < 1e-12:
-            return 0.0, (0.0, 0.0, 0.0)
+        if nrm == 0:
+            return 0.0
         d = s / nrm
-        # plane equations: a·x + b <= 0 inside; ray x = t·d, t_max = min over planes with a·d > 0
         A, b = H.equations[:, :3], H.equations[:, 3]
         ad = A @ d
         with np.errstate(divide="ignore"):
-            t = np.where(ad > 1e-12, -b / ad, np.inf)
-        tmax = float(t.min())
-        R = d * tmax * scale
-        return nrm / tmax, (float(R[0]), float(R[1]), float(R[2]))
+            t = np.where(ad > 1e-15, -b / ad, np.inf)
+        return nrm / float(t.min())
 
-    # uniaxial helpers ---------------------------------------------------------------------------
-    def mrd_uniaxial(self, N: float, axis: str = "x", sign: int = 1,
-                     a_bars: np.ndarray | None = None) -> float:
-        """Resisting moment about ``axis`` for axial force N (compression +), with the
-        compression on the ``sign`` side (+1: +v side for axis 'x', +u side for axis 'y').
-        Bisection on the neutral-axis depth over the failure planes of A19.6.1."""
-        du, dv = (0.0, float(sign)) if axis == "x" else (float(sign), 0.0)
-        top, bot_c = self._extent(du, dv)
-        d_s = (self.bu - self.uc) * du + (self.bv - self.vc) * dv
-        bot_s = float(d_s.min()) if d_s.size else bot_c
+    # exact capacities ---------------------------------------------------------------------------
+    def capacity_ray(self, S, coarse: float = 10.0) -> dict:
+        """NRd, MRd with the same eccentricities as S = (N, Mx, My) [N, N·mm]; eta = |S|/|R|."""
+        S = np.asarray(S, float)
+        L = max(np.ptp(self.vx), np.ptp(self.vy))
+        sc = np.array([1.0, 1 / L, 1 / L])
+        shat = S * sc / np.linalg.norm(S * sc)
+        fine = self._cell_now
+        self.set_mesh(coarse)
+        best = (9.0, 0.0, 0.0)
+        for a in np.radians(np.arange(0.0, 360.0, 3.0)):
+            for t in np.linspace(0.0, 3.0, 121):
+                r = self.ult(a, t) * sc
+                nr = np.linalg.norm(r)
+                if nr > 0:
+                    err = np.linalg.norm(r / nr - shat)
+                    if err < best[0]:
+                        best = (err, a, t)
+        self.set_mesh(fine)
 
-        def res(x: float):
-            eps_top, k = self._plane_for_depth(x, du, dv, top, bot_c, bot_s)
-            return self.forces(eps_top - k * top, k * du, k * dv, a_bars)
+        def res(p):
+            r = self.ult(p[0], p[1]) * sc
+            return r / np.linalg.norm(r) - shat
+        sol = least_squares(res, [best[1], best[2]], bounds=([-10, 0], [20, 3]), xtol=1e-13, ftol=1e-13)
+        d = self.ult(sol.x[0], sol.x[1], detail=True)
+        R = np.array([d["N"], d["Mx"], d["My"]])
+        d["eta"] = float(np.linalg.norm(S * sc) / np.linalg.norm(R * sc))
+        d["alpha"], d["t"] = float(sol.x[0]), float(sol.x[1])
+        d["residual"] = float(np.linalg.norm(res(sol.x)))
+        return d
 
-        h = top - bot_c
-        lo, hi = 1e-6 * h, 60.0 * h
-        Nlo, Nhi = res(lo)[0], res(hi)[0]
-        if not (Nlo <= N <= Nhi):
-            raise ValueError(f"N = {N:.1f} outside [{Nlo:.1f}, {Nhi:.1f}]")
-        for _ in range(100):
-            mid = 0.5 * (lo + hi)
-            if res(mid)[0] < N:
-                lo = mid
-            else:
-                hi = mid
-        _, Mx, My = res(0.5 * (lo + hi))
-        return Mx if axis == "x" else My
+    def capacity_constant_N(self, S) -> tuple[float, np.ndarray]:
+        """Utilisation at constant N and constant Mx:My ratio (CYPE summary 'Aprov.')."""
+        S = np.asarray(S, float)
+        r0 = self.capacity_ray(S)
+        ang = math.atan2(S[2], S[1])
 
-    # SLS: elastic section ---------------------------------------------------------------------
-    def elastic_stresses(self, N: float, Mx: float, alpha_e: float, cracked: bool = True,
-                         My: float = 0.0) -> dict:
-        """Linear-elastic stresses [MPa] (compression +) for N [kN], Mx, My [kN m] about the gross
-        centroid.  ``cracked``: concrete in tension ignored (iterative neutral-axis search on
-        the fibre model); otherwise the homogenised gross section is used."""
-        Ec = 1.0                                    # work in concrete units
-        area = self.fa.copy()
-        uu, vv = self.fu - self.uc, self.fv - self.vc
-        bu, bv = self.bu - self.uc, self.bv - self.vc
-        # bars: (alpha_e - 1) in compression or uncracked, alpha_e in cracked tension
-        active = np.ones_like(area, dtype=bool)
-        eps = None
-        for _ in range(200):
-            wa = np.where(active, area, 0.0)
-            # homogenised stiffness matrix for (eps0, ku, kv)
-            eb = None if eps is None else (eps[0] + eps[1] * bu + eps[2] * bv)
-            if cracked and eb is not None:
-                wb = np.where(eb < 0, alpha_e, alpha_e - 1.0) * self.ba
-            else:
-                wb = (alpha_e - 1.0) * self.ba
-            K = np.zeros((3, 3))
-            for w, u_, v_ in ((wa, uu, vv), (wb, bu, bv)):
-                g = np.vstack([np.ones_like(u_), u_, v_])
-                K += (g * w) @ g.T
-            rhs = np.array([N, My, Mx]) / 1000.0    # kN -> MN so stresses come out in MPa
-            sol = np.linalg.solve(K * Ec, rhs)
-            new_eps = sol
-            if not cracked:
-                eps = new_eps
+        def res(p):
+            R = self.ult(p[0], p[1])
+            return [(R[0] - S[0]) / 1e5, math.atan2(R[2], R[1]) - ang]
+        sol = least_squares(res, [r0["alpha"], r0["t"]], bounds=([-10, 0], [20, 3]), xtol=1e-13)
+        R = self.ult(*sol.x)
+        return math.hypot(S[1], S[2]) / math.hypot(R[1], R[2]), R
+
+    def capacity_uniaxial(self, N: float, compression_side: int = +1, axis: str = "x") -> dict:
+        """MRd for a given N; bending about x (compression on +y if +1) or about y."""
+        if axis == "x":
+            a = math.pi / 2 if compression_side > 0 else -math.pi / 2
+        else:
+            a = 0.0 if compression_side > 0 else math.pi
+        t = brentq(lambda t: self.ult(a, t)[0] - N, 0.0, 3.0, xtol=1e-12)
+        return self.ult(a, t, detail=True)
+
+    def equilibrium(self, S) -> dict:
+        """Strain plane in equilibrium with S (CYPE 'Equilibrio ... esfuerzos solicitantes')."""
+        S = np.asarray(S, float)
+        L = max(np.ptp(self.vx), np.ptp(self.vy))
+        scale = np.array([1.0, 1 / L, 1 / L]) / max(abs(S[0]), np.linalg.norm(S[1:]) / L, 1.0)
+
+        def res(p):
+            return (self.resultants(p[0] * 1e-3, p[1] * 1e-5, p[2] * 1e-5) - S) * scale
+        best = None
+        for e0 in (0.5, 0.0):
+            for kx in (-1.0, 0.0, 1.0):
+                for ky in (-1.0, 0.0, 1.0):
+                    sol = least_squares(res, [e0, kx, ky], xtol=1e-15, ftol=1e-15, gtol=1e-15,
+                                        max_nfev=3000)
+                    if best is None or sol.cost < best.cost:
+                        best = sol
+            if best.cost < 1e-20:
                 break
-            ec = new_eps[0] + new_eps[1] * uu + new_eps[2] * vv
-            new_active = ec >= 0.0
-            if eps is not None and np.array_equal(new_active, active):
-                eps = new_eps
-                break
-            active, eps = new_active, new_eps
-        ec = eps[0] + eps[1] * uu + eps[2] * vv
-        eb = eps[0] + eps[1] * bu + eps[2] * bv
-        sc = np.where(ec >= 0, ec, 0.0 if cracked else ec)
-        return {
-            "sigma_c_max": float(sc.max()), "sigma_c_min": float(ec.min()),
-            "sigma_s": eb * alpha_e,                # MPa, compression +
-            "strain_plane": tuple(float(e) for e in eps),   # in stress units / Ec
-        }
+        p = best.x
+        out = self.resultants(p[0] * 1e-3, p[1] * 1e-5, p[2] * 1e-5, detail=True)
+        out["cost"] = float(best.cost)
+        return out
 
 
-def rect_section(name: str, b: float, h: float, bars: list, concrete: Concrete,
-                 steel: Steel = Steel(), mesh: float = 0.005) -> Section:
-    return Section(name, [(-b / 2, -h / 2, b / 2, h / 2)], bars, concrete, steel, mesh)
+def required_tension_steel(sec: RCSection, bar_xy: list, M: float, compression_side: int,
+                           N: float = 0.0) -> float:
+    """Area [mm2] of the tension group ``bar_xy`` (other bars removed: singly reinforced, as
+    CYPE's 'Área Nec.') so that MRd = |M| [N·mm] about x at axial force N."""
+    def mrd(As):
+        bars = [Bar(x, y, 2 * math.sqrt(As / len(bar_xy) / math.pi)) for x, y in bar_xy]
+        s = RCSection(sec.name, sec.rects, bars, sec.concrete, sec.steel, sec.mode, sec.cell)
+        return abs(s.capacity_uniaxial(N, compression_side)["Mx"])
+    return brentq(lambda a: mrd(a) - abs(M), 1.0, 50000.0, xtol=0.01)
+
+
+# ============================================================================================
+# serviceability: linear-elastic homogenised / cracked sections (bending about x)
+# ============================================================================================
+def homogenised(sec: RCSection, alpha_e: float) -> dict:
+    """Uncracked homogenised section (gross concrete + (alpha_e - 1)·As)."""
+    parts = [((x1 - x0) * (y1 - y0), (y0 + y1) / 2, (x1 - x0) * (y1 - y0) ** 3 / 12)
+             for x0, x1, y0, y1 in sec.rects]
+    bars = [(b.y, b.area) for b in sec.bars]
+    A = sum(a for a, _, _ in parts) + sum((alpha_e - 1) * a for _, a in bars)
+    yc = (sum(a * y for a, y, _ in parts) + sum((alpha_e - 1) * a * y for y, a in bars)) / A
+    I = (sum(i + a * (y - yc) ** 2 for a, y, i in parts)
+         + sum((alpha_e - 1) * a * (y - yc) ** 2 for y, a in bars))
+    return dict(A=A, yc=yc, I=I, ytop=float(sec.vy.max()), ybot=float(sec.vy.min()))
+
+
+def uncracked_stresses(sec: RCSection, alpha_e: float, M: float, N: float = 0.0) -> dict:
+    """Stresses [MPa] (compression +) for M [N·mm] (+ compresses the top) and N [N]."""
+    h = homogenised(sec, alpha_e)
+
+    def sig(y):
+        return N / h["A"] + M * (y - h["yc"]) / h["I"]
+    return dict(top=sig(h["ytop"]), bot=sig(h["ybot"]), bars=[alpha_e * sig(b.y) for b in sec.bars],
+                **h)
+
+
+def cracking_moment(sec: RCSection, alpha_e: float, fct: float, sagging: bool) -> float:
+    """M [N·mm] at which the extreme tension fibre reaches fct (homogenised, N = 0)."""
+    h = homogenised(sec, alpha_e)
+    y = h["ybot"] if sagging else h["ytop"]
+    return fct * h["I"] / abs(y - h["yc"])
+
+
+def cracked_stresses(sec: RCSection, alpha_e: float, M: float) -> dict:
+    """Fully cracked linear-elastic section (no concrete in tension), N = 0, bending about x.
+    Compression bars counted with alpha_e (as in the research validation)."""
+    ytop, ybot = float(sec.vy.max()), float(sec.vy.min())
+    sag = M > 0
+
+    def force(yn):
+        F = 0.0
+        for x0, x1, y0, y1 in sec.rects:
+            b = x1 - x0
+            if sag:
+                lo, hi = max(y0, yn), y1
+                if hi > lo:
+                    F += b * ((hi - yn) ** 2 - (lo - yn) ** 2) / 2
+            else:
+                lo, hi = y0, min(y1, yn)
+                if hi > lo:
+                    F += b * ((yn - lo) ** 2 - (yn - hi) ** 2) / 2
+        for bar in sec.bars:
+            F += alpha_e * bar.area * ((bar.y - yn) if sag else (yn - bar.y))
+        return F
+    yn = brentq(force, ybot + 1e-6, ytop - 1e-6)
+    I = 0.0
+    for x0, x1, y0, y1 in sec.rects:
+        b = x1 - x0
+        lo, hi = (max(y0, yn), y1) if sag else (y0, min(y1, yn))
+        if hi > lo:
+            I += b * ((hi - yn) ** 3 - (lo - yn) ** 3) / 3
+    I += sum(alpha_e * bar.area * (bar.y - yn) ** 2 for bar in sec.bars)
+    x = (ytop - yn) if sag else (yn - ybot)
+    return dict(yn=yn, x=x, Icr=I, sig_c=abs(M) * x / I,
+                sig_s=[alpha_e * M * (bar.y - yn) / I for bar in sec.bars])   # compression +
+
+
+def crack_width(sig_s: float, conc: Concrete, steel: Steel, As: float, Ac_eff: float, c: float,
+                phi: float, kt: float = 0.4, k1: float = 0.8, k2: float = 0.5, k3: float = 3.4,
+                k4: float = 0.425, spacing: float | None = None, h: float | None = None,
+                x: float | None = None, fct_eff: float | None = None) -> dict:
+    """A19.7.3.4 (7.8)-(7.11), (7.14).  sig_s = tension stress in the most tensioned bar [MPa]."""
+    fct = conc.fctm if fct_eff is None else fct_eff
+    alpha_e = steel.Es / conc.Ecm
+    rho = As / Ac_eff
+    d_eps = max((sig_s - kt * fct / rho * (1 + alpha_e * rho)) / steel.Es, 0.6 * sig_s / steel.Es)
+    if spacing is not None and h is not None and x is not None and spacing > 5 * (c + phi / 2):
+        sr = 1.3 * (h - x)
+        rule = "(7.14)"
+    else:
+        sr = k3 * c + k1 * k2 * k4 * phi / rho
+        rule = "(7.11)"
+    return dict(wk=sr * d_eps, sr_max=sr, d_eps=d_eps, rho_p_eff=rho, alpha_e=alpha_e, rule=rule)
