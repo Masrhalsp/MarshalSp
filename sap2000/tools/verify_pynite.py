@@ -104,11 +104,12 @@ def build(model: dict) -> FEModel3D:
         lo = (y - ys[iy - 1]) / 2 if iy > 0 else 0.0
         hi = (ys[iy + 1] - y) / 2 if iy < len(ys) - 1 else 0.0
         trib = lo + hi
-        sname = f"STRIP_{iy}"
-        fe.add_section(sname, 1e-6, 1e-9, slab["EI_span"] * trib / E_slab, 1e-9)
+        for tag, fac in (("", 1.0), ("E", model["slab_sections"][tm.SLAB_END_SECTION]["factor"])):
+            fe.add_section(f"STRIP{tag}_{iy}", 1e-6, 1e-9, slab["EI_span"] * trib * fac / E_slab, 1e-9)
         for ix in range(len(xs) - 1):
+            tag = "E" if ix in (0, len(xs) - 2) else ""
             fe.add_member(f"S_{ix}_{iy}", f"D{ix:02d}_{iy}", f"D{ix + 1:02d}_{iy}",
-                          slab["material"], sname)
+                          slab["material"], f"STRIP{tag}_{iy}")
 
     # diaphragm emulation: pin-ended stiff diagonals in every slab cell
     for ar in model["areas"]:
@@ -128,7 +129,7 @@ def apply_loads(fe: FEModel3D, model: dict) -> None:
     for fr in model["frames"]:                               # self weight (pattern PP)
         fs = model["sections"][fr["section"]]
         gamma = next(m.unit_weight for m in model["materials"] if m.name == fs.material)
-        w = fs.section.props["Area"] * gamma
+        w = fs.section.props["Area"] * gamma * fs.modifiers.get("WMod", 1.0)
         for seg, *_ in segments(model, fr):
             fe.add_member_dist_load(seg, "FY", -w, -w, case="PP")
     for fl in model["frame_loads"]:
@@ -153,7 +154,28 @@ def apply_loads(fe: FEModel3D, model: dict) -> None:
                 fe.add_node_load(jl["joint"], d, v, case=jl["pattern"])
 
 
-def run(model: dict) -> dict:
+def beam_line(fe: FEModel3D, model: dict, axis: int, pat: str, n: int = 6) -> list[tuple[float, float, float]]:
+    """(y, M, V) along the transverse beam of an axis for one pattern; M > 0 sagging."""
+    out = []
+    for fr in model["frames"]:
+        if fr["kind"] != "beam_t" or fr["axis"] != axis:
+            continue
+        for seg, a, b, rigid in segments(model, fr):
+            if rigid:
+                continue
+            mem = fe.members[seg]
+            ya = model["joints"].get(a, model.get("_extra_nodes", {}).get(a))[1]
+            yb = model["joints"].get(b, model.get("_extra_nodes", {}).get(b))[1]
+            L = mem.L()
+            for k in range(n + 1):
+                x = L * k / n
+                y = ya + (yb - ya) * k / n
+                out.append((y, -mem.moment("Mz", x, pat), mem.shear("Fy", x, pat)))
+    out.sort()
+    return out
+
+
+def run(model: dict, with_fe: bool = False):
     fe = build(model)
     apply_loads(fe, model)
     for pat in tm.PATTERN_ORDER:
@@ -171,7 +193,7 @@ def run(model: dict) -> dict:
                 "FX": n.RxnFX[pat], "FY": -n.RxnFZ[pat], "FZ": n.RxnFY[pat],
                 "MX": n.RxnMX[pat], "MY": -n.RxnMZ[pat], "MZ": n.RxnMY[pat],
             }
-    return out
+    return (out, fe) if with_fe else out
 
 
 def to_cype(r: dict) -> dict:
@@ -181,61 +203,46 @@ def to_cype(r: dict) -> dict:
             "T": -r["MZ"]}
 
 
-HYP = {"PP": "Peso propio", "CM": "Cargas muertas", "Qa": "Sobrecarga de uso",
-       "TB1": "Tiro bolardo", "TB2": "Tiro Bolardo 2", "TB3": "Tiro bolardo 3"}
-
-
-def compare(res: dict, ref: dict) -> list[dict]:
-    base = ref["pile_base_forces_arranques_3_4"]["piles"]
-    rows = []
-    for pile, by_pat in res.items():
-        for pat, r in by_pat.items():
-            cy = base[pile][HYP[pat]]
-            ours = to_cype(r)
-            for comp in ("N", "Mx", "My", "Qx", "Qy", "T"):
-                rows.append({"pile": pile, "hyp": pat, "comp": comp, "model": ours[comp],
-                             "cype": cy[comp], "diff": ours[comp] - cy[comp]})
-    return rows
-
-
-def summary(rows: list[dict]) -> None:
-    print("\nPile base forces vs CYPE §3.4 (model -> CYPE 'arranque' convention)")
-    print(f"{'hyp':4s} {'comp':3s} {'max|CYPE|':>9s} {'max|diff|':>9s} {'at':>4s}  "
-          f"{'sum model':>10s} {'sum CYPE':>9s}")
-    for pat in HYP:
-        for comp in ("N", "My", "Qy", "Mx", "Qx"):
-            rs = [r for r in rows if r["hyp"] == pat and r["comp"] == comp]
-            worst = max(rs, key=lambda r: abs(r["diff"]))
-            print(f"{pat:4s} {comp:3s} {max(abs(r['cype']) for r in rs):9.1f} "
-                  f"{abs(worst['diff']):9.1f} {worst['pile']:>4s}  "
-                  f"{sum(r['model'] for r in rs):10.1f} {sum(r['cype'] for r in rs):9.1f}")
+def pile_head_forces(fe: FEModel3D, model: dict, pat: str, pile: str) -> dict:
+    """CYPE-convention forces in a pile 6.70 m above the base (end of the flexible part)."""
+    fr = next(f for f in model["frames"] if f["kind"] == "pile" and f["cype"] == pile)
+    seg = next(sg for sg, a, b, rigid in segments(model, fr) if not rigid)
+    mem = fe.members[seg]
+    L = mem.L()
+    # PyNite local axes of a vertical member (i at the base): take global quantities from the
+    # base reaction and statics instead of relying on the local-axis orientation.
+    base = fe.nodes[fr["i"]]
+    FX, FY, FZ = base.RxnFX[pat], -base.RxnFZ[pat], base.RxnFY[pat]
+    MX, MY, MZ = base.RxnMX[pat], -base.RxnMZ[pat], base.RxnMY[pat]
+    w = model["sections"]["PIL40x40"].section.props["Area"] * tm.GAMMA_CONCRETE * \
+        model["sections"]["PIL40x40"].modifiers.get("WMod", 1.0) if pat == "PP" else 0.0
+    z = L
+    # internal forces of the part below the cut, CYPE convention (action on the lower part)
+    N = FZ - w * z
+    Qx, Qy = -FX, -FY
+    My = MX + FY * z          # M_int,X(z) = -(MX + (z e3 x F)_X) ; My = -M_int,X
+    Mx = -(MY - FX * z)       # Mx = M_int,Y = -(MY + (z e3 x F)_Y)
+    return {"N": N, "Mx": Mx, "My": My, "Qx": Qx, "Qy": Qy, "T": -MZ}
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--json", type=Path, default=None)
     ap.add_argument("--ref", type=Path, default=ROOT / "ref" / "cype_reference.json")
-    ap.add_argument("--detail", action="store_true", help="print every pile/hypothesis")
+    ap.add_argument("--out", type=Path, default=ROOT / "output" / "verificacion_pynite")
     args = ap.parse_args()
 
+    from compare import build_report, load_ref, write_report
+
     model = tm.build_model()
-    res = run(model)
-    totals = {p: sum(res[c][p]["FZ"] for c in res) for p in tm.PATTERN_ORDER}
-    print("Sum of vertical base reactions (kN):",
-          ", ".join(f"{p} {v:.1f}" for p, v in totals.items()))
-    rows = []
-    if args.ref.exists():
-        rows = compare(res, json.loads(args.ref.read_text(encoding="utf-8")))
-        summary(rows)
-        if args.detail:
-            for r in rows:
-                if r["comp"] in ("N", "My", "Qy", "Mx"):
-                    print(f"{r['pile']:4s} {r['hyp']:4s} {r['comp']:3s} model {r['model']:8.1f}"
-                          f"  CYPE {r['cype']:8.1f}  diff {r['diff']:7.1f}")
-    if args.json:
-        args.json.write_text(json.dumps({"base_reactions": res, "totals": totals,
-                                         "comparison": rows}, indent=1))
-        print("written", args.json)
+    res, fe = run(model, with_fe=True)
+    pile_base = {p: {pat: to_cype(r) for pat, r in by.items()} for p, by in res.items()}
+    pile_head = {p: {pat: pile_head_forces(fe, model, pat, p) for pat in tm.PATTERN_ORDER}
+                 for p in res}
+    beams = {a: {pat: beam_line(fe, model, a, pat) for pat in tm.PATTERN_ORDER}
+             for a in range(1, tm.N_AXES + 1)}
+    rep = build_report(pile_base, pile_head, beams, load_ref(args.ref), "PyNite (verificación)")
+    path = write_report(rep, args.out.parent, args.out.name)
+    print(path.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

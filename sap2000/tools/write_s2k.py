@@ -113,16 +113,15 @@ def build_tables(model: dict) -> S2K:
         rows.append(row)
     s.table("FRAME SECTION PROPERTIES 01 - GENERAL", rows)
 
-    slab = model["slab"]
     s.table("AREA SECTION PROPERTIES", [{
-        "Section": slab["name"], "Material": slab["material"], "MatAngle": 0.0,
+        "Section": sl["name"], "Material": sl["material"], "MatAngle": 0.0,
         "AreaType": "Shell", "Type": "Shell-Thin", "DrillDOF": True,
-        "Thickness": slab["thickness"], "BendThick": slab["thickness"], "Arc": 0.0,
-        "InComp": True, "CoordSys": "GLOBAL", "Color": "Yellow",
+        "Thickness": sl["thickness"], "BendThick": sl["thickness"], "Arc": 0.0,
+        "InComp": True, "CoordSys": "GLOBAL", "Color": "Yellow" if sl["factor"] == 1 else "Orange",
         "F11Mod": 1.0, "F22Mod": 1.0, "F12Mod": 1.0,
-        "M11Mod": round(slab["m11"], 6), "M22Mod": slab["m22"], "M12Mod": slab["m12"],
-        "V13Mod": 1.0, "V23Mod": 1.0, "MMod": slab["mass_mod"], "WMod": slab["weight_mod"],
-        "Notes": "PRENOR P-25+5/120: EI = 63550 kN m2/m along local 1 (= X), one-way"}])
+        "M11Mod": round(sl["m11"], 6), "M22Mod": sl["m22"], "M12Mod": sl["m12"],
+        "V13Mod": 1.0, "V23Mod": 1.0, "MMod": sl["mass_mod"], "WMod": sl["weight_mod"],
+        "Notes": sl["note"]} for sl in model["slab_sections"].values()])
 
     # ---- geometry ------------------------------------------------------------------------------
     s.table("JOINT COORDINATES", [

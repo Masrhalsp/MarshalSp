@@ -8,9 +8,9 @@ is produced by :func:`build_model` as plain Python data, so every route builds e
 same model.
 
 Units: kN, m, C.
-Global axes: X along the pier (axes 1..7 at X = 0 ... 39 m), Y across the pier (berthing /
-bollard edge at Y = -0.45, seaward pile row Y = 0, landward pile row Y = 3.45), Z up (pile
-fixity at Z = 0, deck "Forjado 1" at Z = 7.00 as in CYPECAD).
+Global axes (same origin as CYPECAD): X along the pier (axes 1..7 at X = 0 ... 39 m), Y across
+the pier (berthing face at Y = -0.50, seaward pile row Y = 0, landward pile row Y = 3.45, land
+edge Y = 3.80), Z up (pile fixity at Z = 0, deck nodes / top of beams at Z = 7.25).
 """
 
 from __future__ import annotations
@@ -25,17 +25,24 @@ from sections import Section, inverted_l, inverted_tee, rectangle
 N_AXES = 7
 AXIS_SPACING = 6.50                                    # 7 amarres every 6.5 m
 AXES_X = [round(i * AXIS_SPACING, 6) for i in range(N_AXES)]   # 0.0 ... 39.0
-Y_SEA = -0.45                                          # P9..P12, P19..P21 (bollard line)
+# Transverse lines (measured on the CYPE drawings of Anejo 10, images 117/121/203-212)
+Y_EDGE_SEA = -0.50                                     # berthing face = end of transverse beams
+Y_SEA = -0.375                                         # sea edge beam axis (25 cm strip -0.50/-0.25)
+                                                       # = bollard points P9..P21 (CHS centre -0.37)
 Y_PILE_SEA = 0.00                                      # P1, P3, P5, P7, P13, P15, P16
 Y_PILE_LAND = 3.45                                     # P2, P4, P6, P8, P14, P17, P18
-Z_DECK = 7.00                                          # Forjado 1, cota 7.00 (CYPE §1.7)
-# Pile length between the fixity and the deck node.  The main text says the fixity is taken
-# 7.00 m below the deck, but the CYPECAD run whose results are listed in Apéndice 1 uses
-# 'Forjado 1 (0 - 7.25 m)': pile tramo 0.00/7.25, pile head output at 6.70 (= beam soffit,
-# 7.25 - 0.55) and the head loads act 7.25 m above the base (equilibrium of §3.7).  7.25 is
-# therefore used to reproduce the listing; set 7.00 to follow the text of §9.1.
+Y_LAND = 3.675                                         # land edge beam axis (strip 3.55/3.80)
+Y_EDGE_LAND = 3.80                                     # land face = end of transverse beams
+X_DECK = (-0.50, 39.50)                                # 40 m module between joints
+
+# Pile length between the fixity and the deck node.  §9.1 says the fixity is taken 7.00 m
+# below the deck, but the CYPECAD run listed in Apéndice 1 uses 'Forjado 1 (0 - 7.25 m)':
+# pile tramo 0.00/7.25, pile head output at 6.70 (= beam soffit, 7.25 - 0.55) and the head
+# loads act 7.25 m above the base (equilibrium of §3.7).  The nominal cota 7.00 of §1.7 is the
+# top of the beam ledges (plate bearing).  7.25 reproduces the listing; 7.00 follows §9.1.
 PILE_LENGTH = 7.25
-Z_BASE = round(Z_DECK - PILE_LENGTH, 6)                # empotramiento (cota -0.25)
+Z_BASE = 0.00                                          # empotramiento
+Z_DECK = round(Z_BASE + PILE_LENGTH, 6)                # deck nodes = top of beams
 
 # Deck mesh (slab shells): X step ~0.5 m, Y lines at the edge, both pile rows and 5 between
 MESH_DX_TARGET = 0.50
@@ -45,11 +52,18 @@ MESH_NY_BETWEEN_PILES = 6
 # inside the beam depth (altura libre 6.70 m) and the beams are rigid inside the pile width.
 PILE_TOP_RIGID = 0.55
 BEAM_RIGID_AT_PILE = 0.20
+# CYPE counts the pile self weight over the flexible 6.70 m only (the top 0.55 m is beam).
+PILE_WEIGHT_MOD = round((PILE_LENGTH - PILE_TOP_RIGID) / PILE_LENGTH, 6)
 
 # Physical widths used to split the surface loads exactly like CYPE
 EDGE_BEAM_W = 0.25                                     # 25x30 perimeter beams
 END_BEAM_W = 0.80                                      # 80x55+15x30 end beams (axes 1 and 7)
 INNER_BEAM_W = 0.50                                    # 50x55+15x30+15x30 web width
+END_WEB_INSIDE = 0.295                                 # end-beam web inside X 0..39 (-0.49/+0.295)
+# Edge beams run X = 0 -> 39; the part inside the transverse-beam webs is not counted twice.
+EDGE_BEAM_WEIGHT_MOD = round(
+    (AXIS_SPACING * (N_AXES - 1) - (N_AXES - 2) * INNER_BEAM_W - 2 * END_WEB_INSIDE)
+    / (AXIS_SPACING * (N_AXES - 1)), 6)
 
 # ============================================================================================
 # 2. MATERIALS  (Anejo 10 §6, Apéndice 1 §1.11 - CYPE Ec values)
@@ -104,15 +118,20 @@ def frame_sections() -> dict[str, FrameSection]:
     vb = rectangle("VB25x30", 0.25, 0.30, "Viga de borde longitudinal 25x30")
     return {
         "PIL40x40": FrameSection(
-            "PIL40x40", "HA-50", pile, "Rectangular", modifiers={"AMod": 2.0},
-            note="CYPE 'coeficiente de rigidez axil' = 2.00 -> AMod = 2 (sólo rigidez axial)"),
+            "PIL40x40", "HA-50", pile, "Rectangular",
+            modifiers={"AMod": 2.0, "WMod": PILE_WEIGHT_MOD},
+            note="AMod = 2: CYPE 'coeficiente de rigidez axil' 2.00; WMod = 6.70/7.25: weight of "
+                 "the pile top inside the beam counted once"),
         "VT50x55+15x30+15x30": FrameSection(
             "VT50x55+15x30+15x30", "HA-35", vt, "General",
             note="Propiedades calculadas de la sección compuesta (no un rectángulo 50x55)"),
         "VL80x55+15x30": FrameSection(
             "VL80x55+15x30", "HA-35", vl, "General",
             note="Propiedades calculadas de la sección compuesta en L invertida"),
-        "VB25x30": FrameSection("VB25x30", "HA-35", vb, "Rectangular"),
+        "VB25x30": FrameSection(
+            "VB25x30", "HA-35", vb, "Rectangular", modifiers={"WMod": EDGE_BEAM_WEIGHT_MOD},
+            note="WMod: the lengths inside the transverse-beam webs are counted once (by the "
+                 "transverse beams)"),
     }
 
 
@@ -132,6 +151,14 @@ SLAB_SECTION = {
 }
 
 
+# Plates are simply supported on the ledge of the END beams (no continuity towards the joint
+# of the module): the first/last row of shells next to X = 0 and X = 39 gets a hinge-like
+# bending stiffness (m11 x SLAB_END_FACTOR).  Calibrated against the CYPE end-pile moments
+# (Mx) and pile reactions (see README §5).
+SLAB_END_SECTION = "ALVEO_P25+5_APOYO"
+SLAB_END_FACTOR = 0.01
+
+
 def slab_m11() -> float:
     E = next(m.E for m in MATERIALS if m.name == SLAB_SECTION["material"])
     t = SLAB_SECTION["thickness"]
@@ -141,9 +168,18 @@ def slab_m11() -> float:
 # ============================================================================================
 # 4. LOADS  (Anejo 10 §7, Apéndice 1 §1.4)
 # ============================================================================================
-Q_SLAB_PP = 4.10     # kN/m2 alveoplaca + capa (part of CYPE "Peso propio")
-Q_CM = 1.80          # kN/m2 cargas muertas (pavimento + 0.50 adherencias marinas)
+Q_SLAB_PP = 4.10     # kN/m2 alveoplaca + capa (part of CYPE "Peso propio"), on the plates only
+# Cargas muertas: the text and §1.4.1 print 1.8 kN/m2 (pavimento + 0.50 adherencias), but the
+# CYPE run applied 1.75 (CM/SCU = 0.1167 at every pile, 297.5 kN = 170 m2 x 1.75).  1.75
+# reproduces the listing; use 1.80 for the nominal design value.
+Q_CM = 1.75
 Q_SCU = 15.0         # kN/m2 sobrecarga de uso
+# Hollow-core plates actually placed (CYPE drawing, image 117/121): Y -0.306 .. 3.603, from
+# the ledge of one transverse beam to the next (0.323 m from interior beam axes, X = 0.39 /
+# 38.61 at the end beams).  The slab self weight is applied only there.
+PLATE_Y = (-0.306, 3.603)
+PLATE_GAP_INNER = 0.323
+PLATE_X_END = 0.39
 
 # Apéndice 1 §1.4.5 "Cargas en cabeza de pilar" - CYPE sign convention:
 #   N > 0 compression (downward); Qx, Qy along +X/+Y; My pairs with Qy (My = Qy * lever).
@@ -157,20 +193,23 @@ PILE_HEAD_LOADS = {
     ("P6", 13.0, 3.45): {"TB1": (-34.0, 0, 0, 0, -34.0, 0)},
     ("P7", 19.5, 0.00): {"TB1": (34.0, 0, 0, 0, -34.0, 0)},
     ("P8", 19.5, 3.45): {"TB1": (-34.0, 0, 0, 0, -34.0, 0)},
-    ("P9", 0.0, -0.45): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
+    ("P9", 0.0, Y_SEA): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
                          "TB2": (53.0, 0, 0, 0, 0, 0), "TB3": (-53.0, 0, 0, 0, 0, 0)},
-    ("P11", 13.0, -0.45): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
+    ("P11", 13.0, Y_SEA): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
                            "TB2": (53.0, 0, 0, 0, 0, 0), "TB3": (-53.0, 0, 0, 0, 0, 0)},
     ("P13", 26.0, 0.00): {"TB1": (34.0, 0, 0, 0, -34.0, 0)},
     ("P14", 26.0, 3.45): {"TB1": (-34.0, 0, 0, 0, -34.0, 0)},
     ("P15", 32.5, 0.00): {"TB1": (34.0, 0, 0, 0, -34.0, 0)},
     ("P17", 32.5, 3.45): {"TB1": (-34.0, 0, 0, 0, -34.0, 0)},
     ("P18", 39.0, 3.45): {"TB1": (-17.0, 0, 0, 0, -17.0, 0)},
-    ("P19", 26.0, -0.45): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
+    ("P19", 26.0, Y_SEA): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
                            "TB2": (53.0, 0, 0, 0, 0, 0), "TB3": (-53.0, 0, 0, 0, 0, 0)},
-    ("P20", 39.0, -0.45): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
+    ("P20", 39.0, Y_SEA): {"TB1": (0.0, 0, -37.5, 0, -75.0, 0),
                            "TB2": (53.0, 0, 0, 0, 0, 0), "TB3": (-53.0, 0, 0, 0, 0, 0)},
 }
+# Bollard points: CYPE gives the CHS 'punto fijo' at Y = -0.45 with 'mitad inferior', i.e. the
+# post centre at Y = -0.37 (confirmed by §3.7: My/N of 'Tiro Bolardo 2' = -0.370): the loads are
+# applied at the sea edge-beam node Y = -0.375.
 # The CYPE listing has no 'Tiro bolardo' head load on P16 (X=39, Y=0) although its mirror P1
 # has N=+17, Qy=-17 (consistent with the §3.7 totals: sum Qy = -691 kN, sum N = -17 kN).
 # Keep False to reproduce CYPE; True adds the (probably intended) symmetric load on P16.
@@ -240,34 +279,48 @@ def _r(v: float, nd: int = 6) -> float:
 
 
 def mesh_lines() -> tuple[list[float], list[float]]:
+    """Deck mesh lines: xs every ~0.5 m between the axes; ys = shell lines between the two
+    edge-beam axes (edge beam, pile rows and MESH_NY_BETWEEN_PILES divisions between them)."""
     xs: list[float] = []
     for a, b in zip(AXES_X[:-1], AXES_X[1:]):
         n = max(1, round((b - a) / MESH_DX_TARGET))
         xs += [a + (b - a) * k / n for k in range(n)]
     xs.append(AXES_X[-1])
-    ys = [Y_SEA, Y_PILE_SEA]
     n = MESH_NY_BETWEEN_PILES
+    ys = [Y_SEA, Y_PILE_SEA]
     ys += [Y_PILE_SEA + (Y_PILE_LAND - Y_PILE_SEA) * k / n for k in range(1, n + 1)]
+    ys.append(Y_LAND)
     return [_r(x) for x in xs], [_r(y) for y in ys]
 
 
-def _net_fraction(x0, x1, y0, y1, holes, n=40) -> float:
-    """Fraction of rectangle [x0,x1]x[y0,y1] NOT covered by any rectangle in ``holes``."""
-    free = 0
+def _covered_fraction(x0, x1, y0, y1, regions, n=40) -> float:
+    """Fraction of rectangle [x0,x1]x[y0,y1] covered by the union of ``regions``."""
+    hit = 0
     for a in range(n):
         x = x0 + (a + 0.5) * (x1 - x0) / n
         for b in range(n):
             y = y0 + (b + 0.5) * (y1 - y0) / n
-            if not any(h[0] <= x <= h[1] and h[2] <= y <= h[3] for h in holes):
-                free += 1
-    return free / (n * n)
+            if any(r[0] <= x <= r[1] and r[2] <= y <= r[3] for r in regions):
+                hit += 1
+    return hit / (n * n)
+
+
+def plate_regions() -> list[tuple[float, float, float, float]]:
+    """Plan rectangles actually covered by the hollow-core plates (one per bay)."""
+    out = []
+    for k, (a, b) in enumerate(zip(AXES_X[:-1], AXES_X[1:])):
+        x0 = a + (PLATE_X_END if k == 0 else PLATE_GAP_INNER)
+        x1 = b - (PLATE_X_END if k == N_AXES - 2 else PLATE_GAP_INNER)
+        out.append((x0, x1, PLATE_Y[0], PLATE_Y[1]))
+    return out
 
 
 def build_model() -> dict:
     secs = frame_sections()
     xs, ys = mesh_lines()
     ix_axis = {x: xs.index(x) for x in AXES_X}
-    iy_sea, iy_ps, iy_pl = ys.index(Y_SEA), ys.index(Y_PILE_SEA), ys.index(Y_PILE_LAND)
+    iy_sea, iy_ps, iy_pl, iy_land = (ys.index(Y_SEA), ys.index(Y_PILE_SEA),
+                                     ys.index(Y_PILE_LAND), ys.index(Y_LAND))
 
     joints: dict[str, tuple[float, float, float]] = {}
     frames: list[dict] = []
@@ -282,10 +335,10 @@ def build_model() -> dict:
     def grp(g: str, kind: str, name: str) -> None:
         groups.setdefault(g, []).append((kind, name))
 
-    def dj(ix: int, iy: int) -> str:            # deck joint name
+    def dj(ix: int, iy: int) -> str:                 # deck (shell) joint
         return f"D{ix:02d}_{iy}"
 
-    # ---- joints ------------------------------------------------------------------------------
+    # ---- joints --------------------------------------------------------------------------
     for ix, x in enumerate(xs):
         for iy, y in enumerate(ys):
             joints[dj(ix, iy)] = (x, y, Z_DECK)
@@ -293,16 +346,19 @@ def build_model() -> dict:
     pile_land = ["P2", "P4", "P6", "P8", "P14", "P17", "P18"]
     edge_pts = ["P9", "P10", "P11", "P12", "P19", "P21", "P20"]
     for a, x in enumerate(AXES_X, start=1):
+        ix = ix_axis[x]
+        joints[f"C{a}S"] = (x, Y_EDGE_SEA, Z_DECK)     # sea end of the transverse beam
+        joints[f"C{a}L"] = (x, Y_EDGE_LAND, Z_DECK)    # land end of the transverse beam
         for row, y, cn in (("S", Y_PILE_SEA, pile_sea[a - 1]), ("L", Y_PILE_LAND, pile_land[a - 1])):
             b = f"B{a}{row}"
             joints[b] = (x, y, Z_BASE)
             restraints[b] = (True,) * 6
             cype_names[b] = cn
-        cype_names[dj(ix_axis[x], iy_ps)] = pile_sea[a - 1]
-        cype_names[dj(ix_axis[x], iy_pl)] = pile_land[a - 1]
-        cype_names[dj(ix_axis[x], iy_sea)] = edge_pts[a - 1]
+        cype_names[dj(ix, iy_ps)] = pile_sea[a - 1]
+        cype_names[dj(ix, iy_pl)] = pile_land[a - 1]
+        cype_names[dj(ix, iy_sea)] = edge_pts[a - 1]
 
-    # ---- piles ---------------------------------------------------------------------------------
+    # ---- piles ---------------------------------------------------------------------------
     for a, x in enumerate(AXES_X, start=1):
         for row, iy, cn in (("S", iy_ps, pile_sea[a - 1]), ("L", iy_pl, pile_land[a - 1])):
             name = f"PIL_{cn}"
@@ -311,29 +367,33 @@ def build_model() -> dict:
                            "station_max": 0.25, "offsets": (0.0, PILE_TOP_RIGID)})
             grp("PILOTES", "Frame", name)
 
-    # ---- transverse beams (CYPE pórticos 3..9), split at every deck mesh line ------------------
-    portico_of_axis = {1: 3, 2: 4, 3: 5, 4: 6, 5: 7, 6: 8, 7: 9}
+    # ---- transverse beams (CYPE pórticos 3..9): Y -0.50 -> 3.80, split at every mesh line ----
+    portico_of_axis = {a: a + 2 for a in range(1, N_AXES + 1)}
+    pile_rows = {Y_PILE_SEA, Y_PILE_LAND}
     for a, x in enumerate(AXES_X, start=1):
         sec = "VL80x55+15x30" if a in (1, N_AXES) else "VT50x55+15x30+15x30"
         ix = ix_axis[x]
-        for iy in range(len(ys) - 1):
-            name = f"VT{a}_{iy + 1}"
-            off_i = BEAM_RIGID_AT_PILE if iy in (iy_ps, iy_pl) else 0.0
-            off_j = BEAM_RIGID_AT_PILE if iy + 1 in (iy_ps, iy_pl) else 0.0
-            frames.append({"name": name, "i": dj(ix, iy), "j": dj(ix, iy + 1), "section": sec,
-                           "kind": "beam_t", "axis": a, "portico": portico_of_axis[a],
-                           "angle": 0.0, "station_max": 0.25, "offsets": (off_i, off_j)})
+        line = [f"C{a}S"] + [dj(ix, iy) for iy in range(len(ys))] + [f"C{a}L"]
+        for k in range(len(line) - 1):
+            ja, jb = line[k], line[k + 1]
+            off_i = BEAM_RIGID_AT_PILE if joints[ja][1] in pile_rows else 0.0
+            off_j = BEAM_RIGID_AT_PILE if joints[jb][1] in pile_rows else 0.0
+            name = f"VT{a}_{k + 1}"
+            frames.append({"name": name, "i": ja, "j": jb, "section": sec, "kind": "beam_t",
+                           "axis": a, "portico": portico_of_axis[a], "angle": 0.0,
+                           "station_max": 0.25, "offsets": (off_i, off_j)})
             grp("VIGAS_TRANSVERSALES", "Frame", name)
             grp(f"PORTICO_{portico_of_axis[a]}", "Frame", name)
 
-    # ---- longitudinal edge beams 25x30 (CYPE pórtico 1 at Y=-0.45, pórtico 10 at Y=3.45) ------
-    for tag, iy, por in (("M", iy_sea, 1), ("T", iy_pl, 10)):
+    # ---- longitudinal edge beams 25x30 (pórtico 1 at Y=-0.375, pórtico 10 at Y=3.675) --------
+    def half_web(xv: float) -> float:
+        if xv in (AXES_X[0], AXES_X[-1]):
+            return END_BEAM_W / 2
+        return INNER_BEAM_W / 2 if xv in AXES_X else 0.0
+
+    for tag, iy, por in (("M", iy_sea, 1), ("T", iy_land, 10)):
         for ix in range(len(xs) - 1):
             name = f"VB{tag}_{ix + 1:02d}"
-            def half_web(xv: float) -> float:
-                if xv in (AXES_X[0], AXES_X[-1]):
-                    return END_BEAM_W / 2
-                return INNER_BEAM_W / 2 if xv in AXES_X else 0.0
             frames.append({"name": name, "i": dj(ix, iy), "j": dj(ix + 1, iy),
                            "section": "VB25x30", "kind": "beam_edge", "portico": por,
                            "angle": 0.0, "station_max": 0.5,
@@ -341,41 +401,41 @@ def build_model() -> dict:
             grp("VIGAS_BORDE", "Frame", name)
             grp(f"PORTICO_{por}", "Frame", name)
 
-    # ---- slab shells (alveoplacas): one quad per mesh cell ---------------------------------
-    # beam footprints (plan) used to put the slab self weight only on the net panel
-    holes = []
-    for a, x in enumerate(AXES_X, start=1):
-        w = END_BEAM_W if a in (1, N_AXES) else INNER_BEAM_W
-        holes.append((x - w / 2, x + w / 2, Y_SEA - EDGE_BEAM_W / 2, Y_PILE_LAND + EDGE_BEAM_W / 2))
-    for y in (Y_SEA, Y_PILE_LAND):
-        holes.append((AXES_X[0] - END_BEAM_W / 2, AXES_X[-1] + END_BEAM_W / 2,
-                      y - EDGE_BEAM_W / 2, y + EDGE_BEAM_W / 2))
+    # ---- slab shells (alveoplacas) between the edge-beam axes, X 0 -> 39 ---------------------
+    plates = plate_regions()
     for ix in range(len(xs) - 1):
-        span_idx = next(k for k in range(N_AXES - 1) if AXES_X[k] - 1e-9 <= xs[ix] < AXES_X[k + 1] - 1e-9)
+        span = next(k for k in range(N_AXES - 1) if AXES_X[k] - 1e-9 <= xs[ix] < AXES_X[k + 1] - 1e-9) + 1
         for iy in range(len(ys) - 1):
             name = f"LOSA_{ix + 1:02d}_{iy + 1}"
             # counter-clockwise seen from +Z, first edge along +X -> local 1 = +X (span)
-            areas.append({"name": name, "section": SLAB_SECTION["name"], "span": span_idx + 1,
+            sec_name = SLAB_END_SECTION if ix in (0, len(xs) - 2) else SLAB_SECTION["name"]
+            areas.append({"name": name, "section": sec_name, "span": span,
                           "joints": [dj(ix, iy), dj(ix + 1, iy), dj(ix + 1, iy + 1), dj(ix, iy + 1)]})
             grp("ALVEOPLACAS", "Area", name)
-            grp(f"VANO_{span_idx + 1}", "Area", name)
-            f_net = _net_fraction(xs[ix], xs[ix + 1], ys[iy], ys[iy + 1], holes)
-            if f_net > 0:
-                area_loads.append({"area": name, "pattern": "PP", "q": _r(Q_SLAB_PP * f_net, 5)})
+            grp(f"VANO_{span}", "Area", name)
+            f_pl = _covered_fraction(xs[ix], xs[ix + 1], ys[iy], ys[iy + 1], plates)
+            if f_pl > 0:
+                area_loads.append({"area": name, "pattern": "PP", "q": _r(Q_SLAB_PP * f_pl, 5)})
             area_loads.append({"area": name, "pattern": "CM", "q": Q_CM})
             area_loads.append({"area": name, "pattern": "Qa", "q": Q_SCU})
 
-    # ---- deck strips outside the axis rectangle (outer half of the perimeter beams) ----------
-    width_axes = Y_PILE_LAND - Y_SEA                           # 3.90
+    # ---- deck strips outside the shells: outer halves of the edge beams (Y -0.50/-0.375 and
+    #      3.675/3.80) and the 0.50 m end strips X -0.50/0 and 39/39.50 (on the end beams) ------
+    deck_w = Y_EDGE_LAND - Y_EDGE_SEA                                  # 4.30
     for fr in frames:
-        if fr["kind"] == "beam_edge":                          # outer 12.5 cm of the 25 cm beam
+        if fr["kind"] == "beam_edge":
+            w_strip = (Y_SEA - Y_EDGE_SEA) if fr["portico"] == 1 else (Y_EDGE_LAND - Y_LAND)
             for pat, q in (("CM", Q_CM), ("Qa", Q_SCU)):
-                frame_loads.append({"frame": fr["name"], "pattern": pat, "w": _r(q * EDGE_BEAM_W / 2)})
+                frame_loads.append({"frame": fr["name"], "pattern": pat, "w": _r(q * w_strip)})
         if fr["kind"] == "beam_t" and fr["axis"] in (1, N_AXES):
-            # outer 40 cm of the 80 cm end beam over the full deck width (4.15 m incl. corners)
-            strip = (END_BEAM_W / 2) * (width_axes + EDGE_BEAM_W) / width_axes
+            strip = (AXES_X[0] - X_DECK[0]) if fr["axis"] == 1 else (X_DECK[1] - AXES_X[-1])
             for pat, q in (("CM", Q_CM), ("Qa", Q_SCU)):
                 frame_loads.append({"frame": fr["name"], "pattern": pat, "w": _r(q * strip)})
+        if fr["kind"] == "beam_t" and fr["axis"] not in (1, N_AXES):
+            # beam stubs beyond the edge-beam axes (0.125 m) carry their own deck strip
+            ya, yb = joints[fr["i"]][1], joints[fr["j"]][1]
+            if min(ya, yb) < Y_SEA - 1e-9 or max(ya, yb) > Y_LAND + 1e-9:
+                pass   # covered by the edge-beam strip loads above (same area)
 
     # ---- concentrated loads (CYPE "cargas en cabeza de pilar") ----------------------------
     pos = {(round(x, 3), round(y, 3)): j for j, (x, y, z) in joints.items() if abs(z - Z_DECK) < 1e-9}
@@ -391,13 +451,20 @@ def build_model() -> dict:
     deck = sorted(j for j, (_, _, z) in joints.items() if abs(z - Z_DECK) < 1e-9)
     for j in joints:
         grp("NUDOS_BASE" if j.startswith("B") else "NUDOS_TABLERO", "Joint", j)
-    for j, cn in cype_names.items():
+    for j in cype_names:
         grp("CYPE_PILARES", "Joint", j)
 
     return {
         "joints": joints, "frames": frames, "areas": areas, "restraints": restraints,
         "joint_loads": joint_loads, "frame_loads": frame_loads, "area_loads": area_loads,
         "groups": groups, "sections": secs, "slab": dict(SLAB_SECTION, m11=slab_m11()),
+        "slab_sections": {
+            SLAB_SECTION["name"]: dict(SLAB_SECTION, m11=slab_m11(), factor=1.0,
+                                       note="PRENOR P-25+5/120, EI = 63550 kN m2/m along X"),
+            SLAB_END_SECTION: dict(SLAB_SECTION, name=SLAB_END_SECTION,
+                                   m11=slab_m11() * SLAB_END_FACTOR, factor=SLAB_END_FACTOR,
+                                   note="Plates simply supported on the end beams (hinge strip)"),
+        },
         "materials": MATERIALS, "cype_names": cype_names, "mesh": {"xs": xs, "ys": ys},
         "diaphragm": {"name": "TABLERO", "joints": deck},
     }
@@ -412,7 +479,7 @@ def load_totals(model: dict) -> dict[str, float]:
         L[fr["name"]] = ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
         fs = model["sections"][fr["section"]]
         gamma = next(m.unit_weight for m in model["materials"] if m.name == fs.material)
-        tot["PP"] += fs.section.props["Area"] * gamma * L[fr["name"]]
+        tot["PP"] += fs.section.props["Area"] * gamma * L[fr["name"]] * fs.modifiers.get("WMod", 1.0)
     A = {}
     for ar in model["areas"]:
         (x1, y1, _), _, (x3, y3, _), _ = (model["joints"][j] for j in ar["joints"])

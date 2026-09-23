@@ -1,0 +1,8208 @@
+{
+ "source": "PyNite (verificación)",
+ "totals": [
+  {
+   "hyp": "PP",
+   "comp": "sum N",
+   "model": 1355.8,
+   "cype": 1343.9,
+   "diff_%": 0.9
+  },
+  {
+   "hyp": "PP",
+   "comp": "sum Qy",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff_%": null
+  },
+  {
+   "hyp": "CM",
+   "comp": "sum N",
+   "model": 301.0,
+   "cype": 297.5,
+   "diff_%": 1.2
+  },
+  {
+   "hyp": "CM",
+   "comp": "sum Qy",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff_%": null
+  },
+  {
+   "hyp": "Qa",
+   "comp": "sum N",
+   "model": 2580.0,
+   "cype": 2550.1,
+   "diff_%": 1.2
+  },
+  {
+   "hyp": "Qa",
+   "comp": "sum Qy",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff_%": null
+  },
+  {
+   "hyp": "TB1",
+   "comp": "sum N",
+   "model": -17.0,
+   "cype": -17.0,
+   "diff_%": 0.0
+  },
+  {
+   "hyp": "TB1",
+   "comp": "sum Qy",
+   "model": -690.9,
+   "cype": -691.0,
+   "diff_%": 0.0
+  },
+  {
+   "hyp": "TB2",
+   "comp": "sum N",
+   "model": 212.0,
+   "cype": 212.0,
+   "diff_%": 0.0
+  },
+  {
+   "hyp": "TB2",
+   "comp": "sum Qy",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff_%": null
+  },
+  {
+   "hyp": "TB3",
+   "comp": "sum N",
+   "model": -212.0,
+   "cype": -212.0,
+   "diff_%": -0.0
+  },
+  {
+   "hyp": "TB3",
+   "comp": "sum Qy",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff_%": null
+  }
+ ],
+ "pile_hypotheses": [
+  {
+   "pile": "P1",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 77.57,
+   "cype": 75.2,
+   "diff": 2.37
+  },
+  {
+   "pile": "P1",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -4.8,
+   "cype": -3.5,
+   "diff": -1.3
+  },
+  {
+   "pile": "P1",
+   "hyp": "PP",
+   "comp": "My",
+   "model": -1.87,
+   "cype": -1.9,
+   "diff": 0.03
+  },
+  {
+   "pile": "P1",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -2.02,
+   "cype": -1.5,
+   "diff": -0.52
+  },
+  {
+   "pile": "P1",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": -0.77,
+   "cype": -0.8,
+   "diff": 0.03
+  },
+  {
+   "pile": "P1",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.01,
+   "cype": 0.0,
+   "diff": -0.01
+  },
+  {
+   "pile": "P1",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 12.56,
+   "cype": 12.6,
+   "diff": -0.04
+  },
+  {
+   "pile": "P1",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -1.53,
+   "cype": -1.1,
+   "diff": -0.43
+  },
+  {
+   "pile": "P1",
+   "hyp": "CM",
+   "comp": "My",
+   "model": -0.51,
+   "cype": -0.5,
+   "diff": -0.01
+  },
+  {
+   "pile": "P1",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.64,
+   "cype": -0.5,
+   "diff": -0.14
+  },
+  {
+   "pile": "P1",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": -0.21,
+   "cype": -0.2,
+   "diff": -0.01
+  },
+  {
+   "pile": "P1",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P1",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 107.62,
+   "cype": 107.6,
+   "diff": 0.02
+  },
+  {
+   "pile": "P1",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -13.12,
+   "cype": -9.4,
+   "diff": -3.72
+  },
+  {
+   "pile": "P1",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": -4.37,
+   "cype": -4.6,
+   "diff": 0.23
+  },
+  {
+   "pile": "P1",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -5.52,
+   "cype": -4.0,
+   "diff": -1.52
+  },
+  {
+   "pile": "P1",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": -1.8,
+   "cype": -1.9,
+   "diff": 0.1
+  },
+  {
+   "pile": "P1",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.03,
+   "cype": 0.0,
+   "diff": -0.03
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": 142.97,
+   "cype": 145.4,
+   "diff": -2.43
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": 0.13,
+   "cype": 5.2,
+   "diff": -5.07
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -174.4,
+   "cype": -177.9,
+   "diff": 3.5
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.04,
+   "cype": 2.1,
+   "diff": -2.06
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -50.95,
+   "cype": -51.9,
+   "diff": 0.95
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.07,
+   "cype": 0.1,
+   "diff": -0.03
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": 58.33,
+   "cype": 58.1,
+   "diff": 0.23
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": 0.07,
+   "cype": 0.7,
+   "diff": -0.63
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": 0.92,
+   "cype": 0.9,
+   "diff": 0.02
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": 0.03,
+   "cype": 0.3,
+   "diff": -0.27
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": 0.45,
+   "cype": 0.5,
+   "diff": -0.05
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": -58.33,
+   "cype": -58.1,
+   "diff": -0.23
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": -0.07,
+   "cype": -0.7,
+   "diff": 0.63
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": -0.92,
+   "cype": -0.9,
+   "diff": -0.02
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": -0.03,
+   "cype": -0.3,
+   "diff": 0.27
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": -0.45,
+   "cype": -0.5,
+   "diff": 0.05
+  },
+  {
+   "pile": "P1",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P2",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 73.12,
+   "cype": 71.0,
+   "diff": 2.12
+  },
+  {
+   "pile": "P2",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -4.74,
+   "cype": -4.3,
+   "diff": -0.44
+  },
+  {
+   "pile": "P2",
+   "hyp": "PP",
+   "comp": "My",
+   "model": 1.75,
+   "cype": 1.8,
+   "diff": -0.05
+  },
+  {
+   "pile": "P2",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -2.0,
+   "cype": -1.8,
+   "diff": -0.2
+  },
+  {
+   "pile": "P2",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": 0.75,
+   "cype": 0.8,
+   "diff": -0.05
+  },
+  {
+   "pile": "P2",
+   "hyp": "PP",
+   "comp": "T",
+   "model": 0.01,
+   "cype": 0.0,
+   "diff": 0.01
+  },
+  {
+   "pile": "P2",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 11.46,
+   "cype": 11.3,
+   "diff": 0.16
+  },
+  {
+   "pile": "P2",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -1.5,
+   "cype": -1.3,
+   "diff": -0.2
+  },
+  {
+   "pile": "P2",
+   "hyp": "CM",
+   "comp": "My",
+   "model": 0.48,
+   "cype": 0.5,
+   "diff": -0.02
+  },
+  {
+   "pile": "P2",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.63,
+   "cype": -0.5,
+   "diff": -0.13
+  },
+  {
+   "pile": "P2",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": 0.2,
+   "cype": 0.2,
+   "diff": 0.0
+  },
+  {
+   "pile": "P2",
+   "hyp": "CM",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P2",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 98.22,
+   "cype": 96.7,
+   "diff": 1.52
+  },
+  {
+   "pile": "P2",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -12.83,
+   "cype": -11.1,
+   "diff": -1.73
+  },
+  {
+   "pile": "P2",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": 4.09,
+   "cype": 4.3,
+   "diff": -0.21
+  },
+  {
+   "pile": "P2",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -5.4,
+   "cype": -4.7,
+   "diff": -0.7
+  },
+  {
+   "pile": "P2",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": 1.74,
+   "cype": 1.8,
+   "diff": -0.06
+  },
+  {
+   "pile": "P2",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": 0.03,
+   "cype": 0.0,
+   "diff": 0.03
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": -142.86,
+   "cype": -145.6,
+   "diff": 2.74
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": -0.13,
+   "cype": -4.3,
+   "diff": 4.17
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -177.67,
+   "cype": -181.2,
+   "diff": 3.53
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": -0.03,
+   "cype": -1.7,
+   "diff": 1.67
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -52.33,
+   "cype": -53.3,
+   "diff": 0.97
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.06,
+   "cype": 0.1,
+   "diff": -0.04
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": -5.39,
+   "cype": -5.3,
+   "diff": -0.09
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": 0.03,
+   "cype": -0.2,
+   "diff": 0.23
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.85,
+   "cype": -0.8,
+   "diff": -0.05
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": 0.01,
+   "cype": -0.1,
+   "diff": 0.11
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.29,
+   "cype": -0.3,
+   "diff": 0.01
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": 5.39,
+   "cype": 5.3,
+   "diff": 0.09
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": -0.03,
+   "cype": 0.2,
+   "diff": -0.23
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.85,
+   "cype": 0.8,
+   "diff": 0.05
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": -0.01,
+   "cype": 0.1,
+   "diff": -0.11
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.29,
+   "cype": 0.3,
+   "diff": -0.01
+  },
+  {
+   "pile": "P2",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 113.16,
+   "cype": 112.3,
+   "diff": 0.86
+  },
+  {
+   "pile": "P3",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": 1.61,
+   "cype": 0.5,
+   "diff": 1.11
+  },
+  {
+   "pile": "P3",
+   "hyp": "PP",
+   "comp": "My",
+   "model": -3.88,
+   "cype": -3.9,
+   "diff": 0.02
+  },
+  {
+   "pile": "P3",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": 0.67,
+   "cype": 0.2,
+   "diff": 0.47
+  },
+  {
+   "pile": "P3",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": -1.61,
+   "cype": -1.6,
+   "diff": -0.01
+  },
+  {
+   "pile": "P3",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 28.14,
+   "cype": 27.5,
+   "diff": 0.64
+  },
+  {
+   "pile": "P3",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": 0.67,
+   "cype": 0.1,
+   "diff": 0.57
+  },
+  {
+   "pile": "P3",
+   "hyp": "CM",
+   "comp": "My",
+   "model": -1.44,
+   "cype": -1.5,
+   "diff": 0.06
+  },
+  {
+   "pile": "P3",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": 0.28,
+   "cype": 0.1,
+   "diff": 0.18
+  },
+  {
+   "pile": "P3",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": -0.6,
+   "cype": -0.6,
+   "diff": -0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 241.18,
+   "cype": 235.7,
+   "diff": 5.48
+  },
+  {
+   "pile": "P3",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": 5.74,
+   "cype": 1.2,
+   "diff": 4.54
+  },
+  {
+   "pile": "P3",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": -12.38,
+   "cype": -13.0,
+   "diff": 0.62
+  },
+  {
+   "pile": "P3",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": 2.38,
+   "cype": 0.5,
+   "diff": 1.88
+  },
+  {
+   "pile": "P3",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": -5.15,
+   "cype": -5.4,
+   "diff": 0.25
+  },
+  {
+   "pile": "P3",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": 146.64,
+   "cype": 146.2,
+   "diff": 0.44
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": 0.06,
+   "cype": 0.4,
+   "diff": -0.34
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -173.99,
+   "cype": -175.0,
+   "diff": 1.01
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.02,
+   "cype": 0.0,
+   "diff": 0.02
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -50.83,
+   "cype": -51.1,
+   "diff": 0.27
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.04,
+   "cype": 0.1,
+   "diff": -0.06
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": 0.56,
+   "cype": 0.6,
+   "diff": -0.04
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.1,
+   "diff": -0.1
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.46,
+   "cype": -0.5,
+   "diff": 0.04
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.13,
+   "cype": -0.1,
+   "diff": -0.03
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": -0.56,
+   "cype": -0.6,
+   "diff": 0.04
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": -0.1,
+   "diff": 0.1
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.46,
+   "cype": 0.5,
+   "diff": -0.04
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.13,
+   "cype": 0.1,
+   "diff": 0.03
+  },
+  {
+   "pile": "P3",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 105.75,
+   "cype": 105.2,
+   "diff": 0.55
+  },
+  {
+   "pile": "P4",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": 1.59,
+   "cype": 0.6,
+   "diff": 0.99
+  },
+  {
+   "pile": "P4",
+   "hyp": "PP",
+   "comp": "My",
+   "model": 3.85,
+   "cype": 3.9,
+   "diff": -0.05
+  },
+  {
+   "pile": "P4",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": 0.66,
+   "cype": 0.3,
+   "diff": 0.36
+  },
+  {
+   "pile": "P4",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": 1.62,
+   "cype": 1.7,
+   "diff": -0.08
+  },
+  {
+   "pile": "P4",
+   "hyp": "PP",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 25.85,
+   "cype": 25.3,
+   "diff": 0.55
+  },
+  {
+   "pile": "P4",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": 0.66,
+   "cype": 0.2,
+   "diff": 0.46
+  },
+  {
+   "pile": "P4",
+   "hyp": "CM",
+   "comp": "My",
+   "model": 1.44,
+   "cype": 1.5,
+   "diff": -0.06
+  },
+  {
+   "pile": "P4",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": 0.27,
+   "cype": 0.1,
+   "diff": 0.17
+  },
+  {
+   "pile": "P4",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": 0.61,
+   "cype": 0.6,
+   "diff": 0.01
+  },
+  {
+   "pile": "P4",
+   "hyp": "CM",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 221.56,
+   "cype": 216.5,
+   "diff": 5.06
+  },
+  {
+   "pile": "P4",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": 5.67,
+   "cype": 1.7,
+   "diff": 3.97
+  },
+  {
+   "pile": "P4",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": 12.33,
+   "cype": 12.9,
+   "diff": -0.57
+  },
+  {
+   "pile": "P4",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": 2.36,
+   "cype": 0.7,
+   "diff": 1.66
+  },
+  {
+   "pile": "P4",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": 5.19,
+   "cype": 5.5,
+   "diff": -0.31
+  },
+  {
+   "pile": "P4",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": -147.06,
+   "cype": -146.3,
+   "diff": -0.76
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": -0.02,
+   "cype": -0.0,
+   "diff": -0.02
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -174.09,
+   "cype": -175.1,
+   "diff": 1.01
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.1,
+   "diff": -0.1
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -50.88,
+   "cype": -51.1,
+   "diff": 0.22
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.04,
+   "cype": 0.1,
+   "diff": -0.06
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": -0.46,
+   "cype": -0.4,
+   "diff": -0.06
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.51,
+   "cype": -0.5,
+   "diff": -0.01
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.15,
+   "cype": -0.2,
+   "diff": 0.05
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": 0.46,
+   "cype": 0.4,
+   "diff": 0.06
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.51,
+   "cype": 0.5,
+   "diff": 0.01
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.15,
+   "cype": 0.2,
+   "diff": -0.05
+  },
+  {
+   "pile": "P4",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 105.57,
+   "cype": 105.6,
+   "diff": -0.03
+  },
+  {
+   "pile": "P5",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -0.28,
+   "cype": -0.1,
+   "diff": -0.18
+  },
+  {
+   "pile": "P5",
+   "hyp": "PP",
+   "comp": "My",
+   "model": -3.53,
+   "cype": -3.5,
+   "diff": -0.03
+  },
+  {
+   "pile": "P5",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -0.12,
+   "cype": -0.0,
+   "diff": -0.12
+  },
+  {
+   "pile": "P5",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": -1.46,
+   "cype": -1.5,
+   "diff": 0.04
+  },
+  {
+   "pile": "P5",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 24.95,
+   "cype": 24.9,
+   "diff": 0.05
+  },
+  {
+   "pile": "P5",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -0.12,
+   "cype": -0.0,
+   "diff": -0.12
+  },
+  {
+   "pile": "P5",
+   "hyp": "CM",
+   "comp": "My",
+   "model": -1.29,
+   "cype": -1.3,
+   "diff": 0.01
+  },
+  {
+   "pile": "P5",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.05,
+   "cype": -0.0,
+   "diff": -0.05
+  },
+  {
+   "pile": "P5",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": -0.54,
+   "cype": -0.6,
+   "diff": 0.06
+  },
+  {
+   "pile": "P5",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 213.84,
+   "cype": 213.7,
+   "diff": 0.14
+  },
+  {
+   "pile": "P5",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -1.03,
+   "cype": -0.2,
+   "diff": -0.83
+  },
+  {
+   "pile": "P5",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": -11.07,
+   "cype": -11.4,
+   "diff": 0.33
+  },
+  {
+   "pile": "P5",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -0.44,
+   "cype": -0.1,
+   "diff": -0.34
+  },
+  {
+   "pile": "P5",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": -4.6,
+   "cype": -4.7,
+   "diff": 0.1
+  },
+  {
+   "pile": "P5",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": 156.65,
+   "cype": 155.6,
+   "diff": 1.05
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": 0.26,
+   "cype": 0.6,
+   "diff": -0.34
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -170.75,
+   "cype": -169.0,
+   "diff": -1.75
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.07,
+   "cype": 0.1,
+   "diff": -0.03
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -49.53,
+   "cype": -48.9,
+   "diff": -0.63
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.15,
+   "cype": 0.1,
+   "diff": 0.05
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": 58.05,
+   "cype": 58.1,
+   "diff": -0.05
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": -0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": 1.29,
+   "cype": 1.3,
+   "diff": -0.01
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": -0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": 0.6,
+   "cype": 0.6,
+   "diff": 0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": -58.05,
+   "cype": -58.1,
+   "diff": 0.05
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": -1.29,
+   "cype": -1.3,
+   "diff": 0.01
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": -0.6,
+   "cype": -0.6,
+   "diff": -0.0
+  },
+  {
+   "pile": "P5",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 98.79,
+   "cype": 98.7,
+   "diff": 0.09
+  },
+  {
+   "pile": "P6",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -0.27,
+   "cype": -0.1,
+   "diff": -0.17
+  },
+  {
+   "pile": "P6",
+   "hyp": "PP",
+   "comp": "My",
+   "model": 3.48,
+   "cype": 3.4,
+   "diff": 0.08
+  },
+  {
+   "pile": "P6",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -0.12,
+   "cype": -0.0,
+   "diff": -0.12
+  },
+  {
+   "pile": "P6",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": 1.47,
+   "cype": 1.5,
+   "diff": -0.03
+  },
+  {
+   "pile": "P6",
+   "hyp": "PP",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 22.89,
+   "cype": 22.7,
+   "diff": 0.19
+  },
+  {
+   "pile": "P6",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -0.12,
+   "cype": -0.0,
+   "diff": -0.12
+  },
+  {
+   "pile": "P6",
+   "hyp": "CM",
+   "comp": "My",
+   "model": 1.28,
+   "cype": 1.3,
+   "diff": -0.02
+  },
+  {
+   "pile": "P6",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.05,
+   "cype": -0.0,
+   "diff": -0.05
+  },
+  {
+   "pile": "P6",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": 0.54,
+   "cype": 0.6,
+   "diff": -0.06
+  },
+  {
+   "pile": "P6",
+   "hyp": "CM",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 196.2,
+   "cype": 194.4,
+   "diff": 1.8
+  },
+  {
+   "pile": "P6",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -1.0,
+   "cype": -0.3,
+   "diff": -0.7
+  },
+  {
+   "pile": "P6",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": 10.96,
+   "cype": 11.3,
+   "diff": -0.34
+  },
+  {
+   "pile": "P6",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -0.43,
+   "cype": -0.1,
+   "diff": -0.33
+  },
+  {
+   "pile": "P6",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": 4.61,
+   "cype": 4.8,
+   "diff": -0.19
+  },
+  {
+   "pile": "P6",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": -155.99,
+   "cype": -154.8,
+   "diff": -1.19
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": -0.3,
+   "cype": -0.6,
+   "diff": 0.3
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -174.89,
+   "cype": -173.3,
+   "diff": -1.59
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": -0.09,
+   "cype": -0.2,
+   "diff": 0.11
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -51.27,
+   "cype": -50.7,
+   "diff": -0.57
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.15,
+   "cype": 0.1,
+   "diff": 0.05
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": -5.12,
+   "cype": -5.1,
+   "diff": -0.02
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.96,
+   "cype": -1.0,
+   "diff": 0.04
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.34,
+   "cype": -0.3,
+   "diff": -0.04
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": 5.12,
+   "cype": 5.1,
+   "diff": 0.02
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.96,
+   "cype": 1.0,
+   "diff": -0.04
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.34,
+   "cype": 0.3,
+   "diff": 0.04
+  },
+  {
+   "pile": "P6",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 107.42,
+   "cype": 107.5,
+   "diff": -0.08
+  },
+  {
+   "pile": "P7",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "PP",
+   "comp": "My",
+   "model": -3.6,
+   "cype": -3.6,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": -1.49,
+   "cype": -1.5,
+   "diff": 0.01
+  },
+  {
+   "pile": "P7",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 25.73,
+   "cype": 25.7,
+   "diff": 0.03
+  },
+  {
+   "pile": "P7",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "CM",
+   "comp": "My",
+   "model": -1.32,
+   "cype": -1.4,
+   "diff": 0.08
+  },
+  {
+   "pile": "P7",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": -0.55,
+   "cype": -0.6,
+   "diff": 0.05
+  },
+  {
+   "pile": "P7",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 220.52,
+   "cype": 220.1,
+   "diff": 0.42
+  },
+  {
+   "pile": "P7",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": -11.33,
+   "cype": -11.9,
+   "diff": 0.57
+  },
+  {
+   "pile": "P7",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": -4.71,
+   "cype": -5.0,
+   "diff": 0.29
+  },
+  {
+   "pile": "P7",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": 144.98,
+   "cype": 142.8,
+   "diff": 2.18
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": 0.68,
+   "cype": 0.6,
+   "diff": 0.08
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -171.46,
+   "cype": -168.9,
+   "diff": -2.56
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.2,
+   "cype": 0.1,
+   "diff": 0.1
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -50.09,
+   "cype": -49.3,
+   "diff": -0.79
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.35,
+   "cype": 0.1,
+   "diff": 0.25
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": 0.57,
+   "cype": 0.4,
+   "diff": 0.17
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.43,
+   "cype": -0.5,
+   "diff": 0.07
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.12,
+   "cype": -0.1,
+   "diff": -0.02
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": -0.57,
+   "cype": -0.4,
+   "diff": -0.17
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.43,
+   "cype": 0.5,
+   "diff": -0.07
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.12,
+   "cype": 0.1,
+   "diff": 0.02
+  },
+  {
+   "pile": "P7",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 100.45,
+   "cype": 100.5,
+   "diff": -0.05
+  },
+  {
+   "pile": "P8",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "PP",
+   "comp": "My",
+   "model": 3.55,
+   "cype": 3.6,
+   "diff": -0.05
+  },
+  {
+   "pile": "P8",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": 1.5,
+   "cype": 1.5,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 23.59,
+   "cype": 23.4,
+   "diff": 0.19
+  },
+  {
+   "pile": "P8",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "CM",
+   "comp": "My",
+   "model": 1.31,
+   "cype": 1.4,
+   "diff": -0.09
+  },
+  {
+   "pile": "P8",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": 0.55,
+   "cype": 0.6,
+   "diff": -0.05
+  },
+  {
+   "pile": "P8",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 202.24,
+   "cype": 200.6,
+   "diff": 1.64
+  },
+  {
+   "pile": "P8",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": 11.23,
+   "cype": 11.8,
+   "diff": -0.57
+  },
+  {
+   "pile": "P8",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": 4.73,
+   "cype": 5.0,
+   "diff": -0.27
+  },
+  {
+   "pile": "P8",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": -145.67,
+   "cype": -143.6,
+   "diff": -2.07
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": -0.73,
+   "cype": -0.5,
+   "diff": -0.23
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -171.61,
+   "cype": -169.0,
+   "diff": -2.61
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": -0.21,
+   "cype": -0.1,
+   "diff": -0.11
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -50.15,
+   "cype": -49.3,
+   "diff": -0.85
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.36,
+   "cype": 0.1,
+   "diff": 0.26
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": -0.5,
+   "cype": -0.5,
+   "diff": 0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.49,
+   "cype": -0.5,
+   "diff": 0.01
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.15,
+   "cype": -0.2,
+   "diff": 0.05
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": 0.5,
+   "cype": 0.5,
+   "diff": -0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.49,
+   "cype": 0.5,
+   "diff": -0.01
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.15,
+   "cype": 0.2,
+   "diff": -0.05
+  },
+  {
+   "pile": "P8",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 105.57,
+   "cype": 105.6,
+   "diff": -0.03
+  },
+  {
+   "pile": "P13",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": 0.28,
+   "cype": 0.1,
+   "diff": 0.18
+  },
+  {
+   "pile": "P13",
+   "hyp": "PP",
+   "comp": "My",
+   "model": -3.53,
+   "cype": -3.5,
+   "diff": -0.03
+  },
+  {
+   "pile": "P13",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": 0.12,
+   "cype": 0.0,
+   "diff": 0.12
+  },
+  {
+   "pile": "P13",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": -1.46,
+   "cype": -1.5,
+   "diff": 0.04
+  },
+  {
+   "pile": "P13",
+   "hyp": "PP",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 24.95,
+   "cype": 24.9,
+   "diff": 0.05
+  },
+  {
+   "pile": "P13",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": 0.12,
+   "cype": 0.0,
+   "diff": 0.12
+  },
+  {
+   "pile": "P13",
+   "hyp": "CM",
+   "comp": "My",
+   "model": -1.29,
+   "cype": -1.3,
+   "diff": 0.01
+  },
+  {
+   "pile": "P13",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": 0.05,
+   "cype": 0.0,
+   "diff": 0.05
+  },
+  {
+   "pile": "P13",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": -0.54,
+   "cype": -0.6,
+   "diff": 0.06
+  },
+  {
+   "pile": "P13",
+   "hyp": "CM",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 213.84,
+   "cype": 213.7,
+   "diff": 0.14
+  },
+  {
+   "pile": "P13",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": 1.03,
+   "cype": 0.2,
+   "diff": 0.83
+  },
+  {
+   "pile": "P13",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": -11.07,
+   "cype": -11.4,
+   "diff": 0.33
+  },
+  {
+   "pile": "P13",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": 0.44,
+   "cype": 0.1,
+   "diff": 0.34
+  },
+  {
+   "pile": "P13",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": -4.6,
+   "cype": -4.7,
+   "diff": 0.1
+  },
+  {
+   "pile": "P13",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": 152.98,
+   "cype": 151.6,
+   "diff": 1.38
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": 1.17,
+   "cype": 0.6,
+   "diff": 0.57
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -165.1,
+   "cype": -162.9,
+   "diff": -2.2
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.34,
+   "cype": 0.1,
+   "diff": 0.24
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -47.88,
+   "cype": -47.2,
+   "diff": -0.68
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.59,
+   "cype": 0.1,
+   "diff": 0.49
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": 58.05,
+   "cype": 58.1,
+   "diff": -0.05
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": 1.29,
+   "cype": 1.3,
+   "diff": -0.01
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": 0.6,
+   "cype": 0.6,
+   "diff": 0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": -58.05,
+   "cype": -58.1,
+   "diff": 0.05
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": -0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": -1.29,
+   "cype": -1.3,
+   "diff": 0.01
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": -0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": -0.6,
+   "cype": -0.6,
+   "diff": -0.0
+  },
+  {
+   "pile": "P13",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 98.79,
+   "cype": 98.7,
+   "diff": 0.09
+  },
+  {
+   "pile": "P14",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": 0.27,
+   "cype": 0.1,
+   "diff": 0.17
+  },
+  {
+   "pile": "P14",
+   "hyp": "PP",
+   "comp": "My",
+   "model": 3.48,
+   "cype": 3.4,
+   "diff": 0.08
+  },
+  {
+   "pile": "P14",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": 0.12,
+   "cype": 0.0,
+   "diff": 0.12
+  },
+  {
+   "pile": "P14",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": 1.47,
+   "cype": 1.5,
+   "diff": -0.03
+  },
+  {
+   "pile": "P14",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 22.89,
+   "cype": 22.7,
+   "diff": 0.19
+  },
+  {
+   "pile": "P14",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": 0.12,
+   "cype": 0.0,
+   "diff": 0.12
+  },
+  {
+   "pile": "P14",
+   "hyp": "CM",
+   "comp": "My",
+   "model": 1.28,
+   "cype": 1.3,
+   "diff": -0.02
+  },
+  {
+   "pile": "P14",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": 0.05,
+   "cype": 0.0,
+   "diff": 0.05
+  },
+  {
+   "pile": "P14",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": 0.54,
+   "cype": 0.6,
+   "diff": -0.06
+  },
+  {
+   "pile": "P14",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 196.2,
+   "cype": 194.4,
+   "diff": 1.8
+  },
+  {
+   "pile": "P14",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": 1.0,
+   "cype": 0.3,
+   "diff": 0.7
+  },
+  {
+   "pile": "P14",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": 10.96,
+   "cype": 11.3,
+   "diff": -0.34
+  },
+  {
+   "pile": "P14",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": 0.43,
+   "cype": 0.1,
+   "diff": 0.33
+  },
+  {
+   "pile": "P14",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": 4.61,
+   "cype": 4.8,
+   "diff": -0.19
+  },
+  {
+   "pile": "P14",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": -152.31,
+   "cype": -150.9,
+   "diff": -1.41
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": -1.21,
+   "cype": -0.5,
+   "diff": -0.71
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -169.24,
+   "cype": -167.2,
+   "diff": -2.04
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": -0.35,
+   "cype": -0.1,
+   "diff": -0.25
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -49.62,
+   "cype": -48.9,
+   "diff": -0.72
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.59,
+   "cype": 0.1,
+   "diff": 0.49
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": -5.12,
+   "cype": -5.1,
+   "diff": -0.02
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.96,
+   "cype": -1.0,
+   "diff": 0.04
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.34,
+   "cype": -0.3,
+   "diff": -0.04
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": 5.12,
+   "cype": 5.1,
+   "diff": 0.02
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.96,
+   "cype": 1.0,
+   "diff": -0.04
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.34,
+   "cype": 0.3,
+   "diff": 0.04
+  },
+  {
+   "pile": "P14",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 113.16,
+   "cype": 112.3,
+   "diff": 0.86
+  },
+  {
+   "pile": "P15",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -1.61,
+   "cype": -0.5,
+   "diff": -1.11
+  },
+  {
+   "pile": "P15",
+   "hyp": "PP",
+   "comp": "My",
+   "model": -3.88,
+   "cype": -3.9,
+   "diff": 0.02
+  },
+  {
+   "pile": "P15",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -0.67,
+   "cype": -0.2,
+   "diff": -0.47
+  },
+  {
+   "pile": "P15",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": -1.61,
+   "cype": -1.6,
+   "diff": -0.01
+  },
+  {
+   "pile": "P15",
+   "hyp": "PP",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 28.14,
+   "cype": 27.5,
+   "diff": 0.64
+  },
+  {
+   "pile": "P15",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -0.67,
+   "cype": -0.1,
+   "diff": -0.57
+  },
+  {
+   "pile": "P15",
+   "hyp": "CM",
+   "comp": "My",
+   "model": -1.44,
+   "cype": -1.5,
+   "diff": 0.06
+  },
+  {
+   "pile": "P15",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.28,
+   "cype": -0.1,
+   "diff": -0.18
+  },
+  {
+   "pile": "P15",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": -0.6,
+   "cype": -0.6,
+   "diff": -0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "CM",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 241.18,
+   "cype": 235.7,
+   "diff": 5.48
+  },
+  {
+   "pile": "P15",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -5.74,
+   "cype": -1.2,
+   "diff": -4.54
+  },
+  {
+   "pile": "P15",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": -12.38,
+   "cype": -13.0,
+   "diff": 0.62
+  },
+  {
+   "pile": "P15",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -2.38,
+   "cype": -0.5,
+   "diff": -1.88
+  },
+  {
+   "pile": "P15",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": -5.15,
+   "cype": -5.4,
+   "diff": 0.25
+  },
+  {
+   "pile": "P15",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": 139.06,
+   "cype": 138.3,
+   "diff": 0.76
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": 1.51,
+   "cype": 0.8,
+   "diff": 0.71
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -162.28,
+   "cype": -162.8,
+   "diff": 0.52
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.43,
+   "cype": 0.2,
+   "diff": 0.23
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -47.41,
+   "cype": -47.5,
+   "diff": 0.09
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.76,
+   "cype": 0.1,
+   "diff": 0.66
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": 0.56,
+   "cype": 0.6,
+   "diff": -0.04
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": -0.1,
+   "diff": 0.1
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.46,
+   "cype": -0.5,
+   "diff": 0.04
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.13,
+   "cype": -0.1,
+   "diff": -0.03
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": -0.56,
+   "cype": -0.6,
+   "diff": 0.04
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.1,
+   "diff": -0.1
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.46,
+   "cype": 0.5,
+   "diff": -0.04
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.13,
+   "cype": 0.1,
+   "diff": 0.03
+  },
+  {
+   "pile": "P15",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P16",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 77.57,
+   "cype": 75.2,
+   "diff": 2.37
+  },
+  {
+   "pile": "P16",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": 4.8,
+   "cype": 3.5,
+   "diff": 1.3
+  },
+  {
+   "pile": "P16",
+   "hyp": "PP",
+   "comp": "My",
+   "model": -1.87,
+   "cype": -1.9,
+   "diff": 0.03
+  },
+  {
+   "pile": "P16",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": 2.02,
+   "cype": 1.5,
+   "diff": 0.52
+  },
+  {
+   "pile": "P16",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": -0.77,
+   "cype": -0.8,
+   "diff": 0.03
+  },
+  {
+   "pile": "P16",
+   "hyp": "PP",
+   "comp": "T",
+   "model": 0.01,
+   "cype": 0.0,
+   "diff": 0.01
+  },
+  {
+   "pile": "P16",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 12.56,
+   "cype": 12.6,
+   "diff": -0.04
+  },
+  {
+   "pile": "P16",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": 1.53,
+   "cype": 1.1,
+   "diff": 0.43
+  },
+  {
+   "pile": "P16",
+   "hyp": "CM",
+   "comp": "My",
+   "model": -0.51,
+   "cype": -0.5,
+   "diff": -0.01
+  },
+  {
+   "pile": "P16",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": 0.64,
+   "cype": 0.5,
+   "diff": 0.14
+  },
+  {
+   "pile": "P16",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": -0.21,
+   "cype": -0.2,
+   "diff": -0.01
+  },
+  {
+   "pile": "P16",
+   "hyp": "CM",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P16",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 107.62,
+   "cype": 107.6,
+   "diff": 0.02
+  },
+  {
+   "pile": "P16",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": 13.12,
+   "cype": 9.4,
+   "diff": 3.72
+  },
+  {
+   "pile": "P16",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": -4.37,
+   "cype": -4.6,
+   "diff": 0.23
+  },
+  {
+   "pile": "P16",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": 5.52,
+   "cype": 4.0,
+   "diff": 1.52
+  },
+  {
+   "pile": "P16",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": -1.8,
+   "cype": -1.9,
+   "diff": 0.1
+  },
+  {
+   "pile": "P16",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": 0.03,
+   "cype": 0.0,
+   "diff": 0.03
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": 114.11,
+   "cype": 116.5,
+   "diff": -2.39
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": 1.53,
+   "cype": -3.5,
+   "diff": 5.03
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -156.04,
+   "cype": -159.5,
+   "diff": 3.46
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": 0.44,
+   "cype": -1.6,
+   "diff": 2.04
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -45.56,
+   "cype": -46.5,
+   "diff": 0.94
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.77,
+   "cype": 0.1,
+   "diff": 0.67
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": 58.33,
+   "cype": 58.1,
+   "diff": 0.23
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.07,
+   "cype": -0.7,
+   "diff": 0.63
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": 0.92,
+   "cype": 0.9,
+   "diff": 0.02
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.03,
+   "cype": -0.3,
+   "diff": 0.27
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": 0.45,
+   "cype": 0.5,
+   "diff": -0.05
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": -58.33,
+   "cype": -58.1,
+   "diff": -0.23
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.07,
+   "cype": 0.7,
+   "diff": -0.63
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": -0.92,
+   "cype": -0.9,
+   "diff": -0.02
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.03,
+   "cype": 0.3,
+   "diff": -0.27
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": -0.45,
+   "cype": -0.5,
+   "diff": 0.05
+  },
+  {
+   "pile": "P16",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 105.74,
+   "cype": 105.2,
+   "diff": 0.54
+  },
+  {
+   "pile": "P17",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": -1.59,
+   "cype": -0.6,
+   "diff": -0.99
+  },
+  {
+   "pile": "P17",
+   "hyp": "PP",
+   "comp": "My",
+   "model": 3.85,
+   "cype": 3.9,
+   "diff": -0.05
+  },
+  {
+   "pile": "P17",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": -0.66,
+   "cype": -0.3,
+   "diff": -0.36
+  },
+  {
+   "pile": "P17",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": 1.62,
+   "cype": 1.7,
+   "diff": -0.08
+  },
+  {
+   "pile": "P17",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 25.85,
+   "cype": 25.3,
+   "diff": 0.55
+  },
+  {
+   "pile": "P17",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": -0.66,
+   "cype": -0.2,
+   "diff": -0.46
+  },
+  {
+   "pile": "P17",
+   "hyp": "CM",
+   "comp": "My",
+   "model": 1.44,
+   "cype": 1.5,
+   "diff": -0.06
+  },
+  {
+   "pile": "P17",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": -0.27,
+   "cype": -0.1,
+   "diff": -0.17
+  },
+  {
+   "pile": "P17",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": 0.61,
+   "cype": 0.6,
+   "diff": 0.01
+  },
+  {
+   "pile": "P17",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 221.56,
+   "cype": 216.5,
+   "diff": 5.06
+  },
+  {
+   "pile": "P17",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": -5.67,
+   "cype": -1.7,
+   "diff": -3.97
+  },
+  {
+   "pile": "P17",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": 12.33,
+   "cype": 12.9,
+   "diff": -0.57
+  },
+  {
+   "pile": "P17",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": -2.36,
+   "cype": -0.7,
+   "diff": -1.66
+  },
+  {
+   "pile": "P17",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": 5.19,
+   "cype": 5.5,
+   "diff": -0.31
+  },
+  {
+   "pile": "P17",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": -139.51,
+   "cype": -138.5,
+   "diff": -1.01
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": -1.62,
+   "cype": -1.1,
+   "diff": -0.52
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -162.39,
+   "cype": -162.9,
+   "diff": 0.51
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": -0.47,
+   "cype": -0.4,
+   "diff": -0.07
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -47.46,
+   "cype": -47.5,
+   "diff": 0.04
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.76,
+   "cype": 0.1,
+   "diff": 0.66
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": -0.46,
+   "cype": -0.4,
+   "diff": -0.06
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.51,
+   "cype": -0.5,
+   "diff": -0.01
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.0,
+   "cype": -0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.15,
+   "cype": -0.2,
+   "diff": 0.05
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": 0.46,
+   "cype": 0.4,
+   "diff": 0.06
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.51,
+   "cype": 0.5,
+   "diff": 0.01
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.15,
+   "cype": 0.2,
+   "diff": -0.05
+  },
+  {
+   "pile": "P17",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  },
+  {
+   "pile": "P18",
+   "hyp": "PP",
+   "comp": "N",
+   "model": 73.12,
+   "cype": 71.0,
+   "diff": 2.12
+  },
+  {
+   "pile": "P18",
+   "hyp": "PP",
+   "comp": "Mx",
+   "model": 4.74,
+   "cype": 4.3,
+   "diff": 0.44
+  },
+  {
+   "pile": "P18",
+   "hyp": "PP",
+   "comp": "My",
+   "model": 1.75,
+   "cype": 1.8,
+   "diff": -0.05
+  },
+  {
+   "pile": "P18",
+   "hyp": "PP",
+   "comp": "Qx",
+   "model": 2.0,
+   "cype": 1.8,
+   "diff": 0.2
+  },
+  {
+   "pile": "P18",
+   "hyp": "PP",
+   "comp": "Qy",
+   "model": 0.75,
+   "cype": 0.8,
+   "diff": -0.05
+  },
+  {
+   "pile": "P18",
+   "hyp": "PP",
+   "comp": "T",
+   "model": -0.01,
+   "cype": 0.0,
+   "diff": -0.01
+  },
+  {
+   "pile": "P18",
+   "hyp": "CM",
+   "comp": "N",
+   "model": 11.46,
+   "cype": 11.3,
+   "diff": 0.16
+  },
+  {
+   "pile": "P18",
+   "hyp": "CM",
+   "comp": "Mx",
+   "model": 1.5,
+   "cype": 1.3,
+   "diff": 0.2
+  },
+  {
+   "pile": "P18",
+   "hyp": "CM",
+   "comp": "My",
+   "model": 0.48,
+   "cype": 0.5,
+   "diff": -0.02
+  },
+  {
+   "pile": "P18",
+   "hyp": "CM",
+   "comp": "Qx",
+   "model": 0.63,
+   "cype": 0.5,
+   "diff": 0.13
+  },
+  {
+   "pile": "P18",
+   "hyp": "CM",
+   "comp": "Qy",
+   "model": 0.2,
+   "cype": 0.2,
+   "diff": 0.0
+  },
+  {
+   "pile": "P18",
+   "hyp": "CM",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P18",
+   "hyp": "Qa",
+   "comp": "N",
+   "model": 98.22,
+   "cype": 96.7,
+   "diff": 1.52
+  },
+  {
+   "pile": "P18",
+   "hyp": "Qa",
+   "comp": "Mx",
+   "model": 12.83,
+   "cype": 11.1,
+   "diff": 1.73
+  },
+  {
+   "pile": "P18",
+   "hyp": "Qa",
+   "comp": "My",
+   "model": 4.09,
+   "cype": 4.3,
+   "diff": -0.21
+  },
+  {
+   "pile": "P18",
+   "hyp": "Qa",
+   "comp": "Qx",
+   "model": 5.4,
+   "cype": 4.7,
+   "diff": 0.7
+  },
+  {
+   "pile": "P18",
+   "hyp": "Qa",
+   "comp": "Qy",
+   "model": 1.74,
+   "cype": 1.8,
+   "diff": -0.06
+  },
+  {
+   "pile": "P18",
+   "hyp": "Qa",
+   "comp": "T",
+   "model": -0.03,
+   "cype": 0.0,
+   "diff": -0.03
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB1",
+   "comp": "N",
+   "model": -130.99,
+   "cype": -133.7,
+   "diff": 2.71
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB1",
+   "comp": "Mx",
+   "model": -1.57,
+   "cype": 3.0,
+   "diff": -4.57
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB1",
+   "comp": "My",
+   "model": -159.32,
+   "cype": -162.8,
+   "diff": 3.48
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB1",
+   "comp": "Qx",
+   "model": -0.45,
+   "cype": 1.3,
+   "diff": -1.75
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB1",
+   "comp": "Qy",
+   "model": -46.95,
+   "cype": -47.9,
+   "diff": 0.95
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB1",
+   "comp": "T",
+   "model": 0.77,
+   "cype": 0.1,
+   "diff": 0.67
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB2",
+   "comp": "N",
+   "model": -5.39,
+   "cype": -5.3,
+   "diff": -0.09
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB2",
+   "comp": "Mx",
+   "model": -0.03,
+   "cype": 0.2,
+   "diff": -0.23
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB2",
+   "comp": "My",
+   "model": -0.85,
+   "cype": -0.8,
+   "diff": -0.05
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB2",
+   "comp": "Qx",
+   "model": -0.01,
+   "cype": 0.1,
+   "diff": -0.11
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB2",
+   "comp": "Qy",
+   "model": -0.29,
+   "cype": -0.3,
+   "diff": 0.01
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB2",
+   "comp": "T",
+   "model": -0.0,
+   "cype": 0.0,
+   "diff": -0.0
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB3",
+   "comp": "N",
+   "model": 5.39,
+   "cype": 5.3,
+   "diff": 0.09
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB3",
+   "comp": "Mx",
+   "model": 0.03,
+   "cype": -0.2,
+   "diff": 0.23
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB3",
+   "comp": "My",
+   "model": 0.85,
+   "cype": 0.8,
+   "diff": 0.05
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB3",
+   "comp": "Qx",
+   "model": 0.01,
+   "cype": -0.1,
+   "diff": 0.11
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB3",
+   "comp": "Qy",
+   "model": 0.29,
+   "cype": 0.3,
+   "diff": -0.01
+  },
+  {
+   "pile": "P18",
+   "hyp": "TB3",
+   "comp": "T",
+   "model": 0.0,
+   "cype": 0.0,
+   "diff": 0.0
+  }
+ ],
+ "pile_envelopes": [
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "base",
+   "what": "N max",
+   "model": 449.1,
+   "model_comb": 8,
+   "cype": 449.6,
+   "cype_comb": 8,
+   "diff_%": -0.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "base",
+   "what": "N min",
+   "model": 2.6,
+   "model_comb": 17,
+   "cype": 0.6,
+   "cype_comb": 17,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "base",
+   "what": "|My| max",
+   "model": -269.4,
+   "model_comb": 8,
+   "cype": -274.9,
+   "cype_comb": 8,
+   "diff_%": -2.0
+  },
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -28.3,
+   "model_comb": 22,
+   "cype": -20.9,
+   "cype_comb": 22,
+   "diff_%": 35.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 416.3,
+   "model_comb": 8,
+   "cype": 414.2,
+   "cype_comb": 8,
+   "diff_%": 0.5
+  },
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -21.7,
+   "model_comb": 17,
+   "cype": -25.6,
+   "cype_comb": 17,
+   "diff_%": -15.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 264.2,
+   "model_comb": 8,
+   "cype": 268.9,
+   "cype_comb": 8,
+   "diff_%": -1.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 51.4,
+   "model_comb": 22,
+   "cype": 38.0,
+   "cype_comb": 22,
+   "diff_%": 35.3
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "base",
+   "what": "N max",
+   "model": 266.4,
+   "model_comb": 22,
+   "cype": 260.9,
+   "cype_comb": 22,
+   "diff_%": 2.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "base",
+   "what": "N min",
+   "model": -129.7,
+   "model_comb": 5,
+   "cype": -136.1,
+   "cype_comb": 5,
+   "diff_%": -4.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "base",
+   "what": "|My| max",
+   "model": -264.3,
+   "model_comb": 5,
+   "cype": -269.5,
+   "cype_comb": 5,
+   "diff_%": -1.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -27.8,
+   "model_comb": 10,
+   "cype": -28.1,
+   "cype_comb": 10,
+   "diff_%": -1.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 233.6,
+   "model_comb": 22,
+   "cype": 225.4,
+   "cype_comb": 22,
+   "diff_%": 3.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -154.0,
+   "model_comb": 5,
+   "cype": -162.4,
+   "cype_comb": 5,
+   "diff_%": -5.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 255.3,
+   "model_comb": 5,
+   "cype": 259.5,
+   "cype_comb": 5,
+   "diff_%": -1.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 50.4,
+   "model_comb": 10,
+   "cype": 50.4,
+   "cype_comb": 10,
+   "diff_%": 0.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "base",
+   "what": "N max",
+   "model": 684.5,
+   "model_comb": 10,
+   "cype": 673.9,
+   "cype_comb": 10,
+   "diff_%": 1.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "base",
+   "what": "N min",
+   "model": 140.5,
+   "model_comb": 17,
+   "cype": 138.9,
+   "cype_comb": 17,
+   "diff_%": 1.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "base",
+   "what": "|My| max",
+   "model": -281.2,
+   "model_comb": 8,
+   "cype": -283.4,
+   "cype_comb": 8,
+   "diff_%": -0.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 11.7,
+   "model_comb": 10,
+   "cype": 3.0,
+   "cype_comb": 10,
+   "diff_%": 295.3
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 651.7,
+   "model_comb": 10,
+   "cype": 638.4,
+   "cype_comb": 10,
+   "diff_%": 2.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 116.2,
+   "model_comb": 17,
+   "cype": 112.6,
+   "cype_comb": 17,
+   "diff_%": 3.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 285.9,
+   "model_comb": 8,
+   "cype": 288.3,
+   "cype_comb": 8,
+   "diff_%": -0.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -20.9,
+   "model_comb": 10,
+   "cype": -5.2,
+   "cype_comb": 16,
+   "diff_%": 305.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "base",
+   "what": "N max",
+   "model": 510.4,
+   "model_comb": 22,
+   "cype": 501.3,
+   "cype_comb": 22,
+   "diff_%": 1.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "base",
+   "what": "N min",
+   "model": -89.0,
+   "model_comb": 5,
+   "cype": -89.0,
+   "cype_comb": 5,
+   "diff_%": 0.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "base",
+   "what": "|My| max",
+   "model": -255.9,
+   "model_comb": 5,
+   "cype": -257.2,
+   "cype_comb": 5,
+   "diff_%": -0.5
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 11.5,
+   "model_comb": 16,
+   "cype": 3.6,
+   "cype_comb": 4,
+   "diff_%": 218.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 477.6,
+   "model_comb": 22,
+   "cype": 465.8,
+   "cype_comb": 22,
+   "diff_%": 2.5
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -113.3,
+   "model_comb": 5,
+   "cype": -115.3,
+   "cype_comb": 5,
+   "diff_%": -1.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 240.5,
+   "model_comb": 5,
+   "cype": 240.8,
+   "cype_comb": 5,
+   "diff_%": -0.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -20.6,
+   "model_comb": 10,
+   "cype": -7.1,
+   "cype_comb": 10,
+   "diff_%": 191.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "base",
+   "what": "N max",
+   "model": 638.0,
+   "model_comb": 10,
+   "cype": 636.8,
+   "cype_comb": 10,
+   "diff_%": 0.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "base",
+   "what": "N min",
+   "model": 43.5,
+   "model_comb": 17,
+   "cype": 43.3,
+   "cype_comb": 17,
+   "diff_%": 0.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "base",
+   "what": "|My| max",
+   "model": -274.3,
+   "model_comb": 8,
+   "cype": -271.9,
+   "cype_comb": 8,
+   "diff_%": 0.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -2.1,
+   "model_comb": 22,
+   "cype": 0.8,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 605.2,
+   "model_comb": 10,
+   "cype": 601.3,
+   "cype_comb": 10,
+   "diff_%": 0.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 19.2,
+   "model_comb": 17,
+   "cype": 17.0,
+   "cype_comb": 17,
+   "diff_%": 12.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 274.0,
+   "model_comb": 8,
+   "cype": 271.5,
+   "cype_comb": 8,
+   "diff_%": 0.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 3.9,
+   "model_comb": 22,
+   "cype": 1.0,
+   "cype_comb": 4,
+   "diff_%": 284.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "base",
+   "what": "N max",
+   "model": 463.2,
+   "model_comb": 22,
+   "cype": 460.1,
+   "cype_comb": 22,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "base",
+   "what": "N min",
+   "model": -112.3,
+   "model_comb": 5,
+   "cype": -110.8,
+   "cype_comb": 5,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "base",
+   "what": "|My| max",
+   "model": -257.6,
+   "model_comb": 5,
+   "cype": -255.3,
+   "cype_comb": 5,
+   "diff_%": 0.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -2.3,
+   "model_comb": 10,
+   "cype": -1.3,
+   "cype_comb": 8,
+   "diff_%": 70.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 430.4,
+   "model_comb": 22,
+   "cype": 424.6,
+   "cype_comb": 22,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -136.6,
+   "model_comb": 5,
+   "cype": -137.1,
+   "cype_comb": 5,
+   "diff_%": -0.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 244.3,
+   "model_comb": 5,
+   "cype": 240.9,
+   "cype_comb": 5,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 4.0,
+   "model_comb": 10,
+   "cype": 1.8,
+   "cype_comb": 8,
+   "diff_%": 120.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "base",
+   "what": "N max",
+   "model": 641.0,
+   "model_comb": 10,
+   "cype": 638.5,
+   "cype_comb": 10,
+   "diff_%": 0.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "base",
+   "what": "N min",
+   "model": 132.3,
+   "model_comb": 17,
+   "cype": 132.6,
+   "cype_comb": 17,
+   "diff_%": -0.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "base",
+   "what": "|My| max",
+   "model": -275.7,
+   "model_comb": 8,
+   "cype": -272.6,
+   "cype_comb": 8,
+   "diff_%": 1.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 1.0,
+   "model_comb": 5,
+   "cype": 0.9,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 608.2,
+   "model_comb": 10,
+   "cype": 603.0,
+   "cype_comb": 10,
+   "diff_%": 0.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 108.0,
+   "model_comb": 17,
+   "cype": 106.3,
+   "cype_comb": 17,
+   "diff_%": 1.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 279.3,
+   "model_comb": 8,
+   "cype": 276.3,
+   "cype_comb": 8,
+   "diff_%": 1.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -1.0,
+   "model_comb": 5,
+   "cype": -0.4,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "base",
+   "what": "N max",
+   "model": 471.3,
+   "model_comb": 22,
+   "cype": 468.6,
+   "cype_comb": 22,
+   "diff_%": 0.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "base",
+   "what": "N min",
+   "model": -94.5,
+   "model_comb": 5,
+   "cype": -91.5,
+   "cype_comb": 5,
+   "diff_%": 3.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "base",
+   "what": "|My| max",
+   "model": -252.5,
+   "model_comb": 5,
+   "cype": -248.5,
+   "cype_comb": 5,
+   "diff_%": 1.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -1.1,
+   "model_comb": 8,
+   "cype": -0.8,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 438.5,
+   "model_comb": 22,
+   "cype": 433.1,
+   "cype_comb": 22,
+   "diff_%": 1.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -118.8,
+   "model_comb": 5,
+   "cype": -117.8,
+   "cype_comb": 5,
+   "diff_%": 0.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 237.7,
+   "model_comb": 5,
+   "cype": 233.0,
+   "cype_comb": 5,
+   "diff_%": 2.0
+  },
+  {
+   "family": "ELU",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 1.0,
+   "model_comb": 8,
+   "cype": 0.6,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "base",
+   "what": "N max",
+   "model": 634.6,
+   "model_comb": 10,
+   "cype": 633.2,
+   "cype_comb": 10,
+   "diff_%": 0.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "base",
+   "what": "N min",
+   "model": 43.5,
+   "model_comb": 17,
+   "cype": 43.3,
+   "cype_comb": 17,
+   "diff_%": 0.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "base",
+   "what": "|My| max",
+   "model": -265.8,
+   "model_comb": 8,
+   "cype": -262.8,
+   "cype_comb": 8,
+   "diff_%": 1.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 3.4,
+   "model_comb": 8,
+   "cype": 1.2,
+   "cype_comb": 8,
+   "diff_%": 170.3
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 601.8,
+   "model_comb": 10,
+   "cype": 597.7,
+   "cype_comb": 10,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 19.2,
+   "model_comb": 17,
+   "cype": 17.0,
+   "cype_comb": 17,
+   "diff_%": 12.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 265.8,
+   "model_comb": 8,
+   "cype": 262.7,
+   "cype_comb": 8,
+   "diff_%": 1.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -4.8,
+   "model_comb": 10,
+   "cype": -1.2,
+   "cype_comb": 10,
+   "diff_%": 308.5
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "base",
+   "what": "N max",
+   "model": 463.2,
+   "model_comb": 22,
+   "cype": 460.1,
+   "cype_comb": 22,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "base",
+   "what": "N min",
+   "model": -106.8,
+   "model_comb": 5,
+   "cype": -105.0,
+   "cype_comb": 5,
+   "diff_%": 1.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "base",
+   "what": "|My| max",
+   "model": -249.1,
+   "model_comb": 5,
+   "cype": -246.1,
+   "cype_comb": 5,
+   "diff_%": 1.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 2.0,
+   "model_comb": 16,
+   "cype": -0.7,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 430.4,
+   "model_comb": 22,
+   "cype": 424.6,
+   "cype_comb": 22,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -131.1,
+   "model_comb": 5,
+   "cype": -131.2,
+   "cype_comb": 5,
+   "diff_%": -0.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 236.1,
+   "model_comb": 5,
+   "cype": 232.2,
+   "cype_comb": 5,
+   "diff_%": 1.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -3.8,
+   "model_comb": 16,
+   "cype": -1.2,
+   "cype_comb": 4,
+   "diff_%": 227.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "base",
+   "what": "N max",
+   "model": 677.7,
+   "model_comb": 10,
+   "cype": 666.8,
+   "cype_comb": 10,
+   "diff_%": 1.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "base",
+   "what": "N min",
+   "model": 140.5,
+   "model_comb": 17,
+   "cype": 138.9,
+   "cype_comb": 17,
+   "diff_%": 1.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "base",
+   "what": "|My| max",
+   "model": -263.6,
+   "model_comb": 8,
+   "cype": -265.1,
+   "cype_comb": 8,
+   "diff_%": -0.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -11.7,
+   "model_comb": 16,
+   "cype": -2.7,
+   "cype_comb": 16,
+   "diff_%": 332.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 644.9,
+   "model_comb": 10,
+   "cype": 631.2,
+   "cype_comb": 10,
+   "diff_%": 2.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 116.2,
+   "model_comb": 17,
+   "cype": 112.6,
+   "cype_comb": 17,
+   "diff_%": 3.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 269.1,
+   "model_comb": 8,
+   "cype": 270.8,
+   "cype_comb": 8,
+   "diff_%": -0.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 20.8,
+   "model_comb": 16,
+   "cype": 5.2,
+   "cype_comb": 16,
+   "diff_%": 303.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "base",
+   "what": "N max",
+   "model": 405.8,
+   "model_comb": 8,
+   "cype": 406.3,
+   "cype_comb": 8,
+   "diff_%": -0.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "base",
+   "what": "N min",
+   "model": 2.6,
+   "model_comb": 17,
+   "cype": 0.6,
+   "cype_comb": 17,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "base",
+   "what": "|My| max",
+   "model": -241.9,
+   "model_comb": 8,
+   "cype": -247.3,
+   "cype_comb": 8,
+   "diff_%": -2.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 29.6,
+   "model_comb": 10,
+   "cype": 20.9,
+   "cype_comb": 22,
+   "diff_%": 41.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 373.0,
+   "model_comb": 8,
+   "cype": 370.9,
+   "cype_comb": 8,
+   "diff_%": 0.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -21.7,
+   "model_comb": 17,
+   "cype": -25.6,
+   "cype_comb": 17,
+   "diff_%": -15.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 237.6,
+   "model_comb": 8,
+   "cype": 242.3,
+   "cype_comb": 8,
+   "diff_%": -1.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -52.6,
+   "model_comb": 10,
+   "cype": -38.0,
+   "cype_comb": 22,
+   "diff_%": 38.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "base",
+   "what": "N max",
+   "model": 510.4,
+   "model_comb": 22,
+   "cype": 501.3,
+   "cype_comb": 22,
+   "diff_%": 1.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "base",
+   "what": "N min",
+   "model": -77.7,
+   "model_comb": 5,
+   "cype": -77.2,
+   "cype_comb": 5,
+   "diff_%": 0.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "base",
+   "what": "|My| max",
+   "model": -238.3,
+   "model_comb": 5,
+   "cype": -239.0,
+   "cype_comb": 5,
+   "diff_%": -0.3
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -13.0,
+   "model_comb": 10,
+   "cype": -4.6,
+   "cype_comb": 10,
+   "diff_%": 181.5
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 477.6,
+   "model_comb": 22,
+   "cype": 465.8,
+   "cype_comb": 22,
+   "diff_%": 2.5
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -102.0,
+   "model_comb": 5,
+   "cype": -103.5,
+   "cype_comb": 5,
+   "diff_%": -1.5
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 223.7,
+   "model_comb": 5,
+   "cype": 223.2,
+   "cype_comb": 5,
+   "diff_%": 0.2
+  },
+  {
+   "family": "ELU",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 21.9,
+   "model_comb": 10,
+   "cype": 7.8,
+   "cype_comb": 10,
+   "diff_%": 181.7
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "base",
+   "what": "N max",
+   "model": 266.4,
+   "model_comb": 22,
+   "cype": 260.9,
+   "cype_comb": 22,
+   "diff_%": 2.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "base",
+   "what": "N min",
+   "model": -111.9,
+   "model_comb": 5,
+   "cype": -118.2,
+   "cype_comb": 5,
+   "diff_%": -5.4
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "base",
+   "what": "|My| max",
+   "model": -236.8,
+   "model_comb": 5,
+   "cype": -241.9,
+   "cype_comb": 5,
+   "diff_%": -2.1
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 27.7,
+   "model_comb": 22,
+   "cype": 26.9,
+   "cype_comb": 10,
+   "diff_%": 2.9
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 233.6,
+   "model_comb": 22,
+   "cype": 225.4,
+   "cype_comb": 22,
+   "diff_%": 3.6
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -136.2,
+   "model_comb": 5,
+   "cype": -144.5,
+   "cype_comb": 5,
+   "diff_%": -5.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 228.7,
+   "model_comb": 5,
+   "cype": 232.8,
+   "cype_comb": 5,
+   "diff_%": -1.8
+  },
+  {
+   "family": "ELU",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -50.4,
+   "model_comb": 22,
+   "cype": -49.2,
+   "cype_comb": 10,
+   "diff_%": 2.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "base",
+   "what": "N max",
+   "model": 493.5,
+   "model_comb": 8,
+   "cype": 493.6,
+   "cype_comb": 8,
+   "diff_%": -0.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "base",
+   "what": "N min",
+   "model": -3.2,
+   "model_comb": 17,
+   "cype": -5.2,
+   "cype_comb": 17,
+   "diff_%": -37.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "base",
+   "what": "|My| max",
+   "model": -287.8,
+   "model_comb": 8,
+   "cype": -293.6,
+   "cype_comb": 8,
+   "diff_%": -2.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -31.2,
+   "model_comb": 22,
+   "cype": -23.1,
+   "cype_comb": 22,
+   "diff_%": 35.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 454.6,
+   "model_comb": 8,
+   "cype": 451.7,
+   "cype_comb": 8,
+   "diff_%": 0.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -27.5,
+   "model_comb": 17,
+   "cype": -31.4,
+   "cype_comb": 17,
+   "diff_%": -12.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 282.5,
+   "model_comb": 8,
+   "cype": 287.5,
+   "cype_comb": 8,
+   "diff_%": -1.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 56.7,
+   "model_comb": 22,
+   "cype": 41.9,
+   "cype_comb": 22,
+   "diff_%": 35.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "base",
+   "what": "N max",
+   "model": 297.7,
+   "model_comb": 22,
+   "cype": 291.5,
+   "cype_comb": 22,
+   "diff_%": 2.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "base",
+   "what": "N min",
+   "model": -144.0,
+   "model_comb": 5,
+   "cype": -150.7,
+   "cype_comb": 5,
+   "diff_%": -4.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "base",
+   "what": "|My| max",
+   "model": -282.0,
+   "model_comb": 5,
+   "cype": -287.6,
+   "cype_comb": 5,
+   "diff_%": -1.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -30.6,
+   "model_comb": 10,
+   "cype": -30.8,
+   "cype_comb": 10,
+   "diff_%": -0.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 258.8,
+   "model_comb": 22,
+   "cype": 249.4,
+   "cype_comb": 22,
+   "diff_%": 3.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -168.3,
+   "model_comb": 5,
+   "cype": -177.0,
+   "cype_comb": 5,
+   "diff_%": -4.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 272.6,
+   "model_comb": 5,
+   "cype": 277.1,
+   "cype_comb": 5,
+   "diff_%": -1.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 55.6,
+   "model_comb": 10,
+   "cype": 55.3,
+   "cype_comb": 10,
+   "diff_%": 0.5
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "base",
+   "what": "N max",
+   "model": 752.7,
+   "model_comb": 10,
+   "cype": 741.2,
+   "cype_comb": 10,
+   "diff_%": 1.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "base",
+   "what": "N min",
+   "model": 140.4,
+   "model_comb": 17,
+   "cype": 138.8,
+   "cype_comb": 17,
+   "diff_%": 1.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "base",
+   "what": "|My| max",
+   "model": -300.8,
+   "model_comb": 8,
+   "cype": -303.2,
+   "cype_comb": 8,
+   "diff_%": -0.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 12.9,
+   "model_comb": 10,
+   "cype": 3.3,
+   "cype_comb": 10,
+   "diff_%": 294.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 713.9,
+   "model_comb": 10,
+   "cype": 699.1,
+   "cype_comb": 10,
+   "diff_%": 2.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 116.1,
+   "model_comb": 17,
+   "cype": 112.5,
+   "cype_comb": 17,
+   "diff_%": 3.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 306.5,
+   "model_comb": 8,
+   "cype": 309.1,
+   "cype_comb": 8,
+   "diff_%": -0.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -22.9,
+   "model_comb": 10,
+   "cype": -5.7,
+   "cype_comb": 16,
+   "diff_%": 302.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "base",
+   "what": "N max",
+   "model": 565.5,
+   "model_comb": 22,
+   "cype": 555.6,
+   "cype_comb": 22,
+   "diff_%": 1.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "base",
+   "what": "N min",
+   "model": -103.7,
+   "model_comb": 5,
+   "cype": -103.6,
+   "cype_comb": 5,
+   "diff_%": 0.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "base",
+   "what": "|My| max",
+   "model": -273.3,
+   "model_comb": 5,
+   "cype": -274.8,
+   "cype_comb": 5,
+   "diff_%": -0.5
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 12.7,
+   "model_comb": 16,
+   "cype": 4.0,
+   "cype_comb": 4,
+   "diff_%": 217.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 526.6,
+   "model_comb": 22,
+   "cype": 513.5,
+   "cype_comb": 22,
+   "diff_%": 2.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -128.0,
+   "model_comb": 5,
+   "cype": -129.9,
+   "cype_comb": 5,
+   "diff_%": -1.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 257.2,
+   "model_comb": 5,
+   "cype": 257.5,
+   "cype_comb": 5,
+   "diff_%": -0.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -22.6,
+   "model_comb": 10,
+   "cype": -7.8,
+   "cype_comb": 10,
+   "diff_%": 190.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "base",
+   "what": "N max",
+   "model": 701.4,
+   "model_comb": 10,
+   "cype": 700.1,
+   "cype_comb": 10,
+   "diff_%": 0.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "base",
+   "what": "N min",
+   "model": 37.6,
+   "model_comb": 17,
+   "cype": 37.5,
+   "cype_comb": 17,
+   "diff_%": 0.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "base",
+   "what": "|My| max",
+   "model": -293.3,
+   "model_comb": 8,
+   "cype": -290.8,
+   "cype_comb": 8,
+   "diff_%": 0.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -2.3,
+   "model_comb": 22,
+   "cype": 0.9,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 662.5,
+   "model_comb": 10,
+   "cype": 658.0,
+   "cype_comb": 10,
+   "diff_%": 0.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 13.4,
+   "model_comb": 17,
+   "cype": 11.2,
+   "cype_comb": 17,
+   "diff_%": 18.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 293.6,
+   "model_comb": 8,
+   "cype": 291.0,
+   "cype_comb": 8,
+   "diff_%": 0.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 4.2,
+   "model_comb": 22,
+   "cype": 1.1,
+   "cype_comb": 4,
+   "diff_%": 278.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "base",
+   "what": "N max",
+   "model": 513.5,
+   "model_comb": 22,
+   "cype": 510.2,
+   "cype_comb": 22,
+   "diff_%": 0.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "base",
+   "what": "N min",
+   "model": -127.9,
+   "model_comb": 5,
+   "cype": -126.3,
+   "cype_comb": 5,
+   "diff_%": 1.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "base",
+   "what": "|My| max",
+   "model": -275.1,
+   "model_comb": 5,
+   "cype": -272.6,
+   "cype_comb": 5,
+   "diff_%": 0.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -2.5,
+   "model_comb": 10,
+   "cype": -1.5,
+   "cype_comb": 8,
+   "diff_%": 72.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 474.7,
+   "model_comb": 22,
+   "cype": 468.1,
+   "cype_comb": 22,
+   "diff_%": 1.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -152.2,
+   "model_comb": 5,
+   "cype": -152.6,
+   "cype_comb": 5,
+   "diff_%": -0.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 261.1,
+   "model_comb": 5,
+   "cype": 257.6,
+   "cype_comb": 5,
+   "diff_%": 1.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 4.4,
+   "model_comb": 10,
+   "cype": 2.0,
+   "cype_comb": 8,
+   "diff_%": 121.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "base",
+   "what": "N max",
+   "model": 705.1,
+   "model_comb": 10,
+   "cype": 702.4,
+   "cype_comb": 10,
+   "diff_%": 0.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "base",
+   "what": "N min",
+   "model": 132.2,
+   "model_comb": 17,
+   "cype": 132.6,
+   "cype_comb": 17,
+   "diff_%": -0.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "base",
+   "what": "|My| max",
+   "model": -294.9,
+   "model_comb": 8,
+   "cype": -291.6,
+   "cype_comb": 8,
+   "diff_%": 1.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 1.1,
+   "model_comb": 5,
+   "cype": 1.0,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 666.2,
+   "model_comb": 10,
+   "cype": 660.3,
+   "cype_comb": 10,
+   "diff_%": 0.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 108.0,
+   "model_comb": 17,
+   "cype": 106.3,
+   "cype_comb": 17,
+   "diff_%": 1.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 299.3,
+   "model_comb": 8,
+   "cype": 296.2,
+   "cype_comb": 8,
+   "diff_%": 1.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -1.0,
+   "model_comb": 5,
+   "cype": -0.5,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "base",
+   "what": "N max",
+   "model": 522.5,
+   "model_comb": 22,
+   "cype": 519.7,
+   "cype_comb": 22,
+   "diff_%": 0.5
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "base",
+   "what": "N min",
+   "model": -109.0,
+   "model_comb": 5,
+   "cype": -105.9,
+   "cype_comb": 5,
+   "diff_%": 3.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "base",
+   "what": "|My| max",
+   "model": -269.7,
+   "model_comb": 5,
+   "cype": -265.4,
+   "cype_comb": 5,
+   "diff_%": 1.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -1.2,
+   "model_comb": 8,
+   "cype": -0.8,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 483.7,
+   "model_comb": 22,
+   "cype": 477.6,
+   "cype_comb": 22,
+   "diff_%": 1.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -133.3,
+   "model_comb": 5,
+   "cype": -132.2,
+   "cype_comb": 5,
+   "diff_%": 0.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 254.2,
+   "model_comb": 5,
+   "cype": 249.1,
+   "cype_comb": 5,
+   "diff_%": 2.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 1.1,
+   "model_comb": 8,
+   "cype": 0.6,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "base",
+   "what": "N max",
+   "model": 697.8,
+   "model_comb": 10,
+   "cype": 696.3,
+   "cype_comb": 10,
+   "diff_%": 0.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "base",
+   "what": "N min",
+   "model": 37.6,
+   "model_comb": 17,
+   "cype": 37.5,
+   "cype_comb": 17,
+   "diff_%": 0.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "base",
+   "what": "|My| max",
+   "model": -284.3,
+   "model_comb": 8,
+   "cype": -281.1,
+   "cype_comb": 8,
+   "diff_%": 1.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 3.7,
+   "model_comb": 8,
+   "cype": 1.3,
+   "cype_comb": 8,
+   "diff_%": 171.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 659.0,
+   "model_comb": 10,
+   "cype": 654.2,
+   "cype_comb": 10,
+   "diff_%": 0.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 13.4,
+   "model_comb": 17,
+   "cype": 11.2,
+   "cype_comb": 17,
+   "diff_%": 18.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 284.9,
+   "model_comb": 8,
+   "cype": 281.6,
+   "cype_comb": 8,
+   "diff_%": 1.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -5.3,
+   "model_comb": 10,
+   "cype": -1.3,
+   "cype_comb": 10,
+   "diff_%": 302.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "base",
+   "what": "N max",
+   "model": 513.5,
+   "model_comb": 22,
+   "cype": 510.2,
+   "cype_comb": 22,
+   "diff_%": 0.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "base",
+   "what": "N min",
+   "model": -122.0,
+   "model_comb": 5,
+   "cype": -120.0,
+   "cype_comb": 5,
+   "diff_%": 1.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "base",
+   "what": "|My| max",
+   "model": -266.0,
+   "model_comb": 5,
+   "cype": -262.8,
+   "cype_comb": 5,
+   "diff_%": 1.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 2.2,
+   "model_comb": 16,
+   "cype": -0.7,
+   "cype_comb": 5,
+   "diff_%": null
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 474.6,
+   "model_comb": 22,
+   "cype": 468.1,
+   "cype_comb": 22,
+   "diff_%": 1.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -146.3,
+   "model_comb": 5,
+   "cype": -146.3,
+   "cype_comb": 5,
+   "diff_%": -0.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 252.5,
+   "model_comb": 5,
+   "cype": 248.3,
+   "cype_comb": 5,
+   "diff_%": 1.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -4.2,
+   "model_comb": 16,
+   "cype": -1.3,
+   "cype_comb": 4,
+   "diff_%": 224.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "base",
+   "what": "N max",
+   "model": 745.5,
+   "model_comb": 10,
+   "cype": 733.6,
+   "cype_comb": 10,
+   "diff_%": 1.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "base",
+   "what": "N min",
+   "model": 140.4,
+   "model_comb": 17,
+   "cype": 138.8,
+   "cype_comb": 17,
+   "diff_%": 1.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "base",
+   "what": "|My| max",
+   "model": -282.0,
+   "model_comb": 8,
+   "cype": -283.7,
+   "cype_comb": 8,
+   "diff_%": -0.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -12.8,
+   "model_comb": 16,
+   "cype": -3.0,
+   "cype_comb": 16,
+   "diff_%": 331.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 706.6,
+   "model_comb": 10,
+   "cype": 691.5,
+   "cype_comb": 10,
+   "diff_%": 2.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 116.1,
+   "model_comb": 17,
+   "cype": 112.5,
+   "cype_comb": 17,
+   "diff_%": 3.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 288.5,
+   "model_comb": 8,
+   "cype": 290.4,
+   "cype_comb": 8,
+   "diff_%": -0.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 22.9,
+   "model_comb": 16,
+   "cype": 5.7,
+   "cype_comb": 16,
+   "diff_%": 301.5
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "base",
+   "what": "N max",
+   "model": 447.3,
+   "model_comb": 8,
+   "cype": 447.4,
+   "cype_comb": 8,
+   "diff_%": -0.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "base",
+   "what": "N min",
+   "model": -3.2,
+   "model_comb": 17,
+   "cype": -5.2,
+   "cype_comb": 17,
+   "diff_%": -37.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "base",
+   "what": "|My| max",
+   "model": -258.4,
+   "model_comb": 8,
+   "cype": -264.2,
+   "cype_comb": 8,
+   "diff_%": -2.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 32.6,
+   "model_comb": 10,
+   "cype": 23.1,
+   "cype_comb": 22,
+   "diff_%": 41.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 408.4,
+   "model_comb": 8,
+   "cype": 405.5,
+   "cype_comb": 8,
+   "diff_%": 0.7
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -27.5,
+   "model_comb": 17,
+   "cype": -31.4,
+   "cype_comb": 17,
+   "diff_%": -12.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 254.1,
+   "model_comb": 8,
+   "cype": 259.2,
+   "cype_comb": 8,
+   "diff_%": -1.9
+  },
+  {
+   "family": "CIM",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -58.0,
+   "model_comb": 10,
+   "cype": -41.9,
+   "cype_comb": 22,
+   "diff_%": 38.4
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "base",
+   "what": "N max",
+   "model": 565.5,
+   "model_comb": 22,
+   "cype": 555.6,
+   "cype_comb": 22,
+   "diff_%": 1.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "base",
+   "what": "N min",
+   "model": -91.6,
+   "model_comb": 5,
+   "cype": -91.1,
+   "cype_comb": 5,
+   "diff_%": 0.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "base",
+   "what": "|My| max",
+   "model": -254.5,
+   "model_comb": 5,
+   "cype": -255.2,
+   "cype_comb": 5,
+   "diff_%": -0.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -14.2,
+   "model_comb": 10,
+   "cype": -5.1,
+   "cype_comb": 10,
+   "diff_%": 181.5
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 526.6,
+   "model_comb": 22,
+   "cype": 513.5,
+   "cype_comb": 22,
+   "diff_%": 2.6
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -115.9,
+   "model_comb": 5,
+   "cype": -117.4,
+   "cype_comb": 5,
+   "diff_%": -1.3
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 239.3,
+   "model_comb": 5,
+   "cype": 238.8,
+   "cype_comb": 5,
+   "diff_%": 0.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 24.0,
+   "model_comb": 10,
+   "cype": 8.5,
+   "cype_comb": 10,
+   "diff_%": 181.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "base",
+   "what": "N max",
+   "model": 297.7,
+   "model_comb": 22,
+   "cype": 291.5,
+   "cype_comb": 22,
+   "diff_%": 2.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "base",
+   "what": "N min",
+   "model": -125.0,
+   "model_comb": 5,
+   "cype": -131.6,
+   "cype_comb": 5,
+   "diff_%": -5.0
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "base",
+   "what": "|My| max",
+   "model": -252.7,
+   "model_comb": 5,
+   "cype": -258.2,
+   "cype_comb": 5,
+   "diff_%": -2.1
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 30.5,
+   "model_comb": 22,
+   "cype": 29.6,
+   "cype_comb": 10,
+   "diff_%": 3.2
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 258.8,
+   "model_comb": 22,
+   "cype": 249.4,
+   "cype_comb": 22,
+   "diff_%": 3.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -149.3,
+   "model_comb": 5,
+   "cype": -157.9,
+   "cype_comb": 5,
+   "diff_%": -5.5
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 244.2,
+   "model_comb": 5,
+   "cype": 248.6,
+   "cype_comb": 5,
+   "diff_%": -1.8
+  },
+  {
+   "family": "CIM",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -55.6,
+   "model_comb": 22,
+   "cype": -54.1,
+   "cype_comb": 10,
+   "diff_%": 2.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "base",
+   "what": "N max",
+   "model": 340.7,
+   "model_comb": 4,
+   "cype": 340.8,
+   "cype_comb": 4,
+   "diff_%": -0.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "base",
+   "what": "N min",
+   "model": 31.8,
+   "model_comb": 7,
+   "cype": 29.7,
+   "cype_comb": 7,
+   "diff_%": 7.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "base",
+   "what": "|My| max",
+   "model": -181.2,
+   "model_comb": 4,
+   "cype": -184.9,
+   "cype_comb": 4,
+   "diff_%": -2.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -19.5,
+   "model_comb": 8,
+   "cype": -14.7,
+   "cype_comb": 8,
+   "diff_%": 32.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 316.4,
+   "model_comb": 4,
+   "cype": 314.6,
+   "cype_comb": 4,
+   "diff_%": 0.6
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 7.5,
+   "model_comb": 7,
+   "cype": 3.5,
+   "cype_comb": 7,
+   "diff_%": 114.3
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 178.9,
+   "model_comb": 4,
+   "cype": 182.1,
+   "cype_comb": 4,
+   "diff_%": -1.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P1",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 35.5,
+   "model_comb": 8,
+   "cype": 26.7,
+   "cype_comb": 8,
+   "diff_%": 33.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "base",
+   "what": "N max",
+   "model": 188.2,
+   "model_comb": 8,
+   "cype": 184.3,
+   "cype_comb": 8,
+   "diff_%": 2.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "base",
+   "what": "N min",
+   "model": -58.3,
+   "model_comb": 3,
+   "cype": -63.3,
+   "cype_comb": 3,
+   "diff_%": -7.9
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "base",
+   "what": "|My| max",
+   "model": -175.4,
+   "model_comb": 3,
+   "cype": -178.9,
+   "cype_comb": 3,
+   "diff_%": -1.9
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -19.2,
+   "model_comb": 4,
+   "cype": -21.0,
+   "cype_comb": 4,
+   "diff_%": -8.6
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 163.9,
+   "model_comb": 8,
+   "cype": 158.0,
+   "cype_comb": 8,
+   "diff_%": 3.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -82.6,
+   "model_comb": 3,
+   "cype": -89.6,
+   "cype_comb": 3,
+   "diff_%": -7.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 168.8,
+   "model_comb": 3,
+   "cype": 171.6,
+   "cype_comb": 3,
+   "diff_%": -1.6
+  },
+  {
+   "family": "ELS",
+   "pile": "P2",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 34.8,
+   "model_comb": 4,
+   "cype": 37.5,
+   "cype_comb": 4,
+   "diff_%": -7.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "base",
+   "what": "N max",
+   "model": 529.1,
+   "model_comb": 4,
+   "cype": 521.7,
+   "cype_comb": 4,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "base",
+   "what": "N min",
+   "model": 140.7,
+   "model_comb": 7,
+   "cype": 139.2,
+   "cype_comb": 7,
+   "diff_%": 1.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "base",
+   "what": "|My| max",
+   "model": -191.7,
+   "model_comb": 4,
+   "cype": -193.4,
+   "cype_comb": 4,
+   "diff_%": -0.9
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 8.1,
+   "model_comb": 4,
+   "cype": 2.2,
+   "cype_comb": 4,
+   "diff_%": 267.3
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 504.8,
+   "model_comb": 4,
+   "cype": 495.4,
+   "cype_comb": 4,
+   "diff_%": 1.9
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 116.4,
+   "model_comb": 7,
+   "cype": 112.9,
+   "cype_comb": 7,
+   "diff_%": 3.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 198.2,
+   "model_comb": 4,
+   "cype": 200.2,
+   "cype_comb": 4,
+   "diff_%": -1.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P3",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -14.4,
+   "model_comb": 4,
+   "cype": -3.6,
+   "cype_comb": 6,
+   "diff_%": 299.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "base",
+   "what": "N max",
+   "model": 353.6,
+   "model_comb": 8,
+   "cype": 347.4,
+   "cype_comb": 8,
+   "diff_%": 1.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "base",
+   "what": "N min",
+   "model": -15.5,
+   "model_comb": 3,
+   "cype": -15.8,
+   "cype_comb": 3,
+   "diff_%": -2.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "base",
+   "what": "|My| max",
+   "model": -168.8,
+   "model_comb": 3,
+   "cype": -169.7,
+   "cype_comb": 3,
+   "diff_%": -0.5
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 7.9,
+   "model_comb": 6,
+   "cype": 2.5,
+   "cype_comb": 2,
+   "diff_%": 217.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 329.3,
+   "model_comb": 8,
+   "cype": 321.1,
+   "cype_comb": 8,
+   "diff_%": 2.6
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -39.8,
+   "model_comb": 3,
+   "cype": -42.1,
+   "cype_comb": 3,
+   "diff_%": -5.5
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 157.1,
+   "model_comb": 3,
+   "cype": 157.2,
+   "cype_comb": 3,
+   "diff_%": -0.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P4",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -14.1,
+   "model_comb": 4,
+   "cype": -5.1,
+   "cype_comb": 4,
+   "diff_%": 177.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "base",
+   "what": "N max",
+   "model": 501.0,
+   "model_comb": 4,
+   "cype": 499.8,
+   "cype_comb": 4,
+   "diff_%": 0.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "base",
+   "what": "N min",
+   "model": 72.5,
+   "model_comb": 7,
+   "cype": 72.4,
+   "cype_comb": 7,
+   "diff_%": 0.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "base",
+   "what": "|My| max",
+   "model": -186.6,
+   "model_comb": 4,
+   "cype": -185.2,
+   "cype_comb": 4,
+   "diff_%": 0.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -1.4,
+   "model_comb": 8,
+   "cype": 0.5,
+   "cype_comb": 3,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 476.7,
+   "model_comb": 4,
+   "cype": 473.5,
+   "cype_comb": 4,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 48.2,
+   "model_comb": 7,
+   "cype": 46.1,
+   "cype_comb": 7,
+   "diff_%": 4.5
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 189.4,
+   "model_comb": 4,
+   "cype": 188.0,
+   "cype_comb": 4,
+   "diff_%": 0.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P5",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 2.7,
+   "model_comb": 8,
+   "cype": 0.7,
+   "cype_comb": 2,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "base",
+   "what": "N max",
+   "model": 323.0,
+   "model_comb": 8,
+   "cype": 320.9,
+   "cype_comb": 8,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "base",
+   "what": "N min",
+   "model": -34.3,
+   "model_comb": 3,
+   "cype": -33.4,
+   "cype_comb": 3,
+   "diff_%": 2.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "base",
+   "what": "|My| max",
+   "model": -170.1,
+   "model_comb": 3,
+   "cype": -168.6,
+   "cype_comb": 3,
+   "diff_%": 0.9
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -1.7,
+   "model_comb": 4,
+   "cype": -1.0,
+   "cype_comb": 4,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 298.7,
+   "model_comb": 8,
+   "cype": 294.6,
+   "cype_comb": 8,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -58.6,
+   "model_comb": 3,
+   "cype": -59.7,
+   "cype_comb": 3,
+   "diff_%": -1.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 159.9,
+   "model_comb": 3,
+   "cype": 157.7,
+   "cype_comb": 3,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELS",
+   "pile": "P6",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 2.9,
+   "model_comb": 4,
+   "cype": 1.4,
+   "cype_comb": 4,
+   "diff_%": 105.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "base",
+   "what": "N max",
+   "model": 498.6,
+   "model_comb": 4,
+   "cype": 496.1,
+   "cype_comb": 4,
+   "diff_%": 0.5
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "base",
+   "what": "N min",
+   "model": 132.6,
+   "model_comb": 7,
+   "cype": 132.8,
+   "cype_comb": 7,
+   "diff_%": -0.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "base",
+   "what": "|My| max",
+   "model": -187.7,
+   "model_comb": 4,
+   "cype": -185.8,
+   "cype_comb": 4,
+   "diff_%": 1.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 0.7,
+   "model_comb": 3,
+   "cype": 0.6,
+   "cype_comb": 3,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 474.4,
+   "model_comb": 4,
+   "cype": 469.8,
+   "cype_comb": 4,
+   "diff_%": 1.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 108.3,
+   "model_comb": 7,
+   "cype": 106.5,
+   "cype_comb": 7,
+   "diff_%": 1.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 193.1,
+   "model_comb": 4,
+   "cype": 191.5,
+   "cype_comb": 4,
+   "diff_%": 0.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P7",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -0.6,
+   "model_comb": 3,
+   "cype": -0.3,
+   "cype_comb": 3,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "base",
+   "what": "N max",
+   "model": 326.8,
+   "model_comb": 8,
+   "cype": 325.0,
+   "cype_comb": 8,
+   "diff_%": 0.5
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "base",
+   "what": "N min",
+   "model": -21.6,
+   "model_comb": 3,
+   "cype": -19.7,
+   "cype_comb": 3,
+   "diff_%": 9.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "base",
+   "what": "|My| max",
+   "model": -166.7,
+   "model_comb": 3,
+   "cype": -164.0,
+   "cype_comb": 3,
+   "diff_%": 1.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -0.7,
+   "model_comb": 4,
+   "cype": -0.5,
+   "cype_comb": 3,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 302.5,
+   "model_comb": 8,
+   "cype": 298.7,
+   "cype_comb": 8,
+   "diff_%": 1.3
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -45.9,
+   "model_comb": 3,
+   "cype": -46.0,
+   "cype_comb": 3,
+   "diff_%": -0.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 155.5,
+   "model_comb": 3,
+   "cype": 152.3,
+   "cype_comb": 3,
+   "diff_%": 2.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P8",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 0.7,
+   "model_comb": 4,
+   "cype": 0.4,
+   "cype_comb": 3,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "base",
+   "what": "N max",
+   "model": 497.3,
+   "model_comb": 4,
+   "cype": 495.8,
+   "cype_comb": 4,
+   "diff_%": 0.3
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "base",
+   "what": "N min",
+   "model": 72.5,
+   "model_comb": 7,
+   "cype": 72.4,
+   "cype_comb": 7,
+   "diff_%": 0.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "base",
+   "what": "|My| max",
+   "model": -181.0,
+   "model_comb": 4,
+   "cype": -179.1,
+   "cype_comb": 4,
+   "diff_%": 1.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 2.6,
+   "model_comb": 4,
+   "cype": 0.9,
+   "cype_comb": 4,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 473.0,
+   "model_comb": 4,
+   "cype": 469.5,
+   "cype_comb": 4,
+   "diff_%": 0.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 48.2,
+   "model_comb": 7,
+   "cype": 46.1,
+   "cype_comb": 7,
+   "diff_%": 4.5
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 184.0,
+   "model_comb": 4,
+   "cype": 182.1,
+   "cype_comb": 4,
+   "diff_%": 1.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P13",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -3.7,
+   "model_comb": 4,
+   "cype": -0.9,
+   "cype_comb": 4,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "base",
+   "what": "N max",
+   "model": 323.0,
+   "model_comb": 8,
+   "cype": 320.9,
+   "cype_comb": 8,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "base",
+   "what": "N min",
+   "model": -30.6,
+   "model_comb": 3,
+   "cype": -29.5,
+   "cype_comb": 3,
+   "diff_%": 3.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "base",
+   "what": "|My| max",
+   "model": -164.5,
+   "model_comb": 3,
+   "cype": -162.5,
+   "cype_comb": 3,
+   "diff_%": 1.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 1.4,
+   "model_comb": 6,
+   "cype": 0.4,
+   "cype_comb": 2,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 298.7,
+   "model_comb": 8,
+   "cype": 294.6,
+   "cype_comb": 8,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -54.9,
+   "model_comb": 3,
+   "cype": -55.8,
+   "cype_comb": 3,
+   "diff_%": -1.6
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 154.5,
+   "model_comb": 3,
+   "cype": 151.9,
+   "cype_comb": 3,
+   "diff_%": 1.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P14",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -2.6,
+   "model_comb": 6,
+   "cype": -0.8,
+   "cype_comb": 2,
+   "diff_%": null
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "base",
+   "what": "N max",
+   "model": 521.5,
+   "model_comb": 4,
+   "cype": 513.8,
+   "cype_comb": 4,
+   "diff_%": 1.5
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "base",
+   "what": "N min",
+   "model": 140.7,
+   "model_comb": 7,
+   "cype": 139.2,
+   "cype_comb": 7,
+   "diff_%": 1.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "base",
+   "what": "|My| max",
+   "model": -180.0,
+   "model_comb": 4,
+   "cype": -181.2,
+   "cype_comb": 4,
+   "diff_%": -0.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -8.0,
+   "model_comb": 6,
+   "cype": -1.9,
+   "cype_comb": 6,
+   "diff_%": 322.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 497.2,
+   "model_comb": 4,
+   "cype": 487.5,
+   "cype_comb": 4,
+   "diff_%": 2.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 116.4,
+   "model_comb": 7,
+   "cype": 112.9,
+   "cype_comb": 7,
+   "diff_%": 3.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 187.0,
+   "model_comb": 4,
+   "cype": 188.5,
+   "cype_comb": 4,
+   "diff_%": -0.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P15",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 14.3,
+   "model_comb": 6,
+   "cype": 3.6,
+   "cype_comb": 6,
+   "diff_%": 297.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "base",
+   "what": "N max",
+   "model": 311.9,
+   "model_comb": 4,
+   "cype": 311.9,
+   "cype_comb": 4,
+   "diff_%": -0.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "base",
+   "what": "N min",
+   "model": 31.8,
+   "model_comb": 7,
+   "cype": 29.7,
+   "cype_comb": 7,
+   "diff_%": 7.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "base",
+   "what": "|My| max",
+   "model": -162.8,
+   "model_comb": 4,
+   "cype": -166.5,
+   "cype_comb": 4,
+   "diff_%": -2.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 21.0,
+   "model_comb": 4,
+   "cype": 14.7,
+   "cype_comb": 8,
+   "diff_%": 42.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 287.6,
+   "model_comb": 4,
+   "cype": 285.7,
+   "cype_comb": 4,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "N min",
+   "model": 7.5,
+   "model_comb": 7,
+   "cype": 3.5,
+   "cype_comb": 7,
+   "diff_%": 114.3
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 161.1,
+   "model_comb": 4,
+   "cype": 164.4,
+   "cype_comb": 4,
+   "diff_%": -2.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P16",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -36.8,
+   "model_comb": 4,
+   "cype": -26.7,
+   "cype_comb": 8,
+   "diff_%": 37.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "base",
+   "what": "N max",
+   "model": 353.6,
+   "model_comb": 8,
+   "cype": 347.4,
+   "cype_comb": 8,
+   "diff_%": 1.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "base",
+   "what": "N min",
+   "model": -7.9,
+   "model_comb": 3,
+   "cype": -8.0,
+   "cype_comb": 3,
+   "diff_%": -1.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "base",
+   "what": "|My| max",
+   "model": -157.1,
+   "model_comb": 3,
+   "cype": -157.5,
+   "cype_comb": 3,
+   "diff_%": -0.2
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": -9.5,
+   "model_comb": 4,
+   "cype": -3.6,
+   "cype_comb": 4,
+   "diff_%": 165.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 329.3,
+   "model_comb": 8,
+   "cype": 321.1,
+   "cype_comb": 8,
+   "diff_%": 2.6
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -32.2,
+   "model_comb": 3,
+   "cype": -34.3,
+   "cype_comb": 3,
+   "diff_%": -6.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 145.9,
+   "model_comb": 3,
+   "cype": 145.5,
+   "cype_comb": 3,
+   "diff_%": 0.3
+  },
+  {
+   "family": "ELS",
+   "pile": "P17",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": 15.6,
+   "model_comb": 4,
+   "cype": 5.9,
+   "cype_comb": 4,
+   "diff_%": 164.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "base",
+   "what": "N max",
+   "model": 188.2,
+   "model_comb": 8,
+   "cype": 184.3,
+   "cype_comb": 8,
+   "diff_%": 2.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "base",
+   "what": "N min",
+   "model": -46.4,
+   "model_comb": 3,
+   "cype": -51.4,
+   "cype_comb": 3,
+   "diff_%": -9.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "base",
+   "what": "|My| max",
+   "model": -157.1,
+   "model_comb": 3,
+   "cype": -160.5,
+   "cype_comb": 3,
+   "diff_%": -2.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "base",
+   "what": "|Mx| max",
+   "model": 19.1,
+   "model_comb": 8,
+   "cype": 19.7,
+   "cype_comb": 4,
+   "diff_%": -3.1
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "N max",
+   "model": 163.9,
+   "model_comb": 8,
+   "cype": 158.0,
+   "cype_comb": 8,
+   "diff_%": 3.7
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "N min",
+   "model": -70.7,
+   "model_comb": 3,
+   "cype": -77.7,
+   "cype_comb": 3,
+   "diff_%": -9.0
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "|My| max",
+   "model": 151.1,
+   "model_comb": 3,
+   "cype": 153.8,
+   "cype_comb": 3,
+   "diff_%": -1.8
+  },
+  {
+   "family": "ELS",
+   "pile": "P18",
+   "where": "cabeza",
+   "what": "|Mx| max",
+   "model": -34.7,
+   "model_comb": 8,
+   "cype": -36.2,
+   "cype_comb": 4,
+   "diff_%": -4.0
+  }
+ ],
+ "beam_envelopes": [
+  {
+   "family": "ELU",
+   "portico": "Pórtico 3",
+   "tramo": "P1-P2",
+   "section": "80x55+15x30",
+   "what": "M- cara pilote mar",
+   "model": -312.3,
+   "cype_listing": -315.48,
+   "cype_drawing": -318.8,
+   "diff_%": 2.0
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 3",
+   "tramo": "P1-P2",
+   "section": "80x55+15x30",
+   "what": "M- cara pilote tierra",
+   "model": 0.9,
+   "cype_listing": null,
+   "cype_drawing": null,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 3",
+   "tramo": "P1-P2",
+   "section": "80x55+15x30",
+   "what": "M+ vano",
+   "model": 269.8,
+   "cype_listing": 275.15,
+   "cype_drawing": 275.15,
+   "diff_%": -1.9
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 3",
+   "tramo": "P1-P2",
+   "section": "80x55+15x30",
+   "what": "V cara mar",
+   "model": 316.7,
+   "cype_listing": 333.92,
+   "cype_drawing": null,
+   "diff_%": -5.1
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 3",
+   "tramo": "P1-P2",
+   "section": "80x55+15x30",
+   "what": "V cara tierra",
+   "model": -159.2,
+   "cype_listing": -165.91,
+   "cype_drawing": null,
+   "diff_%": 4.1
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 4",
+   "tramo": "P3-P4",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote mar",
+   "model": -271.8,
+   "cype_listing": -266.03,
+   "cype_drawing": -273.71,
+   "diff_%": 0.7
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 4",
+   "tramo": "P3-P4",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote tierra",
+   "model": -3.5,
+   "cype_listing": null,
+   "cype_drawing": null,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 4",
+   "tramo": "P3-P4",
+   "section": "50x55+15x30+15x30",
+   "what": "M+ vano",
+   "model": 285.9,
+   "cype_listing": 294.61,
+   "cype_drawing": 294.6,
+   "diff_%": -2.9
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 4",
+   "tramo": "P3-P4",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara mar",
+   "model": 433.1,
+   "cype_listing": 471.19,
+   "cype_drawing": null,
+   "diff_%": -8.1
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 4",
+   "tramo": "P3-P4",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara tierra",
+   "model": -323.6,
+   "cype_listing": -333.66,
+   "cype_drawing": null,
+   "diff_%": 3.0
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 5",
+   "tramo": "P5-P6",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote mar",
+   "model": -312.7,
+   "cype_listing": -305.42,
+   "cype_drawing": -312.87,
+   "diff_%": 0.1
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 5",
+   "tramo": "P5-P6",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote tierra",
+   "model": -2.6,
+   "cype_listing": null,
+   "cype_drawing": null,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 5",
+   "tramo": "P5-P6",
+   "section": "50x55+15x30+15x30",
+   "what": "M+ vano",
+   "model": 272.6,
+   "cype_listing": 270.09,
+   "cype_drawing": 270.09,
+   "diff_%": 0.9
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 5",
+   "tramo": "P5-P6",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara mar",
+   "model": 417.3,
+   "cype_listing": 440.82,
+   "cype_drawing": null,
+   "diff_%": -5.3
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 5",
+   "tramo": "P5-P6",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara tierra",
+   "model": -292.2,
+   "cype_listing": -298.84,
+   "cype_drawing": null,
+   "diff_%": 2.2
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 6",
+   "tramo": "P7-P8",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote mar",
+   "model": -267.3,
+   "cype_listing": -256.9,
+   "cype_drawing": -264.0,
+   "diff_%": -1.2
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 6",
+   "tramo": "P7-P8",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote tierra",
+   "model": -2.7,
+   "cype_listing": null,
+   "cype_drawing": null,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 6",
+   "tramo": "P7-P8",
+   "section": "50x55+15x30+15x30",
+   "what": "M+ vano",
+   "model": 275.6,
+   "cype_listing": 275.5,
+   "cype_drawing": 275.49,
+   "diff_%": 0.1
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 6",
+   "tramo": "P7-P8",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara mar",
+   "model": 405.5,
+   "cype_listing": 438.61,
+   "cype_drawing": null,
+   "diff_%": -7.6
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 6",
+   "tramo": "P7-P8",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara tierra",
+   "model": -295.7,
+   "cype_listing": -306.21,
+   "cype_drawing": null,
+   "diff_%": 3.4
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 7",
+   "tramo": "P13-P14",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote mar",
+   "model": -304.3,
+   "cype_listing": -296.38,
+   "cype_drawing": -303.83,
+   "diff_%": -0.2
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 7",
+   "tramo": "P13-P14",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote tierra",
+   "model": -2.6,
+   "cype_listing": null,
+   "cype_drawing": null,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 7",
+   "tramo": "P13-P14",
+   "section": "50x55+15x30+15x30",
+   "what": "M+ vano",
+   "model": 266.3,
+   "cype_listing": 262.67,
+   "cype_drawing": 262.67,
+   "diff_%": 1.4
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 7",
+   "tramo": "P13-P14",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara mar",
+   "model": 411.8,
+   "cype_listing": 434.91,
+   "cype_drawing": null,
+   "diff_%": -5.3
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 7",
+   "tramo": "P13-P14",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara tierra",
+   "model": -292.2,
+   "cype_listing": -298.84,
+   "cype_drawing": null,
+   "diff_%": 2.2
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 8",
+   "tramo": "P15-P17",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote mar",
+   "model": -254.4,
+   "cype_listing": -247.96,
+   "cype_drawing": -255.61,
+   "diff_%": 0.5
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 8",
+   "tramo": "P15-P17",
+   "section": "50x55+15x30+15x30",
+   "what": "M- cara pilote tierra",
+   "model": -3.5,
+   "cype_listing": null,
+   "cype_drawing": null,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 8",
+   "tramo": "P15-P17",
+   "section": "50x55+15x30+15x30",
+   "what": "M+ vano",
+   "model": 281.4,
+   "cype_listing": 291.11,
+   "cype_drawing": 291.09,
+   "diff_%": -3.3
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 8",
+   "tramo": "P15-P17",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara mar",
+   "model": 426.3,
+   "cype_listing": 464.06,
+   "cype_drawing": null,
+   "diff_%": -8.1
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 8",
+   "tramo": "P15-P17",
+   "section": "50x55+15x30+15x30",
+   "what": "V cara tierra",
+   "model": -323.6,
+   "cype_listing": -333.66,
+   "cype_drawing": null,
+   "diff_%": 3.0
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 9",
+   "tramo": "P16-P18",
+   "section": "80x55+15x30",
+   "what": "M- cara pilote mar",
+   "model": -284.9,
+   "cype_listing": -287.95,
+   "cype_drawing": -291.23,
+   "diff_%": 2.2
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 9",
+   "tramo": "P16-P18",
+   "section": "80x55+15x30",
+   "what": "M- cara pilote tierra",
+   "model": 0.9,
+   "cype_listing": null,
+   "cype_drawing": null,
+   "diff_%": null
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 9",
+   "tramo": "P16-P18",
+   "section": "80x55+15x30",
+   "what": "M+ vano",
+   "model": 242.4,
+   "cype_listing": 247.61,
+   "cype_drawing": 247.61,
+   "diff_%": -2.1
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 9",
+   "tramo": "P16-P18",
+   "section": "80x55+15x30",
+   "what": "V cara mar",
+   "model": 298.8,
+   "cype_listing": 315.96,
+   "cype_drawing": null,
+   "diff_%": -5.4
+  },
+  {
+   "family": "ELU",
+   "portico": "Pórtico 9",
+   "tramo": "P16-P18",
+   "section": "80x55+15x30",
+   "what": "V cara tierra",
+   "model": -159.2,
+   "cype_listing": -165.91,
+   "cype_drawing": null,
+   "diff_%": 4.1
+  }
+ ]
+}

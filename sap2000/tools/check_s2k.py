@@ -127,11 +127,12 @@ def main() -> None:
     for r in t.get("JOINT LOADS - FORCE", []):
         tot[r["LoadPat"]] -= float(r["F3"])
     sec_area = {r["SectionName"]: (float(r["Area"]) if "Area" in r else float(r["t3"]) * float(r["t2"]),
-                                   r["Material"]) for r in t["FRAME SECTION PROPERTIES 01 - GENERAL"]}
+                                   r["Material"], float(r.get("WMod", 1)))
+                for r in t["FRAME SECTION PROPERTIES 01 - GENERAL"]}
     gamma = {r["Material"]: float(r["UnitWeight"]) for r in t["MATERIAL PROPERTIES 02 - BASIC MECHANICAL PROPERTIES"]}
     for r in t["FRAME SECTION ASSIGNMENTS"]:
-        A, mat = sec_area[r["AnalSect"]]
-        tot["PP (self weight)"] += A * gamma[mat] * flen[r["Frame"]]
+        A, mat, wmod = sec_area[r["AnalSect"]]
+        tot["PP (self weight)"] += A * gamma[mat] * flen[r["Frame"]] * wmod
 
     print(f"{path.name}: {len(joints)} joints, {len(frames)} frames, {len(areas)} areas, "
           f"{len(pats)} load patterns, {len(combos)} combinations, {len(t)} tables")

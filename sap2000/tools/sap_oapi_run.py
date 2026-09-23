@@ -100,14 +100,14 @@ def define_model(m, model: dict) -> None:
                                                    "I3Mod", "MMod", "WMod")]
         check(m.PropFrame.SetModifiers(fs.name, mods), f"PropFrame.SetModifiers {fs.name}")
 
-    # slab: thin shell (ShellType 1 = shell-thin), orthotropic behaviour via modifiers
-    slab = model["slab"]
-    check(m.PropArea.SetShell_1(slab["name"], 1, True, slab["material"], 0.0, slab["thickness"],
-                                slab["thickness"]), "SetShell_1")
-    # [f11, f22, f12, m11, m22, m12, v13, v23, mass, weight]
-    check(m.PropArea.SetModifiers(slab["name"], [1, 1, 1, slab["m11"], slab["m22"], slab["m12"],
-                                                 1, 1, slab["mass_mod"], slab["weight_mod"]]),
-          "PropArea.SetModifiers")
+    # slab: thin shells (ShellType 1 = shell-thin), orthotropic behaviour via modifiers
+    for sl in model["slab_sections"].values():
+        check(m.PropArea.SetShell_1(sl["name"], 1, True, sl["material"], 0.0, sl["thickness"],
+                                    sl["thickness"]), f"SetShell_1 {sl['name']}")
+        # [f11, f22, f12, m11, m22, m12, v13, v23, mass, weight]
+        check(m.PropArea.SetModifiers(sl["name"], [1, 1, 1, sl["m11"], sl["m22"], sl["m12"],
+                                                   1, 1, sl["mass_mod"], sl["weight_mod"]]),
+              f"PropArea.SetModifiers {sl['name']}")
 
     # joints
     for name, (x, y, z) in model["joints"].items():
