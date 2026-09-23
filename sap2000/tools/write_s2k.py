@@ -184,6 +184,11 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
     s.table("FRAME LOCAL AXES ASSIGNMENTS 1 - TYPICAL", [
         {"Frame": f["name"], "Angle": f["angle"], "AdvanceAxes": False}
         for f in model["frames"] if f.get("angle")])
+    obj_mod = [("AMod", "AMod"), ("A2Mod", "AS2Mod"), ("A3Mod", "AS3Mod"), ("JMod", "JMod"),
+               ("I2Mod", "I22Mod"), ("I3Mod", "I33Mod"), ("MMod", "MassMod"), ("WMod", "WeightMod")]
+    s.table("FRAME PROPERTY MODIFIERS", [
+        {"Frame": f["name"], **{fld: float(f["modifiers"].get(k, 1.0)) for k, fld in obj_mod}}
+        for f in model["frames"] if f.get("modifiers")])
     s.table("FRAME OUTPUT STATION ASSIGNMENTS", [
         {"Frame": f["name"], "StationType": "MaxStaSpcg", "MaxStaSpcg": f["station_max"],
          "AddAtElmInt": True, "AddAtPtLoad": True} for f in model["frames"]])

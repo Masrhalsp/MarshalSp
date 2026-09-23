@@ -126,6 +126,11 @@ def define_model(m, model: dict) -> None:
         # MyType 1 = maximum segment size, MinSections, output at element ends and point loads
         check(m.FrameObj.SetOutputStations(f["name"], 1, f["station_max"], 2, False, False),
               f"SetOutputStations {f['name']}")
+        if f.get("modifiers"):
+            # object modifiers (beam segments inside a pile): A, As2, As3, J, I22, I33, mass, weight
+            mods = [float(f["modifiers"].get(k, 1.0)) for k in
+                    ("AMod", "A2Mod", "A3Mod", "JMod", "I2Mod", "I3Mod", "MMod", "WMod")]
+            check(m.FrameObj.SetModifiers(f["name"], mods), f"FrameObj.SetModifiers {f['name']}")
         if f.get("offsets") and any(f["offsets"]):
             # user-defined rigid end zones: AutoOffset False, Length1, Length2, RZ = 1
             check(m.FrameObj.SetEndLengthOffset(f["name"], False, f["offsets"][0], f["offsets"][1], 1.0),
@@ -258,6 +263,7 @@ def extract(m, model: dict) -> dict:
             y0 = model["joints"][f["i"]][1]
             for r in frame_force(m, f["name"]):
                 r["axis"], r["y"] = f["axis"], y0 + r["station"]
+                r["rigid"] = bool(f.get("rigid"))
                 raw["beam_forces"].append(r)
     for j in model["cype_names"]:
         if not j.startswith("B"):
@@ -280,6 +286,8 @@ def to_compare_inputs(raw: dict) -> tuple[dict, dict, dict]:
             pile_head.setdefault(pile, {})[pat] = pile_to_cype(vals)
     beams: dict = {}
     for r in raw["beam_forces"]:
+        if r.get("rigid"):          # segments inside a pile: not part of the beam span
+            continue
         beams.setdefault(r["axis"], {}).setdefault(r["case"], []).append((r["y"], r["M3"], -r["V2"]))
     return pile_base, pile_head, beams
 

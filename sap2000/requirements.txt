@@ -1,0 +1,7 @@
+# offline tools (write_s2k, check_s2k, verify_pynite, tests)
+numpy
+scipy
+PyNiteFEA>=3.2
+openpyxl
+# SAP2000 route (Windows only)
+comtypes; sys_platform == "win32"

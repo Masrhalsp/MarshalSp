@@ -44,14 +44,19 @@ PILE_LENGTH = 7.25
 Z_BASE = 0.00                                          # empotramiento
 Z_DECK = round(Z_BASE + PILE_LENGTH, 6)                # deck nodes = top of beams
 
-# Deck mesh (slab shells): X step ~0.5 m, Y lines at the edge, both pile rows and 5 between
+# Deck mesh (slab shells): X step ~0.5 m.  Y lines: sea edge beam, both faces of the sea pile
+# (+-0.20) and the pile axis, a line FACE_CLOSE beyond each inner pile face, equal divisions
+# between them, the land pile faces/axis and the land edge beam.  The lines at the pile faces
+# make the slab load beyond the face travel through the beam (correct face shear).
 MESH_DX_TARGET = 0.50
 MESH_NY_BETWEEN_PILES = 6
+FACE_CLOSE = 0.05
 
 # Rigid end zones (CYPECAD "nudos con dimensión finita"): the top 0.55 m of every pile lies
 # inside the beam depth (altura libre 6.70 m) and the beams are rigid inside the pile width.
 PILE_TOP_RIGID = 0.55
 BEAM_RIGID_AT_PILE = 0.20
+RIGID_MOD = 100.0            # stiffness modifier of beam segments lying inside a pile
 # CYPE counts the pile self weight over the flexible 6.70 m only (the top 0.55 m is beam).
 PILE_WEIGHT_MOD = round((PILE_LENGTH - PILE_TOP_RIGID) / PILE_LENGTH, 6)
 
@@ -83,8 +88,10 @@ class Material:
 
 
 # Concrete unit weight: the text says 25 kN/m3; CYPECAD works with 2.5 t/m3 x 9.81 =
-# 24.525 kN/m3 (pile self weight between base and head in §3.3 = 26.2 kN over 6.70 m, and the
-# §3.7 total of 1343.9 kN is reproduced only with this value).  Use 25.0 for a design check.
+# 24.525 kN/m3 (the pile self weight between base and head in §3.3, 26.2-26.3 kN over 6.70 m,
+# is reproduced only with this value; 25 would give 26.8).  Use 25.0 for a design check.
+# Note: the model loads the full 40.0 x 4.30 = 172 m2 deck (CM, Qa) while the CYPE totals of
+# §3.7 correspond to 170 m2; the origin of the 2 m2 (end-region geometry?) is unresolved.
 GAMMA_CONCRETE = 24.525
 
 MATERIALS = [
@@ -114,7 +121,9 @@ def frame_sections() -> dict[str, FrameSection]:
     vt = inverted_tee("VIGA_T50x55_ALAS15x30", 0.50, 0.55, 0.15, 0.30,
                       "Viga T invertida: alma 50x55 + ala inferior 15x30 a cada lado")
     vl = inverted_l("VIGA_L80x55_ALA15x30", 0.80, 0.55, 0.15, 0.30, wing_side=+1,
-                    description="Viga extrema: alma 80x55 + un ala inferior 15x30 (lado del vano)")
+                    description="Viga extrema X=0: alma 80x55 + ala inferior 15x30 hacia +X (vano)")
+    vlm = inverted_l("VIGA_L80x55_ALA15x30_M", 0.80, 0.55, 0.15, 0.30, wing_side=-1,
+                     description="Viga extrema X=39: alma 80x55 + ala inferior 15x30 hacia -X (vano)")
     vb = rectangle("VIGA_BORDE_25x30", 0.25, 0.30, "Viga de borde longitudinal 25x30")
     return {
         "PILOTE_40x40": FrameSection(
@@ -128,6 +137,9 @@ def frame_sections() -> dict[str, FrameSection]:
         "VIGA_L80x55_ALA15x30": FrameSection(
             "VIGA_L80x55_ALA15x30", "HA-35", vl, "General",
             note="Propiedades calculadas de la sección compuesta en L invertida"),
+        "VIGA_L80x55_ALA15x30_M": FrameSection(
+            "VIGA_L80x55_ALA15x30_M", "HA-35", vlm, "General",
+            note="Idem, simétrica (ala hacia -X) para el eje 7"),
         "VIGA_BORDE_25x30": FrameSection(
             "VIGA_BORDE_25x30", "HA-35", vb, "Rectangular", modifiers={"WMod": EDGE_BEAM_WEIGHT_MOD},
             note="WMod: the lengths inside the transverse-beam webs are counted once (by the "
@@ -154,7 +166,8 @@ SLAB_SECTION = {
 # Plates are simply supported on the ledge of the END beams (no continuity towards the joint
 # of the module): the first/last row of shells next to X = 0 and X = 39 gets a hinge-like
 # bending stiffness (m11 x SLAB_END_FACTOR).  Calibrated against the CYPE end-pile moments
-# (Mx) and pile reactions (see README §5).
+# (Mx) and pile reactions (see README §4).  Do not go below ~0.01: in a thin shell a smaller
+# factor also removes the strip's ability to carry shear to the end beam.
 SLAB_END_SECTION = "ALVEOPLACA_P25_5_APOYO"
 SLAB_END_FACTOR = 0.01
 
@@ -288,8 +301,13 @@ def mesh_lines() -> tuple[list[float], list[float]]:
         xs += [a + (b - a) * k / n for k in range(n)]
     xs.append(AXES_X[-1])
     n = MESH_NY_BETWEEN_PILES
-    ys = [Y_SEA, Y_PILE_SEA]
-    ys += [Y_PILE_SEA + (Y_PILE_LAND - Y_PILE_SEA) * k / n for k in range(1, n + 1)]
+    h = BEAM_RIGID_AT_PILE
+    a, b = Y_PILE_SEA + h + FACE_CLOSE, Y_PILE_LAND - h - FACE_CLOSE
+    ys = [Y_SEA, Y_PILE_SEA - h, Y_PILE_SEA, Y_PILE_SEA + h]
+    ys += [a + (b - a) * k / n for k in range(n + 1)]
+    ys += [Y_PILE_LAND - h, Y_PILE_LAND]
+    if Y_LAND - (Y_PILE_LAND + h) > 0.10:          # land face line only if not a sliver
+        ys.append(Y_PILE_LAND + h)
     ys.append(Y_LAND)
     return [_r(x) for x in xs], [_r(y) for y in ys]
 
@@ -370,19 +388,32 @@ def build_model() -> dict:
 
     # ---- transverse beams (CYPE pórticos 3..9): Y -0.50 -> 3.80, split at every mesh line ----
     portico_of_axis = {a: a + 2 for a in range(1, N_AXES + 1)}
-    pile_rows = {Y_PILE_SEA, Y_PILE_LAND}
+    zones = [(p - BEAM_RIGID_AT_PILE, p + BEAM_RIGID_AT_PILE) for p in (Y_PILE_SEA, Y_PILE_LAND)]
     for a, x in enumerate(AXES_X, start=1):
-        sec = "VIGA_L80x55_ALA15x30" if a in (1, N_AXES) else "VIGA_T50x55_ALAS15x30"
+        sec = {1: "VIGA_L80x55_ALA15x30", N_AXES: "VIGA_L80x55_ALA15x30_M"}.get(a, "VIGA_T50x55_ALAS15x30")
         ix = ix_axis[x]
         line = [f"C{a}S"] + [dj(ix, iy) for iy in range(len(ys))] + [f"C{a}L"]
         for k in range(len(line) - 1):
             ja, jb = line[k], line[k + 1]
-            off_i = BEAM_RIGID_AT_PILE if joints[ja][1] in pile_rows else 0.0
-            off_j = BEAM_RIGID_AT_PILE if joints[jb][1] in pile_rows else 0.0
+            ya, yb = joints[ja][1], joints[jb][1]
+            rigid = any(lo - 1e-9 <= ya and yb <= hi + 1e-9 for lo, hi in zones)
+            off_i = off_j = 0.0
+            if not rigid:          # partial overlap with a pile: rigid end offset
+                for lo, hi in zones:
+                    if lo - 1e-9 <= ya < hi - 1e-9:
+                        off_i = hi - ya
+                    if lo + 1e-9 < yb <= hi + 1e-9:
+                        off_j = yb - lo
             name = f"VT{a}_{k + 1}"
-            frames.append({"name": name, "i": ja, "j": jb, "section": sec, "kind": "beam_t",
-                           "axis": a, "portico": portico_of_axis[a], "angle": 0.0,
-                           "station_max": 0.25, "offsets": (off_i, off_j)})
+            fr = {"name": name, "i": ja, "j": jb, "section": sec, "kind": "beam_t",
+                  "axis": a, "portico": portico_of_axis[a], "angle": 0.0,
+                  "station_max": 0.25, "offsets": (_r(off_i), _r(off_j))}
+            if rigid:
+                # segment wholly inside the pile width: rigid (stiffness x RIGID_MOD, own weight)
+                fr["rigid"] = True
+                fr["modifiers"] = {k2: RIGID_MOD for k2 in ("AMod", "A2Mod", "A3Mod", "JMod",
+                                                             "I2Mod", "I3Mod")}
+            frames.append(fr)
             grp("VIGAS_TRANSVERSALES", "Frame", name)
             grp(f"PORTICO_{portico_of_axis[a]}", "Frame", name)
 

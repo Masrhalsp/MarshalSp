@@ -11,7 +11,8 @@ Idealisation differences with respect to the SAP2000 model (all minor):
     every deck mesh line Y = const with EI = 63550 kN m2/m x tributary width;
   * the rigid deck diaphragm is emulated with stiff pin-ended diagonals in every mesh cell;
   * surface loads are lumped to the four corner joints of each cell;
-  * rigid end zones are modelled as very stiff sub-members (SAP2000: end length offsets, RZ=1).
+  * rigid end zones are modelled as very stiff sub-members (SAP2000: end length offsets, RZ=1,
+    and stiffness modifiers x100 on beam segments lying wholly inside a pile).
 
 Usage:  python tools/verify_pynite.py [--json out.json] [--ref ref/cype_reference.json]
 """
@@ -43,6 +44,8 @@ def vecP(vx: float, vy: float, vz: float) -> tuple[float, float, float]:
 
 def segments(model: dict, fr: dict) -> list[tuple[str, str, str, bool]]:
     """Split a frame with rigid end zones into (name, node_a, node_b, is_rigid) pieces."""
+    if fr.get("rigid"):
+        return [(fr["name"], fr["i"], fr["j"], True)]
     li, lj = fr.get("offsets") or (0.0, 0.0)
     if li <= 0 and lj <= 0:
         return [(fr["name"], fr["i"], fr["j"], False)]
@@ -220,8 +223,9 @@ def pile_head_forces(fe: FEModel3D, model: dict, pat: str, pile: str) -> dict:
     # internal forces of the part below the cut, CYPE convention (action on the lower part)
     N = FZ - w * z
     Qx, Qy = -FX, -FY
-    My = MX + FY * z          # M_int,X(z) = -(MX + (z e3 x F)_X) ; My = -M_int,X
-    Mx = -(MY - FX * z)       # Mx = M_int,Y = -(MY + (z e3 x F)_Y)
+    # moment acting on the lower part at the cut: M_top = -(M_reac + ((-z e3) x F_reac))
+    My = MX + FY * z          # My = -M_top,X = MX + z*FY
+    Mx = -(MY - FX * z)       # Mx = +M_top,Y = -(MY - z*FX)
     return {"N": N, "Mx": Mx, "My": My, "Qx": Qx, "Qy": Qy, "T": -MZ}
 
 

@@ -13,7 +13,7 @@ Combinations are built by linear superposition with the factors of model/trasmal
 exactly the CYPE tables of §1.6.2 (first-order values; the CYPE design tables §3.5/§4.2 add
 second-order eccentricities and are not compared).
 
-SAP2000 -> CYPE conversion (derived in README §6):
+SAP2000 -> CYPE conversion (derived in README §5):
     pile base reaction:  N = F3, Qx = -F1, Qy = -F2, Mx = -M2, My = M1, T = -M3
     pile frame forces:   N = -P, Qx = V2, Qy = V3, Mx = M3, My = M2, T = T
                          (CSI: +M3 compresses the +2 face, +M2 compresses the +3 face)
@@ -62,6 +62,20 @@ def pile_hypothesis_rows(pile_base: dict, ref: dict) -> list[dict]:
             cy = base[pile][HYP[pat]]
             for c in COMPS:
                 m = pile_base[pile][pat][c]
+                rows.append({"pile": pile, "hyp": pat, "comp": c, "model": round(m, 2),
+                             "cype": cy[c], "diff": round(m - cy[c], 2)})
+    return rows
+
+
+def pile_head_rows(pile_head: dict, ref: dict) -> list[dict]:
+    """Signed per-hypothesis comparison at the pile head section (§3.3 'Cabeza', z = 6.70)."""
+    head_ref = ref["pile_forces_by_hypothesis_3_3"]["piles"]
+    rows = []
+    for pile in sorted(pile_head, key=lambda s: int(s[1:])):
+        for pat in tm.PATTERN_ORDER:
+            cy = head_ref[pile]["hyp"][HYP[pat]]["Cabeza"]
+            for c in COMPS:
+                m = pile_head[pile][pat][c]
                 rows.append({"pile": pile, "hyp": pat, "comp": c, "model": round(m, 2),
                              "cype": cy[c], "diff": round(m - cy[c], 2)})
     return rows
@@ -165,6 +179,8 @@ def build_report(pile_base: dict, pile_head: dict | None, beams: dict | None, re
            "totals": totals_rows(pile_base, ref),
            "pile_hypotheses": pile_hypothesis_rows(pile_base, ref),
            "pile_envelopes": pile_envelope_rows(pile_base, pile_head, ref)}
+    if pile_head:
+        rep["pile_head_hypotheses"] = pile_head_rows(pile_head, ref)
     if beams:
         rep["beam_envelopes"] = beam_envelope_rows(beams, ref, "ELU")
     return rep
@@ -180,7 +196,7 @@ def _md_table(rows: list[dict], cols: list[str]) -> list[str]:
 def write_report(rep: dict, out_dir: Path, stem: str) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{stem}.json").write_text(json.dumps(rep, indent=1, ensure_ascii=False), encoding="utf-8")
-    for key in ("totals", "pile_hypotheses", "pile_envelopes", "beam_envelopes"):
+    for key in ("totals", "pile_hypotheses", "pile_head_hypotheses", "pile_envelopes", "beam_envelopes"):
         rows = rep.get(key)
         if rows:
             with open(out_dir / f"{stem}_{key}.csv", "w", newline="", encoding="utf-8") as fh:
@@ -205,13 +221,17 @@ def write_report(rep: dict, out_dir: Path, stem: str) -> Path:
         md += ["", "## Vigas transversales — envolvente E.L.U. (tramo entre caras de pilotes)", ""]
         md += _md_table(rep["beam_envelopes"], ["portico", "section", "what", "model",
                                                 "cype_listing", "cype_drawing", "diff_%"])
-    md += ["", "## Arranques por hipótesis: máxima diferencia por componente", ""]
-    worst = {}
-    for r in rep["pile_hypotheses"]:
-        k = (r["hyp"], r["comp"])
-        if k not in worst or abs(r["diff"]) > abs(worst[k]["diff"]):
-            worst[k] = r
-    md += _md_table(list(worst.values()), ["hyp", "comp", "pile", "model", "cype", "diff"])
+    for key, title in (("pile_hypotheses", "Arranques (base, §3.4)"),
+                       ("pile_head_hypotheses", "Cabeza de pilotes (z = 6.70, §3.3)")):
+        if not rep.get(key):
+            continue
+        md += ["", f"## {title} por hipótesis: máxima diferencia (con signo) por componente", ""]
+        worst = {}
+        for r in rep[key]:
+            k = (r["hyp"], r["comp"])
+            if k not in worst or abs(r["diff"]) > abs(worst[k]["diff"]):
+                worst[k] = r
+        md += _md_table(list(worst.values()), ["hyp", "comp", "pile", "model", "cype", "diff"])
     path = out_dir / f"{stem}.md"
     path.write_text("\n".join(md) + "\n", encoding="utf-8")
     return path
