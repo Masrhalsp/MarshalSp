@@ -230,8 +230,9 @@ def cype_to_global(N, Mx, My, Qx, Qy, T):
 
 # name, SAP design type, self-weight multiplier, description
 LOAD_PATTERNS = [
-    ("PP", "Dead", 1.0, "Peso propio: vigas y pilotes (25 kN/m3) + alveoplaca 4.10 kN/m2"),
-    ("CM", "Super Dead", 0.0, "Cargas muertas 1.80 kN/m2"),
+    ("PP", "Dead", 1.0, f"Peso propio: vigas y pilotes ({GAMMA_CONCRETE} kN/m3) + alveoplaca "
+                        f"{Q_SLAB_PP:.2f} kN/m2"),
+    ("CM", "Dead", 0.0, f"Cargas muertas {Q_CM:.2f} kN/m2 (listado CYPE; nominal 1.80)"),
     ("Qa", "Live", 0.0, "Sobrecarga de uso 15 kN/m2"),
     ("TB1", "Other", 0.0, "Tiro bolardo: 75 kN en P9/P11/P19/P20 + cargas en cabeza de pilotes"),
     ("TB2", "Other", 0.0, "Tiro Bolardo 2: +53 kN vertical (hacia abajo) en los bolardos"),

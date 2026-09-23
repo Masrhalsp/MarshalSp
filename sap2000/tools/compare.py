@@ -15,7 +15,8 @@ second-order eccentricities and are not compared).
 
 SAP2000 -> CYPE conversion (derived in README §6):
     pile base reaction:  N = F3, Qx = -F1, Qy = -F2, Mx = -M2, My = M1, T = -M3
-    pile frame forces:   N = -P, Qx = V2, Qy = V3, Mx = M3, My = -M2, T = T
+    pile frame forces:   N = -P, Qx = V2, Qy = V3, Mx = M3, My = M2, T = T
+                         (CSI: +M3 compresses the +2 face, +M2 compresses the +3 face)
     transverse beams:    M = M3, V = -V2 (frames drawn from the sea side to the land side)
 """
 

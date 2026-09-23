@@ -6113,20 +6113,21 @@ TABLE:  "GROUPS 2 - ASSIGNMENTS"
    GroupName=CYPE_PILARES   ObjectType=Joint   ObjectLabel=D78_0
  
 TABLE:  "LOAD PATTERN DEFINITIONS"
-   LoadPat=PP   DesignType=Dead   SelfWtMult=1   Notes="Peso propio: vigas y pilotes (25 kN/m3) + alveoplaca 4.10 kN/m2"
-   LoadPat=CM   DesignType=Dead   SelfWtMult=0   Notes="Cargas muertas 1.80 kN/m2"
-   LoadPat=Qa   DesignType=Live   SelfWtMult=0   Notes="Sobrecarga de uso 15 kN/m2"
-   LoadPat=TB1   DesignType=Other   SelfWtMult=0   Notes="Tiro bolardo: 75 kN en P9/P11/P19/P20 + cargas en cabeza de pilotes"
-   LoadPat=TB2   DesignType=Other   SelfWtMult=0   Notes="Tiro Bolardo 2: +53 kN vertical (hacia abajo) en los bolardos"
-   LoadPat=TB3   DesignType=Other   SelfWtMult=0   Notes="Tiro bolardo 3: -53 kN vertical (hacia arriba) en los bolardos"
+   LoadPat=PP   DesignType=Dead   SelfWtMult=1
+   LoadPat=CM   DesignType=Dead   SelfWtMult=0
+   LoadPat=Qa   DesignType=Live   SelfWtMult=0
+   LoadPat=TB1   DesignType=Other   SelfWtMult=0
+   LoadPat=TB2   DesignType=Other   SelfWtMult=0
+   LoadPat=TB3   DesignType=Other   SelfWtMult=0
  
 TABLE:  "LOAD CASE DEFINITIONS"
-   Case=PP   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Dead   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes
-   Case=CM   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Dead   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes
-   Case=Qa   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Live   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes
-   Case=TB1   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Other   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes
-   Case=TB2   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Other   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes
-   Case=TB3   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Other   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes
+   Case=PP   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Dead   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes _
+        Notes="Peso propio: vigas y pilotes (24.525 kN/m3) + alveoplaca 4.10 kN/m2"
+   Case=CM   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Dead   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes   Notes="Cargas muertas 1.75 kN/m2 (listado CYPE; nominal 1.80)"
+   Case=Qa   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Live   DesActOpt="Prog Det"   DesignAct="Short-Term Composite"   AutoType=None   RunCase=Yes   Notes="Sobrecarga de uso 15 kN/m2"
+   Case=TB1   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Other   DesActOpt="Prog Det"   DesignAct=Other   AutoType=None   RunCase=Yes   Notes="Tiro bolardo: 75 kN en P9/P11/P19/P20 + cargas en cabeza de pilotes"
+   Case=TB2   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Other   DesActOpt="Prog Det"   DesignAct=Other   AutoType=None   RunCase=Yes   Notes="Tiro Bolardo 2: +53 kN vertical (hacia abajo) en los bolardos"
+   Case=TB3   Type=LinStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Other   DesActOpt="Prog Det"   DesignAct=Other   AutoType=None   RunCase=Yes   Notes="Tiro bolardo 3: -53 kN vertical (hacia arriba) en los bolardos"
  
 TABLE:  "CASE - STATIC 1 - LOAD ASSIGNMENTS"
    Case=PP   LoadType="Load pattern"   LoadName=PP   LoadSF=1

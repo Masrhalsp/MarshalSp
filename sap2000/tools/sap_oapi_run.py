@@ -38,7 +38,7 @@ from compare import build_report, load_ref, write_report  # noqa: E402
 
 KN_M_C = 6            # eUnits.kN_m_C
 DIR_GRAVITY = 10      # load direction "Gravity" (positive downwards)
-PATTERN_TYPE = {"Dead": 1, "Super Dead": 2, "Live": 3, "Other": 8}   # eLoadPatternType
+PATTERN_TYPE = {"Dead": 1, "Live": 3, "Other": 8}   # eLoadPatternType
 
 
 def rc(ret):
@@ -78,9 +78,9 @@ def define_model(m, model: dict) -> None:
         check(m.PropMaterial.SetMaterial(mat.name, 2), f"SetMaterial {mat.name}")
         check(m.PropMaterial.SetMPIsotropic(mat.name, mat.E, mat.nu, mat.alpha), f"SetMPIsotropic {mat.name}")
         check(m.PropMaterial.SetWeightAndMass(mat.name, 1, mat.unit_weight), f"SetWeightAndMass {mat.name}")
-        # Fc, IsLightweight, FcsFactor, SSType 1 (parametric simple), SSHysType 2 (Takeda),
+        # Fc, IsLightweight, FcsFactor, SSType 2 (Mander, as in the .$2k), SSHysType 2 (Takeda),
         # StrainAtFc, StrainUltimate, FinalSlope
-        check(m.PropMaterial.SetOConcrete_1(mat.name, mat.fc, False, 0, 1, 2, 0.002, 0.0035, -0.1),
+        check(m.PropMaterial.SetOConcrete_1(mat.name, mat.fc, False, 0, 2, 2, 0.002, 0.0035, -0.1),
               f"SetOConcrete_1 {mat.name}")
 
     # ---- frame sections -----------------------------------------------------------------------
@@ -226,8 +226,11 @@ def base_to_cype(r: dict) -> dict:
 
 
 def pile_to_cype(r: dict) -> dict:
-    """Pile frame forces (local 1 = +Z, 2 = +X, 3 = +Y) -> CYPE pile forces."""
-    return {"N": -r["P"], "Mx": r["M3"], "My": -r["M2"], "Qx": r["V2"], "Qy": r["V3"], "T": r["T"]}
+    """Pile frame forces (local 1 = +Z, 2 = +X, 3 = +Y) -> CYPE pile forces.
+
+    CSI convention: positive M3 compresses the +2 face (right-hand vector along +3 on the
+    positive face) but positive M2 compresses the +3 face (vector along -2), hence My = +M2."""
+    return {"N": -r["P"], "Mx": r["M3"], "My": r["M2"], "Qx": r["V2"], "Qy": r["V3"], "T": r["T"]}
 
 
 def _interp(rows: list[dict], x: float, key: str) -> float:

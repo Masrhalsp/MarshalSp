@@ -206,14 +206,15 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
         for g, objs in model["groups"].items() for kind, name in objs])
 
     # ---- load patterns, cases, combinations --------------------------------------------------
-    s2k_type = {"Dead": "Dead", "Super Dead": "Dead", "Live": "Live", "Other": "Other"}
+    design_act = {"Dead": "Non-Composite", "Live": "Short-Term Composite", "Other": "Other"}
     s.table("LOAD PATTERN DEFINITIONS", [
-        {"LoadPat": n, "DesignType": s2k_type[dt], "SelfWtMult": float(sw), "Notes": note}
-        for n, dt, sw, note in tm.LOAD_PATTERNS])
+        {"LoadPat": n, "DesignType": dt, "SelfWtMult": float(sw)}
+        for n, dt, sw, _ in tm.LOAD_PATTERNS])
     s.table("LOAD CASE DEFINITIONS", [
         {"Case": n, "Type": "LinStatic", "InitialCond": "Zero", "DesTypeOpt": "Prog Det",
-         "DesignType": s2k_type[dt], "DesActOpt": "Prog Det", "DesignAct": "Non-Composite",
-         "AutoType": "None", "RunCase": True} for n, dt, _, _ in tm.LOAD_PATTERNS])
+         "DesignType": dt, "DesActOpt": "Prog Det", "DesignAct": design_act[dt],
+         "AutoType": "None", "RunCase": True, "Notes": note}
+        for n, dt, _, note in tm.LOAD_PATTERNS])
     s.table("CASE - STATIC 1 - LOAD ASSIGNMENTS", [
         {"Case": n, "LoadType": "Load pattern", "LoadName": n, "LoadSF": 1.0}
         for n, *_ in tm.LOAD_PATTERNS])
