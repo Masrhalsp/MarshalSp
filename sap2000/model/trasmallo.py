@@ -285,6 +285,72 @@ COMBOS = {
 
 
 # ============================================================================================
+# 5b. SEISMIC ACTION  (supervisor decision, Sep 2026: "actualiza el sismo según el sismo de
+#     Rover"; Anejo 10 had discarded it with NCSE-02, ab = 0.07g).  Source: neighbouring Rover
+#     pier, CP2406-PC-MR-ANE-06-SE-Recr.CalcEstr-D01 §3.4.1.5 and §5.1.2.6 / §5.1.3.4
+#     (diseno/referencia_rover/pdf).
+# ============================================================================================
+# Rover: ag,R = 0.15g (Anejo Nacional UNE-EN 1998-1), K = 1, soil type D -> C = 2.2,
+# rho = 0.85, S = 1.91 (as printed; the NCSE-02 formula with C = 2.2 would give 1.69),
+# ac = ab·S·rho = 0.2435g.  The spectra plotted by Rover (plateau 0.609 = 2.5·ac, vertical
+# plateau 0.42 = 0.7 x horizontal) are the NCSE-02 elastic shape (no ductility reduction,
+# 5 % damping) with TA = K·C/10 and TB = K·C/2.5.
+SEISMIC = {
+    "ab_g": 0.15, "K": 1.0, "C": 2.2, "rho": 0.85, "S": 1.91,
+    "ac_g": round(0.15 * 1.91 * 0.85, 6),          # 0.2435
+    "vertical_factor": 0.7,
+    "damping": 0.05,
+    "n_modes": 30,                                 # Rover EW1: 30 eigenvalues
+    "modal_combination": "SRSS",                   # Rover: SRSS per direction
+    "directional": (1.0, 0.3, 0.3),                # Rover K3 "1.0_0.3_0.3"
+    # seismic mass: permanent loads + psi2·Qa (ROM 2.0-11 quasi-permanent 12.0/15 = 0.8,
+    # the same factor Rover applies to SCO in the seismic combination)
+    "mass_source": {"self_mass": True, "patterns": {"PP": 1.0, "CM": 1.0, "Qa": 0.8}},
+    "psi2_Qa": 0.8,
+    "ref": "Rover CP2406 Anejo de Calculo de Estructuras §3.4.1.5, §5.1.2.6, §5.1.3.4",
+}
+SEISMIC["TA"] = round(SEISMIC["K"] * SEISMIC["C"] / 10.0, 6)     # 0.22 s
+SEISMIC["TB"] = round(SEISMIC["K"] * SEISMIC["C"] / 2.5, 6)      # 0.88 s
+
+
+def seismic_alpha(T: float) -> float:
+    """NCSE-02 elastic spectral amplification alpha(T) (Sa = ac·alpha)."""
+    TA, TB = SEISMIC["TA"], SEISMIC["TB"]
+    if T < TA:
+        return 1.0 + 1.5 * T / TA
+    if T <= TB:
+        return 2.5
+    return 2.5 * TB / T
+
+
+def seismic_spectrum(direction: str = "H", t_max: float = 4.0) -> list[tuple[float, float]]:
+    """(T [s], Sa/g) points of the horizontal ("H") or vertical ("V") design spectrum."""
+    f = 1.0 if direction == "H" else SEISMIC["vertical_factor"]
+    ts = sorted({0.0, SEISMIC["TA"], SEISMIC["TB"], *[round(0.02 * i, 4) for i in range(1, 11)],
+                 *[round(0.1 * i, 4) for i in range(3, int(t_max * 10) + 1)]})
+    return [(t, round(f * SEISMIC["ac_g"] * seismic_alpha(t), 6)) for t in ts]
+
+
+# response-spectrum cases: name, SAP direction, spectrum
+SEISMIC_CASES = [("EQX", "U1", "H"), ("EQY", "U2", "H"), ("EQZ", "U3", "V")]
+
+
+def seismic_combos() -> dict[str, dict]:
+    """Seismic (accidental) combinations G + AEd + psi2·Qa (Código Estructural Anejo 18,
+    Rover §5.1.3.4): the leading direction at 1.0 and the other two at 0.3.  Response-spectrum
+    results are positive envelopes, so each is combined with + and - (SIS..P / SIS..N) and with
+    and without Qa ("si es crítico")."""
+    d1, d2, d3 = SEISMIC["directional"]
+    lead = {"X": (d1, d2, d3), "Y": (d2, d1, d3), "Z": (d2, d3, d1)}
+    out = {}
+    for L, (fx, fy, fz) in lead.items():
+        for q, qtag in ((SEISMIC["psi2_Qa"], "Q"), (0.0, "")):
+            out[f"SIS{L}{qtag}"] = {"static": {"PP": 1.0, "CM": 1.0, "Qa": q},
+                                     "rs": {"EQX": fx, "EQY": fy, "EQZ": fz}}
+    return out
+
+
+# ============================================================================================
 # 6. MODEL ASSEMBLY
 # ============================================================================================
 def _r(v: float, nd: int = 6) -> float:
@@ -499,6 +565,8 @@ def build_model() -> dict:
         },
         "materials": MATERIALS, "cype_names": cype_names, "mesh": {"xs": xs, "ys": ys},
         "diaphragm": {"name": "TABLERO", "joints": deck},
+        "seismic": {**SEISMIC, "cases": SEISMIC_CASES, "combos": seismic_combos(),
+                    "spectra": {"H": seismic_spectrum("H"), "V": seismic_spectrum("V")}},
     }
 
 
