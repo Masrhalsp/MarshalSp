@@ -15,6 +15,15 @@ Outputs
     diseno/python/output/diseno_final.json                the data behind the two (incl. the ψ2 curves)
     diseno/python/figuras/d1..d8_*.png      figures for the reports (150 dpi)
 
+Seismic block (separate, behind a flag; the static outputs above are neither recomputed nor rewritten):
+
+    python3 diseno/python/run_diseno.py --sismo            # runs diseno/python/sismo (~70 s)
+    python3 diseno/python/run_diseno.py --sismo --reuse    # reuses diseno/python/output/sismo.json
+
+    diseno/python/output/sismo.json|md                      modal / response-spectrum analysis and checks
+    diseno/python/output/Diseno_Codigo_Estructural_sismo.xlsx   sheet 'Sismo' (native chart)
+    diseno/python/figuras/d9_sismo.png                      spectrum + η static vs seismic
+
 Nothing is recomputed here except what the figures and the ψ2 sensitivity need (the ψ2,Qa curves of
 the inner beams with the provided and the proposed bottom steel, the N-M interaction curve of the
 pile and an indicative confinement estimate); every verdict number comes from pilotes.json /
@@ -45,6 +54,8 @@ XLSX = OUT / "Diseno_Codigo_Estructural.xlsx"
 MD = OUT / "diseno_final.md"
 JSON_OUT = OUT / "diseno_final.json"
 
+SISMO_XLSX = OUT / "Diseno_Codigo_Estructural_sismo.xlsx"
+SISMO_FIG = "d9_sismo.png"
 SHEETS = ("Resumen", "Pilotes_ELU", "Pilotes_As", "Pilotes_ELS", "Vigas_Flexion", "Vigas_Cortante",
           "Vigas_Fisuracion", "Propuesta", "Comparacion_CYPE", "Supuestos")
 FIGURES = ("d1_pilotes_eta.png", "d2_pilotes_As.png", "d3_vigas_flexion.png", "d4_fisuracion_psi2.png",
@@ -1771,6 +1782,169 @@ def write_figures(D: dict, P: dict, V: dict, inter: dict, fig_dir: Path = FIG) -
 
 
 # =============================================================================================
+# seismic block (--sismo): new files only
+# =============================================================================================
+def load_sismo(reuse: bool, out: Path = OUT, verbose: bool = True) -> dict:
+    """sismo.json: with ``reuse`` read from diseno/python/output (if present), otherwise computed by
+    diseno/python/sismo/run_sismo.py and written (json + md) to ``out``."""
+    sys.path.insert(0, str(DISENO / "sismo"))
+    import run_sismo
+    if reuse and (OUT / run_sismo.JSON_PATH.name).exists():
+        return json.loads((OUT / run_sismo.JSON_PATH.name).read_text(encoding="utf-8"))
+    R = run_sismo.run(verbose=verbose)
+    run_sismo.write(R, out)
+    return R
+
+
+def fig_d9(R: dict, path: Path) -> None:
+    """(a) NCSE-02 elastic spectra with the fundamental periods; (b) governing pile η static vs seismic;
+    (c) transverse-beam bending η static vs seismic."""
+    plt = _mpl()
+    fig, axs = plt.subplots(1, 3, figsize=(15, 4.4), gridspec_kw={"width_ratios": [1.0, 1.5, 1.0]})
+    ax = axs[0]
+    for key, col, lab in (("H", C_ROM, "horizontal"), ("V", C_CECY, "vertical (x 0.7)")):
+        t, sa = zip(*R["spectrum"][key])
+        ax.plot(t, sa, color=col, lw=2, label=lab)
+    s = R["summary"]
+    for T in (s["T"]["X"], s["T"]["Y"], s["T"]["torsion"]):
+        ax.axvline(T, color=MUTED, lw=0.9, ls=(0, (3, 3)))
+    ax.text(1.25, 0.08, f"T1,X = {s['T']['X']:.3f} s\nT1,Y = {s['T']['Y']:.3f} s\nTθ = {s['T']['torsion']:.3f} s",
+            fontsize=8.5, color=INK2, va="bottom")
+    ax.set_ylim(0, 0.7)
+    ax.set_xlabel("T [s]")
+    ax.set_ylabel("Sa / g")
+    ax.set_xlim(0, 3)
+    ax.set_title("Espectro elástico NCSE-02 (ac = 0.2435 g)", loc="left")
+    ax.legend(loc="upper right")
+    ax = axs[1]
+    piles = [r for r in R["piles"]]
+    x = np.arange(len(piles))
+    w = 0.38
+    ax.bar(x - w / 2, [r["eta_nm_static"] for r in piles], w * 0.92, color=C_ROM, label="estático ELU (ROM)", zorder=2)
+    ax.bar(x + w / 2, [r["eta_nm"] for r in piles], w * 0.92, color=C_CECY, label="sísmico (accidental)", zorder=2)
+    ax.axhline(1.0, color=C_LIMIT, lw=1.4, ls=(0, (5, 3)), zorder=3)
+    ax.set_xticks(x, [r["pile"] for r in piles])
+    ax.set_ylabel("η N-M (1º / 2º orden)")
+    ax.set_title("Pilotes: η N-M gobernante", loc="left")
+    ax.legend(loc="upper left", ncol=2)
+    ax.set_ylim(0, max(2.0, max(r["eta_nm"] for r in piles) * 1.1))
+    ax = axs[2]
+    beams = [r for r in R["beams"] if r["variant"] == "dispuesto"]
+    x = np.arange(len(beams))
+    ax.bar(x - w / 2, [r["eta_M_static"] for r in beams], w * 0.92, color=C_ROM, label="estático", zorder=2)
+    ax.bar(x + w / 2, [r["eta_M"] for r in beams], w * 0.92, color=C_CECY, label="sísmico", zorder=2)
+    ax.axhline(1.0, color=C_LIMIT, lw=1.4, ls=(0, (5, 3)), zorder=3)
+    ax.set_xticks(x, [r["member"] for r in beams])
+    ax.set_ylabel("η flexión")
+    ax.set_title("Vigas transversales: η flexión", loc="left")
+    ax.set_ylim(0, max(1.6, max(r["eta_M"] for r in beams) * 1.1))
+    fig.text(0.5, -0.03, "Sísmico: G + 0.8·Qa (o sin Qa) ± (1.0·E_L + 0.3·E_otras), envolventes SRSS de 30 modos, "
+                         "γc = 1.3, γs = 1.0 (CE Anejo 19 Tabla A19.2.1). Estático: diseno_final (ROM, Mode.CODIGO).",
+             ha="center", fontsize=8, color=MUTED)
+    fig.tight_layout()
+    fig.savefig(path)
+    plt.close(fig)
+
+
+def write_xlsx_sismo(R: dict, path: Path = SISMO_XLSX) -> Path:
+    """Workbook with the sheet 'Sismo': periods / participation, base shears, η static vs seismic
+    (piles, transverse beams) and a native bar chart."""
+    from openpyxl import Workbook
+    from openpyxl.chart import BarChart, Reference
+    from openpyxl.styles import Font, PatternFill
+
+    HEAD = PatternFill("solid", fgColor="1F4E78")
+    BAD, GOOD = PatternFill("solid", fgColor="F8CBAD"), PatternFill("solid", fgColor="E2EFDA")
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Sismo"
+    s = R["summary"]
+    ws["A1"] = "Sismo (acción del proyecto Rover, NCSE-02 elástico, ac = 0.2435 g) — análisis modal espectral independiente"
+    ws["A1"].font = Font(bold=True, size=13)
+    ws["A2"] = (f"Veredicto: el sismo {'gobierna' if s['governs'] else 'no gobierna'}; armado propuesto "
+                f"{'se mantiene' if s['holds'] else 'NO se mantiene'}. Pilotes η N-M {s['pile_eta_nm']:.2f} "
+                f"(estático {s['pile_eta_nm_static']:.3f}); vigas η flexión {s['beam_eta_M']:.2f} "
+                f"(estático {s['beam_eta_M_static']:.3f}). Detalle: diseno/python/output/sismo.md")
+    ws["A2"].font = Font(italic=True)
+    row = [4]
+
+    def table(title, headers, rows, eta_cols=()):
+        r0 = row[0]
+        ws.cell(r0, 1, title).font = Font(bold=True)
+        for j, h in enumerate(headers, 1):
+            c = ws.cell(r0 + 1, j, h)
+            c.font = Font(bold=True, color="FFFFFF")
+            c.fill = HEAD
+        for i, rr in enumerate(rows, r0 + 2):
+            for j, v in enumerate(rr, 1):
+                c = ws.cell(i, j, v)
+                if isinstance(v, float):
+                    c.number_format = "0.000"
+                if j in eta_cols and isinstance(v, (int, float)):
+                    c.fill = BAD if v > 1.0 else GOOD
+        row[0] = r0 + 2 + len(rows) + 1
+        return r0 + 2, r0 + 1 + len(rows)
+
+    table("Modos (30): periodo y masa participante", ["Modo", "T (s)", "Sa,H/g", "UX", "UY", "UZ", "ΣUX", "ΣUY", "ΣUZ"],
+          [[m["mode"], m["T"], m["Sa_H_g"], m["UX"], m["UY"], m["UZ"], m["sum_UX"], m["sum_UY"], m["sum_UZ"]]
+           for m in R["modes"]])
+    table("Cortante en la base (SRSS) [kN]", ["Caso", "FX", "FY", "FZ"],
+          [[f"EQ{d}", v["FX"], v["FY"], v["FZ"]] for d, v in R["base_shear"].items()])
+    a, b = table("Pilotes: η gobernante estático vs sísmico",
+                 ["Pilote", "η N-M estático", "η N-M sísmico", "Límite", "η V estático", "η V sísmico", "Combinación",
+                  "Posición"],
+                 [[r["pile"], r["eta_nm_static"], r["eta_nm"], 1.0, r["eta_v_static"], r["eta_v"], r["combo"],
+                   r["position"]] for r in R["piles"]], eta_cols=(2, 3, 5, 6))
+    ch = BarChart()
+    ch.type, ch.grouping, ch.title = "col", "clustered", "Pilotes: η N-M estático vs sísmico"
+    ch.y_axis.title = "η"
+    ch.height, ch.width = 9, 22
+    for c in (2, 3):
+        ch.add_data(Reference(ws, min_col=c, min_row=a - 1, max_row=b), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=a, max_row=b))
+    for srs, col in zip(ch.series, (C_ROM, C_CECY)):
+        srs.graphicalProperties.solidFill = col.lstrip("#")
+    ch.x_axis.delete = False
+    ch.y_axis.delete = False
+    ws.add_chart(ch, "L4")
+    table("Vigas transversales: η estático vs sísmico",
+          ["Viga", "Armado", "η flexión estático", "η flexión sísmico", "η estribos estático", "η estribos sísmico",
+           "η bielas sísmico", "η T+V sísmico (info)", "Sección", "Combinación"],
+          [[r["member"], r["variant"], r["eta_M_static"], r["eta_M"], r["eta_links_static"], r["eta_links"],
+            r["eta_Vmax"], r["eta_T_info"], r["M_section"], r["M_combo"]] for r in R["beams"]], eta_cols=(3, 4, 5, 6, 7))
+    if R.get("sensitivity"):
+        sm = s["sensitivity_mu2"]
+        table("Sensibilidad μ = 2 (NCSE-02 §3.7.3.1, fuerzas sísmicas / 2; no es veredicto)",
+              ["Pilotes η N-M", "Pilotes η V", "Vigas η flexión", "Vigas η flexión (propuesto)", "Vigas η T+V (info)"],
+              [[sm["pile_eta_nm"], sm["pile_eta_v"], sm["beam_eta_M"], sm["beam_eta_M_proposed"], sm["beam_eta_T_info"]]],
+              eta_cols=(1, 2, 3, 4, 5))
+    for col, w in zip("ABCDEFGHIJ", (10, 12, 12, 12, 12, 12, 26, 12, 26, 22)):
+        ws.column_dimensions[col].width = w
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(path)
+    return path
+
+
+def run_sismo_block(reuse: bool, out: Path, fig_dir: Path, figs: bool = True) -> dict:
+    R = load_sismo(reuse, out)
+    x = write_xlsx_sismo(R, out / SISMO_XLSX.name)
+    written = [x]
+    if figs:
+        try:
+            fig_dir.mkdir(parents=True, exist_ok=True)
+            fig_d9(R, fig_dir / SISMO_FIG)
+            written.append(fig_dir / SISMO_FIG)
+        except ImportError as e:
+            print("figures skipped:", e)
+    print("written " + ", ".join(str(p) for p in written))
+    s = R["summary"]
+    print(f"  sismo: T1X {s['T']['X']:.3f} s, T1Y {s['T']['Y']:.3f} s; pilotes η N-M {s['pile_eta_nm']:.2f} "
+          f"(estático {s['pile_eta_nm_static']:.3f}); vigas η M {s['beam_eta_M']:.2f} (estático "
+          f"{s['beam_eta_M_static']:.3f}); armado propuesto {'se mantiene' if s['holds'] else 'NO se mantiene'}")
+    return R
+
+
+# =============================================================================================
 # main
 # =============================================================================================
 def main(argv: list[str] | None = None) -> int:
@@ -1780,10 +1954,15 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-curves", action="store_true", help="skip the ψ2 curves (needs the SAP tables, ~10 s)")
     ap.add_argument("--out", default=str(OUT), help="output directory of the workbook / md / json")
     ap.add_argument("--fig-dir", default=str(FIG), help="output directory of the figures")
+    ap.add_argument("--sismo", action="store_true", help="only the seismic block: sismo.json|md, "
+                    "Diseno_Codigo_Estructural_sismo.xlsx, d9_sismo.png (static outputs untouched)")
     a = ap.parse_args(argv)
     t0 = time.time()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
+    if a.sismo:
+        run_sismo_block(a.reuse, out, Path(a.fig_dir), not a.no_figs)
+        return 0
     P, V = load_results(a.reuse, out)
     print(f"[{time.time() - t0:5.1f} s] results {'reused' if a.reuse else 'computed'}")
     curves = None if a.no_curves else psi2_curves(V)
