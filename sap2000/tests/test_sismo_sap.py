@@ -99,7 +99,7 @@ def test_seismic_records(model):
 
 def test_mass_source_no_double_count(model):
     ms = sis.mass_source(model)
-    assert tm.SEISMIC["mass_source"]["self_mass"] and not ms["elements"]     # PP carries the self weight
+    assert not tm.SEISMIC["mass_source"]["self_mass"] and not ms["elements"]     # PP carries the self weight
     assert ms["patterns"] == [("PP", 1.0), ("CM", 1.0), ("Qa", 0.8)]
     assert sis.seismic_mass_kN(tm.load_totals(model), model) == pytest.approx(3720.16, abs=0.05)
 
