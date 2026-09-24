@@ -27,6 +27,15 @@ and the design tables are then added or edited record by record.  Three files ar
     only the beam-section change (rectangle + modifiers), no design table: proves in SAP that the
     analysis is unchanged (compare with sap2000/resultados_sap) independently of any design table.
 
+Seismic variant (``--sismo``): the same three files with the suffix ``_sismo``
+(``Muelle_Trasmallo_40m_diseno_sismo.$2k``, ``..._diseno_sismo_overwrites.$2k``,
+``Muelle_Trasmallo_40m_rect_sismo.$2k``), built from ``write_s2k.build_tables(seismic=True)``
+(mass source, MODAL, FUNC_H/FUNC_V, EQX/EQY/EQZ, SIS* and ENV_SIS; titles/fields from real
+exports, see sap2000/tools/write_s2k.py) and with ``ConcDesign=Strength`` also on SISXQ ... SISZ.
+SAP designs SIS* with the persistent gamma_c/gamma_s of the preferences (1.5/1.15); the Código
+Estructural checks use the accidental 1.3/1.0 (datos_diseno_sap.SEISMIC_GAMMA).  Without
+``--sismo`` the files are written exactly as before.
+
 The files pass ``sap2000/tools/check_s2k.py``.
 """
 
@@ -197,14 +206,14 @@ def rebar_material_records() -> tuple[Record, Record, Record]:
 
 def build_design_tables(variant: str = "diseno", base: str = "CYPE", kphi: str | float = D.KPHI_DEFAULT,
                         info_areas: bool = True, model: dict | None = None,
-                        when: datetime.datetime | None = None) -> W.S2K:
-    """The .$2k of one variant (see the module docstring)."""
+                        when: datetime.datetime | None = None, seismic: bool = False) -> W.S2K:
+    """The .$2k of one variant (see the module docstring); ``seismic`` = the ``_sismo`` files."""
     if variant not in VARIANTS:
         raise ValueError(variant)
     model = model or D.base_model()
     dm = D.design_model(model, groups=variant != "rect")
-    header, tables = parse_lines(W.build_tables(dm, when).lines)
-    header[0] = header[0].replace(f"{STEM}.$2k", f"{file_stem(variant, base)}.$2k")
+    header, tables = parse_lines(W.build_tables(dm, when, seismic=seismic).lines)
+    header[0] = header[0].replace(f"{STEM}.$2k", f"{file_stem(variant, base, seismic)}.$2k")
     if variant == "rect":
         return render(header, tables)
 
@@ -227,7 +236,8 @@ def build_design_tables(variant: str = "diseno", base: str = "CYPE", kphi: str |
     combos = table(tables, T_COMBO)
     for r in combos:
         cname = get(r, "ComboName")
-        if get(r, "ConcDesign") is not None and re.fullmatch(fr"{fam}\d\d", cname or ""):
+        if get(r, "ConcDesign") is not None and (re.fullmatch(fr"{fam}\d\d", cname or "")
+                                                 or (seismic and cname in D.SEISMIC_COMBOS)):
             put(r, "ConcDesign", "Strength")
     combos.extend(combo_records("ROM", strength=base == "ROM"))
     insert_after(tables, T_COMBO, T_AUTO, [rec({"DesignType": "Concrete", "AutoGen": False})])
@@ -239,19 +249,19 @@ def build_design_tables(variant: str = "diseno", base: str = "CYPE", kphi: str |
     return render(header, tables)
 
 
-def file_stem(variant: str, base: str = "CYPE") -> str:
-    suffix = "" if base == "CYPE" else f"_{base}"
+def file_stem(variant: str, base: str = "CYPE", seismic: bool = False) -> str:
+    suffix = ("" if base == "CYPE" else f"_{base}") + ("_sismo" if seismic else "")
     return {"diseno": f"{STEM}_diseno{suffix}", "overwrites": f"{STEM}_diseno{suffix}_overwrites",
-            "rect": f"{STEM}_rect"}[variant]
+            "rect": f"{STEM}_rect" + ("_sismo" if seismic else "")}[variant]
 
 
 def write_all(out_dir: Path = OUT_DIR, base: str = "CYPE", kphi: str | float = D.KPHI_DEFAULT,
-              info_areas: bool = True, variants: tuple = VARIANTS) -> dict[str, Path]:
+              info_areas: bool = True, variants: tuple = VARIANTS, seismic: bool = False) -> dict[str, Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     paths = {}
     for v in variants:
-        s = build_design_tables(v, base, kphi, info_areas)
-        p = out_dir / f"{file_stem(v, base)}.$2k"
+        s = build_design_tables(v, base, kphi, info_areas, seismic=seismic)
+        p = out_dir / f"{file_stem(v, base, seismic)}.$2k"
         p.write_bytes(s.text().encode("ascii"))
         paths[v] = p
     return paths
@@ -270,10 +280,12 @@ def main() -> None:
                     help="write 0 instead of the provided beam areas in FRAME SECTION PROPERTIES 03")
     ap.add_argument("--decimal", choices=[".", ","], default=".")
     ap.add_argument("--variantes", nargs="+", choices=VARIANTS, default=list(VARIANTS))
+    ap.add_argument("--sismo", action="store_true",
+                    help="seismic files (_sismo): RS analysis + SIS* combos also designed (Strength)")
     args = ap.parse_args()
     W.DECIMAL = args.decimal
     kphi = args.kphi if args.kphi in D.KPHI_OPTIONS else float(args.kphi)
-    paths = write_all(args.out, args.base, kphi, not args.areas_cero, tuple(args.variantes))
+    paths = write_all(args.out, args.base, kphi, not args.areas_cero, tuple(args.variantes), args.sismo)
     for v, p in paths.items():
         n = len(p.read_bytes().splitlines())
         print(f"{v:10s} {p}  ({n} lines)")

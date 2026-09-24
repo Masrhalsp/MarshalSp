@@ -391,8 +391,24 @@ def combos(base: str) -> dict[str, tuple]:
     return {f"{b['family']}{k:02d}": tuple(fac) for k, fac in enumerate(b["factors"], start=1)}
 
 
-def design_combo_names(base: str) -> list[str]:
-    return list(combos(base))
+# Seismic variant (``--sismo`` of write_s2k_diseno.py / sap_oapi_diseno.py): the Rover seismic
+# combinations SIS{X,Y,Z}[Q] = PP + CM [+ 0.8 Qa] + 1.0/0.3/0.3 (EQX, EQY, EQZ) of
+# sap2000/model/trasmallo.py (Linear Add; SAP takes each RS case with + and -) are design
+# combinations too.  SAP's "Eurocode 2-2004" has ONE gamma_c / gamma_s pair (preferences 8/9 =
+# 1.5 / 1.15, persistent-transient) applied to every design combination, SIS* included; the
+# Código Estructural checks of diseno/python use the accidental factors 1.3 / 1.0 (CE Anejo 19,
+# Table 2.1N with the Spanish NA) for the seismic situation, so SAP's SIS* design is conservative
+# (HA-50: fcd = 50/1.5 = 33.3 instead of 50/1.3 = 38.5 MPa; fyd = 434.8 instead of 500 MPa).
+# The framing type is overwritten to DC Low (no EC8 capacity design; the Rover spectrum is
+# elastic, q = 1) and SAP takes theta = 45 deg in combos with seismic load (manual
+# CFD-EC-2-2004, beam shear design), equal to our TanTheta = 1 overwrite.
+SEISMIC_COMBOS = tuple(tm.seismic_combos())            # SISXQ, SISX, SISYQ, SISY, SISZQ, SISZ
+SEISMIC_GAMMA = {"SAP (persistent, all combos)": {"gamma_c": 1.5, "gamma_s": 1.15},
+                 "Codigo Estructural accidental (diseno/python)": {"gamma_c": 1.3, "gamma_s": 1.0}}
+
+
+def design_combo_names(base: str, seismic: bool = False) -> list[str]:
+    return list(combos(base)) + (list(SEISMIC_COMBOS) if seismic else [])
 
 
 # ============================================================================================

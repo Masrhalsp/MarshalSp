@@ -304,8 +304,10 @@ SEISMIC = {
     "modal_combination": "SRSS",                   # Rover: SRSS per direction
     "directional": (1.0, 0.3, 0.3),                # Rover K3 "1.0_0.3_0.3"
     # seismic mass: permanent loads + psi2·Qa (ROM 2.0-11 quasi-permanent 12.0/15 = 0.8,
-    # the same factor Rover applies to SCO in the seismic combination)
-    "mass_source": {"self_mass": True, "patterns": {"PP": 1.0, "CM": 1.0, "Qa": 0.8}},
+    # the same factor Rover applies to SCO in the seismic combination).  The PP pattern already
+    # carries the members' self weight (SelfWtMult = 1), so element self mass is OFF to avoid
+    # counting it twice (CSI Analysis Reference, Mass Source): total = G + 0.8·Qa = 3720 kN.
+    "mass_source": {"self_mass": False, "patterns": {"PP": 1.0, "CM": 1.0, "Qa": 0.8}},
     "psi2_Qa": 0.8,
     "ref": "Rover CP2406 Anejo de Calculo de Estructuras §3.4.1.5, §5.1.2.6, §5.1.3.4",
 }
@@ -338,8 +340,8 @@ SEISMIC_CASES = [("EQX", "U1", "H"), ("EQY", "U2", "H"), ("EQZ", "U3", "V")]
 def seismic_combos() -> dict[str, dict]:
     """Seismic (accidental) combinations G + AEd + psi2·Qa (Código Estructural Anejo 18,
     Rover §5.1.3.4): the leading direction at 1.0 and the other two at 0.3.  Response-spectrum
-    results are positive envelopes, so each is combined with + and - (SIS..P / SIS..N) and with
-    and without Qa ("si es crítico")."""
+    results are positive envelopes (SAP adds them with + and -, giving Max/Min), and each
+    combination exists with and without Qa ("si es crítico")."""
     d1, d2, d3 = SEISMIC["directional"]
     lead = {"X": (d1, d2, d3), "Y": (d2, d1, d3), "Z": (d2, d3, d1)}
     out = {}

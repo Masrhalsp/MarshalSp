@@ -15,6 +15,43 @@ Decimal separator: SAP2000 reads numbers with the Windows regional decimal symbo
 is written with "." (default); if Windows uses "," as decimal symbol either change it to "."
 before importing (Control Panel > Region > Additional settings) or write the file with
 ``--decimal ,``.  The OAPI route (tools/sap_oapi_run.py) is independent of this setting.
+
+Seismic variant (``--sismo``, default output ``output/Muelle_Trasmallo_40m_sismo.$2k``; without
+the flag the static file is written exactly as before).  It adds, to the static model, the
+response-spectrum analysis of ``tools/sismo_sap.py`` (data: ``model/trasmallo.py`` SEISMIC):
+records appended to LOAD CASE DEFINITIONS and COMBINATION DEFINITIONS, plus five new tables.
+Table titles and field names are copied from real SAP2000 exports (no field was invented):
+
+``MASS SOURCE``  MassSource Elements Masses Loads IsDefault LoadPat Multiplier, extra patterns
+    as continuation records "MassSource=.. LoadPat=.. Multiplier=..":
+    v26.3.0 https://github.com/berckanala/Proyecto_civil/blob/HEAD/Entrega_4/excel_codigos/vigas_est%C3%A1ticas.$2k
+    (DEAD 1 + SC 0.25), v26.3.0 https://github.com/IvanRivera007/gitdocs-2026/blob/HEAD/MAESTRIA%202DO%20TRIMESTRE/JULIAN%20DINAMICA%20ESTRUCTURAL/TAREA%204/prueba2.$2k ,
+    v25.1.0 https://github.com/boustrephon/fea_toolkit/blob/HEAD/tests/fixtures/sample_2.s2k ,
+    v20.1.0 https://github.com/MarkPThomas/MPT.Net/blob/HEAD/MPT/CSI/API/MPT.CSI.Serialize.SAP2000/model/test.$2k
+``FUNCTION - RESPONSE SPECTRUM - USER``  Name Period Accel, FuncDamp on the first record only:
+    v26.3.0 prueba2.$2k (above), v25.1.0 sample_2.s2k, v21.0.0 MPT.Net "RCDF 2017 CFD Ex001.$2k",
+    v20.1.0 MPT.Net test.$2k
+``LOAD CASE DEFINITIONS``  modal: Case Type=LinModal InitialCond=Zero DesTypeOpt DesignType=Other
+    DesActOpt DesignAct=Other AutoType RunCase (v26.3.0 prueba2.$2k, v25.1.0 sample_2.s2k,
+    v20.1.0 test.$2k); response spectrum: Case Type=LinRespSpec ModalCase DesTypeOpt
+    DesignType=Quake DesActOpt DesignAct="Short-Term Composite" AutoType RunCase, no InitialCond
+    (v25.1.0 sample_2.s2k RSX/RSY/RSZ, v25.2.0 OpenBIM "Example 1-022.s2k", v20.1.0 test.$2k)
+``CASE - MODAL 1 - GENERAL``  Case ModeType=Eigen MaxNumModes MinNumModes EigenShift EigenCutoff
+    EigenTol AutoShift (v26.3.0 prueba2.$2k, v25.1.0 sample_2.s2k with MaxNumModes=30, v25.3.1
+    OpenBIM WaterTower.s2k, v20.1.0 test.$2k)
+``CASE - RESPONSE SPECTRUM 1 - GENERAL``  Case ModalCombo GMCf1 GMCf2 PerRigid DirCombo ConstDamp
+    EccenRatio (v25.1.0 sample_2.s2k, v25.2.0 "Example 1-022.s2k" with ModalCombo=SRSS, v20.1.0
+    test.$2k; exports that also carry MotionType/DampingType/NumOverride exist, the shorter
+    record of sample_2.s2k is used so that no optional field is needed)
+``CASE - RESPONSE SPECTRUM 2 - LOAD ASSIGNMENTS``  Case LoadName=U1/U2/U3 CoordSys Function Angle
+    TransAccSF (v25.1.0 sample_2.s2k: U1/U2/U3 with TransAccSF=9.81, kN-m; v25.2.0 "Example
+    1-022.s2k")
+``COMBINATION DEFINITIONS`` with RS cases: v23+ rows by name without CaseType (v25.1.0
+    sample_2.s2k "Equake_X&Wind_X" = DEAD + SUPERDEAD + RSX + WIND_X + RSZ; v20.1.0 test.$2k
+    UDSTL6 = DEAD + ACASE1); the v20 variant keeps the CaseType field of the static combos,
+    CaseType="Response Spectrum" as in the .s2k export of the same v20.1.0 model
+    (https://github.com/MarkPThomas/MPT.Net/blob/HEAD/MPT/CSI/API/MPT.CSI.Serialize.SAP2000/model/test.s2k).
+Real SAP2000 exports list the tables alphabetically; the importer does not depend on the order.
 """
 
 from __future__ import annotations
@@ -28,8 +65,10 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT / "model"))
+sys.path.insert(0, str(HERE))
 
 import trasmallo as tm  # noqa: E402
+import sismo_sap as sis  # noqa: E402
 
 SAP_VERSION = "27.1.0"     # --version 20.1.0 writes the older (v20) field names
 LINE_LEN = 240
@@ -108,7 +147,9 @@ def _length(model: dict, f: dict) -> float:
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
 
 
-def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
+def build_tables(model: dict, when: datetime.datetime | None = None, seismic: bool = False) -> S2K:
+    """All tables of the model; ``seismic`` adds the response-spectrum analysis (module
+    docstring) without changing any record of the static model."""
     s = S2K()
     when = when or datetime.datetime(2026, 9, 23, 12, 0, 0)
     s.lines += [f"File Muelle_Trasmallo_40m.$2k was saved on {when.month}/{when.day}/"
@@ -227,14 +268,47 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
     s.table("LOAD PATTERN DEFINITIONS", [
         {"LoadPat": n, "DesignType": dt, "SelfWtMult": float(sw)}
         for n, dt, sw, _ in tm.LOAD_PATTERNS])
-    s.table("LOAD CASE DEFINITIONS", [
+    if seismic:
+        ms = sis.mass_source(model)
+        s.table("MASS SOURCE", [
+            {"MassSource": ms["name"], **({"Elements": ms["elements"], "Masses": ms["masses"],
+                                          "Loads": ms["loads"], "IsDefault": True} if k == 0 else {}),
+             "LoadPat": p, "Multiplier": f} for k, (p, f) in enumerate(ms["patterns"])])
+        damp = float(sis.data(model)["damping"])
+        s.table("FUNCTION - RESPONSE SPECTRUM - USER", [
+            {"Name": fn, "Period": float(t), "Accel": float(a), **({"FuncDamp": damp} if k == 0 else {})}
+            for fn, pts in sis.functions(model).items() for k, (t, a) in enumerate(pts)])
+    cases = [
         {"Case": n, "Type": "LinStatic", "InitialCond": "Zero", "DesTypeOpt": "Prog Det",
          "DesignType": dt, "DesActOpt": "Prog Det", "DesignAct": design_act[dt],
          "AutoType": "None", "RunCase": True, "Notes": note}
-        for n, dt, _, note in tm.LOAD_PATTERNS])
+        for n, dt, _, note in tm.LOAD_PATTERNS]
+    if seismic:
+        cases.append({"Case": sis.MODAL_CASE, "Type": "LinModal", "InitialCond": "Zero",
+                      "DesTypeOpt": "Prog Det", "DesignType": "Other", "DesActOpt": "Prog Det",
+                      "DesignAct": "Other", "AutoType": "None", "RunCase": True,
+                      "Notes": f"Modal (autovectores, {sis.n_modes(model)} modos) - sismo Rover"})
+        cases += [{"Case": c["case"], "Type": "LinRespSpec", "ModalCase": sis.MODAL_CASE,
+                   "DesTypeOpt": "Prog Det", "DesignType": "Quake", "DesActOpt": "Prog Det",
+                   "DesignAct": "Short-Term Composite", "AutoType": "None", "RunCase": True,
+                   "Notes": f"Espectro NCSE-02 elastico {c['func']} en {c['dir']}, {c['modal_comb']}"}
+                  for c in sis.rs_cases(model)]
+    s.table("LOAD CASE DEFINITIONS", cases)
     s.table("CASE - STATIC 1 - LOAD ASSIGNMENTS", [
         {"Case": n, "LoadType": "Load pattern", "LoadName": n, "LoadSF": 1.0}
         for n, *_ in tm.LOAD_PATTERNS])
+    if seismic:
+        s.table("CASE - MODAL 1 - GENERAL", [
+            {"Case": sis.MODAL_CASE, "ModeType": "Eigen", "MaxNumModes": sis.n_modes(model),
+             "MinNumModes": 1, "EigenShift": 0.0, "EigenCutoff": 0.0, "EigenTol": 1e-9, "AutoShift": True}])
+        rs = sis.rs_cases(model)
+        s.table("CASE - RESPONSE SPECTRUM 1 - GENERAL", [
+            {"Case": c["case"], "ModalCombo": c["modal_comb"], "GMCf1": 1.0, "GMCf2": 0.0,
+             "PerRigid": "SRSS", "DirCombo": "SRSS", "ConstDamp": c["damping"], "EccenRatio": 0.0}
+            for c in rs])
+        s.table("CASE - RESPONSE SPECTRUM 2 - LOAD ASSIGNMENTS", [
+            {"Case": c["case"], "LoadName": c["dir"], "CoordSys": "GLOBAL", "Function": c["func"],
+             "Angle": 0.0, "TransAccSF": c["sf"]} for c in rs])
 
     rows = []
 
@@ -259,6 +333,12 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
         combo(f"ENV_{fam}", "Envelope",
               [("Response Combo", f"{fam}{k:02d}", 1.0) for k in range(1, len(combos) + 1)],
               f"Envolvente {FAMILY_TITLE[fam]}")
+    if seismic:
+        kind_type = {"static": "Linear Static", "rs": "Response Spectrum"}
+        for c in sis.combos(model):
+            combo(c["name"], "Linear Add", [(kind_type[k], n, sf) for k, n, sf in c["items"]], c["notes"])
+        combo(sis.ENVELOPE, "Envelope", [("Response Combo", n, 1.0) for n in sis.combo_names(model)],
+              "Envolvente combinaciones sismicas (Rover)")
     s.table("COMBINATION DEFINITIONS", rows)
 
     # ---- loads ---------------------------------------------------------------------------------
@@ -281,7 +361,10 @@ def build_tables(model: dict, when: datetime.datetime | None = None) -> S2K:
 def main() -> None:
     global DECIMAL, SAP_VERSION
     ap = argparse.ArgumentParser()
-    ap.add_argument("-o", "--out", type=Path, default=ROOT / "output" / "Muelle_Trasmallo_40m.$2k")
+    ap.add_argument("-o", "--out", type=Path, default=None,
+                    help="default output/Muelle_Trasmallo_40m.$2k (with --sismo: ..._sismo.$2k)")
+    ap.add_argument("--sismo", action="store_true",
+                    help="add the seismic response-spectrum analysis (mass source, MODAL, EQX/EQY/EQZ, SIS*)")
     ap.add_argument("--version", default=SAP_VERSION,
                     help="SAP2000 version written in PROGRAM CONTROL (e.g. 27.1.0, 20.1.0)")
     ap.add_argument("--decimal", choices=[".", ","], default=".",
@@ -289,8 +372,12 @@ def main() -> None:
     args = ap.parse_args()
     DECIMAL = args.decimal
     SAP_VERSION = args.version
+    if args.out is None:
+        args.out = ROOT / "output" / ("Muelle_Trasmallo_40m_sismo.$2k" if args.sismo else "Muelle_Trasmallo_40m.$2k")
     model = tm.build_model()
-    s = build_tables(model)
+    s = build_tables(model, seismic=args.sismo)
+    if args.sismo:
+        s.lines[0] = s.lines[0].replace("Muelle_Trasmallo_40m.$2k", args.out.name)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_bytes(s.text().encode("ascii"))
     print(f"written {args.out}  ({len(s.lines)} lines, decimal '{DECIMAL}')")

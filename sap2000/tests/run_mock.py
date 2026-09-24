@@ -88,3 +88,36 @@ for key in ("totals", "pile_hypotheses", "pile_envelopes", "beam_envelopes"):
 
 json.dump({"sap": rep_sap, "pynite": rep_pn}, open(OUT / "reports.json", "w"), indent=1, ensure_ascii=False)
 print("calls:", json.dumps(mock_sap.CALLS, indent=0))
+
+# ---------------- 4. seismic variant (--sismo) through the mock -----------------------------
+import sismo_sap as sis  # noqa: E402
+
+mock_sap.CALLS.clear()
+m2 = mock_sap.SapModel(synth)
+raw_s = sor.run(sap_model=m2, sismo=True, out_dir=OUT, save=OUT / "x_sismo.sdb")
+st2 = m2._st
+rs_names = [c["case"] for c in sis.rs_cases(model)]
+assert st2.cases["MODAL"]["type"] == "Modal" and st2.cases["MODAL"]["max_modes"] == sis.n_modes(model)
+assert all(st2.cases[c]["type"] == "RS" and st2.cases[c]["modal"] == "MODAL" and st2.cases[c]["damp"] == 0.05
+           and st2.cases[c]["modal_comb"] == 2 for c in rs_names)
+assert [ld[:3] for c in rs_names for ld in st2.cases[c]["loads"]] == \
+    [(c["dir"], c["func"], sis.G) for c in sis.rs_cases(model)]
+ms = st2.mass_sources["MSSSRC1"]
+assert ms["default"] and ms["loads"] and not ms["elements"] and ms["patterns"] == [("PP", 1.0), ("CM", 1.0), ("Qa", 0.8)]
+assert set(st2.rs_funcs) >= {"FUNC_H", "FUNC_V"}
+assert st2.run_flags["MODAL"], "MODAL must run in the seismic variant"
+for c in sis.combos(model):
+    assert [(n, sf) for _t, n, sf in st2.combos[c["name"]]["items"]] == [(n, sf) for _k, n, sf in c["items"]]
+assert len(raw_s["modal_periods"]) == sis.n_modes(model) and len(raw_s["modal_mass"]) == sis.n_modes(model)
+assert {r["case"] for r in raw_s["rs_pile_forces"]} == set(rs_names)
+assert {r["step"] for r in raw_s["rs_pile_forces"]} == {"Max"}
+assert {r["case"] for r in raw_s["combo_pile_forces"]} == set(sis.combo_names(model))
+assert {r["step"] for r in raw_s["combo_reactions"]} == {"Max", "Min"}
+for key in ("reactions", "pile_forces", "beam_forces", "deck_displacements"):
+    assert raw_s[key] == raw[key], f"static results changed by --sismo: {key}"
+for f in ("resultados_SAP2000_sismo.json", "comparacion_SAP2000_sismo.md"):
+    assert (OUT / f).exists(), f
+print("seismic variant OK:", {k: len(v) for k, v in raw_s.items() if isinstance(v, list)})
+print("seismic summary:", {k: v for k, v in raw_s["seismic_summary"].items() if k != "pile_max"})
+print("seismic calls:", {k: v for k, v in mock_sap.CALLS.items()
+                         if any(t in k for t in ("Modal", "Spectrum", "Mass", "FuncRS", "Combo"))})

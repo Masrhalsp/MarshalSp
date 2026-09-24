@@ -31,7 +31,8 @@
 | `diseno/sap/sap_oapi_diseno.py` | اسکریپت پایتون (CSI OAPI): مدل را می‌سازد یا باز می‌کند، همهٔ تنظیمات طراحی را اعمال می‌کند، تحلیل و طراحی را اجرا می‌کند و نتایج را در `diseno/sap/output/diseno_SAP2000.json` و `.xlsx` می‌نویسد. |
 | `diseno/sap/leer_diseno_sap.py` | خروجی Excel طراحی SAP (یا JSON اسکریپت) را می‌خواند و جدول مقایسه با طراحی ما را می‌سازد: `comparacion_diseno_SAP.md/.json`. |
 | `diseno/sap/output/valores_esperados_SAP_CYPE.md` و `_ROM.md` | مقادیر **خود ما** در همان مقطع‌هایی که SAP گزارش می‌کند، و برای شمع‌ها تخمین نسبتی که روش خود SAP با نیروهای ما می‌دهد (`sap_est_M0e`، `sap_est_estacion`)؛ برای اینکه قبل از اجرا بدانید تقریباً چه عددی باید ببینید. |
-| `diseno/sap/write_s2k_diseno.py` | سازندهٔ فایل‌های `.$2k` بالا (`python3 diseno/sap/write_s2k_diseno.py`؛ گزینه‌ها: `--base ROM`، `--kphi cype|ce_is`، `--areas-cero`، `--decimal ,`). |
+| `diseno/sap/write_s2k_diseno.py` | سازندهٔ فایل‌های `.$2k` بالا (`python3 diseno/sap/write_s2k_diseno.py`؛ گزینه‌ها: `--base ROM`، `--kphi cype|ce_is`، `--areas-cero`، `--decimal ,`، `--sismo`). |
+| `diseno/sap/output/Muelle_Trasmallo_40m_diseno_sismo.$2k` (و `_diseno_sismo_overwrites.$2k`، `_rect_sismo.$2k`) | همان سه فایل **به‌اضافهٔ تحلیل طیفی زلزله** (Mass Source، MODAL با ۳۰ مود، طیف‌های FUNC_H/FUNC_V، حالت‌های EQX/EQY/EQZ، ترکیب‌های SIS* و ENV_SIS) و پرچم Strength روی SISXQ…SISZ. فایل‌های بدون `_sismo` دست‌نخورده‌اند و برای کنترل استاتیکی همچنان معتبرند. بخش ۵.۴. |
 
 **جداکنندهٔ اعشار ویندوز:** مثل فایل مدل قبلی، این فایل‌ها با نقطه (`.`) نوشته شده‌اند. اگر جداکنندهٔ اعشار ویندوز شما «,» یا «٫» است، یا آن را در *Control Panel › Region › Additional settings* به «.» تغییر دهید، یا فایل را با `python3 diseno/sap/write_s2k_diseno.py --decimal ,` بسازید. مسیر OAPI به این تنظیم وابسته نیست.
 
@@ -218,6 +219,7 @@ python diseno\sap\leer_diseno_sap.py diseno\sap\output\diseno_SAP2000.json
 - در ستون Strength فقط **ELU01 … ELU22** باشد: ضرایب CYPE یعنی `G: 1.35/1.00`، `Qa: 1.50` با `ψ0 = 0.7`، و `Tiro bolardo: 1.50` با `ψ0 = 0.6`. این ترکیب‌ها برای مقایسه با Anejo 10 است.
 - برای **مبنای ROM** (طراحی نهایی ما، `ψ0,Qa = 1.0`)، ELU را بردارید و **ELR01 … ELR22** را اضافه کنید. این ترکیب‌ها در فایل موجودند.
 - `ENV_*`، `CIM*` و `ELS*` نباید انتخاب شوند. SAP با ترکیب Envelope ارتباط هم‌زمانی نیروها را از دست می‌دهد.
+- در فایل‌های `_sismo`، ترکیب‌های زلزله **SISXQ، SISX، SISYQ، SISY، SISZQ، SISZ** هم در ستون Strength هستند (`ENV_SIS` نه). بخش ۵.۴.
 
 ### ۴.۸ اجرای طراحی
 
@@ -257,6 +259,31 @@ python diseno\sap\leer_diseno_sap.py diseno\sap\output\diseno_SAP2000.json
 
 سپس در پنجرهٔ جدول‌ها: **File › Export All Tables › To Excel** (یا Export Current Table). نام فایل را مثلاً `SAP27_Diseno_Hormigon.xlsx` بگذارید. واحد نمایش مهم نیست (kN-m یا N-mm)؛ `leer_diseno_sap.py` از سطر واحدها تبدیل می‌کند.
 
+### ۵.۴ حالت زلزله (`_sismo`)
+
+داده‌ها از پروژهٔ Rover (CP2406، §3.4.1.5، §5.1.2.6، §5.1.3.4) و در `SEISMIC` در `sap2000/model/trasmallo.py` هستند؛ جزئیات در بخش ۳.۷ فایل `sap2000/README.md`.
+
+**اجرا.** یکی از این دو راه:
+- Import فایل `Muelle_Trasmallo_40m_diseno_sismo.$2k` (مثل ۴.۱)، سپس F5. این بار حالت **MODAL را اجرا کنید** (در *Analyze › Set Load Cases to Run* باید روی Run باشد)، چون EQX/EQY/EQZ به آن نیاز دارند.
+- `python diseno\sap\sap_oapi_diseno.py --sismo` (یا `--sismo --from-s2k diseno\sap\output\Muelle_Trasmallo_40m_diseno_sismo.$2k`). خروجی‌ها: `Muelle_Trasmallo_40m_diseno_sismo.sdb` و `diseno_SAP2000_sismo.json/.xlsx`؛ فایل‌های استاتیکی بازنویسی نمی‌شوند.
+
+**کنترل تحلیل مودال** (*Display › Show Tables › Analysis Results › Structure Output › Modal Information*):
+- `Modal Periods and Frequencies`: دورهٔ مود اول (T1). اگر T1 بین TA = 0.22 و TB = 0.88 ثانیه باشد، شتاب طیفی روی سکو (0.609g افقی) است.
+- `Modal Participating Mass Ratios`: ستون‌های `SumUX` و `SumUY` در آخرین مود (۳۰) باید دست‌کم 0.90 باشند؛ جرم گره‌های گیردار پای شمع (حدود ۵٪) در هیچ مودی شرکت نمی‌کند. `SumUZ` ممکن است کمتر بماند؛ اگر زیر 0.90 بود، تعداد مودها را در `SEISMIC["n_modes"]` بیشتر کنید و فایل را دوباره بسازید. مودی را که بیشترین `UX` و بیشترین `UY` را دارد یادداشت کنید.
+- جرم کل: `Assembled Joint Masses` (جمع ستون U1) یا `Groups 3 - Masses and Weights` برای گروه ALL باید حدود **379 t** باشد (= PP + CM + 0.8 Qa = 3720 kN). اگر حدود 460 t دیدید، Element Self Mass روشن شده و جرم اعضا دو بار شمرده شده است (*Define › Mass Source*: فقط «Specified Load Patterns» با PP 1، CM 1، Qa 0.8).
+
+**حالت‌ها و ترکیب‌ها برای خروجی** (*Display › Show Tables › Select Load Cases*):
+- حالت‌های طیفی **EQX، EQY، EQZ**: مقدارها همه مثبت‌اند (پوش SRSS مودها) و `StepType = Max` دارند.
+- ترکیب‌های **SISXQ … SISZ** و `ENV_SIS`: برای هر ترکیب دو ردیف `Max` و `Min` می‌آید، چون SAP هر حالت طیفی را در ترکیب Linear Add با هر دو علامت می‌گیرد (Max = استاتیکی + Σ ضریب × RS، Min = استاتیکی − Σ ضریب × RS).
+
+**جدول‌هایی که Export کنید** (*File › Export All Tables › To Excel*)، با انتخاب EQX، EQY، EQZ، SIS* و ENV_SIS:
+- `Modal Participating Mass Ratios` و `Modal Periods and Frequencies` (فقط MODAL)
+- `Element Forces - Frames` (شمع‌ها: گروه PILOTES؛ تیرهای عرضی: VIGAS_TRANSVERSALES)
+- `Joint Reactions`
+- و پس از طراحی، دو جدول `Concrete Design 1/2 … Eurocode 2-2004` (بخش ۵.۳)؛ ترکیب حاکم هر ایستگاه نشان می‌دهد SIS* حاکم شده است یا نه.
+
+**ضریب‌های جزئی مصالح در ترکیب‌های زلزله.** SAP در «Eurocode 2-2004» فقط یک جفت γc/γs در Preferences دارد (1.5 / 1.15، وضعیت پایدار) و همان را برای **همهٔ** ترکیب‌های طراحی، از جمله SIS*، به کار می‌برد. کنترل‌های Código Estructural ما (`diseno/python`) برای وضعیت لرزه‌ای ضرایب تصادفی **γc = 1.3 و γs = 1.0** را به کار می‌برند. پس طراحی SAP برای SIS* محافظه‌کارانه است (مثلاً fcd = 50/1.5 = 33.3 به جای 50/1.3 = 38.5 MPa؛ fyd = 434.8 به جای 500 MPa) و As لازم SAP در ایستگاه‌هایی که SIS* حاکم است از مقدار ما بیشتر خواهد بود. Framing Type همچنان DC Low است (بدون طراحی ظرفیتی EC8؛ طیف Rover الاستیک است) و SAP در ترکیب‌های زلزله‌دار θ = 45° می‌گیرد که با TanTheta = 1 ما یکی است.
+
 ---
 
 ## ۶. چه فایل‌هایی را برگردانید
@@ -267,6 +294,7 @@ python diseno\sap\leer_diseno_sap.py diseno\sap\output\diseno_SAP2000.json
 4. جزئیات طراحی PIL_P3 و VT2_5 (Details › File › Print to file، یا اسکرین‌شات).
 5. اسکرین‌شات فرم‌های Preferences و Overwrites (یک شمع و یک تیر)، تا نام دقیق فیلدهای v27 ثبت شود.
 6. اگر مسیر OAPI را اجرا کرده‌اید: `diseno/sap/output/diseno_SAP2000.json` و `.xlsx` و متن چاپ‌شده در کنسول.
+7. برای حالت زلزله: گزارش Import فایل `_sismo`، جدول‌های `Modal Participating Mass Ratios` و `Modal Periods and Frequencies`، و `Element Forces - Frames` و `Joint Reactions` برای EQX، EQY، EQZ و SIS* (بخش ۵.۴)؛ در مسیر OAPI، `diseno_SAP2000_sismo.json/.xlsx` و `sap2000/output/resultados_SAP2000_sismo.xlsx`.
 
 ---
 

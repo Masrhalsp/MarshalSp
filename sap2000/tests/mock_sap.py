@@ -83,6 +83,8 @@ class Model:
         self.selected_cases = set()
         self.selected_combos = set()
         self.next_id = 1
+        self.mass_sources = {}
+        self.rs_funcs = {}
 
     def default_name(self):
         n = str(self.next_id)
@@ -111,6 +113,9 @@ class File(_Sub):
         st.cases = {"DEAD": {"type": "LinStatic", "loads": [("Load", "DEAD", 1.0)]},
                     "MODAL": {"type": "Modal", "loads": []}}
         st.run_flags = {"DEAD": True, "MODAL": True}
+        st.mass_sources = {"MSSSRC1": {"elements": True, "masses": True, "loads": False, "default": True,
+                                       "patterns": []}}
+        st.rs_funcs = {"UNIFRS": {"T": (0.0, 1.0), "Sa": (1.0, 1.0), "damp": 0.05}}
         st.materials.update({"4000Psi": {"type": 2}, "A992Fy50": {"type": 1}})
         return 0
 
@@ -474,7 +479,142 @@ class LoadPatterns(_Sub):
         return 0
 
 
+class ModalEigen(_Sub):
+    def SetCase(self, Name):
+        _count("LoadCases.ModalEigen.SetCase")
+        _str(Name, "Name")
+        st = self.st
+        st.need_unlocked("ModalEigen.SetCase")
+        if Name in st.cases and st.cases[Name]["type"] != "Modal":
+            return 1                                   # name taken by a case of another type
+        if Name.upper() in {c.upper() for c in st.combos}:
+            return 1
+        st.cases[Name] = {"type": "Modal", "loads": [], "max_modes": 12, "min_modes": 1}
+        st.run_flags[Name] = True
+        return 0
+
+    def SetNumberModes(self, Name, MaxModes, MinModes):
+        _count("LoadCases.ModalEigen.SetNumberModes")
+        _str(Name, "Name"); _int(MaxModes, "MaxModes"); _int(MinModes, "MinModes")
+        c = self.st.cases.get(Name)
+        if not c or c["type"] != "Modal":
+            raise MockError(f"SetNumberModes: {Name} is not a modal eigen case")
+        if not MaxModes >= MinModes >= 1:
+            raise MockError(f"SetNumberModes: MaxModes {MaxModes} / MinModes {MinModes}")
+        c.update(max_modes=MaxModes, min_modes=MinModes)
+        return 0
+
+
+RS_DIRS = ("U1", "U2", "U3", "R1", "R2", "R3")
+
+
+class ResponseSpectrum(_Sub):
+    def _need(self, Name, what):
+        _str(Name, f"{what}.Name")
+        c = self.st.cases.get(Name)
+        if not c or c["type"] != "RS":
+            raise MockError(f"{what}: {Name} is not a response spectrum case")
+        return c
+
+    def SetCase(self, Name):
+        _count("LoadCases.ResponseSpectrum.SetCase")
+        _str(Name, "Name")
+        st = self.st
+        st.need_unlocked("ResponseSpectrum.SetCase")
+        if Name in st.cases and st.cases[Name]["type"] != "RS":
+            return 1
+        if Name.upper() in {c.upper() for c in st.combos}:
+            return 1
+        modal = next((n for n, c in st.cases.items() if c["type"] == "Modal"), None)
+        st.cases[Name] = {"type": "RS", "loads": [], "modal": modal, "modal_comb": 1, "damp": 0.05}
+        st.run_flags[Name] = True
+        return 0
+
+    def SetModalCase(self, Name, ModalCase):
+        _count("LoadCases.ResponseSpectrum.SetModalCase")
+        c = self._need(Name, "SetModalCase"); _str(ModalCase, "ModalCase")
+        if self.st.cases.get(ModalCase, {}).get("type") != "Modal":
+            raise MockError(f"SetModalCase: {ModalCase} is not a modal case")
+        c["modal"] = ModalCase
+        return 0
+
+    def SetModalComb_1(self, Name, MyType, F1=1.0, F2=0.0, PeriodicRigidCombType=1, td=60.0):
+        _count("LoadCases.ResponseSpectrum.SetModalComb_1")
+        c = self._need(Name, "SetModalComb_1"); _int(MyType, "MyType", set(range(1, 7)))
+        _num(F1, "F1"); _num(F2, "F2"); _int(PeriodicRigidCombType, "PeriodicRigidCombType", {1, 2}); _num(td, "td")
+        c["modal_comb"] = MyType
+        return 0
+
+    def SetLoads(self, Name, NumberLoads, LoadName, Func, SF, CSys, Ang):
+        _count("LoadCases.ResponseSpectrum.SetLoads")
+        c = self._need(Name, "SetLoads"); _int(NumberLoads, "NumberLoads")
+        for arr, w, kind in ((LoadName, "LoadName", _str), (Func, "Func", _str), (SF, "SF", _num),
+                             (CSys, "CSys", _str), (Ang, "Ang", _num)):
+            _arr(arr, f"SetLoads.{w}", NumberLoads, kind)
+        for d, f in zip(LoadName, Func):
+            if d not in RS_DIRS:
+                raise MockError(f"SetLoads: direction {d} not in {RS_DIRS}")
+            if f not in self.st.rs_funcs:
+                raise MockError(f"SetLoads: unknown RS function {f}")
+        c["loads"] = list(zip(LoadName, Func, SF, CSys, Ang))
+        return [tuple(LoadName), tuple(Func), tuple(SF), tuple(CSys), tuple(Ang), 0]
+
+    def SetDampConstant(self, Name, Damp):
+        _count("LoadCases.ResponseSpectrum.SetDampConstant")
+        c = self._need(Name, "SetDampConstant"); _num(Damp, "Damp")
+        if not 0 <= Damp < 1:
+            raise MockError("SetDampConstant: 0 <= Damp < 1")
+        c["damp"] = Damp
+        return 0
+
+
+class SourceMass(_Sub):
+    def SetMassSource(self, Name, MassFromElements, MassFromMasses, MassFromLoads, IsDefault, NumberLoads,
+                      LoadPat, SF):
+        _count("SourceMass.SetMassSource")
+        _str(Name, "Name"); _bool(MassFromElements, "MassFromElements"); _bool(MassFromMasses, "MassFromMasses")
+        _bool(MassFromLoads, "MassFromLoads"); _bool(IsDefault, "IsDefault"); _int(NumberLoads, "NumberLoads")
+        _arr(LoadPat, "SetMassSource.LoadPat", NumberLoads, _str); _arr(SF, "SetMassSource.SF", NumberLoads, _num)
+        st = self.st
+        for p in LoadPat:
+            if p not in st.patterns:
+                raise MockError(f"SetMassSource: unknown load pattern {p}")
+        if MassFromLoads and NumberLoads == 0:
+            raise MockError("SetMassSource: MassFromLoads without load patterns")
+        if IsDefault:
+            for v in st.mass_sources.values():
+                v["default"] = False
+        st.mass_sources[Name] = {"elements": MassFromElements, "masses": MassFromMasses, "loads": MassFromLoads,
+                                 "default": IsDefault, "patterns": list(zip(LoadPat, SF))}
+        return [tuple(LoadPat), tuple(SF), 0]
+
+
+class FuncRS(_Sub):
+    def SetUser(self, Name, NumberItems, Period, Value, DampRatio):
+        _count("Func.FuncRS.SetUser")
+        _str(Name, "Name"); _int(NumberItems, "NumberItems")
+        _arr(Period, "SetUser.Period", NumberItems, _num); _arr(Value, "SetUser.Value", NumberItems, _num)
+        _num(DampRatio, "DampRatio")
+        if NumberItems < 2 or any(b <= a for a, b in zip(Period, Period[1:])):
+            raise MockError("FuncRS.SetUser: periods must be increasing")
+        if not 0 <= DampRatio < 1:
+            raise MockError("FuncRS.SetUser: DampRatio")
+        self.st.rs_funcs[Name] = {"T": tuple(Period), "Sa": tuple(Value), "damp": DampRatio}
+        return [tuple(Period), tuple(Value), 0]
+
+
+class Func(_Sub):
+    def __init__(self, st):
+        super().__init__(st)
+        self.FuncRS = FuncRS(st)
+
+
 class LoadCases(_Sub):
+    def __init__(self, st):
+        super().__init__(st)
+        self.ModalEigen = ModalEigen(st)
+        self.ResponseSpectrum = ResponseSpectrum(st)
+
     def Delete(self, Name):
         _count("LoadCases.Delete")
         _str(Name, "Name")
@@ -529,6 +669,10 @@ class Analyze(_Sub):
         st = self.st
         if not st.saved_path:
             raise MockError("RunAnalysis before File.Save(name)")
+        for n, c in st.cases.items():
+            if c["type"] == "RS" and st.run_flags.get(n):
+                if not c["loads"] or not c.get("modal") or not st.run_flags.get(c["modal"]):
+                    raise MockError(f"RunAnalysis: RS case {n} without loads or with its modal case not run")
         st.analyzed = True
         st.locked = True
         return 0
@@ -568,6 +712,94 @@ class Results(_Sub):
             raise MockError(f"{what}: no analysis results")
         return [c for c in self.st.cases if c in self.st.selected_cases and self.st.run_flags.get(c)]
 
+    # synthetic RS response: |PP response| x a direction factor (positive, as SAP's RS envelopes)
+    RS_FACTOR = {"U1": 0.61, "U2": 0.55, "U3": 0.43}
+
+    def _minmax(self, fn, name):
+        """(max, min) value tuples of a load case or combination ``name``; fn(pattern) -> tuple."""
+        st = self.st
+        if name in st.cases:
+            c = st.cases[name]
+            if c["type"] == "LinStatic":
+                v = fn(name)
+                return v, v
+            if c["type"] == "RS":
+                base = fn("PP")
+                k = sum(self.RS_FACTOR.get(d, 0.0) * sf / 9.80665 for d, _f, sf, *_ in c["loads"])
+                v = tuple(abs(x) * k for x in base)
+                return v, tuple(-x for x in v)
+            raise MockError(f"results of {c['type']} case {name} not simulated")
+        cb = st.combos[name]
+        parts = [(self._minmax(fn, cn), sf) for _t, cn, sf in cb["items"]]
+        if cb["type"] == 0:          # linear add: max of each part (min for negative factors)
+            mx = [sum((a[0] if sf >= 0 else a[1])[i] * sf for a, sf in parts) for i in range(len(parts[0][0][0]))]
+            mn = [sum((a[1] if sf >= 0 else a[0])[i] * sf for a, sf in parts) for i in range(len(parts[0][0][0]))]
+            return tuple(mx), tuple(mn)
+        if cb["type"] == 1:          # envelope
+            n = len(parts[0][0][0])
+            return (tuple(max(a[0][i] * sf for a, sf in parts) for i in range(n)),
+                    tuple(min(a[1][i] * sf for a, sf in parts) for i in range(n)))
+        raise MockError(f"combo type {cb['type']} not simulated")
+
+    def _items(self, what, fn):
+        """[(case/combo name, StepType, values)] for everything selected for output."""
+        st = self.st
+        out = []
+        for c in self._pre(what):
+            if st.cases[c]["type"] == "Modal":
+                continue                             # mode-by-mode output not simulated
+            mx, mn = self._minmax(fn, c)
+            if st.cases[c]["type"] == "RS":
+                out.append((c, "Max", mx))
+            else:
+                out.append((c, "", mx))
+        for cb in st.combos:
+            if cb in st.selected_combos:
+                mx, mn = self._minmax(fn, cb)
+                if mx == mn:
+                    out.append((cb, "", mx))
+                else:
+                    out += [(cb, "Max", mx), (cb, "Min", mn)]
+        return out
+
+    def _modal(self, what):
+        if not self.st.analyzed:
+            raise MockError(f"{what}: no analysis results")
+        c = self.st.cases.get("MODAL")
+        if "MODAL" not in self.st.selected_cases or not c or not self.st.run_flags.get("MODAL"):
+            return None
+        return c["max_modes"] if "max_modes" in c else 12
+
+    def ModalPeriod(self, NumberResults, LoadCase, StepType, StepNum, Period, Frequency, CircFreq, EigenValue):
+        _count("Results.ModalPeriod")
+        self._placeholders("ModalPeriod", NumberResults, [LoadCase, StepType, StepNum, Period, Frequency,
+                                                          CircFreq, EigenValue], 7)
+        n = self._modal("ModalPeriod")
+        if not n:
+            return [0] + [()] * 7 + [0]
+        T = [0.45 / k for k in range(1, n + 1)]
+        rows = [("MODAL", "Mode", float(k + 1), t, 1 / t, 2 * math.pi / t, (2 * math.pi / t) ** 2)
+                for k, t in enumerate(T)]
+        return [n, *[tuple(c) for c in zip(*rows)], 0]
+
+    def ModalParticipatingMassRatios(self, NumberResults, LoadCase, StepType, StepNum, Period, Ux, Uy, Uz,
+                                     SumUx, SumUy, SumUz, Rx, Ry, Rz, SumRx, SumRy, SumRz):
+        _count("Results.ModalParticipatingMassRatios")
+        self._placeholders("ModalParticipatingMassRatios", NumberResults,
+                           [LoadCase, StepType, StepNum, Period, Ux, Uy, Uz, SumUx, SumUy, SumUz,
+                            Rx, Ry, Rz, SumRx, SumRy, SumRz], 16)
+        n = self._modal("ModalParticipatingMassRatios")
+        if not n:
+            return [0] + [()] * 16 + [0]
+        rows, cum = [], [0.0] * 6
+        for k in range(n):
+            share = [0.0] * 6
+            share[{0: 1, 1: 0, 2: 2}.get(k, 0 if k % 2 else 1)] = 0.9 if k < 3 else 0.09 / (n - 3)
+            share[5 if k == 2 else 3] = 0.5 if k < 3 else 0.0
+            cum = [a + b for a, b in zip(cum, share)]
+            rows.append(("MODAL", "Mode", float(k + 1), 0.45 / (k + 1), *share[:3], *cum[:3], *share[3:], *cum[3:]))
+        return [n, *[tuple(c) for c in zip(*rows)], 0]
+
     @staticmethod
     def _placeholders(what, NumberResults, arrays, n):
         _int(NumberResults, f"{what}.NumberResults(ByRef)")
@@ -581,12 +813,12 @@ class Results(_Sub):
         _count("Results.JointReact")
         _str(Name, "Name"); _int(ItemTypeElm, "ItemTypeElm", {0, 1, 2, 3})
         self._placeholders("JointReact", NumberResults, [Obj, Elm, LoadCase, StepType, StepNum, F1, F2, F3, M1, M2, M3], 11)
-        cases = self._pre("JointReact")
+        self._pre("JointReact")
         if ItemTypeElm != 0 or Name not in self.st.points:
             return [0, (), (), (), (), (), (), (), (), (), (), (), 1]
         if not any(self.st.points[Name]["restr"]):
             return [0, (), (), (), (), (), (), (), (), (), (), (), 0]
-        rows = [(Name, Name, c, "", 0.0, *self.synth.react(Name, c)) for c in cases]
+        rows = [(Name, Name, c, st, 0.0, *v) for c, st, v in self._items("JointReact", lambda c: tuple(self.synth.react(Name, c)))]
         cols = list(zip(*rows)) if rows else [()] * 11
         return [len(rows), *[tuple(c) for c in cols], 0]
 
@@ -595,10 +827,10 @@ class Results(_Sub):
         _count("Results.JointDispl")
         _str(Name, "Name"); _int(ItemTypeElm, "ItemTypeElm", {0, 1, 2, 3})
         self._placeholders("JointDispl", NumberResults, [Obj, Elm, LoadCase, StepType, StepNum, U1, U2, U3, R1, R2, R3], 11)
-        cases = self._pre("JointDispl")
+        self._pre("JointDispl")
         if ItemTypeElm != 0 or Name not in self.st.points:
             return [0, (), (), (), (), (), (), (), (), (), (), (), 1]
-        rows = [(Name, Name, c, "", 0.0, *self.synth.displ(Name, c)) for c in cases]
+        rows = [(Name, Name, c, st, 0.0, *v) for c, st, v in self._items("JointDispl", lambda c: tuple(self.synth.displ(Name, c)))]
         cols = list(zip(*rows)) if rows else [()] * 11
         return [len(rows), *[tuple(c) for c in cols], 0]
 
@@ -608,7 +840,7 @@ class Results(_Sub):
         _str(Name, "Name"); _int(ItemTypeElm, "ItemTypeElm", {0, 1, 2, 3})
         self._placeholders("FrameForce", NumberResults,
                            [Obj, ObjSta, Elm, ElmSta, LoadCase, StepType, StepNum, P, V2, V3, T, M2, M3], 13)
-        cases = self._pre("FrameForce")
+        self._pre("FrameForce")
         if ItemTypeElm != 0 or Name not in self.st.frames:
             return [0] + [()] * 13 + [1]
         f = self.st.frames[Name]
@@ -619,10 +851,10 @@ class Results(_Sub):
         nseg = max(1, math.ceil(clear / seg - 1e-9)) if mytype == 1 else 2
         stas = [li + clear * k / nseg for k in range(nseg + 1)]
         rows = []
-        for c in cases:
-            for s in stas:
-                p, v2, v3, t, m2, m3 = self.synth.frame(Name, s, c)
-                rows.append((Name, s, f"{Name}-1", s - li, c, "", 0.0, p, v2, v3, t, m2, m3))
+        for s in stas:
+            for c, st, v in self._items("FrameForce", lambda c, s=s: tuple(self.synth.frame(Name, s, c))):
+                rows.append((Name, s, f"{Name}-1", s - li, c, st, 0.0, *v))
+        rows.sort(key=lambda r: list(self.st.cases).index(r[4]) if r[4] in self.st.cases else len(self.st.cases))
         cols = list(zip(*rows)) if rows else [()] * 13
         return [len(rows), *[tuple(x) for x in cols], 0]
 
@@ -642,6 +874,8 @@ class SapModel:
         self.GroupDef = GroupDef(st)
         self.LoadPatterns = LoadPatterns(st)
         self.LoadCases = LoadCases(st)
+        self.SourceMass = SourceMass(st)
+        self.Func = Func(st)
         self.RespCombo = RespCombo(st)
         self.Analyze = Analyze(st)
         self.Results = Results(st, synth)

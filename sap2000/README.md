@@ -13,6 +13,9 @@
 | مسیر | توضیح |
 |---|---|
 | `output/Muelle_Trasmallo_40m.$2k` | **فایل ورودی SAP2000** (متنی، واحد kN-m). مستقیم Import می‌شود. |
+| `output/Muelle_Trasmallo_40m_sismo.$2k` | همان مدل **به‌اضافهٔ تحلیل طیفی زلزله** (بخش ۳.۷). فایل استاتیکی بالا دست‌نخورده می‌ماند. نسخهٔ v20: `output/Muelle_Trasmallo_40m_v20_sismo.$2k` |
+| `tools/sismo_sap.py` | تبدیل داده‌های زلزلهٔ `model/trasmallo.py` (SEISMIC) به اشیای SAP؛ مشترک بین `.$2k` و OAPI |
+| `tests/test_sismo_sap.py` | آزمون حالت زلزله: فایل استاتیکی بایت‌به‌بایت ثابت، فایل زلزله فقط رکورد اضافه دارد، کنترل‌های `check_s2k` و OAPI روی mock |
 | `tools/sap_oapi_run.py` | اسکریپت پایتون (CSI OAPI): مدل را در SAP می‌سازد، تحلیل می‌کند، نتایج را به Excel می‌برد و با Anejo 10 مقایسه می‌کند. |
 | `model/trasmallo.py` | **تنها منبع داده‌های مدل**: هندسه، مقاطع، دال، بارها و ترکیب‌ها. هر تغییری فقط همین‌جا انجام می‌شود. |
 | `model/sections.py` | محاسبهٔ خواص مقطع مرکب تیرها (T و L معکوس)، از جمله ثابت پیچش با روش تفاضل محدود. |
@@ -138,7 +141,7 @@ python tools\sap_oapi_run.py --from-s2k output\Muelle_Trasmallo_40m.$2k   :: ب�
 | **TB2 / TB3** | مؤلفهٔ قائم بولارد: +53 kN (رو به پایین) و −53 kN (رو به بالا) روی همان بولاردها |
 
 - بار نوارهای بیرونی عرشه، یعنی نیمهٔ بیرونی تیرهای لبه و ۰.۵۰ متر انتهای عرشه، به‌صورت بار گسترده روی تیرهای لبه و انتهایی داده شده است.
-- اینرسی، باد، زلزله (ab = 0.07g < 0.08g) و حرارت، مطابق Anejo 10 در نظر گرفته نشده‌اند.
+- اینرسی، باد و حرارت، مطابق Anejo 10 در نظر گرفته نشده‌اند. زلزله در Anejo 10 کنار گذاشته شده بود (ab = 0.07g < 0.08g)؛ به تصمیم سرپرست اکنون طبق پروژهٔ همسایه (Rover) اضافه شده است، ولی فقط در فایل‌ها و اجرای جداگانهٔ `_sismo` (بخش ۳.۷).
 
 ### ۳.۶ ترکیب بارها (دقیقاً جدول‌های Apéndice 1 §1.6.2)
 
@@ -148,6 +151,23 @@ python tools\sap_oapi_run.py --from-s2k output\Muelle_Trasmallo_40m.$2k   :: ب�
 | `CIM01…CIM22`: E.L.U. cimentaciones | G: 1.60 / 1.00؛ Q: 1.60 |
 | `ELS01…ELS08`: Desplazamientos (مشخصه) | همهٔ ضرایب 1.0 |
 | `ENV_ELU`، `ENV_CIM`، `ENV_ELS` | پوش (Envelope) هر گروه |
+
+### ۳.۷ زلزله — فقط در حالت `--sismo`
+
+منبع: Rover (CP2406-PC-MR-ANE-06-SE-Recr.CalcEstr-D01، §3.4.1.5، §5.1.2.6، §5.1.3.4). همهٔ اعداد در `SEISMIC` در `model/trasmallo.py` است.
+
+| جزء | مقدار در SAP |
+|---|---|
+| طیف | `FUNC_H` و `FUNC_V` (کاربری، Sa/g در برابر T)، شکل الاستیک NCSE-02: ac = 0.2435g، TA = 0.22 s، TB = 0.88 s، سکو 0.609g؛ قائم = 0.7 × افقی (سکو 0.426g)؛ میرایی ۵٪ |
+| جرم (Mass Source `MSSSRC1`) | PP × 1.0 + CM × 1.0 + Qa × 0.8 از الگوهای بار = 3720 kN = 379 t. «Element Self Mass» عمداً خاموش است: وزن خود اعضا در PP هست (SelfWtMult = 1) و روشن کردن آن جرم تیرها و شمع‌ها (795 kN) را دو بار می‌شمارد (CSI Analysis Reference، Mass Source، ص. 335) |
+| حالت مودال | `MODAL`، بردار ویژه، ۳۰ مود |
+| حالت‌های طیفی | `EQX` (U1، FUNC_H)، `EQY` (U2، FUNC_H)، `EQZ` (U3، FUNC_V)؛ ضریب مقیاس g = 9.80665؛ ترکیب مودال SRSS؛ میرایی ثابت 0.05؛ هر حالت فقط یک جهت |
+| ترکیب‌ها (Linear Add) | `SISXQ` / `SISX` = PP + CM (+ 0.8 Qa) + 1.0 EQX + 0.3 EQY + 0.3 EQZ؛ به همین ترتیب `SISY[Q]` و `SISZ[Q]`؛ `ENV_SIS` پوش هر شش |
+
+- **علامت ±:** نتیجهٔ حالت طیفی همیشه مثبت است. SAP در ترکیب Linear Add هر حالت طیفی را با هر دو علامت می‌گیرد: Max = استاتیکی + Σ(ضریب × RS) و Min = استاتیکی − Σ(ضریب × RS) (CSI Analysis Reference، Load Combinations). پس ترکیب جداگانهٔ «منفی» لازم نیست، و در جدول‌ها برای هر ترکیب `SIS*` دو ردیف `Max` و `Min` می‌آید.
+- **ساخت فایل:** `python tools/write_s2k.py --sismo` (و `--sismo --version 20.1.0 -o output/Muelle_Trasmallo_40m_v20_sismo.$2k`). بدون `--sismo` خروجی همان فایل استاتیکی قبلی است.
+- **اجرای OAPI:** `python tools\sap_oapi_run.py --sismo` یا `--sismo --from-s2k output\Muelle_Trasmallo_40m_sismo.$2k`. حالت MODAL اجرا می‌شود و همهٔ خروجی‌ها پسوند `_sismo` دارند: `Muelle_Trasmallo_40m_sismo.sdb`، `resultados_SAP2000_sismo.xlsx/.json` (نتایج استاتیکی + `modal_periods`، `modal_mass`، نیروهای `rs_*` برای EQX/EQY/EQZ و `combo_*` برای SIS* با Max/Min)، `comparacion_SAP2000_sismo.md`.
+- **کنترل پس از Import:** گزارش Import باید بدون خطا باشد؛ `check_s2k.py` روی فایل زلزله «mass 379.4 t» را چاپ می‌کند. در SAP: *Display › Show Tables › Analysis Results › Modal Information* → «Modal Participating Mass Ratios»: ستون‌های SumUX و SumUY در مود ۳۰ باید دست‌کم ۰.۹ باشند (جرم گره‌های گیردار پای شمع، حدود ۵٪، در هیچ مودی شرکت نمی‌کند)؛ SumUZ ممکن است کمتر بماند، و اگر زیر ۰.۹ بود تعداد مودها را در `SEISMIC["n_modes"]` بیشتر کنید؛ «Modal Periods and Frequencies» برای دورهٔ مود اول. جرم کل را در «Assembled Joint Masses» (یا Groups 3 - Masses and Weights) با 379 t مقایسه کنید.
 
 ---
 
@@ -215,7 +235,8 @@ python tools\sap_oapi_run.py --from-s2k output\Muelle_Trasmallo_40m.$2k   :: ب�
   - `XorR` برای مختصات X
   - `Type=User` / `RigidFactor` برای ناحیهٔ صلب
   - `StationType=MaxStaSpcg`
-  - `CaseType="Response Combo"` برای ترکیب‌های پوش
+  - `CaseType="Response Combo"` برای ترکیب‌های پوش (فقط در قالب v20؛ نسخه‌های 23 به بعد ترکیب‌ها را با نام می‌شناسند)
+  - جدول‌های زلزله (`MASS SOURCE`، `FUNCTION - RESPONSE SPECTRUM - USER`، `CASE - MODAL 1 - GENERAL`، `CASE - RESPONSE SPECTRUM 1 - GENERAL`، `CASE - RESPONSE SPECTRUM 2 - LOAD ASSIGNMENTS` و ردیف‌های `LinModal` / `LinRespSpec`) فقط با عنوان‌ها و فیلدهایی نوشته شده‌اند که در فایل‌های واقعی v20.1 تا v26.3 دیده شده‌اند؛ منبع هر جدول در docstring فایل `tools/write_s2k.py` آمده است.
   - شکستن خط بیش از ۲۴۰ کاراکتر با ` _`
   - پایان خط CRLF
   - فقط کاراکترهای ASCII

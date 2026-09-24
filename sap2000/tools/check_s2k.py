@@ -4,7 +4,10 @@
 
 Parses every table, then checks that all joints / frames / areas / sections / materials /
 load patterns / cases / combinations referenced in the file are defined, that the file is
-pure ASCII and properly terminated, and prints the load totals per pattern.
+pure ASCII and properly terminated, and prints the load totals per pattern.  Seismic tables
+(``write_s2k.py --sismo``: MASS SOURCE, FUNCTION - RESPONSE SPECTRUM - USER, LinModal /
+LinRespSpec cases, CASE - MODAL 1, CASE - RESPONSE SPECTRUM 1/2) are checked when present and the
+seismic mass of the mass source is printed.
 """
 
 from __future__ import annotations
@@ -143,6 +146,96 @@ def check_design(t: dict, frames: set, need) -> list[str]:
             f"{len(t.get(EC2_OVER, []))} EC2 overwrite records",
             f"design: {len(strength)} Strength combos " + (f"{strength[0]}..{strength[-1]}" if strength else "")]
 
+G = 9.80665
+RS_MODAL_COMBOS = {"CQC", "SRSS", "ABS", "GMC", "10 Percent", "Double Sum"}   # values of real exports
+
+
+def check_seismic(t: dict, pats: set, cases: set, tot: dict, need) -> list[str]:
+    """Reference and value checks of the seismic tables; returns summary lines (none if the file
+    has no modal / response-spectrum data)."""
+    ctype = {r["Case"]: r.get("Type", "") for r in t.get("LOAD CASE DEFINITIONS", [])}
+    modal = {c for c, ty in ctype.items() if ty == "LinModal"}
+    rsc = {c for c, ty in ctype.items() if ty == "LinRespSpec"}
+    ms_rows = t.get("MASS SOURCE", [])
+    funcs: dict[str, list[tuple[float, float]]] = defaultdict(list)
+    for r in t.get("FUNCTION - RESPONSE SPECTRUM - USER", []):
+        funcs[r["Name"]].append((num(r["Period"]), num(r["Accel"])))
+    if not (modal or rsc or ms_rows or funcs):
+        return []
+    lines = []
+    # mass source: pattern rows, one default, no double-counted self weight
+    selfwt = {r["LoadPat"]: num(r.get("SelfWtMult", "0")) for r in t.get("LOAD PATTERN DEFINITIONS", [])}
+    heads = [r for r in ms_rows if "Elements" in r]
+    need(len({r["MassSource"] for r in ms_rows}) == len(heads), "MASS SOURCE: one header record per source")
+    need(sum(r.get("IsDefault") == "Yes" for r in heads) <= 1, "MASS SOURCE: more than one default")
+    for h in heads:
+        rows = [r for r in ms_rows if r["MassSource"] == h["MassSource"]]
+        for r in rows:
+            if "LoadPat" in r:
+                need(h.get("Loads") == "Yes", f"MASS SOURCE {h['MassSource']}: LoadPat with Loads=No")
+                need(r["LoadPat"] in pats, f"MASS SOURCE: unknown pattern {r['LoadPat']}")
+                if h.get("Elements") == "Yes":
+                    need(not selfwt.get(r["LoadPat"]), f"MASS SOURCE {h['MassSource']}: element self mass and "
+                         f"pattern {r['LoadPat']} with self weight -> self mass counted twice")
+        if h.get("IsDefault") == "Yes":
+            w = sum(num(r["Multiplier"]) * (tot.get(r["LoadPat"], 0.0)
+                                            + (tot.get("PP (self weight)", 0.0) if selfwt.get(r["LoadPat"]) else 0.0))
+                    for r in rows if "LoadPat" in r)
+            if h.get("Elements") == "Yes":
+                w += tot.get("PP (self weight)", 0.0)
+            lines.append(f"seismic: mass source {h['MassSource']} (Elements={h.get('Elements')}, "
+                         f"Loads={h.get('Loads')}): weight {w:.1f} kN = mass {w / G:.1f} t")
+    # response-spectrum functions
+    for name, pts in funcs.items():
+        T = [p[0] for p in pts]
+        need(T == sorted(T) and len(set(T)) == len(T), f"RS function {name}: periods not increasing")
+        need(all(a >= 0 for _, a in pts), f"RS function {name}: negative ordinate")
+    for r in t.get("FUNCTION - RESPONSE SPECTRUM - USER", []):
+        if "FuncDamp" in r:
+            need(0 <= num(r["FuncDamp"]) < 1, f"RS function {r['Name']}: FuncDamp")
+    # modal cases
+    mrows = {r["Case"]: r for r in t.get("CASE - MODAL 1 - GENERAL", [])}
+    for c in modal:
+        need(c in mrows, f"modal case {c} without CASE - MODAL 1 - GENERAL record")
+    for c, r in mrows.items():
+        need(c in modal, f"CASE - MODAL 1: {c} is not a LinModal case")
+        need(r.get("ModeType") in ("Eigen", "Ritz"), f"CASE - MODAL 1: {c} ModeType")
+        need(int(r["MaxNumModes"]) >= int(r.get("MinNumModes", "1")) >= 1, f"CASE - MODAL 1: {c} number of modes")
+    # response-spectrum cases
+    for r in t.get("LOAD CASE DEFINITIONS", []):
+        if r.get("Type") == "LinRespSpec":
+            need(r.get("ModalCase") in modal, f"RS case {r['Case']}: ModalCase {r.get('ModalCase')} is not modal")
+    g1 = {r["Case"]: r for r in t.get("CASE - RESPONSE SPECTRUM 1 - GENERAL", [])}
+    g2 = defaultdict(list)
+    for r in t.get("CASE - RESPONSE SPECTRUM 2 - LOAD ASSIGNMENTS", []):
+        g2[r["Case"]].append(r)
+    for c in rsc:
+        need(c in g1, f"RS case {c} without CASE - RESPONSE SPECTRUM 1 record")
+        need(bool(g2.get(c)), f"RS case {c} without load assignments")
+    for c, r in g1.items():
+        need(c in rsc, f"CASE - RESPONSE SPECTRUM 1: {c} is not a LinRespSpec case")
+        need(r.get("ModalCombo") in RS_MODAL_COMBOS, f"RS case {c}: ModalCombo {r.get('ModalCombo')}")
+        if "ConstDamp" in r:
+            need(0 <= num(r["ConstDamp"]) < 1, f"RS case {c}: ConstDamp")
+    for c, rows in g2.items():
+        need(c in rsc, f"CASE - RESPONSE SPECTRUM 2: {c} is not a LinRespSpec case")
+        for r in rows:
+            need(r["LoadName"] in ("U1", "U2", "U3", "R1", "R2", "R3"), f"RS case {c}: LoadName {r['LoadName']}")
+            need(r["Function"] in funcs, f"RS case {c}: undefined function {r['Function']}")
+            need(num(r.get("TransAccSF", "1")) > 0, f"RS case {c}: TransAccSF")
+    if modal:
+        lines.append("seismic: modal " + ", ".join(f"{c} ({mrows[c]['ModeType']}, {mrows[c]['MaxNumModes']} modes)"
+                                                    for c in sorted(modal) if c in mrows))
+    for c in sorted(rsc):
+        if c in g1:
+            lines.append(f"seismic: RS {c} {g1[c]['ModalCombo']} damping {g1[c].get('ConstDamp', '-')}: " + ", ".join(
+                f"{r['LoadName']} {r['Function']} x {r.get('TransAccSF', '1')} "
+                f"(Sa max {max(a for _, a in funcs.get(r['Function'], [(0, 0)])):.4f} g)" for r in g2.get(c, [])))
+    rs_in_combos = sorted({r["ComboName"] for r in t.get("COMBINATION DEFINITIONS", []) if r["CaseName"] in rsc})
+    if rs_in_combos:
+        lines.append(f"seismic: {len(rs_in_combos)} combinations with RS cases: {', '.join(rs_in_combos)}")
+    return lines
+
 
 def main() -> None:
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "output" / "Muelle_Trasmallo_40m.$2k"
@@ -193,7 +286,7 @@ def main() -> None:
     for tb in ("JOINT LOADS - FORCE", "FRAME LOADS - DISTRIBUTED", "AREA LOADS - UNIFORM"):
         for r in t.get(tb, []):
             need(r["LoadPat"] in pats, f"{tb}: unknown pattern {r['LoadPat']}")
-    for r in t["CASE - STATIC 1 - LOAD ASSIGNMENTS"]:
+    for r in t.get("CASE - STATIC 1 - LOAD ASSIGNMENTS", []):
         need(r["Case"] in cases and r["LoadName"] in pats, f"case load assignment {r}")
     for r in t["COMBINATION DEFINITIONS"]:
         ok = r["CaseName"] in (combos if r.get("CaseType") == "Response Combo" else cases | combos)
@@ -229,12 +322,13 @@ def main() -> None:
         tot["PP (self weight)"] += A * gamma[mat] * flen[r["Frame"]] * wmod
 
     design_lines = check_design(t, frames, need)
+    seismic_lines = check_seismic(t, pats, cases, tot, need)
 
     print(f"{path.name}: {len(joints)} joints, {len(frames)} frames, {len(areas)} areas, "
           f"{len(pats)} load patterns, {len(combos)} combinations, {len(t)} tables")
     for k in sorted(tot):
         print(f"  vertical load {k:18s} {tot[k]:10.1f} kN")
-    for line in design_lines:
+    for line in design_lines + seismic_lines:
         print("  " + line)
     if errors:
         print(f"{len(errors)} ERRORS")

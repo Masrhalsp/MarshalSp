@@ -26,6 +26,12 @@ Steps (diseno/sap/sap_design_spec.md, section in brackets):
 8. analysis identity: frame forces of the 6 load cases compared with
    sap2000/resultados_sap/SAP27_Element_Forces_Frames.xlsx (current model, General sections).
 
+Seismic variant (``--sismo``): the model also gets the response-spectrum analysis
+(sap2000/tools/sismo_sap.py: mass source, MODAL run, EQX/EQY/EQZ, SIS*), SISXQ ... SISZ are design
+combinations too (SAP uses the persistent gamma_c/gamma_s 1.5/1.15 for them; the Código Estructural
+checks use the accidental 1.3/1.0), and the outputs are Muelle_Trasmallo_40m_diseno_sismo.sdb and
+diseno_SAP2000_sismo.json/.xlsx.  Without ``--sismo`` nothing changes.
+
 Output: diseno/sap/output/diseno_SAP2000.json and .xlsx (areas in cm², Asw/s in cm²/m,
 positions in m: piles z from the fixity, transverse beams global y, edge beams global x).
 Then ``python3 diseno/sap/leer_diseno_sap.py diseno/sap/output/diseno_SAP2000.json``.
@@ -253,10 +259,11 @@ def define_rom_combos(m) -> dict:
     return {"added": len(added), "existing": len(existing)}
 
 
-def select_design_combos(m, base: str) -> list[str]:
-    """A.8: auto combos off, only the ULS family of ``base`` as Strength (robust deselection)."""
+def select_design_combos(m, base: str, seismic: bool = False) -> list[str]:
+    """A.8: auto combos off, only the ULS family of ``base`` (+ SIS* if ``seismic``) as Strength
+    (robust deselection)."""
     check(m.DesignConcrete.SetComboAutoGenerate(False), "SetComboAutoGenerate")
-    wanted = D.design_combo_names(base)
+    wanted = D.design_combo_names(base, seismic)
     for b in D.BASES:
         for name in D.design_combo_names(b):
             ret = m.DesignConcrete.SetComboStrength(name, name in wanted)
@@ -265,6 +272,8 @@ def select_design_combos(m, base: str) -> list[str]:
     for fam, fams in tm.COMBOS.items():
         for k in range(1, len(fams) + 1):
             m.DesignConcrete.SetComboStrength(f"{fam}{k:02d}", f"{fam}{k:02d}" in wanted)
+    for name in (D.SEISMIC_COMBOS if seismic else ()):
+        check(m.DesignConcrete.SetComboStrength(name, True), f"SetComboStrength {name}")
     names = check(m.DesignConcrete.GetComboStrength(0, []), "GetComboStrength")[1]
     for extra in set(names or []) - set(wanted):   # e.g. DCon* created before auto-gen was off
         check(m.DesignConcrete.SetComboStrength(extra, False), f"deselect {extra}")
@@ -277,12 +286,13 @@ def select_design_combos(m, base: str) -> list[str]:
 # ============================================================================================
 # analysis, design, results
 # ============================================================================================
-def run_analysis_and_design(m, save_path: Path, wait: float = 0.0) -> None:
+def run_analysis_and_design(m, save_path: Path, wait: float = 0.0, run_modal: bool = False) -> None:
     check(m.File.Save(str(save_path)), "File.Save")
-    try:
-        m.Analyze.SetRunCaseFlag("MODAL", False)
-    except Exception:                             # noqa: BLE001 - MODAL may not exist
-        pass
+    if not run_modal:                             # the seismic variant needs MODAL for EQX/EQY/EQZ
+        try:
+            m.Analyze.SetRunCaseFlag("MODAL", False)
+        except Exception:                         # noqa: BLE001 - MODAL may not exist
+            pass
     if wait:
         time.sleep(wait)                          # v27.0 #11904: licence not yet acquired
     check(m.Analyze.RunAnalysis(), "Analyze.RunAnalysis")
@@ -420,9 +430,9 @@ def check_analysis_identity(m, model: dict, xlsx: Path = SAP_FRAMES_XLSX) -> dic
 # ============================================================================================
 # outputs
 # ============================================================================================
-def write_outputs(result: dict, out_dir: Path) -> dict[str, Path]:
+def write_outputs(result: dict, out_dir: Path, stem: str = "diseno_SAP2000") -> dict[str, Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
-    js = out_dir / "diseno_SAP2000.json"
+    js = out_dir / f"{stem}.json"
     js.write_text(json.dumps(result, indent=1, ensure_ascii=False), encoding="utf-8")
     paths = {"json": js}
     try:
@@ -451,23 +461,27 @@ def write_outputs(result: dict, out_dir: Path) -> dict[str, Path]:
     meta = result["meta"]
     sheet("meta", [{"clave": k, "valor": json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v}
                    for k, v in meta.items()])
-    xl = out_dir / "diseno_SAP2000.xlsx"
+    xl = out_dir / f"{stem}.xlsx"
     wb.save(xl)
     paths["xlsx"] = xl
     return paths
 
 
 def run(m, *, base: str = "CYPE", kphi=D.KPHI_DEFAULT, info_areas: bool = True, from_s2k: Path | None = None,
-        save_path: Path = OUT_DIR / "Muelle_Trasmallo_40m_diseno.sdb", out_dir: Path = OUT_DIR,
-        verify_analysis: bool = True, wait: float = 0.0, xlsx: Path = SAP_FRAMES_XLSX) -> dict:
-    """Complete OAPI design run on the SapModel ``m`` (real SAP2000 or the test mock)."""
+        save_path: Path | None = None, out_dir: Path = OUT_DIR,
+        verify_analysis: bool = True, wait: float = 0.0, xlsx: Path = SAP_FRAMES_XLSX,
+        sismo: bool = False) -> dict:
+    """Complete OAPI design run on the SapModel ``m`` (real SAP2000 or the test mock);
+    ``sismo`` = seismic variant (module docstring)."""
     t0 = time.time()
+    suffix = "_sismo" if sismo else ""
+    save_path = save_path or OUT_DIR / f"Muelle_Trasmallo_40m_diseno{suffix}.sdb"
     model = D.base_model()
     dm = D.design_model(model)
     if from_s2k:
         check(m.File.OpenFile(str(Path(from_s2k).resolve())), "File.OpenFile (.$2k import)")
     else:
-        sor.define_model(m, dm)
+        sor.define_model(m, dm, seismic=sismo)
     try:
         m.SetModelIsLocked(False)
     except Exception:                             # noqa: BLE001
@@ -482,9 +496,9 @@ def run(m, *, base: str = "CYPE", kphi=D.KPHI_DEFAULT, info_areas: bool = True, 
     procs = set_design_procedures(m, model)
     ows = set_overwrites(m, model, kphi)
     table_ow = apply_table_overwrites(m, model, kphi)
-    combos = select_design_combos(m, base)
+    combos = select_design_combos(m, base, sismo)
     save_path.parent.mkdir(parents=True, exist_ok=True)
-    run_analysis_and_design(m, save_path.resolve(), wait)
+    run_analysis_and_design(m, save_path.resolve(), wait, run_modal=sismo)
     piles, beams, verify = read_results(m, model)
     ident = check_analysis_identity(m, model, xlsx) if verify_analysis else None
     kp = D.KPHI_OPTIONS[kphi] if isinstance(kphi, str) else float(kphi)
@@ -513,9 +527,11 @@ def run(m, *, base: str = "CYPE", kphi=D.KPHI_DEFAULT, info_areas: bool = True, 
                   "3.4.2.2 and App. A)"],
         "runtime_s": round(time.time() - t0, 1),
     }
+    if sismo:
+        meta.update({"sismo": True, "gamma_seismic_combos": D.SEISMIC_GAMMA})
     result = {"meta": meta, "summary": summarise(piles, beams), "analysis_identity": ident,
               "piles": piles, "beams": beams}
-    result["meta"]["outputs"] = {k: str(v) for k, v in write_outputs(result, out_dir).items()}
+    result["meta"]["outputs"] = {k: str(v) for k, v in write_outputs(result, out_dir, f"diseno_SAP2000{suffix}").items()}
     return result
 
 
@@ -529,14 +545,17 @@ def main() -> None:
                     help="ce (1.1129, default), ce_is (1.1874), cype (1.373), sap (1.0) or a number")
     ap.add_argument("--areas-cero", action="store_true", help="beam rebar areas 0 instead of the provided ones")
     ap.add_argument("--sin-verificacion", action="store_true", help="skip the analysis-identity check")
-    ap.add_argument("--save", type=Path, default=OUT_DIR / "Muelle_Trasmallo_40m_diseno.sdb")
+    ap.add_argument("--save", type=Path, default=None,
+                    help="default output/Muelle_Trasmallo_40m_diseno.sdb (with --sismo: ..._diseno_sismo.sdb)")
     ap.add_argument("-o", "--out", type=Path, default=OUT_DIR)
+    ap.add_argument("--sismo", action="store_true",
+                    help="add the RS analysis (EQX/EQY/EQZ) and design SIS* too; outputs *_sismo")
     args = ap.parse_args()
     kphi = args.kphi if args.kphi in D.KPHI_OPTIONS else float(args.kphi)
     _sap, m = sor.connect(args.attach)
     res = run(m, base=args.base, kphi=kphi, info_areas=not args.areas_cero, from_s2k=args.from_s2k,
               save_path=args.save, out_dir=args.out, verify_analysis=not args.sin_verificacion,
-              wait=5.0 if (args.from_s2k or not args.attach) else 0.0)
+              wait=5.0 if (args.from_s2k or not args.attach) else 0.0, sismo=args.sismo)
     for k, v in res["meta"]["outputs"].items():
         print(f"{k}: {v}")
     for p, s in res["summary"]["piles"].items():
