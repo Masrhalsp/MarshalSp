@@ -9,7 +9,7 @@
 | `pdf/CP2406-PC-MR-ANE-06-SE-Recr.CalcEstr-D01.pdf` | **Anejo de Cálculo de Estructuras** (TYPSA برای Generalitat Valenciana / PORTS، ۱۲/۰۹/۲۰۲۵)، پروژهٔ «Obras de emergencia DANA-2024, reparación instalaciones portuarias y restitución de calados en el puerto de Cullera» | 48 |
 | `pdf/CP2406-SE-Muelle-Cullera_D01_v02.pdf` | نقشه‌های سازه (سپتامبر ۲۰۲۵): پلان و مختصات شمع‌ها، مقاطع، جزئیات شمع و تیر، مصالح | 9 |
 | `pdf/CP2406-AX-02-03-GE-ProcConstruc-D02.pdf` | روش اجرا در ۴ فاز (نسخهٔ نوامبر ۲۰۲۵، «adaptaciones constructivas»): خاکبرداری، کوبش شمع‌ها، geotextil و escollera، ساخت «muelle claraboya» و «losa de transición» | 5 |
-| `texto/ESTUDIO GEOTECNICO ... (texto Drive).md` | **مطالعهٔ ژئوتکنیک** (Intercontrol Levante، ref. GTE2179، ژوئیهٔ ۲۰۲۵، سفارش‌دهنده ROVER MARITIME S.L.U.، «Proyecto de reconstrucción del muelle sobre el cauce del río Júcar»). فقط متن استخراج‌شده توسط Google Drive (۸۸ صفحه، بیشتر لاگ گمانه‌ها و برگه‌های آزمایشگاه). خود PDF (۷٫۹ MB) از طریق اتصال Drive دانلود نشد. | — |
+| `pdf/ESTUDIO GEOTECNICO PARA MUELLE FLUVIAL EN EL RIO JUCAR.pdf` | **مطالعهٔ ژئوتکنیک** (Intercontrol Levante، ref. GTE2179، ژوئیهٔ ۲۰۲۵، سفارش‌دهنده ROVER MARITIME S.L.U.): اسکلهٔ رودخانه‌ای جدید روی Júcar به جای اسکلهٔ قبلی تخریب‌شده، روی شمع‌های فولادی کوبیده. دو گمانه SM-1 (30.50 m) و SM-2 (30.20 m)، ۲۱ آزمایش SPT، ۹ نمونهٔ دست‌نخورده. متن اصلی گزارش ۴۲ صفحه است و بقیه لاگ گمانه‌ها و برگه‌های آزمایشگاه. | 137 |
 
 ## آیا همان سناریوی مدل SAP ماست؟ خیر
 
@@ -40,5 +40,5 @@
 1. **ضریب ψ2 بار زنده:** این پروژهٔ همسایه هم ROM 2.0-11 را با مقدار شبه‌دائمی ۰.۸ (۱۲ از ۱۵) به کار برده. این همان «مبنای ROM» است که ما برای کنترل نهایی پیشنهاد کردیم.
 2. **حد عرض ترک XS3 = 0.10 mm:** همان مقداری است که ما از Código Estructural (Tabla 27.2) گرفتیم.
 3. **داده‌های خاک:** مدول بستر افقی و پارامترهای لایه‌های خاک همان منطقه. با آن‌ها می‌شود فرض گیرداری 7.25 m مدل Trasmallo را با یک مدل شمع روی فنرهای خاک مقایسه کرد.
-4. **زلزله:** این پروژه با Anejo Nacional EN 1998-1 شتاب 0.15g گرفته، در حالی که Anejo 10 با NCSE-02 (0.07g) زلزله را کنار گذاشته. این اختلاف قابل بررسی است.
+4. **زلزله:** مطالعهٔ ژئوتکنیک همین پروژه طبق NCSE-02 مقدار ab = 0.07g و ضریب خاک C = 1.75 داده، مثل Anejo 10. ولی انخوی محاسبات با Anejo Nacional EN 1998-1 شتاب 0.15g گرفته و زلزله را در طراحی وارد کرده. Anejo 10 زلزله را با همان 0.07g کنار گذاشته. این اختلاف قابل بررسی است.
 5. **بار بولارد:** 150 kN با تفکیک شرایط کاری ROM 2.0-11، در برابر 75 kN در Anejo 10.
